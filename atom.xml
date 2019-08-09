@@ -99,9 +99,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   
@@ -159,7 +159,7 @@
     <link href="https://blog.karbo.online/algorithm/colorclassify/"/>
     <id>https://blog.karbo.online/algorithm/colorclassify/</id>
     <published>2019-04-04T08:52:41.000Z</published>
-    <updated>2019-08-09T12:51:42.733Z</updated>
+    <updated>2019-08-09T14:06:10.386Z</updated>
     
     <summary type="html">
     
@@ -275,11 +275,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
-      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
-    
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -302,13 +302,13 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
