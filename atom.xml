@@ -99,9 +99,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   
@@ -159,12 +159,17 @@
     <link href="https://blog.karbo.online/algorithm/colorclassify/"/>
     <id>https://blog.karbo.online/algorithm/colorclassify/</id>
     <published>2019-04-04T08:52:41.000Z</published>
-    <updated>2019-05-04T06:58:18.251Z</updated>
+    <updated>2019-08-09T12:45:03.686Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;2.png&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;h1 id=&quot;基本思想&quot;&gt;&lt;a href=&quot;#基本思想&quot; class=&quot;headerlink&quot;
+        
+      
     
     </summary>
     
@@ -270,11 +275,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
-      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
-    
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -297,13 +302,13 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   

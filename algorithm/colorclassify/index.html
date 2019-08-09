@@ -5,12 +5,15 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="一种颜色识别算法, 任我行">
-    <meta name="description" content="本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。
-
-
-
-基本思想
+    <meta name="description" content="基本思想
 将RGB色彩空间转化为HSV色彩空间
+对HSV立方体色彩空间进行变换
+度量色彩距离
+对于在阈值范围内的色彩赋予标签
+若该色彩在所有备选颜色的阈值范围外，则拒绝识别
+
+
+色彩空间RGB转HSV通过调用rgb2hsv函数来实现转换。
 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -266,7 +269,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('2.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -422,7 +425,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2k
+                        1.9k
                     </div>
                     
 
@@ -445,17 +448,14 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。</p>
-<p><img src="2.png" alt></p>
-<a id="more"></a>
-
-<h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><ol>
+                <h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><ol>
 <li>将RGB色彩空间转化为HSV色彩空间</li>
 <li>对HSV立方体色彩空间进行变换</li>
 <li>度量色彩距离</li>
 <li>对于在阈值范围内的色彩赋予标签</li>
 <li>若该色彩在所有备选颜色的阈值范围外，则拒绝识别</li>
 </ol>
+<p><img src="2.png" alt></p>
 <h1 id="色彩空间RGB转HSV"><a href="#色彩空间RGB转HSV" class="headerlink" title="色彩空间RGB转HSV"></a>色彩空间RGB转HSV</h1><p>通过调用<code>rgb2hsv</code>函数来实现转换。</p>
 <p>输入参数r、g和b范围均在0<del>1，输出参数h范围0</del>360，输出参数s和v范围在0~1</p>
 <pre class=" language-C++"><code class="language-C++">/* RGB转HSV */
@@ -1133,7 +1133,7 @@ Kaggle是什么Kaggle是一个数据建模和数据分析竞赛平台。企业�
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">38.1k</span>
+                <span class="white-color">38k</span>
             
 
             
