@@ -99,9 +99,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -159,7 +159,7 @@
     <link href="https://blog.karbo.online/algorithm/colorclassify/"/>
     <id>https://blog.karbo.online/algorithm/colorclassify/</id>
     <published>2019-04-04T08:52:41.000Z</published>
-    <updated>2019-08-09T12:48:21.461Z</updated>
+    <updated>2019-08-09T12:51:42.733Z</updated>
     
     <summary type="html">
     
