@@ -4,8 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 任我行">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="一种颜色识别算法, 任我行">
+    <meta name="description" content="本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。
+
+
+
+基本思想
+将RGB色彩空间转化为HSV色彩空间
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hello World | 任我行</title>
+    <title>一种颜色识别算法 | 任我行</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -260,13 +266,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Hello World
+                        一种颜色识别算法
                     </div>
                 </div>
             </div>
@@ -375,12 +381,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/algorithm/" target="_blank">
+                                <span class="chip bg-color">algorithm</span>
+                            </a>
+                        
+                            <a href="/tags/classifier/" target="_blank">
+                                <span class="chip bg-color">classifier</span>
+                            </a>
+                        
+                            <a href="/tags/ml/" target="_blank">
+                                <span class="chip bg-color">ml</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                algorithm
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -388,21 +415,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-08-09
+                    2019-04-04
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        73
+                        2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        8 分
                     </div>
                     
                 
@@ -418,15 +445,250 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+                <p>本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。</p>
+<p><img src="2.png" alt></p>
+<a id="more"></a>
+
+<h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><ol>
+<li>将RGB色彩空间转化为HSV色彩空间</li>
+<li>对HSV立方体色彩空间进行变换</li>
+<li>度量色彩距离</li>
+<li>对于在阈值范围内的色彩赋予标签</li>
+<li>若该色彩在所有备选颜色的阈值范围外，则拒绝识别</li>
+</ol>
+<h1 id="色彩空间RGB转HSV"><a href="#色彩空间RGB转HSV" class="headerlink" title="色彩空间RGB转HSV"></a>色彩空间RGB转HSV</h1><p>通过调用<code>rgb2hsv</code>函数来实现转换。</p>
+<p>输入参数r、g和b范围均在0<del>1，输出参数h范围0</del>360，输出参数s和v范围在0~1</p>
+<pre class=" language-C++"><code class="language-C++">/* RGB转HSV */
+/* 0~1, 0~1, 0~1 -> 0~360, 0~1, 0~1 */
+void rgb2hsv(float r, float g, float b, float& h, float& s, float& v)
+{
+    float max_val = MAX3(r, g, b), min_val = MIN3(r, g, b);
+    float diff = max_val - min_val;
+    // 计算H
+    if (max_val == min_val)
+        h = 0;
+    else if (max_val == r)
+    {
+        if (g >= b)
+            h = 60 * ((g - b) / diff) + 0;
+        else
+            h = 60 * ((g - b) / diff) + 360;
+    }
+    else if (max_val == g)
+    {
+        h = 60 * ((b - r) / diff) + 120;
+    }
+    else if (max_val == b)
+    {
+        h = 60 * ((r - g) / diff) + 240;
+    }
+    // 计算S
+    if (max_val == 0)
+        s = 0;
+    else
+        s = (diff / max_val);
+    // 计算V
+    v = max_val;
+}</code></pre>
+<h1 id="HSV色彩空间变换"><a href="#HSV色彩空间变换" class="headerlink" title="HSV色彩空间变换"></a>HSV色彩空间变换</h1><h2 id="HSV立方体色彩空间"><a href="#HSV立方体色彩空间" class="headerlink" title="HSV立方体色彩空间"></a>HSV立方体色彩空间</h2><p>传统的HSV立方体色彩空间并不能很好地度量颜色的相似程度。</p>
+<blockquote>
+<p>举个例子，考虑四种颜色。（假定h、s和v范围均在0~1）</p>
+<p>颜色A为<code>h=0, s=0.1, v=0.5</code>，颜色B为<code>h=0.5, s=0.1, v=0.5</code></p>
+<p>采用<code>L2</code>距离度量，颜色A到B的距离为0.5</p>
+<p>颜色C为<code>h=0, s=0.9, v=0.5</code>，颜色D为<code>h=0.5, s=0.9, v=0.5</code></p>
+<p>采用<code>L2</code>距离度量，颜色C到D的距离仍为0.5</p>
+</blockquote>
+<p><img src="1.png" alt></p>
+<p>这两个距离居然相同！这显然是不符合直觉的。我们直觉上应当认为A到B的距离应该小于C到D的距离，因为C和D两者色彩差异更大，而A和B都近似是某种灰色。</p>
+<p>在实践应用上，我们感兴趣的往往不是灰度，而是某一种鲜艳的颜色。而且灰度颜色受光照的影响比较大，难以用于实践。</p>
+<p>造成这种度量不均衡的原因是单纯在HSV立方体色彩空间中颜色的分布是不均衡的。如下图，我们发现灰度占据了绝大多数的空间，造成灰度对色彩距离度量的影响比较大。</p>
+<p><img src="2.png" alt></p>
+<p>所以我们要做的就是减少灰度对颜色距离度量的影响，突出不同色相的差异性。</p>
+<p>接下来我们将其变换到HSV圆盘色彩空间，以突出不同色相区别。</p>
+<h2 id="HSV圆盘色彩空间"><a href="#HSV圆盘色彩空间" class="headerlink" title="HSV圆盘色彩空间"></a>HSV圆盘色彩空间</h2><p>我们将HSV立方体色彩空间变换到锥体中。</p>
+<p><img src="3.png" alt></p>
+<p>考虑到色彩距离应该具备光照不变性，我们丢弃掉V轴，仅保留H和S分量构成的圆盘结构。</p>
+<p><img src="4.png" alt></p>
+<p>我们在圆盘中度量点A、B的距离便得到颜色相似度的度量值。</p>
+<p><img src="5.png" alt></p>
+<h1 id="度量颜色距离"><a href="#度量颜色距离" class="headerlink" title="度量颜色距离"></a>度量颜色距离</h1><p>在HSV圆盘色彩空间中，我们可以采用直线距离度量方式，也可以采用弧线形的距离度量方式。</p>
+<p>为简便起见，我们采用直线型的距离度量。</p>
+<p>为了更好的调节色彩识别的鲁棒性因素，我们引入调节参数<code>COLOR_ROBUST</code>，用于调节色彩饱和度的鲁棒性。该参数值越大，则将会具有更大的允许饱和度变化的范围；该参数越小，则对饱和度变化允许的范围越小。</p>
+<p>其中参数<code>COLOR_ROBUST</code>的实现是通过调节半径<code>s</code>的缩放来实现的。我们在半径<code>s</code>方向上对其进行套用函数：<br>$$<br>{1-(1-x)^n}<br>$$<br>其中n就是<code>COLOR_ROBUST</code>参数。</p>
+<p><img src="6.png" alt></p>
+<p>计算颜色距离的代码如下：</p>
+<pre class=" language-c++"><code class="language-c++">/* 计算颜色距离(输入范围均在0~1) */
+float getColorDistance(float h, float s, float h_dst, float s_dst)
+{
+    float x_src, y_src;
+    float x_dst, y_dst;
+    x_src = (1 - powf(1 - s, COLOR_ROBUST)) * cos(h * 2 * CV_PI);
+    y_src = (1 - powf(1 - s, COLOR_ROBUST)) * sin(h * 2 * CV_PI);
+    x_dst = (1 - powf(1 - s_dst, COLOR_ROBUST)) * cos(h_dst * 2 * CV_PI);
+    y_dst = (1 - powf(1 - s_dst, COLOR_ROBUST)) * sin(h_dst * 2 * CV_PI);
+    return sqrt(pow(x_src - x_dst, 2) + pow(y_src - y_dst, 2));
+}</code></pre>
+<h1 id="颜色距离阈值"><a href="#颜色距离阈值" class="headerlink" title="颜色距离阈值"></a>颜色距离阈值</h1><h2 id="阈值计算原理"><a href="#阈值计算原理" class="headerlink" title="阈值计算原理"></a>阈值计算原理</h2><p>由于颜色是任意指定的，如果选取固定的距离阈值将不能广泛适应实际情况。我们在这里应该采取一种自动的方式来计算这个阈值。</p>
+<p>标准颜色类似于聚类中心，我们把它抽象为颜色空间中的一个点，两两之间的距离抽象为线段。那么这个阈值可以用下图的方式计算。</p>
+<p><img src="7.png" alt></p>
+<p>这个阈值就是上图中各个圆的半径。原则是圆的半径从小到大依次选取。</p>
+<ol>
+<li><p>一开始选取最小的半径必定是由最短的边决定的，半径为最短边的一半。如上图的圆A。</p>
+</li>
+<li><p>第二个圆是与第一个相邻的圆，半径等于第一个圆的半径，如上图的圆B。</p>
+</li>
+<li><p>然后就从剩余的可选择半径中选取半径较小的，即圆C。</p>
+</li>
+<li><p>最后选取圆D。</p>
+</li>
+</ol>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>如下的<code>initColorInfo</code>函数实现了颜色信息的初始化功能。<br>调用该函数后，二维数组<code>color_table</code>存储了各个标准颜色的HSV值，数组<code>color_range_table</code>存储了颜色阈值信息。</p>
+<blockquote>
+<p><code>COLOR_NUM</code>是颜色数量，在此例子中<code>#define COLOR_NUM 6</code><br><code>color_table</code>的定义：<code>float color_table[COLOR_NUM][3]</code><br><code>color_range_table</code>的定义：<code>float color_range_table[COLOR_NUM]</code></p>
+</blockquote>
+<pre class=" language-c++"><code class="language-c++">/* 初始化颜色信息 */
+void initColorInfo()
+{
+    float h_dst, s_dst, v_dst;
+    for (int i = 0; i < COLOR_NUM; ++i)
+    {
+        // RGB空间
+        switch (i)
+        {
+        case 0: // Unknown(White)
+            color_table[i][0] = 255;
+            color_table[i][1] = 255;
+            color_table[i][2] = 255;
+            break;
+        case 1: // Red
+            color_table[i][0] = 148;
+            color_table[i][1] = 19;
+            color_table[i][2] = 24;
+            break;
+        case 2: // Orange
+            color_table[i][0] = 198;
+            color_table[i][1] = 115;
+            color_table[i][2] = 35;
+            break;
+        case 3: // Yellow
+            color_table[i][0] = 177;
+            color_table[i][1] = 152;
+            color_table[i][2] = 23;
+            break;
+        case 4: // Green
+            color_table[i][0] = 45;
+            color_table[i][1] = 93;
+            color_table[i][2] = 19;
+            break;
+        case 5: // Blue
+            color_table[i][0] = 39;
+            color_table[i][1] = 92;
+            color_table[i][2] = 132;
+            break;
+        }
+        // 转化为HSV空间
+        rgb2hsv(color_table[i][0] / 255.0, color_table[i][1] / 255.0, color_table[i][2] / 255.0, h_dst, s_dst, v_dst);
+        color_table[i][0] = h_dst / 360.0f;
+        color_table[i][1] = s_dst;
+        color_table[i][2] = v_dst;
+    }
+
+    // 计算可识别的颜色距离
+    float dist;
+    float min_dist;
+    float adjMat[COLOR_NUM][COLOR_NUM]; // 邻接矩阵(非对称)
+    bool activeNode[COLOR_NUM];
+    // 初始化邻接矩阵
+    for (int i = 0; i < COLOR_NUM; ++i)
+    {
+        for (int j = i + 1; j < COLOR_NUM; ++j)
+        {
+            dist = getColorDistance(color_table[i][0], color_table[i][1], color_table[j][0], color_table[j][1]);
+            adjMat[i][j] = dist;
+        }
+    }
+    // 初始化activeNode
+    for (int i = 0; i < COLOR_NUM; ++i) activeNode[i] = true;
+    // 初始化color_range_table
+    for (int i = 0; i < COLOR_NUM; ++i) color_range_table[i] = 0;
+    // 计算距离
+    while (1)
+    {
+        // 求出最短距离
+        min_dist = 1e9;
+        for (int i = 0; i < COLOR_NUM; ++i)
+        {
+            for (int j = i + 1; j < COLOR_NUM; ++j)
+            {
+                dist = adjMat[i][j];
+                if ((activeNode[i] == false) ^ (activeNode[j] == false)) dist *= 2;
+                if (dist>1e-6 && dist < min_dist)
+                {
+                    min_dist = dist;
+                }
+            }
+        }
+        // 一起减去最短距离
+        for (int i = 0; i < COLOR_NUM; ++i)
+        {
+            for (int j = i + 1; j < COLOR_NUM; ++j)
+            {
+                if (adjMat[i][j] > 1e-6)
+                {
+                    if ((activeNode[i] == false) ^ (activeNode[j] == false)) adjMat[i][j] -= min_dist / 2;
+                    else adjMat[i][j] -= min_dist;
+                }
+            }
+        }
+        // 更新color_range_table
+        for (int i = 0; i < COLOR_NUM; ++i)
+        {
+            if (activeNode[i] == true)
+            {
+                color_range_table[i] += min_dist / 2;
+            }
+        }
+        // 更新有效结点
+        for (int i = 0; i < COLOR_NUM; ++i)
+        {
+            for (int j = i + 1; j < COLOR_NUM; ++j)
+            {
+                if (adjMat[i][j] < 1e-6)
+                {
+                    activeNode[i] = false;
+                    activeNode[j] = false;
+                }
+            }
+        }
+        // 退出条件
+        int activeNodeNum = 0;
+        for (int i = 0; i < COLOR_NUM; ++i)
+        {
+            activeNodeNum += int(activeNode[i]);
+        }
+        if (activeNodeNum == 0) break;
+    }
+}</code></pre>
+<h1 id="颜色识别"><a href="#颜色识别" class="headerlink" title="颜色识别"></a>颜色识别</h1><p>当距离小于阈值时则判定为该颜色。如果都不符合，则拒绝识别。</p>
+<blockquote>
+<p>代码中使用参数<code>COLOR_RANGE_A</code>来控制颜色的容限，值越接近1代表颜色的可变化性越大，值越接近0代表容不得颜色变化过大。<br><code>ColorType</code>是颜色的枚举类型数组</p>
+</blockquote>
+<pre class=" language-c++"><code class="language-c++">/* 从HSV识别颜色 */
+/* H = 0~360, S = 0~1, V = 0~1 */
+ColorType hsvColorReg(float h, float s, float v)
+{
+    float dist;
+    h /= 360.0f;
+    for (int i = 0; i < COLOR_NUM; ++i)
+    {
+        dist = getColorDistance(h, s, color_table[i][0], color_table[i][1]);
+        if (dist <= COLOR_RANGE_A * color_range_table[i])
+        {
+            return ColorType(i);
+        }
+    }
+    return Unknown;
+}</code></pre>
 
             </div>
             <hr/>
@@ -585,9 +847,9 @@
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《Hello World》
+                    《一种颜色识别算法》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/uncategorized/hello-world/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/algorithm/colorclassify/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Karbo
             </a> 采用
@@ -627,39 +889,65 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/uncategorized/hello-world/">
+                <a href="/python/learn-python-and-numpy/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Python和NumPy语法回顾">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">Python和NumPy语法回顾</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            本文旨在给忘记Python和NumPy相关语法的你一个速查手册。
+
+
+
+Python3语法语法特点
+句末不加分号
+用tab对齐的方法行使c++里花括号的功能
+太长需要分行书写时，行末尾需要有连接符，新行需要缩进
+输入help(classna
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-09
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            Karbo
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category" target="_blank">
+                                    python
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/grammar/" target="_blank">
+                        <span class="chip bg-color">grammar</span>
+                    </a>
+                    
+                    <a href="/tags/python/" target="_blank">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                    <a href="/tags/numpy/" target="_blank">
+                        <span class="chip bg-color">numpy</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -667,37 +955,60 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/uncategorized/hello-world/">
+                <a href="/dl/kaggle-gpu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="在Kaggle免费使用GPU训练自己的神经网络">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">在Kaggle免费使用GPU训练自己的神经网络</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            Kaggle上有免费供大家使用的GPU计算资源，本文教你如何使用它来训练自己的神经网络。
+
+
+
+Kaggle是什么Kaggle是一个数据建模和数据分析竞赛平台。企业和研究者可在其上发布数据，统计学者和数据挖掘专家可在其上进行竞赛以产生最好的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-03
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            Karbo
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/dl/" target="_blank">
+                        <span class="chip bg-color">dl</span>
+                    </a>
+                    
+                    <a href="/tags/kaggle/" target="_blank">
+                        <span class="chip bg-color">kaggle</span>
+                    </a>
+                    
+                    <a href="/tags/gpu/" target="_blank">
+                        <span class="chip bg-color">gpu</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -806,6 +1117,13 @@
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
@@ -815,7 +1133,7 @@
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">73</span>
+                <span class="white-color">38.1k</span>
             
 
             

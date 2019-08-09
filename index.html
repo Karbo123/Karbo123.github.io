@@ -302,6 +302,13 @@
 
 <div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
     
+    <div id="prev-cover" class="left waves-effect carousel-control">
+        <i class="icon fa fa-angle-left"></i>
+    </div>
+    <div id="next-cover" class="right waves-effect carousel-control">
+        <i class="icon fa fa-angle-right"></i>
+    </div>
+    
 
     <div class="carousel-item red white-text bg-cover about-cover">
         <div class="container">
@@ -364,6 +371,32 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         </div>
     </div>
 
+    
+    
+
+    
+    
+    <div class="carousel-item amber white-text carousel-post bg-cover"
+            style="background-image: url('图片url（表示该文章在首页轮播封面需要显示的图片路径，如果没有，则默认使用文章的特色图片）');">
+        <div class="container">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="title center-align">aaaa</div>
+                    <div class="description center-align">
+                    
+                        文章卡片的摘要
+                    
+                    </div>
+                    <div class="cover-btns">
+                        <a href="/uncate/aaaa/" class="waves-effect waves-light btn" target="_blank">
+                            <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
 </div>
 
@@ -441,6 +474,38 @@ $(function () {
 
 
 
+
+
+<div class="title"><i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp;推荐文章</div>
+
+<div class="row">
+
+    
+    
+    <div class="col s12" >
+        <div class="post-card" style="background-image: url('文章特征图的url')">
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                    <a href="/categories/uncate/" class="category" target="_blank">uncate</a>
+                    
+                </div>
+                <a href="/uncate/aaaa/" target="_blank">
+                    <h3 class="post-title">aaaa</h3>
+                </a>
+                <p class="post-description">文章卡片的摘要</p>
+                <a href="/uncate/aaaa/" target="_blank"
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)">
+                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+
                     </div>
                 </div>
             </div>
@@ -456,20 +521,79 @@ $(function () {
             
             <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/uncategorized/hello-world/">
+                    <a href="/uncate/aaaa/">
                         <div class="card-image">
                             
+                            <img src="文章特征图的url" class="responsive-img" alt="aaaa">
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                            
-                            <span class="card-title">Hello World</span>
+                            <span class="card-title">aaaa</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                                文章卡片的摘要
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-09
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/uncate/" class="post-category" target="_blank">
+                                    uncate
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/untag/" target="_blank">
+                            <span class="chip bg-color">untag</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/uncategorized/tools/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="工具">
+                            
+                            <span class="card-title">工具</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                数学
+GeoGebra绘图Wolfram|Alpha问答系统CalcMe在线计算
+
+图片处理类
+在线抠图（国内）在线抠图（国外）
+
+
+图片压缩（国内）图片压缩（国外）
+
+
+图片放大（国内）图片放大（国外）
+
+
+位矢转换（国内）位矢转换（国外
                             
                         </div>
                         <div class="publish-info">
@@ -489,10 +613,646 @@ $(function () {
                 </div>
             </div>
             
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/linux/linux-u-drive/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="如何从源码编译linux内核并使其从u盘启动">
+                            
+                            <span class="card-title">如何从源码编译linux内核并使其从u盘启动</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文教你如何从源代码编译 linux 内核，并将其装在 u 盘中，从而变成 “便携式 linux 系统”。
+
+
+
+准备 linux 环境，可以在 VMware 虚拟机里运行。我这里用的是 Archlinux 系统，不同系统大同小异。
+编译内
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-04
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/linux/" target="_blank">
+                            <span class="chip bg-color">linux</span>
+                        </a>
+                        
+                        <a href="/tags/kernels/" target="_blank">
+                            <span class="chip bg-color">kernels</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/django/python-django/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="用Django搭建第一个投票网站">
+                            
+                            <span class="card-title">用Django搭建第一个投票网站</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文教你用Django搭建第一个网站，投票网站。
+
+
+
+我们的投票网站要实现两个站点：
+
+一个让人们查看和投票的公共站点。
+一个让你能添加、修改和删除投票的管理站点。
+
+我们使用的操作系统：win10
+关键思想：通过服务器上的数据库存储相关
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-23
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/django/" class="post-category" target="_blank">
+                                    django
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/python/" target="_blank">
+                            <span class="chip bg-color">python</span>
+                        </a>
+                        
+                        <a href="/tags/web/" target="_blank">
+                            <span class="chip bg-color">web</span>
+                        </a>
+                        
+                        <a href="/tags/django/" target="_blank">
+                            <span class="chip bg-color">django</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/python/python-web/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Python的网络编程">
+                            
+                            <span class="card-title">Python的网络编程</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文教你使用Python进行网络编程。
+
+
+API请求安装requests包pip install --user requests
+处理API响应我们以找出GitHub上Stars最高的项目为例。代码如下：
+import requests
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/python/" class="post-category" target="_blank">
+                                    python
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/python/" target="_blank">
+                            <span class="chip bg-color">python</span>
+                        </a>
+                        
+                        <a href="/tags/web/" target="_blank">
+                            <span class="chip bg-color">web</span>
+                        </a>
+                        
+                        <a href="/tags/request/" target="_blank">
+                            <span class="chip bg-color">request</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/python/learn-python-and-numpy/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Python和NumPy语法回顾">
+                            
+                            <span class="card-title">Python和NumPy语法回顾</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文旨在给忘记Python和NumPy相关语法的你一个速查手册。
+
+
+
+Python3语法语法特点
+句末不加分号
+用tab对齐的方法行使c++里花括号的功能
+太长需要分行书写时，行末尾需要有连接符，新行需要缩进
+输入help(classna
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/python/" class="post-category" target="_blank">
+                                    python
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/grammar/" target="_blank">
+                            <span class="chip bg-color">grammar</span>
+                        </a>
+                        
+                        <a href="/tags/python/" target="_blank">
+                            <span class="chip bg-color">python</span>
+                        </a>
+                        
+                        <a href="/tags/numpy/" target="_blank">
+                            <span class="chip bg-color">numpy</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/algorithm/colorclassify/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="一种颜色识别算法">
+                            
+                            <span class="card-title">一种颜色识别算法</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。
+
+
+
+基本思想
+将RGB色彩空间转化为HSV色彩空间
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-04
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/algorithm/" target="_blank">
+                            <span class="chip bg-color">algorithm</span>
+                        </a>
+                        
+                        <a href="/tags/classifier/" target="_blank">
+                            <span class="chip bg-color">classifier</span>
+                        </a>
+                        
+                        <a href="/tags/ml/" target="_blank">
+                            <span class="chip bg-color">ml</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/dl/kaggle-gpu/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="在Kaggle免费使用GPU训练自己的神经网络">
+                            
+                            <span class="card-title">在Kaggle免费使用GPU训练自己的神经网络</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Kaggle上有免费供大家使用的GPU计算资源，本文教你如何使用它来训练自己的神经网络。
+
+
+
+Kaggle是什么Kaggle是一个数据建模和数据分析竞赛平台。企业和研究者可在其上发布数据，统计学者和数据挖掘专家可在其上进行竞赛以产生最好的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-03
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/dl/" target="_blank">
+                            <span class="chip bg-color">dl</span>
+                        </a>
+                        
+                        <a href="/tags/kaggle/" target="_blank">
+                            <span class="chip bg-color">kaggle</span>
+                        </a>
+                        
+                        <a href="/tags/gpu/" target="_blank">
+                            <span class="chip bg-color">gpu</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/dl/yolo-starter/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="用YOLO实现目标检测">
+                            
+                            <span class="card-title">用YOLO实现目标检测</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。
+
+
+
+Why YOLO?You only look once (YOLO)是顶尖的实时目标检测模型。
+下面是YOLO与其他模型的性能对比。
+
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/dl/" target="_blank">
+                            <span class="chip bg-color">dl</span>
+                        </a>
+                        
+                        <a href="/tags/yolo/" target="_blank">
+                            <span class="chip bg-color">yolo</span>
+                        </a>
+                        
+                        <a href="/tags/darknet/" target="_blank">
+                            <span class="chip bg-color">darknet</span>
+                        </a>
+                        
+                        <a href="/tags/detection/" target="_blank">
+                            <span class="chip bg-color">detection</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/ml/mlcomparsion/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="正确选择ML算法">
+                            
+                            <span class="card-title">正确选择ML算法</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文教你如何选择合适自己的机器学习算法。
+
+
+
+分类逻辑斯蒂回归（Logistic regression）
+属于判别式模型，有很多正则化模型的方法（L0，L1，L2，etc），而且你不必像在用朴素贝叶斯那样担心你的特征是否相关。与决策树与S
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-10
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/ml/" class="post-category" target="_blank">
+                                    ml
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/ml/" target="_blank">
+                            <span class="chip bg-color">ml</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/linux/linux-ru-men-su-cheng/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Linux-入门速成">
+                            
+                            <span class="card-title">Linux-入门速成</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。
+（大多内容选自 The Linux Command Line 的中文版 ）
+
+
+
+引言一个故事
+我想给大家讲个故事。故事内容不是 Linus Torvalds 在1
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/programing/" target="_blank">
+                            <span class="chip bg-color">programing</span>
+                        </a>
+                        
+                        <a href="/tags/grammar/" target="_blank">
+                            <span class="chip bg-color">grammar</span>
+                        </a>
+                        
+                        <a href="/tags/linux/" target="_blank">
+                            <span class="chip bg-color">linux</span>
+                        </a>
+                        
+                        <a href="/tags/os/" target="_blank">
+                            <span class="chip bg-color">os</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/markdown/markdown-yu-fa-ru-men/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Markdown-语法入门">
+                            
+                            <span class="card-title">Markdown-语法入门</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。
+
+
+
+行文结构
+标题使用井号 “#” 来调整标题的大小。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/markdown/" class="post-category" target="_blank">
+                                    markdown
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/markdown/" target="_blank">
+                            <span class="chip bg-color">markdown</span>
+                        </a>
+                        
+                        <a href="/tags/programing/" target="_blank">
+                            <span class="chip bg-color">programing</span>
+                        </a>
+                        
+                        <a href="/tags/writing/" target="_blank">
+                            <span class="chip bg-color">writing</span>
+                        </a>
+                        
+                        <a href="/tags/grammar/" target="_blank">
+                            <span class="chip bg-color">grammar</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </article>
 
 </main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a class="left btn-floating btn-large disabled">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">1 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/2/"
+               class="right btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
 
 
 
@@ -505,7 +1265,7 @@ $(function () {
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">73</span>
+                <span class="white-color">38.1k</span>
             
 
             

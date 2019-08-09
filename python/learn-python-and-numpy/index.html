@@ -1,0 +1,1452 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Python和NumPy语法回顾, 任我行">
+    <meta name="description" content="本文旨在给忘记Python和NumPy相关语法的你一个速查手册。
+
+
+
+Python3语法语法特点
+句末不加分号
+用tab对齐的方法行使c++里花括号的功能
+太长需要分行书写时，行末尾需要有连接符，新行需要缩进
+输入help(classna">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Python和NumPy语法回顾 | 任我行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">任我行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">任我行</div>
+        <div class="logo-desc">
+            
+            可以任我走怎么到头来又随着大队走，人群是那么像羊群
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Python和NumPy语法回顾
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/grammar/" target="_blank">
+                                <span class="chip bg-color">grammar</span>
+                            </a>
+                        
+                            <a href="/tags/python/" target="_blank">
+                                <span class="chip bg-color">python</span>
+                            </a>
+                        
+                            <a href="/tags/numpy/" target="_blank">
+                                <span class="chip bg-color">numpy</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/python/" class="post-category" target="_blank">
+                                python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-08
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本文旨在给忘记Python和NumPy相关语法的你一个速查手册。</p>
+<p><img src="0.png" alt></p>
+<a id="more"></a>
+
+<h1 id="Python3语法"><a href="#Python3语法" class="headerlink" title="Python3语法"></a>Python3语法</h1><h2 id="语法特点"><a href="#语法特点" class="headerlink" title="语法特点"></a>语法特点</h2><ol>
+<li>句末不加分号</li>
+<li>用tab对齐的方法行使c++里花括号的功能</li>
+<li>太长需要分行书写时，行末尾需要有连接符，新行需要缩进</li>
+<li>输入<code>help(classname)</code>，即可得到那个类的使用帮助</li>
+<li>输入<code>type(variablename)</code>，即可得到该变量的类型</li>
+<li>列表元组字典都可以相互嵌套</li>
+</ol>
+<h2 id="Print-用法"><a href="#Print-用法" class="headerlink" title="Print()用法"></a>Print()用法</h2><ol>
+<li>自动末尾追加<code>\n</code>（可以设置关键字end=””使得末尾不自动追加换行符）</li>
+<li><code>Print(A,B)</code>中间有个空格：A B</li>
+<li>可以直接打印列表[]</li>
+</ol>
+<h2 id="input-用法"><a href="#input-用法" class="headerlink" title="input()用法"></a>input()用法</h2><ol>
+<li>用户输入函数，返回值就是输入的字符串（返回是字符串！），如：<code>str=input(&quot;Please input something:&quot;)</code></li>
+</ol>
+<h2 id="变量的用法"><a href="#变量的用法" class="headerlink" title="变量的用法"></a>变量的用法</h2><ol>
+<li>不用声明</li>
+</ol>
+<h2 id="字符串的用法"><a href="#字符串的用法" class="headerlink" title="字符串的用法"></a>字符串的用法</h2><ol>
+<li><code>s=&quot;abc123&quot;</code>   # 单引号双引号都可以</li>
+<li><code>s[2]</code>取出第3个字符</li>
+<li><code>s.title()</code>    # 暂时每个单词首字母大写</li>
+<li><code>s.upper()</code>    # 暂时大写</li>
+<li><code>s.lower()</code>    # 暂时小写</li>
+<li><code>s1+s2</code>        # 连接字符串</li>
+<li><code>\n，\t</code>等     # 转义符</li>
+<li><code>s.rstrip()</code>   # 暂时去除右边空白</li>
+<li><code>s.lstrip()</code>   # 暂时去除左边空白</li>
+<li><code>s.strip()</code>    # 暂时去除两边空白</li>
+<li><code>str(number)</code>  # 暂时转换为字符串，以便连接为字符串</li>
+</ol>
+<h2 id="数字的用法"><a href="#数字的用法" class="headerlink" title="数字的用法"></a>数字的用法</h2><ol>
+<li>可以计算复数</li>
+<li><code>3/2</code>为1.5</li>
+<li><code>3**2</code>为三的二次方</li>
+<li><code>7%3</code>求余数（7%3==1）</li>
+<li><code>int(&#39;123&#39;)</code>把字符串转整数，不能包含小数点</li>
+<li><code>float(&#39;12.3&#39;)</code>转换为浮点数</li>
+<li><code>+=，-=，*=，/=，%=</code> 同c++的含义(但没有类似自增++的缩写用法)，注意：式子左边的变量要事先定义</li>
+</ol>
+<h2 id="注释的用法"><a href="#注释的用法" class="headerlink" title="注释的用法"></a>注释的用法</h2><ol>
+<li>井号#等效于c++里的//</li>
+<li>三个单引号’’’等效于c++里的/*或*/</li>
+</ol>
+<h2 id="列表-的用法【class的一种】"><a href="#列表-的用法【class的一种】" class="headerlink" title="列表[]的用法【class的一种】"></a>列表[]的用法【class的一种】</h2><ol>
+<li>元素类型可以不同</li>
+<li><code>a=[77,&#39;AB&#39;]</code></li>
+<li><code>a[0]</code>访问第一个元素</li>
+<li><code>a[-2]</code>访问倒数第二个元素</li>
+<li><code>len(a)</code>返回元素个数</li>
+<li><code>a.append(elem)</code>末尾添加元素</li>
+<li><code>a.insert(pos,elem)</code>在位置pos插入元素（列表头是pos==0，列表尾是pos==len(a)）</li>
+<li><code>del a[1]</code>删除列表a里第二个元素</li>
+<li><code>elem = a.pop()</code>弹出（删除）列表尾的元素并赋值给elem</li>
+<li><code>elem = a.pop(i)</code>取出（删除）列表里索引为i（可为负数，表示倒数）的元素并赋值给elem</li>
+<li><code>a.remove(value)</code>删除列表a里第一个值为value的元素</li>
+<li><code>a.sort()</code>永久性的升排序（数字增序或字典顺序）（参数填reverse=True则是降序）</li>
+<li><code>sorted(a)</code>暂时性的升排序</li>
+<li><code>a.reverse()</code>永久性的逆转序列</li>
+<li><code>min(a)</code>返回列表最小值</li>
+<li><code>max(a)</code>返回列表最大值</li>
+<li><code>sum(a)</code>返回元素之和（元素必须是数字）</li>
+<li><code>a[i1:i2]</code>返回子列表（又称切片），范围是索引i1&lt;=i&lt;i2，即不包括i2，好处是i2-i1就是子列表的元素个数</li>
+<li><code>a[:i2]</code>等价于a[0:i2]</li>
+<li><code>a[i1:]</code>等价于a[i1:len(a)]</li>
+<li><code>a[-3:]</code>等价于a[len(a)-3:len(a)]，即返回末尾三个元素组成的列表</li>
+<li><code>b=a[:]</code>列表深复制（因为切片并不与a共用内存空间）</li>
+<li><code>b=a</code>列表浅复制（b是a的引用）</li>
+</ol>
+<h2 id="元组-的用法【class的一种】"><a href="#元组-的用法【class的一种】" class="headerlink" title="元组()的用法【class的一种】"></a>元组()的用法【class的一种】</h2><ol>
+<li>元组里一个元素的值不可修改，但可以给整个元组赋值如：<code>a=(7,8,9,10)</code></li>
+<li><code>a=(1,2,3)</code> # 定义元组a</li>
+<li><code>a[0]</code>调用</li>
+<li>其他用法和列表[]类似</li>
+</ol>
+<h2 id="字典-的用法【class的一种】"><a href="#字典-的用法【class的一种】" class="headerlink" title="字典{}的用法【class的一种】"></a>字典{}的用法【class的一种】</h2><ol>
+<li><p>即键值表，并不关心多对键值对的顺序，可修改</p>
+<pre class=" language-python"><code class="language-python">rect <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">20</span><span class="token punctuation">}</span></code></pre>
+<p>上述字典rect里有三个键（key），分别是’x’，’y’和0。作为下标带入rect[key]就可以得到相应的值</p>
+</li>
+<li><p>新建键值对：直接赋值即可（如<code>rect[&#39;newkey&#39;]=&#39;newval&#39;</code>）</p>
+</li>
+<li><p>删除键值对：如<code>del rect[&#39;newkey&#39;]</code></p>
+</li>
+</ol>
+<h2 id="集合-的简单介绍【class的一种】"><a href="#集合-的简单介绍【class的一种】" class="headerlink" title="集合{}的简单介绍【class的一种】"></a>集合{}的简单介绍【class的一种】</h2><ol>
+<li>通过函数<code>set(a)</code>可以将数组a的元素去除重复，返回一个集合类型的量</li>
+</ol>
+<h2 id="逻辑的用法"><a href="#逻辑的用法" class="headerlink" title="逻辑的用法"></a>逻辑的用法</h2><ol>
+<li>True真，False假</li>
+<li>空列表==False，非空列表==True（如while mylist然后逐个pop实现逐个取出）</li>
+<li>空字符串==False，非空字符串==True</li>
+<li>==判断等号</li>
+<li>!=不等号</li>
+<li>and与，or或，not非</li>
+<li>in被包含（如elem in a），not in不被包含</li>
+</ol>
+<h2 id="for循环的用法"><a href="#for循环的用法" class="headerlink" title="for循环的用法"></a>for循环的用法</h2><ol>
+<li>基本格式：<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> elem <span class="token keyword">in</span> arr<span class="token punctuation">:</span>
+ <span class="token keyword">print</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span></code></pre>
+例子：</li>
+</ol>
+<ul>
+<li><code>for elem in a</code> # a是列表</li>
+<li><code>for i in range(1,11)</code> # i=1~10</li>
+<li><code>for key,val in a.items()</code> # a是字典</li>
+<li><code>for key in a.keys()</code> # a是字典</li>
+<li><code>for val in a.values()</code> # a是字典</li>
+<li><code>for key in a</code> # a是字典(仅遍历键key)</li>
+</ul>
+<ol start="2">
+<li>注意事项：</li>
+</ol>
+<ul>
+<li>for语句行末尾有冒号，下一行tab缩进（不推荐space缩进）</li>
+<li>循环退出后elem的值可访问，且值是a的最后一个元素a[-1]</li>
+<li><code>range(start,end,step)</code>返回迭代对象(区间[A,B))，用作for循环的循环域，不是列表,（但通过<code>list(range(...))</code>可以变为列表）</li>
+<li><code>a=[val**2 for val in range(1,11)]</code>列表解析，用于快速生成列表[1，4，…,100]</li>
+<li><code>dict.items()</code>返回一个元素是元组(key_i,val_i)的dict_items对象（而<code>list(dict.items())</code>才是返回真正的列表）</li>
+<li><code>dict.keys()</code>返回一个元素是键的dict_keys对象（而<code>list(dict.keys())</code>才是真正的列表）</li>
+<li><code>dict.values()</code>返回一个元素是值的dict_values对象（而<code>list(dict.values())</code>才是真正的列表）</li>
+</ul>
+<h2 id="if语句的用法"><a href="#if语句的用法" class="headerlink" title="if语句的用法"></a>if语句的用法</h2><ol>
+<li>例子：<pre class=" language-python"><code class="language-python"> <span class="token keyword">if</span> a<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true">#...</span>
+ <span class="token keyword">elif</span> a<span class="token operator">==</span><span class="token number">2</span><span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true">#...</span>
+ <span class="token keyword">else</span><span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true">#...</span></code></pre>
+</li>
+</ol>
+<h2 id="while循环的用法"><a href="#while循环的用法" class="headerlink" title="while循环的用法"></a>while循环的用法</h2><ol>
+<li>例子<pre class=" language-python"><code class="language-python"> <span class="token keyword">while</span> boolvar<span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true">#TODO</span></code></pre>
+</li>
+<li>用break退出while或for循环</li>
+<li>continue跳过此次循环，进入下一轮</li>
+</ol>
+<h2 id="函数的用法"><a href="#函数的用法" class="headerlink" title="函数的用法"></a>函数的用法</h2><ol>
+<li>例子<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> 函数名<span class="token punctuation">(</span>参数表<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 参数可以是列表（与实参共用内存空间，除非传递副本如a[:]）</span>
+     <span class="token comment" spellcheck="true"># 计算</span>
+     <span class="token keyword">return</span> ReturnVal <span class="token comment" spellcheck="true"># 非必需，ReturnVal可以是字典</span></code></pre>
+</li>
+<li>有形参与实参之分，实参传值给形参进入函数内部</li>
+<li>参数传递的两种方法：<ul>
+<li>按参数表的顺序依次传递如f(2,5,-5)</li>
+<li>给形参赋值，如f(x=3,y=7) # 赋值顺序不重要</li>
+</ul>
+</li>
+<li>参数可以有默认值，如def f(x,y=0)，默认值要列在最后</li>
+<li>传递任意数量的实参的写法：(“任意数量的参数*inputs”必须放在参数表的末尾)<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token operator">*</span>inputs<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 将多个输入的参数封装到一个名为inputs的元组里，调用例子：f(4,8,7,1,3)</span>
+     <span class="token keyword">print</span><span class="token punctuation">(</span>inputs<span class="token punctuation">)</span></code></pre>
+</li>
+<li>传递任意数量的关键字实参的写法：（同理，放在参数表的末尾）<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span><span class="token operator">**</span>dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true">#获得x和字典dict（调用例子：f('3',name='karbo',age=99)）</span></code></pre>
+</li>
+</ol>
+<h2 id="类的用法"><a href="#类的用法" class="headerlink" title="类的用法"></a>类的用法</h2><ol>
+<li>例子：<pre class=" language-python"><code class="language-python"> <span class="token keyword">class</span> <span class="token class-name">Rect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 约定：首字母大写的是类（推荐驼峰命名法）</span></code></pre>
+</li>
+<li>类里的函数（方法）必定包含参数self<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 构造函数（不包含return语句）</span>
+ self<span class="token punctuation">.</span>x <span class="token operator">=</span> x <span class="token comment" spellcheck="true">#有默认值1</span>
+ self<span class="token punctuation">.</span>y <span class="token operator">=</span> y <span class="token comment" spellcheck="true">#有默认值1</span>
+ self<span class="token punctuation">.</span>is_active <span class="token operator">=</span> <span class="token boolean">True</span>  <span class="token comment" spellcheck="true"># 置默认值</span>
+<span class="token keyword">def</span> <span class="token function">compute_area</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+ <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_active<span class="token punctuation">:</span>
+     <span class="token keyword">return</span> self<span class="token punctuation">.</span>x <span class="token operator">*</span> self<span class="token punctuation">.</span>y
+ <span class="token keyword">return</span> <span class="token number">0</span></code></pre>
+</li>
+<li>使用方法<pre class=" language-python"><code class="language-python">MYRECT <span class="token operator">=</span> Rect<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#用赋值的方法创建对象（不必传递self参数）</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>MYRECT<span class="token punctuation">.</span>compute_area<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 调用函数并打印</span></code></pre>
+</li>
+<li>继承的例子：<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Cube</span><span class="token punctuation">(</span>Rect<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#Cube继承自Rect</span>
+ <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> z<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+     super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#初始化继承到的内容（通过super()函数的返回值可以访问继承到的东西）</span>
+     self<span class="token punctuation">.</span>z <span class="token operator">=</span> z</code></pre>
+</li>
+<li>注意事项：<ul>
+<li>子类同名方法会覆盖父类的</li>
+<li>类的成员可以是类</li>
+</ul>
+</li>
+</ol>
+<h2 id="模块的用法"><a href="#模块的用法" class="headerlink" title="模块的用法"></a>模块的用法</h2><ol>
+<li>在模块文件（.py）写入函数，然后在另一个.py文件import模块文件名即可。<br> 如：<pre class=" language-python"><code class="language-python"> <span class="token comment" spellcheck="true">#在模块PRINTABC.py</span>
+ <span class="token keyword">def</span> <span class="token function">printabc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc'</span><span class="token punctuation">)</span>
+ <span class="token comment" spellcheck="true">#调用者main.py</span>
+ <span class="token keyword">import</span> PRINTABC <span class="token comment" spellcheck="true">#import模块</span>
+ PRINTABC<span class="token punctuation">.</span>printabc<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#要加上作用域PRINTABC.</span></code></pre>
+</li>
+<li>import其他用法：<ul>
+<li>使用模块别名:import tensorflow as tf # 调用时需要加上tf.</li>
+<li>显式导入特定函数或类:from tensorflow import constant, Session # 调用时不需加tensorflow.</li>
+<li>显式导入特定函数或类并使用别名:from tensorflow import constant as c, Session as s # 调用时不需加tensorflow.</li>
+<li>显式导入所有:from tensorflow import * # 调用时不需加tensorflow.且容易重复命名造成覆盖</li>
+</ul>
+</li>
+<li>模块中也可以import哦</li>
+</ol>
+<h2 id="文件操作的用法-文本操作"><a href="#文件操作的用法-文本操作" class="headerlink" title="文件操作的用法(文本操作)"></a>文件操作的用法(文本操作)</h2><ol>
+<li>【读】</li>
+</ol>
+<ul>
+<li>全部一次性读取：<pre class=" language-python"><code class="language-python"><span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'a.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#使用with使得文件在不再被调用后自动关闭（不用with的写法：打开myfile=open("a.txt")关闭myfile.close()）</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>myfile<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#read()函数将内容全部读取</span></code></pre>
+文件路径是相对路径或绝对路径</li>
+<li>逐行读取：<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> line <span class="token keyword">in</span> myfile<span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#读取一行到line里，注意：它不抛弃末尾的\n，即line字符串末尾</span>
+有换行符</code></pre>
+</li>
+<li>读取所有行到一个列表中：<pre class=" language-python"><code class="language-python">arr_lines <span class="token operator">=</span> myfile<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#一行为一个元素的列表，同理不抛弃末尾的\n</span></code></pre>
+</li>
+</ul>
+<ol start="2">
+<li>【写】<pre class=" language-python"><code class="language-python"><span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'a.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 可选项：读r（默认），写w，追加a，读写r+</span>
+ myfile<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'hello!'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 只将内容写入，并不会自动添加\n</span></code></pre>
+</li>
+</ol>
+<ul>
+<li>注意事项：<ul>
+<li>以’w’方式会重写文件（不存在则创建文件）</li>
+<li>以’a’方式会追加到文件尾（不存在则创建文件）</li>
+</ul>
+</li>
+</ul>
+<h2 id="存储数据结构（JSON）："><a href="#存储数据结构（JSON）：" class="headerlink" title="存储数据结构（JSON）："></a>存储数据结构（JSON）：</h2><ol>
+<li>完整例子：<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> json
+<span class="token keyword">def</span> <span class="token function">READ_JSON_FILE</span><span class="token punctuation">(</span>FILENAME<span class="token punctuation">)</span><span class="token punctuation">:</span>
+ <span class="token keyword">with</span> open<span class="token punctuation">(</span>FILENAME<span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span>
+     <span class="token keyword">return</span> json<span class="token punctuation">.</span>load<span class="token punctuation">(</span>myfile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#返回读取到的文件内容</span>
+<span class="token keyword">def</span> <span class="token function">WRITE_JSON_FILE</span><span class="token punctuation">(</span>WHAT<span class="token punctuation">,</span> FILENAME<span class="token punctuation">)</span><span class="token punctuation">:</span>
+ <span class="token keyword">with</span> open<span class="token punctuation">(</span>FILENAME<span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span>
+     json<span class="token punctuation">.</span>dump<span class="token punctuation">(</span>WHAT<span class="token punctuation">,</span> myfile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#将WHAT写入路径为FILENAME的文件里</span></code></pre>
+<h2 id="异常机制"><a href="#异常机制" class="headerlink" title="异常机制"></a>异常机制</h2></li>
+<li>例子：<pre class=" language-python"><code class="language-python"> <span class="token keyword">try</span><span class="token punctuation">:</span>
+     <span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'a.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span>
+         contents <span class="token operator">=</span> myfile<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token keyword">except</span> FileNotFoundError<span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#try失败后</span>
+     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Sorry, the file not found.'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#换成语句pass可以跳过（pass相当于占位符，不起作用，是空语句）</span>
+ <span class="token keyword">else</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#try成功后执行else部分</span>
+     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'It has'</span><span class="token punctuation">,</span> str<span class="token punctuation">(</span>len<span class="token punctuation">(</span>contents<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'words.'</span><span class="token punctuation">)</span></code></pre>
+</li>
+<li>常见的异常有：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">错误类型</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">OverflowError</td>
+<td align="center">数值运算超出最大限制</td>
+</tr>
+<tr>
+<td align="center">ZeroDivisionError</td>
+<td align="center">除(或取模)零 (所有数据类型)</td>
+</tr>
+<tr>
+<td align="center">IOError</td>
+<td align="center">输入/输出操作失败</td>
+</tr>
+<tr>
+<td align="center">IndexError</td>
+<td align="center">序列中没有此索引(index)</td>
+</tr>
+<tr>
+<td align="center">FileNotFoundError</td>
+<td align="center">文件未找到</td>
+</tr>
+<tr>
+<td align="center">NameError</td>
+<td align="center">访问一个不存在的变量</td>
+</tr>
+</tbody></table>
+<h1 id="NumPy语法"><a href="#NumPy语法" class="headerlink" title="NumPy语法"></a>NumPy语法</h1><h2 id="ndarray基本属性"><a href="#ndarray基本属性" class="headerlink" title="ndarray基本属性"></a>ndarray基本属性</h2><ol>
+<li><code>ndarray.ndim</code>维度</li>
+<li><code>ndarray.shape</code>形状尺寸</li>
+<li><code>ndarray.size</code>元素总数（等于shape的乘积）</li>
+<li><code>ndarray.dtype</code>元素的类型（如：numpy.int32，numpy.int16，numpy.float64）</li>
+<li><code>ndarray.itemsize</code>每个元素所占的字节数（如float64为8，相当于ndarray.dtype.itemsize）</li>
+<li><code>ndarray.data</code>数据内存区域</li>
+</ol>
+<h2 id="ndarray生成"><a href="#ndarray生成" class="headerlink" title="ndarray生成"></a>ndarray生成</h2><p>array()是函数，ndarray()是类</p>
+<ol>
+<li>list转ndarray<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>complex<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#显式指定为复数类型</span>
+c <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#0~10</span></code></pre>
+</li>
+<li>arange生成<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#0~14</span>
+b <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#5~9</span>
+c <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#1~9.5，间隔0.5</span></code></pre>
+</li>
+<li>zeros、ones、eye、empty生成（默认是np.float64类型）<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>int64<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#指定为np.int64类型，元素全是0</span>
+b <span class="token operator">=</span> np<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#默认为np.float64类型，元素全是1</span>
+c <span class="token operator">=</span> np<span class="token punctuation">.</span>eye<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#默认为np.float64类型，大小为3*3的单位矩阵</span>
+d <span class="token operator">=</span> np<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>complex<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#指定为复数，元素未初始化（依据内存状态）</span></code></pre>
+</li>
+<li>linspace生成<br>返回等间隔分布的数组<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#a == [ 1.    3.25  5.5   7.75 10.  ]</span></code></pre>
+</li>
+</ol>
+<h2 id="ndarray的操作"><a href="#ndarray的操作" class="headerlink" title="ndarray的操作"></a>ndarray的操作</h2><ol>
+<li>reshape<br>注意<code>reshape</code>函数返回的是引用，指向同一内存空间。<br>若要不同请使用深拷贝，请使用深拷贝<code>.copy()</code>。<pre class=" language-python"><code class="language-python">x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#生成长度为12的ndarray</span>
+a <span class="token operator">=</span> np<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后x的值仍不变</span>
+b <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后x的值仍不变</span>
+c <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后x的值仍不变</span></code></pre>
+输出效果（a、b和c都一样）：<pre class=" language-python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">1</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span></code></pre>
+</li>
+<li>读取单个元素<pre class=" language-python"><code class="language-python">a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行第3列的元素（建议）</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行第3列的元素（先取出第二行[ 5  6  7  8]，再取出第三个元素7）</span></code></pre>
+</li>
+<li>读取整行/列<pre class=" language-python"><code class="language-python">a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2列（建议）</span>
+a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行（注意：a[:]等价于a）</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 取出第2行（建议）</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行（建议）</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行（注意：[:]不起作用）</span></code></pre>
+</li>
+<li>拷贝<br>ndarray深拷贝请使用<code>y=x.copy()</code>，而不是<code>y=x[:]</code>！<br>对数值型的赋值都是深拷贝</li>
+</ol>
+<p>拷贝实验一：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> a <span class="token comment" spellcheck="true">#b是a的引用</span>
+b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span> <span class="token comment" spellcheck="true">#实质上是修改了a</span>
+
+输出结果：
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">99</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a被修改了</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span></code></pre>
+<p>拷贝实验二：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出a第1行的引用</span>
+b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span> <span class="token comment" spellcheck="true">#实质上是修改了a的第1行的第1个元素</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">99</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a被修改了</span></code></pre>
+<p>拷贝实验三：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#数值型赋值，b不是a[0,0]的引用</span>
+b <span class="token operator">=</span> <span class="token number">99</span> <span class="token comment" spellcheck="true">#仅修改了b</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">1</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a保持原样</span></code></pre>
+<p>拷贝实验四：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#这种操作对ndarray无效，仅对list有效</span>
+b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">99</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a被修改了</span></code></pre>
+<p>拷贝实验五：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> a<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#使用了ndarray的深拷贝</span>
+b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a保持原样</span></code></pre>
+<ol start="5">
+<li>连续区域赋值<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
+y<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ol>
+<p>输出结果：<br>[ 1  2  3 99 99 99  7  8  9 10 11 12]<br>[[ 1  2  3  4]<br> [99 99 99  8]<br> [99 99 99 12]]</p>
+<pre><code>
+6. 逻辑运算
+```python
+import numpy as np
+x = np.array([i for i in range(1, 13)])
+y = x.reshape([3, 4]).copy()
+a = y &gt;= 8
+b = y.copy()
+b[a] = 0
+print(a)
+print(b)
+
+输出结果：
+[[False False False False]
+ [False False False  True]
+ [ True  True  True  True]]
+[[1 2 3 4]
+ [5 6 7 0]
+ [0 0 0 0]]</code></pre><ol start="7">
+<li>ndarray保存到文件</li>
+</ol>
+<ul>
+<li>单个ndarray的二进制保存（.npy后缀）<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+np<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">'x.npy'</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span>
+y <span class="token operator">=</span> np<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">'x.npy'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<p>输出结果：<br>[[ 1  2  3  4]<br> [ 5  6  7  8]<br> [ 9 10 11 12]]</p>
+<pre><code>- 单个ndarray的文本保存（.txt后缀）
+```python
+import numpy as np
+x = np.array([i for i in range(1, 13)]).reshape([3, 4])
+np.savetxt(&#39;x.txt&#39;, x)
+y = np.loadtxt(&#39;x.txt&#39;)
+print(y)
+
+输出结果：
+[[ 1.  2.  3.  4.]
+ [ 5.  6.  7.  8.]
+ [ 9. 10. 11. 12.]]</code></pre><ul>
+<li>多个ndarray的二进制保存（.npz后缀）<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+a <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">)</span>
+c <span class="token operator">=</span> np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+np<span class="token punctuation">.</span>savez<span class="token punctuation">(</span><span class="token string">"result.npz"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> sin_array<span class="token operator">=</span>c<span class="token punctuation">)</span>
+r <span class="token operator">=</span> np<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">"result.npz"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token string">"arr_0"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token string">"arr_1"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token string">"sin_array"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<p>输出结果：<br>[[1 2 3]<br> [4 5 6]]<br>[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]<br>[0.         0.09983342 0.19866933 0.29552021 0.38941834 0.47942554<br> 0.56464247 0.64421769 0.71735609 0.78332691]</p>
+<pre><code>
+# 相关链接
+1. [Python 3.7.3 文档](https://docs.python.org/zh-cn/3/)
+2. [Python 教程](https://docs.python.org/zh-cn/3/tutorial/)
+3. [NumPy Tutorial](https://www.numpy.org/devdocs/user/quickstart.html)
+4. [NumPy for Matlab users](https://www.numpy.org/devdocs/user/numpy-for-matlab-users.html)
+
+
+
+
+</code></pre>
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Python和NumPy语法回顾》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/python/learn-python-and-numpy/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                Karbo
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/python/python-web/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Python的网络编程">
+                        
+                        <span class="card-title">Python的网络编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文教你使用Python进行网络编程。
+
+
+API请求安装requests包pip install --user requests
+处理API响应我们以找出GitHub上Stars最高的项目为例。代码如下：
+import requests
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category" target="_blank">
+                                    python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/python/" target="_blank">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                    <a href="/tags/web/" target="_blank">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                    <a href="/tags/request/" target="_blank">
+                        <span class="chip bg-color">request</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/algorithm/colorclassify/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="一种颜色识别算法">
+                        
+                        <span class="card-title">一种颜色识别算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。
+
+
+
+基本思想
+将RGB色彩空间转化为HSV色彩空间
+
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/classifier/" target="_blank">
+                        <span class="chip bg-color">classifier</span>
+                    </a>
+                    
+                    <a href="/tags/ml/" target="_blank">
+                        <span class="chip bg-color">ml</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">38.1k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Karbo123" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:lei@karbo.online" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=984419313" class="tooltipped" data-tooltip="QQ联系我: 984419313" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

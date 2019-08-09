@@ -1,0 +1,1205 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="用YOLO实现目标检测, 任我行">
+    <meta name="description" content="本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。
+
+
+
+Why YOLO?You only look once (YOLO)是顶尖的实时目标检测模型。
+下面是YOLO与其他模型的性能对比。
+
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>用YOLO实现目标检测 | 任我行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">任我行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">任我行</div>
+        <div class="logo-desc">
+            
+            可以任我走怎么到头来又随着大队走，人群是那么像羊群
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        用YOLO实现目标检测
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/dl/" target="_blank">
+                                <span class="chip bg-color">dl</span>
+                            </a>
+                        
+                            <a href="/tags/yolo/" target="_blank">
+                                <span class="chip bg-color">yolo</span>
+                            </a>
+                        
+                            <a href="/tags/darknet/" target="_blank">
+                                <span class="chip bg-color">darknet</span>
+                            </a>
+                        
+                            <a href="/tags/detection/" target="_blank">
+                                <span class="chip bg-color">detection</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                dl
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-03-28
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。</p>
+<p><img src="0.png" alt></p>
+<a id="more"></a>
+
+<h1 id="Why-YOLO"><a href="#Why-YOLO" class="headerlink" title="Why YOLO?"></a>Why YOLO?</h1><p>You only look once (YOLO)是顶尖的实时目标检测模型。</p>
+<p>下面是YOLO与其他模型的性能对比。</p>
+<p><img src="https://pjreddie.com/media/image/map50blue.png" alt></p>
+<p>可以看出YOLO 具有耗时较少，准确率不低的优点。</p>
+<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>建议环境：Win10、支持CUDA的Nvidia显卡、Python3、CUDA&gt;=9.0、CUDNN&gt;=7.0、VS2015、OPENCV&lt;4.0</p>
+<p>详细操作步骤参考：<br><a href="https://blog.csdn.net/sinat_26940929/article/details/80342660" target="_blank" rel="noopener">Yolov3+windows10+VS2015部署安装</a><br><a href="https://github.com/AlexeyAB/darknet#how-to-compile-on-windows-legacy-way" target="_blank" rel="noopener">How to compile on Windows (legacy way)</a></p>
+<p>编译时可能遇到形如compute_75的错误，解决方法：用文本的方式打开darknet.vcxproj文件，将所有的compute_75替换为compute_50，将所有的sm_75替换为sm_50，具体替换成什么，请参考<a href="https://github.com/tpruvot/ccminer/wiki/Compatibility" target="_blank" rel="noopener">Compatibility</a></p>
+<h1 id="YOLO初体验"><a href="#YOLO初体验" class="headerlink" title="YOLO初体验"></a>YOLO初体验</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>这一步我们尝试使用下刚刚编译好的YOLO。</p>
+<p>由于可能缺少模型的权重文件，我们从这里下载<a href="https://pjreddie.com/media/files/yolov3.weights" target="_blank" rel="noopener">YOLO-V3权重文件（236MB）</a></p>
+<p>然后将目录切换到<code>D:\darknet-master\build\darknet\x64</code>，打开命令行，输入以下语句：</p>
+<pre><code>./darknet.exe detect cfg/yolov3.cfg yolov3.weights data/dog.jpg</code></pre><p>正常情况下会得到以下效果：</p>
+<p><img src="1.png" alt></p>
+<p>同时也会得到<code>predictions.jpg</code>保存在相同目录下。</p>
+<p>运行一次模型需要：</p>
+<ul>
+<li>配置文件（.cfg）</li>
+<li>权重文件（.weights）</li>
+<li>被测图片</li>
+</ul>
+<p>同时尝试将上述语句最后的<code>data/dog.jpg</code>分别替换为<code>data/eagle.jpg</code>, <code>data/dog.jpg</code>, <code>data/person.jpg</code>, or <code>data/horses.jpg</code>，查看效果吧。</p>
+<p>上述语句中的<code>detect</code>是一种缩写，上述语句也等同于</p>
+<pre><code>./darknet.exe detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights data/dog.jpg</code></pre><p>当然也可以载入一次模型进行多次预测，输入以下指令（就是去掉图片选项）：</p>
+<pre><code>./darknet.exe detect cfg/yolov3.cfg yolov3.weights</code></pre><p>然后它会提示你输入图片路径：</p>
+<p><img src="2.png" alt></p>
+<p>输入路径后回车，按<code>Ctrl+C</code>退出输入状态。</p>
+<p>除此之外，<code>YOLO</code>还提供设定阈值方法来剔除置信度过低的结果。例如若想显示所有结果则使用以下代码（此处阈值设置为0）：</p>
+<pre><code>./darknet.exe detect cfg/yolov3.cfg yolov3.weights data/dog.jpg -thresh 0</code></pre><p>默认的阈值是0.25。</p>
+<h2 id="Tiny-YOLOv3"><a href="#Tiny-YOLOv3" class="headerlink" title="Tiny YOLOv3"></a>Tiny YOLOv3</h2><p>首先下载<code>Tiny YOLOv3</code>的<a href="https://pjreddie.com/media/files/yolov3-tiny.weights" target="_blank" rel="noopener">权重文件（34MB）</a>，丢到与<code>darknet.exe</code>同级的目录下。</p>
+<p>使用以下命令运行：</p>
+<pre><code>./darknet.exe detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg</code></pre><p><img src="3.png" alt></p>
+<p>可以看到<code>tiny</code>版本的精度略低，但是速度快。</p>
+<h2 id="使用摄像头或视频"><a href="#使用摄像头或视频" class="headerlink" title="使用摄像头或视频"></a>使用摄像头或视频</h2><p>使用以下命令在摄像头<code>0</code>（OPENCV默认使用摄像头<code>0</code>）运行<code>Tiny YOLOv3</code></p>
+<pre><code>./darknet.exe detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights</code></pre><p>使用参数<code>-c &lt;num&gt;</code>指定使用哪一只摄像头。<br>或者使用以下命令实现<code>Tiny YOLOv3</code>对视频的目标检测：</p>
+<pre><code>./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights &lt;video file&gt;</code></pre><h1 id="训练自己的YOLO"><a href="#训练自己的YOLO" class="headerlink" title="训练自己的YOLO"></a>训练自己的YOLO</h1><p>这里我们我们使用<code>Pascal VOC2007</code>数据集训练<code>YOLOv3-tiny</code>模型。</p>
+<p>关于该数据集的介绍，可以查看<a href="https://arleyzhang.github.io/articles/1dc20586/" target="_blank" rel="noopener">这篇文章</a></p>
+<p>具体步骤详情：<br><a href="https://github.com/AlexeyAB/darknet#how-to-train-to-detect-your-custom-objects" target="_blank" rel="noopener">How to train (to detect your custom objects)</a><br><a href="https://github.com/AlexeyAB/darknet#how-to-train-tiny-yolo-to-detect-your-custom-objects" target="_blank" rel="noopener">How to train tiny-yolo (to detect your custom objects)</a></p>
+<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>为了训练<code>YOLO</code>我们需要<code>2007</code>年的<code>VOC</code>数据集，可以从<a href="https://pjreddie.com/projects/pascal-voc-dataset-mirror/" target="_blank" rel="noopener">这里</a>下载。下载完后解压，解压完训练数据都在<code>VOCdevkit/</code>文件夹下。</p>
+<p>训练<code>YOLO</code>需要使用特别格式的标签数据文件，它是一个<code>.txt</code>文本文件。<br>这个<code>.txt</code>文件的每一行是一个标签，一个文件对应一张图片，它看起来像这样：<br><code>&lt;object-class&gt; &lt;x&gt; &lt;y&gt; &lt;width&gt; &lt;height&gt;</code><br>注意此处的中心<code>x</code>、中心<code>y</code>、框<code>width</code>和框<code>height</code>是相对于图片宽度和高度的值，都是不大于<code>1</code>的小数。</p>
+<p>转换公式：</p>
+<p>$$x=\frac{x_{min}+(x_{max}-x_{min})/2}{W_{image}}$$</p>
+<p>$$y=\frac{y_{min}+(y_{max}-y_{min})/2}{H_{image}}$$</p>
+<p>$$w=\frac{x_{max}-x_{min}}{W_{image}}$$</p>
+<p>$$h=\frac{y_{max}-y_{min}}{H_{image}}$$</p>
+<p>为了得到这些<code>.txt</code>文件，我们可以方便地通过运行一个叫<code>voc_label.py</code>的脚本来生成。<br>脚本的内容如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> xml<span class="token punctuation">.</span>etree<span class="token punctuation">.</span>ElementTree <span class="token keyword">as</span> ET
+<span class="token keyword">import</span> pickle
+<span class="token keyword">import</span> os
+<span class="token keyword">from</span> os <span class="token keyword">import</span> listdir<span class="token punctuation">,</span> getcwd
+<span class="token keyword">from</span> os<span class="token punctuation">.</span>path <span class="token keyword">import</span> join
+
+sets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'2007'</span><span class="token punctuation">,</span> <span class="token string">'train'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'2007'</span><span class="token punctuation">,</span> <span class="token string">'val'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'2007'</span><span class="token punctuation">,</span> <span class="token string">'test'</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+classes <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"aeroplane"</span><span class="token punctuation">,</span> <span class="token string">"bicycle"</span><span class="token punctuation">,</span> <span class="token string">"bird"</span><span class="token punctuation">,</span> <span class="token string">"boat"</span><span class="token punctuation">,</span> <span class="token string">"bottle"</span><span class="token punctuation">,</span> <span class="token string">"bus"</span><span class="token punctuation">,</span> <span class="token string">"car"</span><span class="token punctuation">,</span> <span class="token string">"cat"</span><span class="token punctuation">,</span>
+    <span class="token string">"chair"</span><span class="token punctuation">,</span> <span class="token string">"cow"</span><span class="token punctuation">,</span> <span class="token string">"diningtable"</span><span class="token punctuation">,</span> <span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token string">"horse"</span><span class="token punctuation">,</span> <span class="token string">"motorbike"</span><span class="token punctuation">,</span> <span class="token string">"person"</span><span class="token punctuation">,</span>
+    <span class="token string">"pottedplant"</span><span class="token punctuation">,</span> <span class="token string">"sheep"</span><span class="token punctuation">,</span> <span class="token string">"sofa"</span><span class="token punctuation">,</span> <span class="token string">"train"</span><span class="token punctuation">,</span> <span class="token string">"tvmonitor"</span>
+<span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 位置坐标转换</span>
+<span class="token keyword">def</span> <span class="token function">convert</span><span class="token punctuation">(</span>size<span class="token punctuation">,</span> box<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dw <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span> <span class="token operator">/</span> <span class="token punctuation">(</span>size<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    dh <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span> <span class="token operator">/</span> <span class="token punctuation">(</span>size<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    x <span class="token operator">=</span> <span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span> <span class="token operator">-</span> <span class="token number">1</span>
+    y <span class="token operator">=</span> <span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">+</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span> <span class="token operator">-</span> <span class="token number">1</span>
+    w <span class="token operator">=</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    h <span class="token operator">=</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">-</span> box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+    x <span class="token operator">=</span> x <span class="token operator">*</span> dw
+    w <span class="token operator">=</span> w <span class="token operator">*</span> dw
+    y <span class="token operator">=</span> y <span class="token operator">*</span> dh
+    h <span class="token operator">=</span> h <span class="token operator">*</span> dh
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> w<span class="token punctuation">,</span> h<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># label转换</span>
+<span class="token keyword">def</span> <span class="token function">convert_annotation</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span> image_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    in_file <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'VOC%s/Annotations/%s.xml'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>year<span class="token punctuation">,</span> image_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    out_file <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'VOC%s/labels/%s.txt'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>year<span class="token punctuation">,</span> image_id<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+    tree <span class="token operator">=</span> ET<span class="token punctuation">.</span>parse<span class="token punctuation">(</span>in_file<span class="token punctuation">)</span>
+    root <span class="token operator">=</span> tree<span class="token punctuation">.</span>getroot<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    size <span class="token operator">=</span> root<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'size'</span><span class="token punctuation">)</span>
+    w <span class="token operator">=</span> int<span class="token punctuation">(</span>size<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'width'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    h <span class="token operator">=</span> int<span class="token punctuation">(</span>size<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'height'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> obj <span class="token keyword">in</span> root<span class="token punctuation">.</span>iter<span class="token punctuation">(</span><span class="token string">'object'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        difficult <span class="token operator">=</span> obj<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'difficult'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        cls <span class="token operator">=</span> obj<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        <span class="token keyword">if</span> cls <span class="token operator">not</span> <span class="token keyword">in</span> classes <span class="token operator">or</span> int<span class="token punctuation">(</span>difficult<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        cls_id <span class="token operator">=</span> classes<span class="token punctuation">.</span>index<span class="token punctuation">(</span>cls<span class="token punctuation">)</span>
+        xmlbox <span class="token operator">=</span> obj<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'bndbox'</span><span class="token punctuation">)</span>
+        b <span class="token operator">=</span> <span class="token punctuation">(</span>float<span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'xmin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">,</span> float<span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'xmax'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">,</span>
+             float<span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'ymin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">,</span> float<span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'ymax'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        bb <span class="token operator">=</span> convert<span class="token punctuation">(</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+        out_file<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+            str<span class="token punctuation">(</span>cls_id<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>str<span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token keyword">for</span> a <span class="token keyword">in</span> bb<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">)</span>
+
+
+wd <span class="token operator">=</span> getcwd<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> year<span class="token punctuation">,</span> image_set <span class="token keyword">in</span> sets<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span><span class="token string">'VOC%s/labels/'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>year<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span><span class="token string">'VOC%s/labels/'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>year<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    image_ids <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'VOC%s/ImageSets/Main/%s.txt'</span> <span class="token operator">%</span>
+                     <span class="token punctuation">(</span>year<span class="token punctuation">,</span> image_set<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    list_file <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'%s_%s.txt'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>year<span class="token punctuation">,</span> image_set<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> image_id <span class="token keyword">in</span> image_ids<span class="token punctuation">:</span>
+        list_file<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'%s/VOC%s/JPEGImages/%s.jpg\n'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>wd<span class="token punctuation">,</span> year<span class="token punctuation">,</span> image_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        convert_annotation<span class="token punctuation">(</span>year<span class="token punctuation">,</span> image_id<span class="token punctuation">)</span>
+    list_file<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+os<span class="token punctuation">.</span>system<span class="token punctuation">(</span><span class="token string">"cat 2007_train.txt 2007_val.txt > train.txt"</span><span class="token punctuation">)</span>
+os<span class="token punctuation">.</span>system<span class="token punctuation">(</span><span class="token string">"cat 2007_train.txt 2007_val.txt 2007_test.txt > train.all.txt"</span><span class="token punctuation">)</span></code></pre>
+<p>将脚本保存到与<code>VOC2007</code>文件夹同级的目录，命名为<code>voc_label.py</code>，然后在此目录下打开命令行，执行：</p>
+<pre><code>python voc_label.py</code></pre><p>很快，这个脚本会生成一些必要的文件。它生成了很多标签文件，位于<code>VOCdevkit/VOC2007/labels/</code>路径下。<br>并且在与<code>VOC2007</code>同级的目录下，你应该会看到如下的文件：</p>
+<pre><code>2007_train.txt
+2007_val.txt
+2007_test.txt
+train.txt
+train.all.txt</code></pre><p>如果是自己采集的数据，需要标注，请使用<a href="https://github.com/tzutalin/labelImg" target="_blank" rel="noopener">LabelImg</a>或<a href="https://github.com/AlexeyAB/Yolo_mark" target="_blank" rel="noopener">Yolo_mark</a>工具，以生成<code>YOLO</code>格式的文本文件。然后将图片的路径汇总到一个文本文件，如<code>train.txt</code>、<code>val.txt</code>和<code>test.txt</code>里，一行一个图片路径。</p>
+<h2 id="准备模型"><a href="#准备模型" class="headerlink" title="准备模型"></a>准备模型</h2><p>新建个文件夹，我们用来保存与模型有关的数据。我这里路径为：<code>D:/model/voc_model/</code><br>我这里<code>VOC2007</code>文件夹位于：<code>D:/dataset/VOCdevkit/</code>，<code>Darknet.exe</code>位于<code>D:/darknet-master/build/darknet/x64/</code></p>
+<h3 id="准备权重文件"><a href="#准备权重文件" class="headerlink" title="准备权重文件"></a>准备权重文件</h3><p>首先下载默认的权重文件到你刚刚新建的模型文件夹（我这里是<code>D:/model/voc_model/</code>）：<br><a href="https://pjreddie.com/media/files/yolov3-tiny.weights" target="_blank" rel="noopener">默认权重文件</a></p>
+<p>在模型文件夹运行如下指令，获取预训练的权重文件<code>yolov3-tiny.conv.15</code>，使用如下命令：</p>
+<pre><code>D:/darknet-master/build/darknet/x64/darknet.exe partial D:/darknet-master/build/darknet/x64/cfg/yolov3-tiny.cfg yolov3-tiny.weights yolov3-tiny.conv.15 15</code></pre><p>其他预训练权重可以从<a href="https://pjreddie.com/darknet/imagenet/" target="_blank" rel="noopener">这里</a>下载</p>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><ol>
+<li><p>在模型文件夹创建一份<code>VOC2007.names</code>文本文件，其中该文件的每一行都是种类的名字，应该使得行数等于种类数<code>classes</code>的值。</p>
+</li>
+<li><p>在模型文件夹创建一份<code>VOC2007.data</code>文本文件，填入以下内容。<code>classes</code>是种类的个数、<code>train</code>是训练图片路径的文本文件，<code>valid</code>是验证图片路径的文本文件，<code>names</code>是种类名字的文件，<code>backup</code>路径则用于保存备份的权重文件（每迭代<code>100</code>次保存一次文件（带<code>_last</code>后缀），每<code>1000</code>次保存一次文件（带<code>_xxxx</code>后缀））。<br>如果没有验证集，则设置<code>valid</code>为与<code>train</code>相同的值即可，那么将测试在训练集上的精度。</p>
+<pre><code>classes = 20
+train  = D:/dataset/VOCdevkit/train.txt
+valid  = D:/dataset/VOCdevkit/2007_test.txt
+names = VOC2007.names
+backup = backup/</code></pre></li>
+<li><p>复制<code>D:/darknet-master/build/darknet/x64/cfg/yolov3-tiny_obj.cfg</code>文件，在模型文件夹另存为<code>yolov3-tiny-obj.cfg</code>，然后按照下述规则修改该文件：</p>
+</li>
+</ol>
+<ul>
+<li>修改使得<code>batch=64</code></li>
+<li>修改使得<code>subdivisions=8</code></li>
+<li>修改所有的<code>classes</code>值为<code>20</code>（这里<code>classes</code>是目标检测物体的种类个数）</li>
+<li>修改所有位于行<code>[yolo]</code>之上的<code>[convolutional]</code>层的<code>filters</code>值为：$ filters = (classes + 5) * 3 $， <code>filters</code>的值需要计算出来再填入。注意，这不是修改所有<code>filters</code>的值，仅仅是修改恰好位于<code>[yolo]</code>这行之上该层的<code>filters</code>的值，可能需要修改多处。</li>
+<li>如果你要修改输入图像的<code>width</code>和<code>height</code>值，请注意这两个值必须能被<code>32</code>整除。</li>
+</ul>
+<h2 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h2><p>在模型文件夹运行命令：</p>
+<pre><code>D:/darknet-master/build/darknet/x64/darknet.exe detector train VOC2007.data yolov3-tiny-obj.cfg yolov3-tiny.conv.15</code></pre><ul>
+<li><p>如果你在<code>avg loss</code>里看到<code>nan</code>，意味着训练失败；在其他地方出现<code>nan</code>则是正常的。</p>
+</li>
+<li><p>如果出错并显示<code>Out of memory</code>，尝试将<code>.cfg</code>文件的<code>subdivisions</code>值增大（建议为$ 2^n $）。</p>
+</li>
+<li><p>使用附加选项<code>-dont_show</code>来关闭训练时默认显示的损失曲线窗口</p>
+</li>
+<li><p>使用附加选项<code>-map</code>来显示<code>mAP</code>值</p>
+</li>
+<li><p>训练完成后的权重将保存于你在<code>.data</code>文件中设置的<code>backup</code>值路径下</p>
+</li>
+<li><p>你可以从<code>backup</code>值的路径下找到你的备份权重文件，并以此接着训练模型</p>
+</li>
+<li><p>多GPU训练：<a href="https://github.com/AlexeyAB/darknet#how-to-train-with-multi-gpu" target="_blank" rel="noopener">How to train with multi-GPU</a></p>
+</li>
+<li><p>训练完成后使用命令<code>darknet.exe detector test data/obj.data yolo-obj.cfg yolo-obj_8000.weights</code>针对输入的图片查看识别结果。</p>
+</li>
+</ul>
+<h1 id="在COCO上训练YOLO"><a href="#在COCO上训练YOLO" class="headerlink" title="在COCO上训练YOLO"></a>在COCO上训练YOLO</h1><p>从<a href="http://cocodataset.org/#overview" target="_blank" rel="noopener">这里</a>下载<code>COCO</code>数据集。<br>也可以使用位于<code>scripts/get_coco_dataset.sh</code>的脚本来下载<code>COCO</code>数据集。</p>
+<pre><code>cp scripts/get_coco_dataset.sh data
+cd data
+bash get_coco_dataset.sh # 会下载到data文件夹下</code></pre><p>然后修改<code>cfg/coco.data</code>文件，指定你的数据路径。<br>接着修改<code>cfg/yolo.cfg</code>文件，配置训练使用的参数。<br>然后训练：</p>
+<pre><code>./darknet detector train cfg/coco.data cfg/yolov3.cfg darknet53.conv.74</code></pre><p>如果你想使用4个GPU来跑，在上述语句附加参数<code>-gpus 0,1,2,3</code>即可<br>如果你想从检查点停止或重新运行，使用：</p>
+<pre><code>./darknet detector train cfg/coco.data cfg/yolov3.cfg backup/yolov3.backup</code></pre><h1 id="YOLO进阶"><a href="#YOLO进阶" class="headerlink" title="YOLO进阶"></a>YOLO进阶</h1><h2 id="预训练模型下载地址"><a href="#预训练模型下载地址" class="headerlink" title="预训练模型下载地址"></a>预训练模型下载地址</h2><p><a href="https://github.com/AlexeyAB/darknet#pre-trained-models" target="_blank" rel="noopener">GitHub预训练模型</a><br><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">官网</a> 的 <code>Performance on the COCO Dataset</code>部分</p>
+<h2 id="配置文件地址"><a href="#配置文件地址" class="headerlink" title="配置文件地址"></a>配置文件地址</h2><p>位于路径<code>darknet/cfg/</code>下<br><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">官网</a> 的 <code>Performance on the COCO Dataset</code>部分</p>
+<h2 id="特殊模型"><a href="#特殊模型" class="headerlink" title="特殊模型"></a>特殊模型</h2><p><a href="https://github.com/AlexeyAB/darknet/blob/master/cfg/yolov3-tiny_xnor.cfg" target="_blank" rel="noopener">XNOR-net (2到4倍的性能)</a><br><a href="https://github.com/AlexeyAB/yolo2_light" target="_blank" rel="noopener">INT8-quantization (快30%)</a></p>
+<h2 id="命令行语法"><a href="#命令行语法" class="headerlink" title="命令行语法"></a>命令行语法</h2><p>在<code>Linux</code>使用 <code>./darknet</code>而不是 <code>darknet.exe</code>，像这样：<code>./darknet detector test ./cfg/coco.data ./cfg/yolov3.cfg ./yolov3.weights</code>。在<code>Linux</code>中可执行文件 <code>./darknet</code> 在根目录，而 <code>Windows</code>则在<code>/build/darknet/x64</code>路径下。</p>
+<ul>
+<li><code>Yolo v3 COCO</code> - 图像: <code>darknet.exe detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights -thresh 0.25</code></li>
+<li>另一种方法 <code>Yolo v3 COCO</code> - 图像： <code>darknet.exe detect cfg/yolov3.cfg yolov3.weights -i 0 -thresh 0.25</code></li>
+<li>输出物体坐标： <code>darknet.exe detector test cfg/coco.data yolov3.cfg yolov3.weights -ext_output dog.jpg</code></li>
+<li><code>Yolo v3 COCO</code> - 视频：<code>darknet.exe detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights -ext_output test.mp4</code></li>
+<li><code>Yolo v3 COCO</code> - 摄像头<code>0</code>： <code>darknet.exe detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights -c 0</code></li>
+<li><code>Yolo v3 COCO</code> - 网络摄像头： <code>darknet.exe detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights http://192.168.0.80:8080/video?dummy=param.mjpg</code></li>
+<li><code>Yolo v3</code> - 保存结果视频： <code>darknet.exe detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights test.mp4 -out_filename res.avi</code></li>
+<li><code>Yolo v3 Tiny COCO</code> - 视频： <code>darknet.exe detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights test.mp4</code></li>
+<li><code>JSON</code>和<code>MJPEG</code>服务器，允许从您的软件或<code>Web</code>浏览器<code>IP</code>地址：<code>8070</code>和<code>8090</code>进行多个连接： <code>./darknet detector demo ./cfg/coco.data ./cfg/yolov3.cfg ./yolov3.weights test50.mp4 -json_port 8070 -mjpeg_port 8090 -ext_output</code></li>
+<li><code>Yolo v3 Tiny</code> 在<code>GPU1</code>上运行：<code>darknet.exe detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights -i 1 test.mp4</code></li>
+<li>在 <code>Amazon EC2</code> 服务器上训练，使用<code>Chrome</code>或<code>Firefox</code>浏览器，通过像这样（<code>http://ec2-35-160-228-91.us-west-2.compute.amazonaws.com:8090</code>）的链接查看 <code>mAP</code> 和 <code>Loss</code> 曲线图（注：<code>Darknet</code>应该与<code>OpenCV</code>一起编译）： <code>./darknet detector train cfg/coco.data yolov3.cfg darknet53.conv.74 -dont_show -mjpeg_port 8090 -map</code></li>
+<li><code>186 MB Yolo9000</code> - 图像： <code>darknet.exe detector test cfg/combine9k.data cfg/yolo9000.cfg yolo9000.weights</code></li>
+<li>处理 <code>data/train.txt</code>中记载路径的图片，然后保存检测结果到 <code>result.json</code>文件中：<code>darknet.exe detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights -ext_output -dont_show -out result.json &lt; data/train.txt</code></li>
+<li>处理 <code>data/train.txt</code>中记载路径的图片，然后保存检测结果到 <code>result.txt</code>中：<br><code>darknet.exe detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights -dont_show -ext_output &lt; data/train.txt &gt; result.txt</code></li>
+<li>伪标记 - 识别文本文件 <code>data/new_train.txt</code>中记载路径的图片，然后以<code>YOLO</code>训练数据的格式保存识别结果<code>&lt;image_name&gt;.txt</code>（这样子可以增大训练数据量）： <code>darknet.exe detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights -thresh 0.25 -dont_show -save_labels &lt; data/new_train.txt</code></li>
+<li>计算 <code>anchors</code>：<code>darknet.exe detector calc_anchors data/obj.data -num_of_clusters 9 -width 416 -height 416</code></li>
+<li>计算 <code>IoU=50</code>下的 <code>mAP</code>值： <code>darknet.exe detector map data/obj.data yolo-obj.cfg backup\yolo-obj_7000.weights</code></li>
+<li>计算 <code>IoU=75</code>下的 <code>mAP</code>值： <code>darknet.exe detector map data/obj.data yolo-obj.cfg backup\yolo-obj_7000.weights -iou_thresh 0.75</code></li>
+</ul>
+<h2 id="炼丹技巧"><a href="#炼丹技巧" class="headerlink" title="炼丹技巧"></a>炼丹技巧</h2><h3 id="早停"><a href="#早停" class="headerlink" title="早停"></a>早停</h3><p>粗略来讲，对于每个类别<code>2000</code>次迭代，总迭代次数不低于<code>4000</code>次。</p>
+<p>具体来说：</p>
+<ul>
+<li>多次迭代仍不能降低平均损失值（<code>avg loss</code>）时（<code>avg loss</code>可能最终收敛于<code>0.05 ~ 3.0</code>之间的值）</li>
+<li>早停后，你应该从多个权重文件中选取表现最好的，这样或许可以避免过拟合。使用类似如下的指令来验证训练的好坏：<pre><code>darknet.exe detector map data/obj.data yolo-obj.cfg backup\yolo-obj_7000.weights</code></pre>然后选取<code>mAP</code>最大的或<code>IoU</code>最大的作为最终权重。</li>
+</ul>
+<h3 id="提高精度策略"><a href="#提高精度策略" class="headerlink" title="提高精度策略"></a>提高精度策略</h3><ul>
+<li>在<code>.cfg</code>文件中设置<code>random=1</code>，它会通过对不同分辨率的图片进行训练以提高精度</li>
+<li>使用高分辨率的图像输入。在<code>.cfg</code>文件中设置<code>height</code>和<code>width</code>值。但是你无需重头训练，只需使用回<code>416x416</code>分辨率的权重数据就好了。</li>
+<li>检查数据集标注是否正确符合规范</li>
+<li>检查训练数据集数据量是否过少</li>
+<li>迭代次数推荐不低于<code>2000 * classes</code></li>
+<li>你的训练样本希望包含没有目标物体的图像，即该图像中没有出现目标物体，标签文件是空的文本。</li>
+<li>如果图片里有很多数量的目标物体，那么在<code>.cfg</code>文件中最后的<code>[yolo]</code>层或<code>[region]</code>层中添加参数<code>max=200</code>，这也可以设定成更高的值。</li>
+<li>如果目标物体很小（缩放成<code>416x416</code>尺寸后小于<code>16x16</code>），那么将<a href="https://github.com/AlexeyAB/darknet/blob/6390a5a2ab61a0bdf6f1a9a6b4a739c16b36e0d7/cfg/yolov3.cfg#L720" target="_blank" rel="noopener">第720行</a>设置为<code>layers = -1, 11</code>，将<a href="https://github.com/AlexeyAB/darknet/blob/6390a5a2ab61a0bdf6f1a9a6b4a739c16b36e0d7/cfg/yolov3.cfg#L717" target="_blank" rel="noopener">第717行</a>设置为<code>stride=4</code></li>
+<li>如果目标物体有些很大有些又很小，那么请使用修改后的模型：<br><a href="https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov3_5l.cfg" target="_blank" rel="noopener">Full-model: 5 yolo layers</a><br><a href="https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov3-tiny_3l.cfg" target="_blank" rel="noopener">Tiny-model: 3 yolo layers</a><br><a href="https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov3-spp.cfg" target="_blank" rel="noopener">Spatial-full-model: 3 yolo layers</a></li>
+<li>如果你的模型需要区分左右手性，例如区分左手和右手、左转和右转，那么需要关闭翻转数据增强选项，即添加<code>flip=0</code>到<a href="https://github.com/AlexeyAB/darknet/blob/3d2d0a7c98dbc8923d9ff705b81ff4f7940ea6ff/cfg/yolov3.cfg#L17" target="_blank" rel="noopener">这里</a></li>
+<li>如果想要模型具有尺度的鲁棒性，则必须训练样本中包含多尺度的照片。这是因为<code>YOLO</code>不具有尺度变化的适应性。</li>
+<li>要想加速模型的训练（但会降低预测精度）应该使用<code>Fine-Tuning</code>而不是<code>Transfer-Learning</code>，需要在<a href="https://github.com/AlexeyAB/darknet/blob/6d44529cf93211c319813c90e0c1adb34426abe5/cfg/yolov3.cfg#L548" target="_blank" rel="noopener">这里</a>设置参数<code>stopbackward=1</code>，然后运行<code>./darknet partial cfg/yolov3.cfg yolov3.weights yolov3.conv.81 81</code>，这会创建文件<code>yolov3.conv.81</code>，然后使用该文件<code>yolov3.conv.81</code>训练。</li>
+<li>复杂物体应该使用复杂的神经网络来训练</li>
+<li>你可以修改<code>anchors</code>的大小。略。</li>
+</ul>
+<h2 id="如何计算mAP"><a href="#如何计算mAP" class="headerlink" title="如何计算mAP"></a>如何计算mAP</h2><p><a href="https://github.com/AlexeyAB/darknet#how-to-calculate-map-on-pascalvoc-2007" target="_blank" rel="noopener">How to calculate mAP on PascalVOC 2007</a></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="Open-Images数据集"><a href="#Open-Images数据集" class="headerlink" title="Open Images数据集"></a>Open Images数据集</h3><pre><code>wget https://pjreddie.com/media/files/yolov3-openimages.weights
+
+./darknet detector test cfg/openimages.data cfg/yolov3-openimages.cfg yolov3-openimages.weights</code></pre><h3 id="Yolo9000"><a href="#Yolo9000" class="headerlink" title="Yolo9000"></a>Yolo9000</h3><p>能够检测多达<code>9000</code>个物体，需要<code>4G</code>显存<br><a href="https://github.com/AlexeyAB/darknet#using-yolo9000" target="_blank" rel="noopener">Using Yolo9000</a></p>
+<h3 id="如何以库的形式调用YOLO"><a href="#如何以库的形式调用YOLO" class="headerlink" title="如何以库的形式调用YOLO"></a>如何以库的形式调用YOLO</h3><p><a href="https://github.com/AlexeyAB/darknet#how-to-use-yolo-as-dll-and-so-libraries" target="_blank" rel="noopener">How to use Yolo as DLL and SO libraries</a></p>
+<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><ul>
+<li>类似教程：<br><a href="https://chtseng.wordpress.com/2018/09/01/%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84yolo%E8%BE%A8%E8%AD%98%E6%A8%A1%E5%9E%8B-%E4%BB%A5%E6%9F%91%E6%A9%98%E8%BE%A8%E8%AD%98%E7%82%BA%E4%BE%8B/" target="_blank" rel="noopener">建立自己的YOLO辨識模型 – 以柑橘辨識為例</a><br><a href="https://medium.com/%E9%9B%9E%E9%9B%9E%E8%88%87%E5%85%94%E5%85%94%E7%9A%84%E5%B7%A5%E7%A8%8B%E4%B8%96%E7%95%8C/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-ml-note-yolo-%E5%88%A9%E7%94%A8%E5%BD%B1%E5%83%8F%E8%BE%A8%E8%AD%98%E5%81%9A%E7%89%A9%E4%BB%B6%E5%81%B5%E6%B8%AC-object-detection-%E7%9A%84%E6%8A%80%E8%A1%93-3ad34a4cac70" target="_blank" rel="noopener">YOLO!!!如何簡單使用YOLO訓練出自己的物件偵測!!! (Windows+Anaconda)</a><br><a href="https://blog.liebes.top/2018/01/30/ML-darknet-1/index.html" target="_blank" rel="noopener">机器学习之 darknet YOLO 训练 VOC 数据集</a></li>
+</ul>
+<ul>
+<li>参考文献：<br><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">YOLO: Real-Time Object Detection</a><br><a href="https://github.com/AlexeyAB/darknet" target="_blank" rel="noopener">Yolo-v3 and Yolo-v2 for Windows and Linux</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《用YOLO实现目标检测》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/dl/yolo-starter/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                Karbo
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/dl/kaggle-gpu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="在Kaggle免费使用GPU训练自己的神经网络">
+                        
+                        <span class="card-title">在Kaggle免费使用GPU训练自己的神经网络</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kaggle上有免费供大家使用的GPU计算资源，本文教你如何使用它来训练自己的神经网络。
+
+
+
+Kaggle是什么Kaggle是一个数据建模和数据分析竞赛平台。企业和研究者可在其上发布数据，统计学者和数据挖掘专家可在其上进行竞赛以产生最好的
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/dl/" target="_blank">
+                        <span class="chip bg-color">dl</span>
+                    </a>
+                    
+                    <a href="/tags/kaggle/" target="_blank">
+                        <span class="chip bg-color">kaggle</span>
+                    </a>
+                    
+                    <a href="/tags/gpu/" target="_blank">
+                        <span class="chip bg-color">gpu</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/ml/mlcomparsion/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="正确选择ML算法">
+                        
+                        <span class="card-title">正确选择ML算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文教你如何选择合适自己的机器学习算法。
+
+
+
+分类逻辑斯蒂回归（Logistic regression）
+属于判别式模型，有很多正则化模型的方法（L0，L1，L2，etc），而且你不必像在用朴素贝叶斯那样担心你的特征是否相关。与决策树与S
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ml/" class="post-category" target="_blank">
+                                    ml
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ml/" target="_blank">
+                        <span class="chip bg-color">ml</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">38.1k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Karbo123" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:lei@karbo.online" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=984419313" class="tooltipped" data-tooltip="QQ联系我: 984419313" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-09T07:49:29.682Z</updated>
+  <updated>2019-08-09T11:25:37.225Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -17,11 +17,29 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://blog.karbo.online/uncategorized/hello-world/"/>
-    <id>https://blog.karbo.online/uncategorized/hello-world/</id>
-    <published>2019-08-09T07:49:29.682Z</published>
-    <updated>2019-08-09T07:49:29.682Z</updated>
+    <title>aaaa</title>
+    <link href="https://blog.karbo.online/uncate/aaaa/"/>
+    <id>https://blog.karbo.online/uncate/aaaa/</id>
+    <published>2019-08-09T11:25:37.000Z</published>
+    <updated>2019-08-09T11:25:37.225Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="uncate" scheme="https://blog.karbo.online/categories/uncate/"/>
+    
+    
+      <category term="untag" scheme="https://blog.karbo.online/tags/untag/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工具</title>
+    <link href="https://blog.karbo.online/uncategorized/tools/"/>
+    <id>https://blog.karbo.online/uncategorized/tools/</id>
+    <published>2019-08-09T11:08:39.959Z</published>
+    <updated>2019-03-06T10:59:34.828Z</updated>
     
     <summary type="html">
     
@@ -29,12 +47,284 @@
       
         
         
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+          &lt;h1 id=&quot;数学&quot;&gt;&lt;a href=&quot;#数学&quot; class=&quot;headerlink&quot; title=&quot;数学&quot;&gt;&lt;/a&gt;数学&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.geogebra.org/&quot; target=&quot;_blank&quot;
         
       
     
     </summary>
     
+    
+  </entry>
+  
+  <entry>
+    <title>如何从源码编译linux内核并使其从u盘启动</title>
+    <link href="https://blog.karbo.online/linux/linux-u-drive/"/>
+    <id>https://blog.karbo.online/linux/linux-u-drive/</id>
+    <published>2019-05-04T06:50:40.000Z</published>
+    <updated>2019-07-04T17:30:47.531Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文教你如何从源代码编译 linux 内核，并将其装在 u 盘中，从而变成 “便携式 linux 系统”。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;kernel.jpg&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
+    
+      <category term="kernels" scheme="https://blog.karbo.online/tags/kernels/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用Django搭建第一个投票网站</title>
+    <link href="https://blog.karbo.online/django/python-django/"/>
+    <id>https://blog.karbo.online/django/python-django/</id>
+    <published>2019-04-23T09:20:22.000Z</published>
+    <updated>2019-05-04T06:56:24.771Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文教你用Django搭建第一个网站，投票网站。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="django" scheme="https://blog.karbo.online/categories/django/"/>
+    
+    
+      <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python的网络编程</title>
+    <link href="https://blog.karbo.online/python/python-web/"/>
+    <id>https://blog.karbo.online/python/python-web/</id>
+    <published>2019-04-15T12:35:13.000Z</published>
+    <updated>2019-05-04T06:57:01.955Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文教你使用Python进行网络编程。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
+    
+    
+      <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="request" scheme="https://blog.karbo.online/tags/request/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python和NumPy语法回顾</title>
+    <link href="https://blog.karbo.online/python/learn-python-and-numpy/"/>
+    <id>https://blog.karbo.online/python/learn-python-and-numpy/</id>
+    <published>2019-04-08T13:06:05.000Z</published>
+    <updated>2019-05-04T06:57:46.916Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文旨在给忘记Python和NumPy相关语法的你一个速查手册。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
+    
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
+    
+      <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一种颜色识别算法</title>
+    <link href="https://blog.karbo.online/algorithm/colorclassify/"/>
+    <id>https://blog.karbo.online/algorithm/colorclassify/</id>
+    <published>2019-04-04T08:52:41.000Z</published>
+    <updated>2019-05-04T06:58:18.251Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍了一种颜色识别算法。只需要给定标准颜色，该算法就能判断某颜色的分类标签。该算法支持颜色的拒绝识别。相比于网络上传统的固定阈值方法，本方法更具有适应性，但不能用于灰度颜色的识别。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;2.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="algorithm" scheme="https://blog.karbo.online/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://blog.karbo.online/tags/algorithm/"/>
+    
+      <category term="classifier" scheme="https://blog.karbo.online/tags/classifier/"/>
+    
+      <category term="ml" scheme="https://blog.karbo.online/tags/ml/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Kaggle免费使用GPU训练自己的神经网络</title>
+    <link href="https://blog.karbo.online/dl/kaggle-gpu/"/>
+    <id>https://blog.karbo.online/dl/kaggle-gpu/</id>
+    <published>2019-04-03T05:32:07.000Z</published>
+    <updated>2019-05-04T06:58:43.755Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Kaggle上有免费供大家使用的GPU计算资源，本文教你如何使用它来训练自己的神经网络。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+      <category term="kaggle" scheme="https://blog.karbo.online/tags/kaggle/"/>
+    
+      <category term="gpu" scheme="https://blog.karbo.online/tags/gpu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用YOLO实现目标检测</title>
+    <link href="https://blog.karbo.online/dl/yolo-starter/"/>
+    <id>https://blog.karbo.online/dl/yolo-starter/</id>
+    <published>2019-03-28T03:15:56.000Z</published>
+    <updated>2019-05-04T06:59:14.869Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+      <category term="yolo" scheme="https://blog.karbo.online/tags/yolo/"/>
+    
+      <category term="darknet" scheme="https://blog.karbo.online/tags/darknet/"/>
+    
+      <category term="detection" scheme="https://blog.karbo.online/tags/detection/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正确选择ML算法</title>
+    <link href="https://blog.karbo.online/ml/mlcomparsion/"/>
+    <id>https://blog.karbo.online/ml/mlcomparsion/</id>
+    <published>2019-03-10T12:54:55.000Z</published>
+    <updated>2019-05-04T06:59:42.756Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文教你如何选择合适自己的机器学习算法。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;20.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ml" scheme="https://blog.karbo.online/categories/ml/"/>
+    
+    
+      <category term="ml" scheme="https://blog.karbo.online/tags/ml/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux-入门速成</title>
+    <link href="https://blog.karbo.online/linux/linux-ru-men-su-cheng/"/>
+    <id>https://blog.karbo.online/linux/linux-ru-men-su-cheng/</id>
+    <published>2019-03-08T15:49:37.000Z</published>
+    <updated>2019-05-04T07:00:12.949Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。&lt;/p&gt;
+&lt;p&gt;（大多内容选自 &lt;a href=&quot;http://billie66.github.io/TLCL/book/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The Linux Command Line 的中文版&lt;/a&gt; ）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;1.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
+    
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
+    
+      <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown-语法入门</title>
+    <link href="https://blog.karbo.online/markdown/markdown-yu-fa-ru-men/"/>
+    <id>https://blog.karbo.online/markdown/markdown-yu-fa-ru-men/</id>
+    <published>2019-03-05T08:25:13.000Z</published>
+    <updated>2019-05-04T07:00:37.467Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Markdown-mark.svg&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
+    
+    
+      <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数学资源</title>
+    <link href="https://blog.karbo.online/math/mathlearn/"/>
+    <id>https://blog.karbo.online/math/mathlearn/</id>
+    <published>2019-03-02T10:23:34.000Z</published>
+    <updated>2019-05-04T07:01:04.610Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文搜集了一些网络上优秀的数学学习资源。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;1.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="math" scheme="https://blog.karbo.online/categories/math/"/>
+    
+    
+      <category term="math" scheme="https://blog.karbo.online/tags/math/"/>
     
   </entry>
   

@@ -1,0 +1,1721 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux-入门速成, 任我行">
+    <meta name="description" content="本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。
+（大多内容选自 The Linux Command Line 的中文版 ）
+
+
+
+引言一个故事
+我想给大家讲个故事。故事内容不是 Linus Torvalds 在1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Linux-入门速成 | 任我行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">任我行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">任我行</div>
+        <div class="logo-desc">
+            
+            可以任我走怎么到头来又随着大队走，人群是那么像羊群
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Linux-入门速成
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/programing/" target="_blank">
+                                <span class="chip bg-color">programing</span>
+                            </a>
+                        
+                            <a href="/tags/grammar/" target="_blank">
+                                <span class="chip bg-color">grammar</span>
+                            </a>
+                        
+                            <a href="/tags/linux/" target="_blank">
+                                <span class="chip bg-color">linux</span>
+                            </a>
+                        
+                            <a href="/tags/os/" target="_blank">
+                                <span class="chip bg-color">os</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-03-08
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        10.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        37 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。</p>
+<p>（大多内容选自 <a href="http://billie66.github.io/TLCL/book/index.html" target="_blank" rel="noopener">The Linux Command Line 的中文版</a> ）</p>
+<p><img src="1.png" alt></p>
+<a id="more"></a>
+
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="一个故事"><a href="#一个故事" class="headerlink" title="一个故事"></a>一个故事</h2><blockquote>
+<p>我想给大家讲个故事。<br>故事内容不是 Linus Torvalds 在1991年怎样写了 Linux 内核的第一个版本， 因为这些内容你可以在许多 Linux 书籍中读到。我也不是来告诉你，更早之前，Richard Stallman 是如何开始 GNU 项目，设计了一个免费的类Unix 的操作系统。那也是一个很有意义的故事， 但大多数 Linux 书籍也讲到了它。<br>我想告诉大家一个你如何才能夺回计算机管理权的故事。<br>在20世纪70年代末，我刚开始和计算机打交道时，正进行着一场革命，那时的我还是一名大学生。 微处理器的发明，使普通老百姓（就如你和我）真正拥有一台计算机成为可能。今天， 人们难以想象，只有大企业和强大的政府才能够拥有计算机的世界，是怎样的一个世界。 简单说，你做不了多少事情。<br>今天，世界已经截然不同了。计算机遍布各个领域，从小手表到大型数据中心，及大小介于它们之间的每件东西。 除了随处可见的计算机之外，我们还有一个无处不在的连接所有计算机的网络。这已经开创了一个奇妙的， 个人授权和创作自由的新时代，但是在过去的二三十年里，正在发生另一些事情。一个大公司不断地把它的 管理权强加到世界上绝大多数的计算机上，并且决定你对计算机的操作权力。幸运地是，来自世界各地的人们， 正积极努力地做些事情来改变这种境况。通过编写自己的软件，他们一直在为维护电脑的管理权而战斗着。 他们建设着 Linux。<br>一提到 Linux，许多人都会说到“自由”，但我不认为他们都知道“自由”的真正涵义。“自由”是一种权力， 它决定你的计算机能做什么，同时能够拥有这种“自由”的唯一方式就是知道计算机正在做什么。 “自由”是指一台没有任何秘密的计算机，你可以从它那里了解一切，只要你用心的去寻找。</p>
+</blockquote>
+<h2 id="为什么使用命令行"><a href="#为什么使用命令行" class="headerlink" title="为什么使用命令行"></a>为什么使用命令行</h2><blockquote>
+<p>你是否注意到，在电影中一个“超级黑客”坐在电脑前，从不摸一下鼠标， 就能够在30秒内侵入到超安全的军用计算机中。这是因为电影制片人意识到， 作为人类，本能地知道让计算机圆满完成工作的唯一途径，是用键盘来操纵计算机。<br>现在，大多数的计算机用户只是熟悉图形用户界面（GUI），并且产品供应商和此领域的学者会灌输给用户这样的思想， 命令行界面（CLI）是过去使用的一种很恐怖的东西。这就很不幸，因为一个好的命令行界面， 是用来和计算机进行交流沟通的非常有效的方式，正像人类社会使用文字互通信息一样。人们说，“图形用户界面让简单的任务更容易完成， 而命令行界面使完成复杂的任务成为可能”，到现在这句话仍然很正确。<br>因为 Linux 是以 Unix 家族的操作系统为模型写成的，所以它分享了 Unix 丰富的命令行工具。 Unix 在20世纪80年代初显赫一时(虽然，开发它在更早之前），结果，在普遍地使用图形界面之前， 开发了一种广泛的命令行界面。事实上，很多人选择 Linux（而不是其他的系统，比如说 Windows NT）是因为其可以使“完成复杂的任务成为可能”的强大的命令行界面。</p>
+</blockquote>
+<h2 id="Linux-版本选择"><a href="#Linux-版本选择" class="headerlink" title="Linux 版本选择"></a>Linux 版本选择</h2><blockquote>
+<ol>
+<li>适合初学者的最佳Linux发行版：Linux Mint</li>
+<li>老旧硬件的最佳Linux发行版：Ubuntu MATE</li>
+<li>安全行业的最佳Linux发行版：Kali Linux</li>
+<li>专属游戏的Linux发行版：Steam OS</li>
+<li>用于编程的Linux发行版：Debian</li>
+<li>美丽的Linux发行版：elementary OS</li>
+<li>儿童专属Linux发行版：Ubermix</li>
+<li>隐私和匿名的Linux发行版：Tails</li>
+<li>Linux服务器发行版：CentOS</li>
+<li>强大PC和笔记本电脑推荐的Linux发行版：Ubuntu</li>
+</ol>
+</blockquote>
+<h1 id="学习-shell"><a href="#学习-shell" class="headerlink" title="学习 shell"></a>学习 shell</h1><h2 id="什么是-shell"><a href="#什么是-shell" class="headerlink" title="什么是 shell"></a>什么是 shell</h2><blockquote>
+<p>一说到命令行，我们真正指的是 shell。shell 就是一个程序，它接受从键盘输入的命令， 然后把命令传递给操作系统去执行。几乎所有的 Linux 发行版都提供一个名为 bash 的 来自 GNU 项目的 shell 程序。“bash” 是 “Bourne Again SHell” 的首字母缩写， 所指的是这样一个事实，bash 是最初 Unix 上由 Steve Bourne 写成 shell 程序 sh 的增强版。</p>
+</blockquote>
+<blockquote>
+<p><code>[root@izwz9biz2m4sd3tu00600pz ~]#</code>这叫做 shell 提示符，无论何时当 shell 准备好了去接受输入时，它就会出现。然而， 它可能会以各种各样的面孔显示，这则取决于不同的 Linux 发行版， 它通常包括你的用户名@主机名，紧接着当前工作目录（稍后会有更多介绍）和一个美元符号。<br>如果提示符的最后一个字符是“#”, 而不是“$”, 那么这个终端会话就有超级用户权限。 这意味着，我们或者是以 root 用户的身份登录，或者是我们选择的终端仿真器提供超级用户（管理员）权限。</p>
+</blockquote>
+<blockquote>
+<p>下面尝试使用下面指令来体会下 Linux 操作系统吧 (≧∀≦)ゞ</p>
+</blockquote>
+<blockquote>
+<p>显示时间日期</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# date
+Fri Mar  1 10:44:55 CST 2019</code></pre><blockquote>
+<p>显示当前月份的日历</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# cal
+     March 2019
+Su Mo Tu We Th Fr Sa
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28 29 30
+31</code></pre><blockquote>
+<p>查看磁盘剩余空间</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# df
+Filesystem     1K-blocks    Used Available Use% Mounted on
+/dev/vda1       41151808 4606104  34432272  12% /
+devtmpfs          931516       0    931516   0% /dev
+tmpfs             941860       0    941860   0% /dev/shm
+tmpfs             941860   16708    925152   2% /run
+tmpfs             941860       0    941860   0% /sys/fs/cgroup
+tmpfs             188376       0    188376   0% /run/user/0</code></pre><blockquote>
+<p>显示空闲内存</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# free
+              total        used        free      shared  buff/cache   available
+Mem:        1883724      128840      470492       16712     1284392     1537728
+Swap:             0           0           0</code></pre><blockquote>
+<p>结束终端会话（退出）</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# exit</code></pre><h2 id="文件系统中跳转"><a href="#文件系统中跳转" class="headerlink" title="文件系统中跳转"></a>文件系统中跳转</h2><blockquote>
+<p>下面是常用的指令</p>
+</blockquote>
+<pre><code>pwd  # 显示当前的工作目录（print working directory的缩写）
+cd   # 切换目录
+ls   # 列出目录内容</code></pre><blockquote>
+<p>当我们首次登录系统（或者启动终端仿真器会话）后，当前工作目录是我们的家目录。 每个用户都有他自己的家目录，当用户以普通用户的身份操控系统时，家目录是唯一允许用户写入文件的地方。</p>
+</blockquote>
+<h3 id="cd-指令"><a href="#cd-指令" class="headerlink" title="cd 指令"></a>cd 指令</h3><blockquote>
+<p>其他有用的 cd 指令：</p>
+</blockquote>
+<pre><code>cd -        # 切换到先前的工作目录
+cd          # 切换到自己的家目录（等同于&quot;cd ~&quot;）
+cd ~karbo    # 切换到karbo的家目录</code></pre><h3 id="ls-指令"><a href="#ls-指令" class="headerlink" title="ls 指令"></a>ls 指令</h3><blockquote>
+<p>其他有用的 ls 指令：</p>
+</blockquote>
+<pre><code>ls -a                          # 显示所有文件（包括以”.“开头的隐藏文件）
+ls -l                          # 显示文件细节（以长模式输出）
+ls -lt                         # 显示文件细节并按照时间顺序排序（时间正序指最近修改的文件是第一行）
+ls &lt;想查看的目录&gt;                # 显示 &lt;想查看的目录&gt; 下的文件
+ls &lt;想查看的目录1&gt; &lt;想查看的目录2&gt; # 显示 &lt;想查看的目录1&gt; 和 &lt;想查看的目录2&gt; 下的文件</code></pre><blockquote>
+<p>ls 命令选项：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>长选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>–all</td>
+<td>列出所有文件，甚至包括文件名以圆点开头的默认会被隐藏的隐藏文件。</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>–directory</td>
+<td>通常，如果指定了目录名，ls 命令会列出这个目录中的内容，而不是目录本身。 把这个选项与 -l 选项结合使用，可以看到所指定目录的详细信息，而不是目录中的内容。</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>–classify</td>
+<td>这个选项会在每个所列出的名字后面加上一个指示符。例如，如果名字是 目录名，则会加上一个’/‘字符。</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>–human-readable</td>
+<td>当以长格式列出时，以人们可读的格式，而不是以字节数来显示文件的大小。</td>
+</tr>
+<tr>
+<td>-l</td>
+<td></td>
+<td>以长格式显示结果。</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>–reverse</td>
+<td>以相反的顺序来显示结果。通常，ls 命令的输出结果按照字母升序排列。</td>
+</tr>
+<tr>
+<td>-S</td>
+<td></td>
+<td>命令输出结果按照文件大小来排序。</td>
+</tr>
+<tr>
+<td>-t</td>
+<td></td>
+<td>按照修改时间来排序。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>ls 长格式列表的字段（以<code>-rw-r--r-- 1 root root   32059 2007-04-03 11:05 oo-cd-cover.odf</code>为例）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-rw-r–r–</td>
+<td>对于文件的访问权限。第一个字符指明文件类型。在不同类型之间， 开头的“－”说明是一个普通文件，“d”表明是一个目录。其后三个字符是文件所有者的 访问权限，再其后的三个字符是文件所属组中成员的访问权限，最后三个字符是其他所 有人的访问权限。这个字段的完整含义将在第十章讨论。</td>
+</tr>
+<tr>
+<td>1</td>
+<td>文件的硬链接数目。参考随后讨论的关于链接的内容。</td>
+</tr>
+<tr>
+<td>root</td>
+<td>文件所有者的用户名。</td>
+</tr>
+<tr>
+<td>root</td>
+<td>文件所属用户组的名字。</td>
+</tr>
+<tr>
+<td>32059</td>
+<td>以字节数表示的文件大小。</td>
+</tr>
+<tr>
+<td>2007-04-03 11:05</td>
+<td>上次修改文件的时间和日期。</td>
+</tr>
+<tr>
+<td>oo-cd-cover.odf</td>
+<td>文件名。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意事项：</p>
+<ol>
+<li>文件名和命令名是<strong>大小写敏感</strong>的。文件名 “File1” 和 “file1” 是指两个不同的文件名。</li>
+<li>Linux <strong>没有“文件扩展名”的概念</strong>，不像其它一些系统。可以用你喜欢的任何名字 来给文件起名。文件内容或用途由其它方法来决定。虽然类 Unix 的操作系统， 不用文件扩展名来决定文件的内容或用途，但是有些应用程序会。</li>
+<li>虽然 Linux 支持长文件名，文件名可能包含空格，标点符号，但标点符号仅限 使用 “.”，“－”，下划线。最重要的是，不要在文件名中使用空格。如果你想表示词与词间的空格，<strong>用下划线字符来代替</strong>。有些时候，你会感激自己这样做。</li>
+</ol>
+</blockquote>
+<h2 id="探究操作系统"><a href="#探究操作系统" class="headerlink" title="探究操作系统"></a>探究操作系统</h2><blockquote>
+<p>既然我们已经知道了如何在文件系统中跳转，是时候开始 Linux 操作系统之旅了。然而在开始之前，我们先学习一些对研究 Linux 系统有帮助的命令。</p>
+</blockquote>
+<pre><code>file &lt;文件名&gt;  # 确定文件类型
+less &lt;文件名&gt;  # 浏览文件内容</code></pre><blockquote>
+<p>在进行进一步探究之前，有必要介绍下命令的组成格式。<br>大多数命令看起来像这样：<code>command -options arguments</code><br>大多数命令使用的选项，是由一个中划线加上一个字符组成，例如，“-l”。<br>但是许多命令，包括来自于 GNU 项目的命令，也支持长选项，长选项由两个中划线加上一个字组成。当然， 许多命令也允许把多个短选项串在一起使用。以这个例子<code>ls -lt --reverse</code>为例，代表列出当前目录下的文件详细信息，并按照时间逆序排序。</p>
+</blockquote>
+<h3 id="file-指令"><a href="#file-指令" class="headerlink" title="file 指令"></a>file 指令</h3><blockquote>
+<p>当调用 file 命令后，file 命令会打印出文件内容的简单描述。我们将用 file 命令来确定文件的类型。<br>例如我们想要知道 l2tp.log 文件是用来干什么的，就这样做：</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# file l2tp.log
+l2tp.log: UTF-8 Unicode text, with escape sequences</code></pre><blockquote>
+<p>有许多种类型的文件。事实上，在类 Unix 操作系统中比如说 Linux 中，有个普遍的观念就是“一切皆文件”。 随着课程的进行，我们将会明白这句话是多么的正确。</p>
+</blockquote>
+<h3 id="less-指令"><a href="#less-指令" class="headerlink" title="less 指令"></a>less 指令</h3><blockquote>
+<p>less 命令是一个用来浏览文本文件的程序。纵观 Linux 系统，有许多人类可读的文本文件。less 程序为我们检查文本文件提供了方便。<br>一旦运行起来，less 程序允许你前后滚动文件。例如，要查看一个定义了系统中全部用户身份的文件，输入以下命令：</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# less /etc/passwd</code></pre><blockquote>
+<p>一旦 less 程序运行起来，我们就能浏览文件内容了。如果文件内容多于一页，那么我们可以按上、下键滚动文件。按下“q”键， 退出 less 程序。<br>下表列出了 less 程序最常使用的键盘命令。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Page UP or b</td>
+<td>向上翻滚一页</td>
+</tr>
+<tr>
+<td>Page Down or space</td>
+<td>向下翻滚一页</td>
+</tr>
+<tr>
+<td>UP Arrow</td>
+<td>向上翻滚一行</td>
+</tr>
+<tr>
+<td>Down Arrow</td>
+<td>向下翻滚一行</td>
+</tr>
+<tr>
+<td>G</td>
+<td>移动到最后一行</td>
+</tr>
+<tr>
+<td>1G or g</td>
+<td>移动到开头一行</td>
+</tr>
+<tr>
+<td>/charaters</td>
+<td>向前查找指定的字符串</td>
+</tr>
+<tr>
+<td>n</td>
+<td>向前查找下一个出现的字符串，这个字符串是之前所指定查找的</td>
+</tr>
+<tr>
+<td>h</td>
+<td>显示帮助屏幕</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出 less 程序</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>less 程序是早期 Unix 程序 more 的改进版。“less” 这个名字，对习语 “less is more” 开了个玩笑， 这个习语是现代主义建筑师和设计者的座右铭。<br>less 属于”页面调度器”类程序，这些程序允许以逐页方式轻松浏览长文本文档。 more 程序只能向前翻页，而 less 程序允许前后翻页，此外还有很多其它的特性。</p>
+</blockquote>
+<h3 id="符号链接-软链接"><a href="#符号链接-软链接" class="headerlink" title="符号链接(软链接)"></a>符号链接(软链接)</h3><blockquote>
+<p>在我们到处查看时，我们可能会看到一个目录，列出像这样的一条信息：<br><code>lrwxrwxrwx 1 root root 11 2007-08-11 07:34 libc.so.6 -&gt; libc-2.6.so</code><br>注意看，为何这条信息第一个字符是“l”，并且有两个文件名呢？ 这是一个特殊文件，叫做符号链接（也称为软链接或者 symlink ）。 在大多数“类 Unix” 系统中， 有可能一个文件被多个文件名所指向。虽然这种特性的意义并不明显，但它真的很有用。<br>描绘一下这样的情景：一个程序要求使用某个包含在名为“foo”文件中的共享资源，但是“foo”经常改变版本号。 这样，在文件名中包含版本号，会是一个好主意，因此管理员或者其它相关方，会知道安装了哪个“foo”版本。 这会导致另一个问题。如果我们更改了共享资源的名字，那么我们必须跟踪每个可能使用了 这个共享资源的程序，当每次这个资源的新版本被安装后，都要让使用了它的程序去寻找新的资源名。 这听起来很没趣。<br>这就是符号链接存在至今的原因。比方说，我们安装了文件 “foo” 的 2.6 版本，它的 文件名是 “foo-2.6”，然后创建了叫做 “foo” 的符号链接，这个符号链接指向 “foo-2.6”。 这意味着，当一个程序打开文件 “foo” 时，它实际上是打开文件 “foo-2.6”。 现在，每个人都很高兴。依赖于 “foo” 文件的程序能找到这个文件，并且我们能知道安装了哪个文件版本。 当升级到 “foo-2.7” 版本的时候，仅添加这个文件到文件系统中，删除符号链接 “foo”， 创建一个指向新版本的符号链接。这不仅解决了版本升级问题，而且还允许在系统中保存两个不同的文件版本。 假想 “foo-2.7” 有个错误（该死的开发者！），那我们得回到原来的版本。 一样的操作，我们只需要删除指向新版本的符号链接，然后创建指向旧版本的符号链接就可以了。</p>
+</blockquote>
+<h3 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h3><blockquote>
+<p>讨论到链接问题，我们需要提一下，还有一种链接类型，叫做硬链接。硬链接同样允许文件有多个名字， 但是硬链接以不同的方法来创建多个文件名。</p>
+</blockquote>
+<h3 id="Linux-系统中的目录"><a href="#Linux-系统中的目录" class="headerlink" title="Linux 系统中的目录"></a>Linux 系统中的目录</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>评论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/</td>
+<td>根目录，万物起源。</td>
+</tr>
+<tr>
+<td>/bin</td>
+<td>包含系统启动和运行所必须的二进制程序。</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>包含 Linux 内核、初始 RAM 磁盘映像（用于启动时所需的驱动）和 启动加载程序。有趣的文件：/boot/grub/grub.conf or menu.lst， 被用来配置启动加载程序。/boot/vmlinuz，Linux 内核。</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>这是一个包含设备结点的特殊目录。“一切都是文件”，也适用于设备。 在这个目录里，内核维护着所有设备的列表。</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>这个目录包含所有系统层面的配置文件。它也包含一系列的 shell 脚本， 在系统启动时，这些脚本会开启每个系统服务。这个目录中的任何文件应该是可读的文本文件。有趣的文件：虽然/etc 目录中的任何文件都有趣，但这里只列出了一些我一直喜欢的文件：/etc/crontab， 定义自动运行的任务。/etc/fstab，包含存储设备的列表，以及与他们相关的挂载点。/etc/passwd，包含用户帐号列表。</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>在通常的配置环境下，系统会在/home 下，给每个用户分配一个目录。普通用户只能在自己的目录下写文件。这个限制保护系统免受错误的用户活动破坏。</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>包含核心系统程序所使用的共享库文件。这些文件与 Windows 中的动态链接库相似。</td>
+</tr>
+<tr>
+<td>/lost+found</td>
+<td>每个使用 Linux 文件系统的格式化分区或设备，例如 ext3文件系统， 都会有这个目录。当部分恢复一个损坏的文件系统时，会用到这个目录。这个目录应该是空的，除非文件系统 真正的损坏了。</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>在现在的 Linux 系统中，/media 目录会包含可移动介质的挂载点， 例如 USB 驱动器，CD-ROMs 等等。这些介质连接到计算机之后，会自动地挂载到这个目录结点下。</td>
+</tr>
+<tr>
+<td>/mnt</td>
+<td>在早些的 Linux 系统中，/mnt 目录包含可移动介质的挂载点。</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>这个/opt 目录被用来安装“可选的”软件。这个主要用来存储可能 安装在系统中的商业软件产品。</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>这个/proc 目录很特殊。从存储在硬盘上的文件的意义上说，它不是真正的文件系统。 相反，它是一个由 Linux 内核维护的虚拟文件系统。它所包含的文件是内核的窥视孔。这些文件是可读的， 它们会告诉你内核是怎样监管计算机的。</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>root 帐户的家目录。</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>这个目录包含“系统”二进制文件。它们是完成重大系统任务的程序，通常为超级用户保留。</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>这个/tmp 目录，是用来存储由各种程序创建的临时文件的地方。一些配置导致系统每次 重新启动时，都会清空这个目录。</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>在 Linux 系统中，/usr 目录可能是最大的一个。它包含普通用户所需要的所有程序和文件。</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>/usr/bin 目录包含系统安装的可执行程序。通常，这个目录会包含许多程序。</td>
+</tr>
+<tr>
+<td>/usr/lib</td>
+<td>包含由/usr/bin 目录中的程序所用的共享库。</td>
+</tr>
+<tr>
+<td>/usr/local</td>
+<td>这个/usr/local 目录，是非系统发行版自带程序的安装目录。 通常，由源码编译的程序会安装在/usr/local/bin 目录下。新安装的 Linux 系统中会存在这个目录， 并且在管理员安装程序之前，这个目录是空的。</td>
+</tr>
+<tr>
+<td>/usr/sbin</td>
+<td>包含许多系统管理程序。</td>
+</tr>
+<tr>
+<td>/usr/share</td>
+<td>/usr/share 目录包含许多由/usr/bin 目录中的程序使用的共享数据。 其中包括像默认的配置文件、图标、桌面背景、音频文件等等。</td>
+</tr>
+<tr>
+<td>/usr/share/doc</td>
+<td>大多数安装在系统中的软件包会包含一些文档。在/usr/share/doc 目录下， 我们可以找到按照软件包分类的文档。</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>除了/tmp 和/home 目录之外，相对来说，目前我们看到的目录是静态的，这是说， 它们的内容不会改变。/var 目录存放的是动态文件。各种数据库，假脱机文件， 用户邮件等等，都位于在这里。</td>
+</tr>
+<tr>
+<td>/var/log</td>
+<td>这个/var/log 目录包含日志文件、各种系统活动的记录。这些文件非常重要，并且 应该时时监测它们。其中最重要的一个文件是/var/log/messages。注意，为了系统安全，在一些系统中， 你必须是超级用户才能查看这些日志文件。</td>
+</tr>
+</tbody></table>
+<h2 id="操作文件和目录"><a href="#操作文件和目录" class="headerlink" title="操作文件和目录"></a>操作文件和目录</h2><blockquote>
+<p>此时此刻，我们已经准备好了做些真正的工作！这一章节将会介绍以下命令：</p>
+<pre><code>cp &lt;src&gt; &lt;dst&gt; # 复制文件和目录
+mv &lt;src&gt; &lt;dst&gt; # 移动/重命名文件和目录
+mkdir &lt;folder_name&gt; # 创建目录
+rm &lt;dir/file&gt; # 删除文件和目录
+ln # 创建硬链接和符号链接</code></pre></blockquote>
+<blockquote>
+<p>这五个命令属于最常使用的 Linux 命令之列。它们用来操作文件和目录。<br>现在，坦诚地说，用图形文件管理器来完成一些由这些命令执行的任务会更容易些。使用文件管理器， 我们可以把文件从一个目录拖放到另一个目录、剪贴和粘贴文件、删除文件等等。那么， 为什么还使用早期的命令行程序呢？<br>答案是命令行程序，功能强大灵活。虽然图形文件管理器能轻松地实现简单的文件操作，但是对于 复杂的文件操作任务，则使用命令行程序比较容易完成。例如，怎样拷贝一个目录下所有的HTML文件 ——这些文件在目标目录不存在或者版本比目标目录的文件更新——到目标目录呢？ 要完成这个任务，使用文件管理器相当难，使用命令行相当容易：<code>cp -u *.html destination</code></p>
+</blockquote>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><blockquote>
+<p>在开始使用命令之前，我们需要介绍一个使命令行如此强大的 shell 特性。因为 shell 频繁地使用 文件名，shell 提供了特殊字符来帮助你快速指定一组文件名。这些特殊字符叫做通配符。 使用通配符（也以文件名代换著称）允许你依据字符的组合模式来选择文件名。下表列出这些通配符 以及它们所选择的对象：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>匹配任意多个字符（包括零个或一个）</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配任意一个字符（不包括零个）</td>
+</tr>
+<tr>
+<td>[characters]</td>
+<td>匹配任意一个属于字符集中的字符</td>
+</tr>
+<tr>
+<td>[!characters]</td>
+<td>匹配任意一个不是字符集中的字符</td>
+</tr>
+<tr>
+<td>[[:class:]]</td>
+<td>匹配任意一个属于指定字符类中的字符</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>下表列出了最常使用的字符类：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字符类</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[:alnum:]</td>
+<td>匹配任意一个字母或数字</td>
+</tr>
+<tr>
+<td>[:alpha:]</td>
+<td>匹配任意一个字母</td>
+</tr>
+<tr>
+<td>[:digit:]</td>
+<td>匹配任意一个数字</td>
+</tr>
+<tr>
+<td>[:lower:]</td>
+<td>匹配任意一个小写字母</td>
+</tr>
+<tr>
+<td>[:upper:]</td>
+<td>匹配任意一个大写字母</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>借助通配符，为文件名构建非常复杂的选择标准成为可能。下面是一些类型匹配的范例:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>匹配对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>所有文件</td>
+</tr>
+<tr>
+<td>g*</td>
+<td>文件名以“g”开头的文件</td>
+</tr>
+<tr>
+<td>b*.txt</td>
+<td>以”b”开头，中间有零个或任意多个字符，并以”.txt”结尾的文件</td>
+</tr>
+<tr>
+<td>Data???</td>
+<td>以“Data”开头，其后紧接着3个字符的文件</td>
+</tr>
+<tr>
+<td>[abc]*</td>
+<td>文件名以”a”,”b”,或”c”开头的文件</td>
+</tr>
+<tr>
+<td>[[:upper:]]*</td>
+<td>以大写字母开头的文件</td>
+</tr>
+<tr>
+<td>[![:digit:]]*</td>
+<td>不以数字开头的文件</td>
+</tr>
+<tr>
+<td>*[[:lower:]123]</td>
+<td>文件名以小写字母结尾，或以 “1”，“2”，或 “3” 结尾的文件</td>
+</tr>
+</tbody></table>
+<h3 id="mkdir-指令"><a href="#mkdir-指令" class="headerlink" title="mkdir 指令"></a>mkdir 指令</h3><blockquote>
+<p>mkdir 命令是用来创建目录的。它这样工作：</p>
+</blockquote>
+<pre><code>mkdir directory...</code></pre><blockquote>
+<p>注意表示法: 在描述一个命令时（如上所示），当有三个圆点跟在一个命令的参数后面， 这意味着那个参数可以重复，就像这样：<code>mkdir dir1 dir2 dir3</code>会创建三个目录，名为 dir1, dir2, dir3。</p>
+</blockquote>
+<h3 id="cp-指令"><a href="#cp-指令" class="headerlink" title="cp 指令"></a>cp 指令</h3><blockquote>
+<p>cp 命令，复制文件或者目录。它有两种使用方法：</p>
+</blockquote>
+<pre><code>cp item1 item2 # 用法一</code></pre><blockquote>
+<p>用法一：复制<code>item1</code>到<code>item2</code>，其中<code>item</code>是文件或者是目录</p>
+</blockquote>
+<pre><code>cp item... directory # 用法二</code></pre><blockquote>
+<p>用法二：复制多个<code>item</code>（文件或目录）到同一个目录<code>directory</code>下。</p>
+</blockquote>
+<blockquote>
+<p>这里列举了 cp 命令一些有用的选项（短选项和等效的长选项）：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a, –archive</td>
+<td>复制文件和目录，以及它们的属性，包括所有权和权限。 通常，副本具有用户所操作文件的默认属性。</td>
+</tr>
+<tr>
+<td>-i, –interactive</td>
+<td>在重写已存在文件之前，提示用户确认。如果这个选项不指定， cp 命令会默认重写文件。</td>
+</tr>
+<tr>
+<td>-r, –recursive</td>
+<td>递归地复制目录及目录中的内容。当复制目录时， 需要这个选项（或者-a 选项）。</td>
+</tr>
+<tr>
+<td>-u, –update</td>
+<td>当把文件从一个目录复制到另一个目录时，仅复制 目标目录中不存在的文件，或者是文件内容新于目标目录中已经存在的文件。</td>
+</tr>
+<tr>
+<td>-v, –verbose</td>
+<td>显示翔实的命令操作信息</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>应用例子：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>运行结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cp file1 file2</td>
+<td>复制文件 file1 内容到文件 file2。如果 file2 已经存在， file2 的内容会被 file1 的内容重写。如果 file2 不存在，则会创建 file2。</td>
+</tr>
+<tr>
+<td>cp -i file1 file2</td>
+<td>这条命令和上面的命令一样，除了如果文件 file2 存在的话，在文件 file2 被重写之前， 会提示用户确认信息。</td>
+</tr>
+<tr>
+<td>cp file1 file2 dir1</td>
+<td>复制文件 file1 和文件 file2 到目录 dir1。目录 dir1 必须存在。</td>
+</tr>
+<tr>
+<td>cp dir1/* dir2</td>
+<td>使用一个通配符，在目录 dir1 中的所有文件都被复制到目录 dir2 中。 dir2 必须已经存在。</td>
+</tr>
+<tr>
+<td>cp -r dir1 dir2</td>
+<td>复制目录 dir1 中的内容到目录 dir2。如果目录 dir2 不存在， 创建目录 dir2，操作完成后，目录 dir2 中的内容和 dir1 中的一样。 如果目录 dir2 存在，则目录 dir1 (和目录中的内容)将会被复制到 dir2 中。</td>
+</tr>
+</tbody></table>
+<h3 id="mv-指令"><a href="#mv-指令" class="headerlink" title="mv 指令"></a>mv 指令</h3><blockquote>
+<p>mv 命令可以执行文件移动和文件命名任务，这依赖于你怎样使用它。任何一种 情况下，完成操作之后，原来的文件名不再存在。mv 使用方法与 cp 很相像：</p>
+<pre><code>mv item1 item2 # 方式一</code></pre><p>方式一：把文件或目录 “item1” 移动或重命名为 “item2”, 或者：</p>
+<pre><code>mv item... directory # 方式二</code></pre><p>方式二：把一个或多个条目从一个目录移动到另一个目录中。</p>
+</blockquote>
+<blockquote>
+<p>mv 与 cp 共享了很多一样的选项：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i –interactive</td>
+<td>在重写一个已经存在的文件之前，提示用户确认信息。 <strong>如果不指定这个选项，mv 命令会默认重写文件内容。</strong></td>
+</tr>
+<tr>
+<td>-u –update</td>
+<td>当把文件从一个目录移动另一个目录时，只是移动不存在的文件， 或者文件内容新于目标目录相对应文件的内容。</td>
+</tr>
+<tr>
+<td>-v –verbose</td>
+<td>当操作 mv 命令时，显示翔实的操作信息。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>操作实例：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>mv file1 file2</th>
+<th>移动 file1 到 file2。 <strong>如果 file2 存在，它的内容会被 file1 的内容重写。如果 file2 不存在，则创建 file2。这两种情况下，file1 都不再存在。</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mv -i file1 file2</td>
+<td>除了如果 file2 存在的话，在 file2 被重写之前，用户会得到 提示信息外，这个和上面的选项一样。</td>
+</tr>
+<tr>
+<td>mv file1 file2 dir1</td>
+<td>移动 file1 和 file2 到目录 dir1 中。dir1 必须已经存在。</td>
+</tr>
+<tr>
+<td>mv dir1 dir2</td>
+<td>如果目录 dir2 不存在，创建目录 dir2，并且移动目录 dir1 的内容到 目录 dir2 中，同时删除目录 dir1。如果目录 dir2 存在，移动目录 dir1（及它的内容）到目录 dir2。</td>
+</tr>
+</tbody></table>
+<h3 id="rm-指令"><a href="#rm-指令" class="headerlink" title="rm 指令"></a>rm 指令</h3><blockquote>
+<p>rm 命令用来移除（删除）文件和目录：</p>
+</blockquote>
+<pre><code>rm item...</code></pre><blockquote>
+<p>“item”代表一个或多个文件或目录。</p>
+</blockquote>
+<blockquote>
+<p>下表是一些普遍使用的 rm 选项：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i, –interactive</td>
+<td>在删除已存在的文件前，提示用户确认信息。 <strong>如果不指定这个选项，rm 会默默地删除文件</strong></td>
+</tr>
+<tr>
+<td>-r, –recursive</td>
+<td>递归地删除文件，这意味着，如果要删除一个目录，而此目录 又包含子目录，那么子目录也会被删除。要删除一个目录，必须指定这个选项。</td>
+</tr>
+<tr>
+<td>-f, –force</td>
+<td>忽视不存在的文件，不显示提示信息。这选项覆盖了“–interactive”选项。</td>
+</tr>
+<tr>
+<td>-v, –verbose</td>
+<td>在执行 rm 命令时，显示翔实的操作信息。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>操作实例：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>运行结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rm file1</td>
+<td>默默地删除文件</td>
+</tr>
+<tr>
+<td>rm -i file1</td>
+<td>除了在删除文件之前，提示用户确认信息之外，和上面的命令作用一样。</td>
+</tr>
+<tr>
+<td>rm -r file1 dir1</td>
+<td>删除文件 file1, 目录 dir1，及 dir1 中的内容。</td>
+</tr>
+<tr>
+<td>rm -rf file1 dir1</td>
+<td>同上，除了如果文件 file1，或目录 dir1 不存在的话，rm 仍会继续执行。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>小心 rm!</strong><br>类 Unix 的操作系统，比如说 Linux，没有复原命令。一旦你用 rm 删除了一些东西， 它就消失了。Linux 假定你很聪明，你知道你在做什么。<br>尤其要小心通配符。思考一下这个经典的例子。假如说，你只想删除一个目录中的 HTML 文件。输入：<code>rm *.html</code><br>这是正确的，如果你不小心在 “<em>” 和 “.html” 之间多输入了一个空格，就像这样：<code>rm * .html</code><br>这个 rm 命令会删除目录中的所有文件，还会抱怨没有文件叫做 “.html”。<br>*</em>[小贴士]** 当你使用带有通配符的rm命令时（除了仔细检查输入的内容外）， 先用 ls 命令来测试通配符。这会让你看到将要被删除的文件是什么。然后按下上箭头按键，重新调用 刚刚执行的命令，用 rm 替换 ls。</p>
+</blockquote>
+<h3 id="ln-指令"><a href="#ln-指令" class="headerlink" title="ln 指令"></a>ln 指令</h3><blockquote>
+<p>ln 命令既可创建硬链接，也可以创建符号链接。</p>
+<pre><code>ln file link # 创建硬链接
+ln -s item link # 创建符号链接，”item” 可以是一个文件或是一个目录。</code></pre><p>与更加现代的符号链接相比，硬链接是最初 Unix 创建链接的方式。每个文件默认会有一个硬链接， 这个硬链接给予文件名字。我们每创建一个硬链接，就为一个文件创建了一个额外的目录项。 硬链接有两个重要局限性：</p>
+<ol>
+<li>一个硬链接不能关联它所在文件系统之外的文件。这是说一个链接不能关联与链接本身不在同一个磁盘分区上的文件。</li>
+<li>一个硬链接不能关联一个目录。<br>一个硬链接和文件本身没有什么区别。不像符号链接，当你列出一个包含硬链接的目录内容时，你会看到没有特殊的链接指示说明。当一个硬链接被删除时，这个链接 被删除，但是文件本身的内容仍然存在（这是说，它所占的磁盘空间不会被重新分配）， 直到所有关联这个文件的链接都删除掉。知道硬链接很重要，因为你可能有时 会遇到它们，但现在实际中更喜欢使用符号链接，下一步我们会讨论符号链接。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>创建符号链接是为了克服硬链接的局限性。符号链接生效，是通过创建一个 特殊类型的文件，这个文件包含一个关联文件或目录的文本指针。在这一方面， 它们和 Windows 的快捷方式差不多，当然，符号链接早于 Windows 的快捷方式 很多年 ;-)<br>一个符号链接指向一个文件，而且这个符号链接本身与其它的符号链接几乎没有区别。 例如，如果你往一个符号链接里面写入东西，那么相关联的文件也被写入。然而， 当你删除一个符号链接时，只有这个链接被删除，而不是文件自身。如果先于符号链接 删除文件，这个链接仍然存在，但是不指向任何东西。在这种情况下，这个链接被称为 坏链接。在许多实现中，ls 命令会以不同的颜色展示坏链接，比如说红色，来显示它们 的存在。</p>
+</blockquote>
+<blockquote>
+<p>关于链接的概念，看起来很迷惑，但不要胆怯。我们将要试着练习 这些命令，希望，它变得清晰起来。</p>
+</blockquote>
+<h3 id="创建游戏场（实战演习）"><a href="#创建游戏场（实战演习）" class="headerlink" title="创建游戏场（实战演习）"></a>创建游戏场（实战演习）</h3><blockquote>
+<p>下面我们将要做些真正的文件操作，让我们先建立一个安全地带， 来玩一下文件操作命令。首先，我们需要一个工作目录。在我们的 家目录下创建一个叫做“playground”的目录。</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz ~]# cd
+[root@izwz9biz2m4sd3tu00600pz ~]# mkdir playground
+[root@izwz9biz2m4sd3tu00600pz ~]# cd playground
+[root@izwz9biz2m4sd3tu00600pz playground]# mkdir dir1 dir2
+[root@izwz9biz2m4sd3tu00600pz playground]# cp /etc/passwd .
+[root@izwz9biz2m4sd3tu00600pz playground]# ls -l
+total 12
+drwxr-xr-x 2 root root 4096 Mar  8 23:19 dir1
+drwxr-xr-x 2 root root 4096 Mar  8 23:19 dir2
+-rw-r--r-- 1 root root 1320 Mar  8 23:20 passwd
+[root@izwz9biz2m4sd3tu00600pz playground]# mv fun dir1
+[root@izwz9biz2m4sd3tu00600pz playground]# ls dir1
+fun
+[root@izwz9biz2m4sd3tu00600pz playground]# mv dir1/fun .
+[root@izwz9biz2m4sd3tu00600pz playground]# ls
+dir1  dir2  fun</code></pre><blockquote>
+<p>现在，我们试着创建链接。首先是硬链接。我们创建一些关联我们数据文件的链接：</p>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ln fun fun-hard
+[root@izwz9biz2m4sd3tu00600pz playground]# ln fun dir1/fun-hard
+[root@izwz9biz2m4sd3tu00600pz playground]# ln fun dir2/fun-hard
+[root@izwz9biz2m4sd3tu00600pz playground]# ls -l
+total 16
+drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir1
+drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir2
+-rw-r--r-- 4 root root 1320 Mar  8 23:21 fun
+-rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard</code></pre><p>注意到一件事，列表中，文件 fun 和 fun-hard 的第二个字段是”4”，这个数字 是文件”fun”的硬链接数目。你要记得一个文件至少有一个硬链接，因为文件 名就是由链接创建的。那么，我们怎样知道实际上 fun 和 fun-hard 是同一个文件呢？ 在这个例子里，ls 不是很有用。虽然我们能够看到 fun 和 fun-hard 文件大小一样 （第五字段），但我们的列表没有提供可靠的信息来确定（这两个文件一样）。 为了解决这个问题，我们更深入的研究一下。<br>当考虑到硬链接的时候，我们可以假设文件由两部分组成：包含文件内容的数据部分和持有文件名的名字部分 ，这将有助于我们理解这个概念。当我们创建文件硬链接的时候，实际上是为文件创建了额外的名字部分， 并且这些名字都关联到相同的数据部分。这时系统会分配一连串的磁盘块给所谓的索引节点，然后索引节点与文 件名字部分相关联。因此每一个硬链接都关系到一个具体的包含文件内容的索引节点。<br>ls 命令有一种方法，来展示（文件索引节点）的信息。在命令中加上”-i”选项：</p>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ls -li
+total 16
+131435 drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir1
+131436 drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir2
+131437 -rw-r--r-- 4 root root 1320 Mar  8 23:21 fun
+131437 -rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard</code></pre></blockquote>
+<pre><code>&gt; 在这个版本的列表中，第一字段表示文件索引节点号，正如我们所见到的， fun 和 fun-hard 共享一样的索引节点号，这就证实这两个文件是同一个文件。
+
+&gt; 建立符号链接的目的是为了克服硬链接的两个缺点：硬链接不能跨越物理设备， 硬链接不能关联目录，只能是文件。符号链接是文件的特殊类型，它包含一个指向 目标文件或目录的文本指针。
+&gt; 符号链接的建立过程相似于创建硬链接：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s fun fun-sym<br>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s ../fun dir1/fun-sym<br>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s ../fun dir2/fun-sym</p>
+<pre><code>&gt; 第一个例子相当直接，在 ln 命令中，简单地加上”-s”选项就可以创建一个符号链接， 而不是一个硬链接。下面两个例子又是怎样呢？ 记住，当我们创建一个符号链接 的时候，会建立一个目标文件在哪里和符号链接有关联的文本描述。如果我们看看 ls 命令的输出结果，比较容易理解。</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l dir1<br>total 4<br>-rw-r–r– 4 root root 1320 Mar  8 23:21 fun-hard<br>lrwxrwxrwx 1 root root    6 Mar  8 23:34 fun-sym -&gt; ../fun</p>
+<pre><code>&gt; 目录 dir1 中，fun-sym 的列表说明了它是一个符号链接，通过在第一字段中的首字符”l” 可知，并且它还指向”../fun”，也是正确的。相对于 fun-sym 的存储位置，fun 在它的 上一个目录。同时注意，符号链接文件的长度是6，这是字符串”../fun”所包含的字符数， 而不是符号链接所指向的文件长度。
+&gt; 当建立符号链接时，你既可以使用绝对路径名：`ln -s /home/me/playground/fun dir1/fun-sym`，也可用相对路径名，正如前面例题所展示的。使用相对路径名更令人满意， 因为它允许一个包含符号链接的目录重命名或移动，而不会破坏链接。
+&gt; 除了普通文件，符号链接也能关联目录：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s dir1 dir1-sym<br>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l<br>total 16<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir1<br>lrwxrwxrwx 1 root root    4 Mar  8 23:40 dir1-sym -&gt; dir1<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir2<br>-rw-r–r– 4 root root 1320 Mar  8 23:21 fun<br>-rw-r–r– 4 root root 1320 Mar  8 23:21 fun-hard<br>lrwxrwxrwx 1 root root    3 Mar  8 23:34 fun-sym -&gt; fun</p>
+<pre><code>&gt; 正如我们之前讨论的，rm 命令被用来删除文件和目录。我们将要使用它 来清理一下我们的游戏场。首先，删除一个硬链接：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# rm fun-hard<br>rm: remove regular file ‘fun-hard’? y<br>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l<br>total 12<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir1<br>lrwxrwxrwx 1 root root    4 Mar  8 23:40 dir1-sym -&gt; dir1<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir2<br>-rw-r–r– 3 root root 1320 Mar  8 23:21 fun<br>lrwxrwxrwx 1 root root    3 Mar  8 23:34 fun-sym -&gt; fun<br>[root@izwz9biz2m4sd3tu00600pz playground]# rm fun-sym dir1-sym<br>rm: remove symbolic link ‘fun-sym’? y<br>rm: remove symbolic link ‘dir1-sym’? y<br>[root@izwz9biz2m4sd3tu00600pz playground]# ls<br>dir1  dir2  fun</p>
+<pre><code>&gt; 对于符号链接，有一点值得记住，执行的大多数文件操作是针对链接的对象，而不是链接本身。 而 rm 命令是个特例。当你删除链接的时候，删除链接本身，而不是链接的对象。
+
+&gt; 最后，我们将删除我们的游戏场。为了完成这个工作，我们将返回到 我们的家目录，然后用 rm 命令加上选项(-r)，来删除目录 playground， 和目录下的所有内容，包括子目录：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# cd<br>[root@izwz9biz2m4sd3tu00600pz ~]# rm -r  playground<br>rm: descend into directory ‘playground’? y<br>rm: descend into directory ‘playground/dir1’? y<br>rm: remove symbolic link ‘playground/dir1/fun-sym’? y<br>rm: remove regular file ‘playground/dir1/fun-hard’? y<br>rm: remove directory ‘playground/dir1’? y<br>rm: descend into directory ‘playground/dir2’? y<br>rm: remove symbolic link ‘playground/dir2/fun-sym’? y<br>rm: remove regular file ‘playground/dir2/fun-hard’? y<br>rm: remove directory ‘playground/dir2’? y<br>rm: remove regular file ‘playground/fun’? y<br>rm: remove directory ‘playground’? y</p>
+<pre><code>&gt; 在这一章中，我们已经研究了许多基础知识。我们得花费一些时间来全面地理解。 反复练习 playground 例题，直到你觉得它有意义。能够良好地理解基本文件操作 命令和通配符，非常重要。随意通过添加文件和目录来拓展 playground 练习， 使用通配符来为各种各样的操作命令指定文件。关于链接的概念，在刚开始接触 时会觉得有点迷惑，花些时间来学习它们是怎样工作的。它们能成为真正的救星。
+
+
+
+
+
+
+
+**TO BE CONTINUED...**
+</code></pre>
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Linux-入门速成》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/linux/linux-ru-men-su-cheng/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                Karbo
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/ml/mlcomparsion/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="正确选择ML算法">
+                        
+                        <span class="card-title">正确选择ML算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文教你如何选择合适自己的机器学习算法。
+
+
+
+分类逻辑斯蒂回归（Logistic regression）
+属于判别式模型，有很多正则化模型的方法（L0，L1，L2，etc），而且你不必像在用朴素贝叶斯那样担心你的特征是否相关。与决策树与S
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ml/" class="post-category" target="_blank">
+                                    ml
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ml/" target="_blank">
+                        <span class="chip bg-color">ml</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/markdown/markdown-yu-fa-ru-men/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Markdown-语法入门">
+                        
+                        <span class="card-title">Markdown-语法入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。
+
+
+
+行文结构
+标题使用井号 “#” 来调整标题的大小。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/markdown/" class="post-category" target="_blank">
+                                    markdown
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/markdown/" target="_blank">
+                        <span class="chip bg-color">markdown</span>
+                    </a>
+                    
+                    <a href="/tags/programing/" target="_blank">
+                        <span class="chip bg-color">programing</span>
+                    </a>
+                    
+                    <a href="/tags/writing/" target="_blank">
+                        <span class="chip bg-color">writing</span>
+                    </a>
+                    
+                    <a href="/tags/grammar/" target="_blank">
+                        <span class="chip bg-color">grammar</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">38.1k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Karbo123" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:lei@karbo.online" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=984419313" class="tooltipped" data-tooltip="QQ联系我: 984419313" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
