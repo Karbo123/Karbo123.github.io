@@ -8,10 +8,8 @@
     <meta name="description" content="本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。
 （大多内容选自 The Linux Command Line 的中文版 ）
 
-
-
 引言一个故事
-我想给大家讲个故事。故事内容不是 Linus Torvalds 在1">
+我想给大家讲个故事。故事内容不是 Linus Torvalds 在199">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -266,7 +264,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/linux/linux-quickstart/cover.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -387,12 +385,12 @@
                                 <span class="chip bg-color">linux</span>
                             </a>
                         
-                            <a href="/tags/programing/" target="_blank">
-                                <span class="chip bg-color">programing</span>
-                            </a>
-                        
                             <a href="/tags/grammar/" target="_blank">
                                 <span class="chip bg-color">grammar</span>
+                            </a>
+                        
+                            <a href="/tags/programing/" target="_blank">
+                                <span class="chip bg-color">programing</span>
                             </a>
                         
                             <a href="/tags/os/" target="_blank">
@@ -433,7 +431,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        37 分
+                        38 分
                     </div>
                     
                 
@@ -452,8 +450,6 @@
                 <p>本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。</p>
 <p>（大多内容选自 <a href="http://billie66.github.io/TLCL/book/index.html" target="_blank" rel="noopener">The Linux Command Line 的中文版</a> ）</p>
 <p><img src="1.png" alt></p>
-<a id="more"></a>
-
 <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="一个故事"><a href="#一个故事" class="headerlink" title="一个故事"></a>一个故事</h2><blockquote>
 <p>我想给大家讲个故事。<br>故事内容不是 Linus Torvalds 在1991年怎样写了 Linux 内核的第一个版本， 因为这些内容你可以在许多 Linux 书籍中读到。我也不是来告诉你，更早之前，Richard Stallman 是如何开始 GNU 项目，设计了一个免费的类Unix 的操作系统。那也是一个很有意义的故事， 但大多数 Linux 书籍也讲到了它。<br>我想告诉大家一个你如何才能夺回计算机管理权的故事。<br>在20世纪70年代末，我刚开始和计算机打交道时，正进行着一场革命，那时的我还是一名大学生。 微处理器的发明，使普通老百姓（就如你和我）真正拥有一台计算机成为可能。今天， 人们难以想象，只有大企业和强大的政府才能够拥有计算机的世界，是怎样的一个世界。 简单说，你做不了多少事情。<br>今天，世界已经截然不同了。计算机遍布各个领域，从小手表到大型数据中心，及大小介于它们之间的每件东西。 除了随处可见的计算机之外，我们还有一个无处不在的连接所有计算机的网络。这已经开创了一个奇妙的， 个人授权和创作自由的新时代，但是在过去的二三十年里，正在发生另一些事情。一个大公司不断地把它的 管理权强加到世界上绝大多数的计算机上，并且决定你对计算机的操作权力。幸运地是，来自世界各地的人们， 正积极努力地做些事情来改变这种境况。通过编写自己的软件，他们一直在为维护电脑的管理权而战斗着。 他们建设着 Linux。<br>一提到 Linux，许多人都会说到“自由”，但我不认为他们都知道“自由”的真正涵义。“自由”是一种权力， 它决定你的计算机能做什么，同时能够拥有这种“自由”的唯一方式就是知道计算机正在做什么。 “自由”是指一台没有任何秘密的计算机，你可以从它那里了解一切，只要你用心的去寻找。</p>
 </blockquote>
@@ -819,12 +815,12 @@ l2tp.log: UTF-8 Unicode text, with escape sequences</code></pre><blockquote>
 </tbody></table>
 <h2 id="操作文件和目录"><a href="#操作文件和目录" class="headerlink" title="操作文件和目录"></a>操作文件和目录</h2><blockquote>
 <p>此时此刻，我们已经准备好了做些真正的工作！这一章节将会介绍以下命令：</p>
+</blockquote>
 <pre><code>cp &lt;src&gt; &lt;dst&gt; # 复制文件和目录
 mv &lt;src&gt; &lt;dst&gt; # 移动/重命名文件和目录
 mkdir &lt;folder_name&gt; # 创建目录
 rm &lt;dir/file&gt; # 删除文件和目录
-ln # 创建硬链接和符号链接</code></pre></blockquote>
-<blockquote>
+ln # 创建硬链接和符号链接</code></pre><blockquote>
 <p>这五个命令属于最常使用的 Linux 命令之列。它们用来操作文件和目录。<br>现在，坦诚地说，用图形文件管理器来完成一些由这些命令执行的任务会更容易些。使用文件管理器， 我们可以把文件从一个目录拖放到另一个目录、剪贴和粘贴文件、删除文件等等。那么， 为什么还使用早期的命令行程序呢？<br>答案是命令行程序，功能强大灵活。虽然图形文件管理器能轻松地实现简单的文件操作，但是对于 复杂的文件操作任务，则使用命令行程序比较容易完成。例如，怎样拷贝一个目录下所有的HTML文件 ——这些文件在目标目录不存在或者版本比目标目录的文件更新——到目标目录呢？ 要完成这个任务，使用文件管理器相当难，使用命令行相当容易：<code>cp -u *.html destination</code></p>
 </blockquote>
 <h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><blockquote>
@@ -1011,8 +1007,12 @@ ln # 创建硬链接和符号链接</code></pre></blockquote>
 </tbody></table>
 <h3 id="mv-指令"><a href="#mv-指令" class="headerlink" title="mv 指令"></a>mv 指令</h3><blockquote>
 <p>mv 命令可以执行文件移动和文件命名任务，这依赖于你怎样使用它。任何一种 情况下，完成操作之后，原来的文件名不再存在。mv 使用方法与 cp 很相像：</p>
-<pre><code>mv item1 item2 # 方式一</code></pre><p>方式一：把文件或目录 “item1” 移动或重命名为 “item2”, 或者：</p>
-<pre><code>mv item... directory # 方式二</code></pre><p>方式二：把一个或多个条目从一个目录移动到另一个目录中。</p>
+</blockquote>
+<pre><code>mv item1 item2 # 方式一</code></pre><blockquote>
+<p>方式一：把文件或目录 “item1” 移动或重命名为 “item2”, 或者：</p>
+</blockquote>
+<pre><code>mv item... directory # 方式二</code></pre><blockquote>
+<p>方式二：把一个或多个条目从一个目录移动到另一个目录中。</p>
 </blockquote>
 <blockquote>
 <p>mv 与 cp 共享了很多一样的选项：</p>
@@ -1125,8 +1125,10 @@ ln # 创建硬链接和符号链接</code></pre></blockquote>
 </blockquote>
 <h3 id="ln-指令"><a href="#ln-指令" class="headerlink" title="ln 指令"></a>ln 指令</h3><blockquote>
 <p>ln 命令既可创建硬链接，也可以创建符号链接。</p>
+</blockquote>
 <pre><code>ln file link # 创建硬链接
-ln -s item link # 创建符号链接，”item” 可以是一个文件或是一个目录。</code></pre><p>与更加现代的符号链接相比，硬链接是最初 Unix 创建链接的方式。每个文件默认会有一个硬链接， 这个硬链接给予文件名字。我们每创建一个硬链接，就为一个文件创建了一个额外的目录项。 硬链接有两个重要局限性：</p>
+ln -s item link # 创建符号链接，”item” 可以是一个文件或是一个目录。</code></pre><blockquote>
+<p>与更加现代的符号链接相比，硬链接是最初 Unix 创建链接的方式。每个文件默认会有一个硬链接， 这个硬链接给予文件名字。我们每创建一个硬链接，就为一个文件创建了一个额外的目录项。 硬链接有两个重要局限性：</p>
 <ol>
 <li>一个硬链接不能关联它所在文件系统之外的文件。这是说一个链接不能关联与链接本身不在同一个磁盘分区上的文件。</li>
 <li>一个硬链接不能关联一个目录。<br>一个硬链接和文件本身没有什么区别。不像符号链接，当你列出一个包含硬链接的目录内容时，你会看到没有特殊的链接指示说明。当一个硬链接被删除时，这个链接 被删除，但是文件本身的内容仍然存在（这是说，它所占的磁盘空间不会被重新分配）， 直到所有关联这个文件的链接都删除掉。知道硬链接很重要，因为你可能有时 会遇到它们，但现在实际中更喜欢使用符号链接，下一步我们会讨论符号链接。</li>
@@ -1158,6 +1160,7 @@ fun
 [root@izwz9biz2m4sd3tu00600pz playground]# ls
 dir1  dir2  fun</code></pre><blockquote>
 <p>现在，我们试着创建链接。首先是硬链接。我们创建一些关联我们数据文件的链接：</p>
+</blockquote>
 <pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ln fun fun-hard
 [root@izwz9biz2m4sd3tu00600pz playground]# ln fun dir1/fun-hard
 [root@izwz9biz2m4sd3tu00600pz playground]# ln fun dir2/fun-hard
@@ -1166,35 +1169,78 @@ total 16
 drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir1
 drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir2
 -rw-r--r-- 4 root root 1320 Mar  8 23:21 fun
--rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard</code></pre><p>注意到一件事，列表中，文件 fun 和 fun-hard 的第二个字段是”4”，这个数字 是文件”fun”的硬链接数目。你要记得一个文件至少有一个硬链接，因为文件 名就是由链接创建的。那么，我们怎样知道实际上 fun 和 fun-hard 是同一个文件呢？ 在这个例子里，ls 不是很有用。虽然我们能够看到 fun 和 fun-hard 文件大小一样 （第五字段），但我们的列表没有提供可靠的信息来确定（这两个文件一样）。 为了解决这个问题，我们更深入的研究一下。<br>当考虑到硬链接的时候，我们可以假设文件由两部分组成：包含文件内容的数据部分和持有文件名的名字部分 ，这将有助于我们理解这个概念。当我们创建文件硬链接的时候，实际上是为文件创建了额外的名字部分， 并且这些名字都关联到相同的数据部分。这时系统会分配一连串的磁盘块给所谓的索引节点，然后索引节点与文 件名字部分相关联。因此每一个硬链接都关系到一个具体的包含文件内容的索引节点。<br>ls 命令有一种方法，来展示（文件索引节点）的信息。在命令中加上”-i”选项：</p>
+-rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard</code></pre><blockquote>
+<p>注意到一件事，列表中，文件 fun 和 fun-hard 的第二个字段是”4”，这个数字 是文件”fun”的硬链接数目。你要记得一个文件至少有一个硬链接，因为文件 名就是由链接创建的。那么，我们怎样知道实际上 fun 和 fun-hard 是同一个文件呢？ 在这个例子里，ls 不是很有用。虽然我们能够看到 fun 和 fun-hard 文件大小一样 （第五字段），但我们的列表没有提供可靠的信息来确定（这两个文件一样）。 为了解决这个问题，我们更深入的研究一下。<br>当考虑到硬链接的时候，我们可以假设文件由两部分组成：包含文件内容的数据部分和持有文件名的名字部分 ，这将有助于我们理解这个概念。当我们创建文件硬链接的时候，实际上是为文件创建了额外的名字部分， 并且这些名字都关联到相同的数据部分。这时系统会分配一连串的磁盘块给所谓的索引节点，然后索引节点与文 件名字部分相关联。因此每一个硬链接都关系到一个具体的包含文件内容的索引节点。<br>ls 命令有一种方法，来展示（文件索引节点）的信息。在命令中加上”-i”选项：</p>
+</blockquote>
 <pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ls -li
 total 16
 131435 drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir1
 131436 drwxr-xr-x 2 root root 4096 Mar  8 23:26 dir2
 131437 -rw-r--r-- 4 root root 1320 Mar  8 23:21 fun
-131437 -rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard</code></pre></blockquote>
-<pre><code>&gt; 在这个版本的列表中，第一字段表示文件索引节点号，正如我们所见到的， fun 和 fun-hard 共享一样的索引节点号，这就证实这两个文件是同一个文件。
+131437 -rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard</code></pre><blockquote>
+<p>在这个版本的列表中，第一字段表示文件索引节点号，正如我们所见到的， fun 和 fun-hard 共享一样的索引节点号，这就证实这两个文件是同一个文件。</p>
+</blockquote>
+<blockquote>
+<p>建立符号链接的目的是为了克服硬链接的两个缺点：硬链接不能跨越物理设备， 硬链接不能关联目录，只能是文件。符号链接是文件的特殊类型，它包含一个指向 目标文件或目录的文本指针。<br>符号链接的建立过程相似于创建硬链接：</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s fun fun-sym
+[root@izwz9biz2m4sd3tu00600pz playground]# ln -s ../fun dir1/fun-sym
+[root@izwz9biz2m4sd3tu00600pz playground]# ln -s ../fun dir2/fun-sym</code></pre><blockquote>
+<p>第一个例子相当直接，在 ln 命令中，简单地加上”-s”选项就可以创建一个符号链接， 而不是一个硬链接。下面两个例子又是怎样呢？ 记住，当我们创建一个符号链接 的时候，会建立一个目标文件在哪里和符号链接有关联的文本描述。如果我们看看 ls 命令的输出结果，比较容易理解。</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l dir1
+total 4
+-rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard
+lrwxrwxrwx 1 root root    6 Mar  8 23:34 fun-sym -&gt; ../fun</code></pre><blockquote>
+<p>目录 dir1 中，fun-sym 的列表说明了它是一个符号链接，通过在第一字段中的首字符”l” 可知，并且它还指向”../fun”，也是正确的。相对于 fun-sym 的存储位置，fun 在它的 上一个目录。同时注意，符号链接文件的长度是6，这是字符串”../fun”所包含的字符数， 而不是符号链接所指向的文件长度。<br>当建立符号链接时，你既可以使用绝对路径名：<code>ln -s /home/me/playground/fun dir1/fun-sym</code>，也可用相对路径名，正如前面例题所展示的。使用相对路径名更令人满意， 因为它允许一个包含符号链接的目录重命名或移动，而不会破坏链接。<br>除了普通文件，符号链接也能关联目录：</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s dir1 dir1-sym
+[root@izwz9biz2m4sd3tu00600pz playground]# ls -l
+total 16
+drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir1
+lrwxrwxrwx 1 root root    4 Mar  8 23:40 dir1-sym -&gt; dir1
+drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir2
+-rw-r--r-- 4 root root 1320 Mar  8 23:21 fun
+-rw-r--r-- 4 root root 1320 Mar  8 23:21 fun-hard
+lrwxrwxrwx 1 root root    3 Mar  8 23:34 fun-sym -&gt; fun</code></pre><blockquote>
+<p>正如我们之前讨论的，rm 命令被用来删除文件和目录。我们将要使用它 来清理一下我们的游戏场。首先，删除一个硬链接：</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# rm fun-hard
+rm: remove regular file ‘fun-hard’? y
+[root@izwz9biz2m4sd3tu00600pz playground]# ls -l
+total 12
+drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir1
+lrwxrwxrwx 1 root root    4 Mar  8 23:40 dir1-sym -&gt; dir1
+drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir2
+-rw-r--r-- 3 root root 1320 Mar  8 23:21 fun
+lrwxrwxrwx 1 root root    3 Mar  8 23:34 fun-sym -&gt; fun
+[root@izwz9biz2m4sd3tu00600pz playground]# rm fun-sym dir1-sym
+rm: remove symbolic link ‘fun-sym’? y
+rm: remove symbolic link ‘dir1-sym’? y
+[root@izwz9biz2m4sd3tu00600pz playground]# ls
+dir1  dir2  fun</code></pre><blockquote>
+<p>对于符号链接，有一点值得记住，执行的大多数文件操作是针对链接的对象，而不是链接本身。 而 rm 命令是个特例。当你删除链接的时候，删除链接本身，而不是链接的对象。</p>
+</blockquote>
+<blockquote>
+<p>最后，我们将删除我们的游戏场。为了完成这个工作，我们将返回到 我们的家目录，然后用 rm 命令加上选项(-r)，来删除目录 playground， 和目录下的所有内容，包括子目录：</p>
+</blockquote>
+<pre><code>[root@izwz9biz2m4sd3tu00600pz playground]# cd
+[root@izwz9biz2m4sd3tu00600pz ~]# rm -r  playground
+rm: descend into directory ‘playground’? y
+rm: descend into directory ‘playground/dir1’? y
+rm: remove symbolic link ‘playground/dir1/fun-sym’? y
+rm: remove regular file ‘playground/dir1/fun-hard’? y
+rm: remove directory ‘playground/dir1’? y
+rm: descend into directory ‘playground/dir2’? y
+rm: remove symbolic link ‘playground/dir2/fun-sym’? y
+rm: remove regular file ‘playground/dir2/fun-hard’? y
+rm: remove directory ‘playground/dir2’? y
+rm: remove regular file ‘playground/fun’? y
+rm: remove directory ‘playground’? y</code></pre><blockquote>
+<p>在这一章中，我们已经研究了许多基础知识。我们得花费一些时间来全面地理解。 反复练习 playground 例题，直到你觉得它有意义。能够良好地理解基本文件操作 命令和通配符，非常重要。随意通过添加文件和目录来拓展 playground 练习， 使用通配符来为各种各样的操作命令指定文件。关于链接的概念，在刚开始接触 时会觉得有点迷惑，花些时间来学习它们是怎样工作的。它们能成为真正的救星。</p>
+</blockquote>
+<p><strong>TO BE CONTINUED…</strong></p>
 
-&gt; 建立符号链接的目的是为了克服硬链接的两个缺点：硬链接不能跨越物理设备， 硬链接不能关联目录，只能是文件。符号链接是文件的特殊类型，它包含一个指向 目标文件或目录的文本指针。
-&gt; 符号链接的建立过程相似于创建硬链接：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s fun fun-sym<br>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s ../fun dir1/fun-sym<br>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s ../fun dir2/fun-sym</p>
-<pre><code>&gt; 第一个例子相当直接，在 ln 命令中，简单地加上”-s”选项就可以创建一个符号链接， 而不是一个硬链接。下面两个例子又是怎样呢？ 记住，当我们创建一个符号链接 的时候，会建立一个目标文件在哪里和符号链接有关联的文本描述。如果我们看看 ls 命令的输出结果，比较容易理解。</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l dir1<br>total 4<br>-rw-r–r– 4 root root 1320 Mar  8 23:21 fun-hard<br>lrwxrwxrwx 1 root root    6 Mar  8 23:34 fun-sym -&gt; ../fun</p>
-<pre><code>&gt; 目录 dir1 中，fun-sym 的列表说明了它是一个符号链接，通过在第一字段中的首字符”l” 可知，并且它还指向”../fun”，也是正确的。相对于 fun-sym 的存储位置，fun 在它的 上一个目录。同时注意，符号链接文件的长度是6，这是字符串”../fun”所包含的字符数， 而不是符号链接所指向的文件长度。
-&gt; 当建立符号链接时，你既可以使用绝对路径名：`ln -s /home/me/playground/fun dir1/fun-sym`，也可用相对路径名，正如前面例题所展示的。使用相对路径名更令人满意， 因为它允许一个包含符号链接的目录重命名或移动，而不会破坏链接。
-&gt; 除了普通文件，符号链接也能关联目录：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# ln -s dir1 dir1-sym<br>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l<br>total 16<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir1<br>lrwxrwxrwx 1 root root    4 Mar  8 23:40 dir1-sym -&gt; dir1<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir2<br>-rw-r–r– 4 root root 1320 Mar  8 23:21 fun<br>-rw-r–r– 4 root root 1320 Mar  8 23:21 fun-hard<br>lrwxrwxrwx 1 root root    3 Mar  8 23:34 fun-sym -&gt; fun</p>
-<pre><code>&gt; 正如我们之前讨论的，rm 命令被用来删除文件和目录。我们将要使用它 来清理一下我们的游戏场。首先，删除一个硬链接：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# rm fun-hard<br>rm: remove regular file ‘fun-hard’? y<br>[root@izwz9biz2m4sd3tu00600pz playground]# ls -l<br>total 12<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir1<br>lrwxrwxrwx 1 root root    4 Mar  8 23:40 dir1-sym -&gt; dir1<br>drwxr-xr-x 2 root root 4096 Mar  8 23:34 dir2<br>-rw-r–r– 3 root root 1320 Mar  8 23:21 fun<br>lrwxrwxrwx 1 root root    3 Mar  8 23:34 fun-sym -&gt; fun<br>[root@izwz9biz2m4sd3tu00600pz playground]# rm fun-sym dir1-sym<br>rm: remove symbolic link ‘fun-sym’? y<br>rm: remove symbolic link ‘dir1-sym’? y<br>[root@izwz9biz2m4sd3tu00600pz playground]# ls<br>dir1  dir2  fun</p>
-<pre><code>&gt; 对于符号链接，有一点值得记住，执行的大多数文件操作是针对链接的对象，而不是链接本身。 而 rm 命令是个特例。当你删除链接的时候，删除链接本身，而不是链接的对象。
-
-&gt; 最后，我们将删除我们的游戏场。为了完成这个工作，我们将返回到 我们的家目录，然后用 rm 命令加上选项(-r)，来删除目录 playground， 和目录下的所有内容，包括子目录：</code></pre><p>[root@izwz9biz2m4sd3tu00600pz playground]# cd<br>[root@izwz9biz2m4sd3tu00600pz ~]# rm -r  playground<br>rm: descend into directory ‘playground’? y<br>rm: descend into directory ‘playground/dir1’? y<br>rm: remove symbolic link ‘playground/dir1/fun-sym’? y<br>rm: remove regular file ‘playground/dir1/fun-hard’? y<br>rm: remove directory ‘playground/dir1’? y<br>rm: descend into directory ‘playground/dir2’? y<br>rm: remove symbolic link ‘playground/dir2/fun-sym’? y<br>rm: remove regular file ‘playground/dir2/fun-hard’? y<br>rm: remove directory ‘playground/dir2’? y<br>rm: remove regular file ‘playground/fun’? y<br>rm: remove directory ‘playground’? y</p>
-<pre><code>&gt; 在这一章中，我们已经研究了许多基础知识。我们得花费一些时间来全面地理解。 反复练习 playground 例题，直到你觉得它有意义。能够良好地理解基本文件操作 命令和通配符，非常重要。随意通过添加文件和目录来拓展 playground 练习， 使用通配符来为各种各样的操作命令指定文件。关于链接的概念，在刚开始接触 时会觉得有点迷惑，花些时间来学习它们是怎样工作的。它们能成为真正的救星。
-
-
-
-
-
-
-
-**TO BE CONTINUED...**
-</code></pre>
             </div>
             <hr/>
 
@@ -1354,7 +1400,7 @@ total 16
                   property="dct:title" rel="dct:type">
                     《Linux-入门速成》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/linux/linux-ru-men-su-cheng/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/linux/linux-quickstart/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Karbo
             </a> 采用
@@ -1401,8 +1447,7 @@ total 16
                 <a href="/ml/mlcomparsion/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="正确选择ML算法">
+                        <img src="/ml/mlComparsion/20.png" class="responsive-img" alt="正确选择ML算法">
                         
                         <span class="card-title">正确选择ML算法</span>
                     </div>
@@ -1411,11 +1456,6 @@ total 16
                     <div class="summary block-with-text">
                         
                             本文教你如何选择合适自己的机器学习算法。
-
-
-
-分类逻辑斯蒂回归（Logistic regression）
-属于判别式模型，有很多正则化模型的方法（L0，L1，L2，etc），而且你不必像在用朴素贝叶斯那样担心你的特征是否相关。与决策树与S
                         
                     </div>
                     <div class="publish-info">
@@ -1452,24 +1492,19 @@ total 16
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/markdown/markdown-yu-fa-ru-men/">
+                <a href="/markdown/markdown-beginner/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Markdown-语法入门">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Markdown-快速入门">
                         
-                        <span class="card-title">Markdown-语法入门</span>
+                        <span class="card-title">Markdown-快速入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。
-
-
-
-行文结构
-标题使用井号 “#” 来调整标题的大小。
+                            Markdown 是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。
                         
                     </div>
                     <div class="publish-info">
@@ -1491,16 +1526,16 @@ total 16
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/programing/" target="_blank">
-                        <span class="chip bg-color">programing</span>
-                    </a>
-                    
                     <a href="/tags/grammar/" target="_blank">
                         <span class="chip bg-color">grammar</span>
                     </a>
                     
                     <a href="/tags/markdown/" target="_blank">
                         <span class="chip bg-color">markdown</span>
+                    </a>
+                    
+                    <a href="/tags/programing/" target="_blank">
+                        <span class="chip bg-color">programing</span>
                     </a>
                     
                     <a href="/tags/writing/" target="_blank">

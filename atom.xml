@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-09T11:25:37.225Z</updated>
+  <updated>2019-08-09T15:17:19.540Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -17,57 +17,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>aaaa</title>
-    <link href="https://blog.karbo.online/uncate/aaaa/"/>
-    <id>https://blog.karbo.online/uncate/aaaa/</id>
-    <published>2019-08-09T11:25:37.000Z</published>
-    <updated>2019-08-09T11:25:37.225Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="uncate" scheme="https://blog.karbo.online/categories/uncate/"/>
-    
-    
-      <category term="untag" scheme="https://blog.karbo.online/tags/untag/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工具</title>
-    <link href="https://blog.karbo.online/uncategorized/tools/"/>
-    <id>https://blog.karbo.online/uncategorized/tools/</id>
-    <published>2019-08-09T11:08:39.959Z</published>
-    <updated>2019-03-06T10:59:34.828Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;数学&quot;&gt;&lt;a href=&quot;#数学&quot; class=&quot;headerlink&quot; title=&quot;数学&quot;&gt;&lt;/a&gt;数学&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.geogebra.org/&quot; target=&quot;_blank&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>如何从源码编译linux内核并使其从u盘启动</title>
     <link href="https://blog.karbo.online/linux/linux-u-drive/"/>
     <id>https://blog.karbo.online/linux/linux-u-drive/</id>
     <published>2019-05-04T06:50:40.000Z</published>
-    <updated>2019-07-04T17:30:47.531Z</updated>
+    <updated>2019-08-09T15:17:19.540Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文教你如何从源代码编译 linux 内核，并将其装在 u 盘中，从而变成 “便携式 linux 系统”。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;kernel.jpg&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;准备 linux 环境，可以在 VMware 虚拟机里运行。&lt;br&gt;我这里用的是 Archlinux 系统，不同系统大同小异。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;编译内核&quot;&gt;&lt;a href=&quot;#编译内核&quot;
+        
+      
     
     </summary>
     
@@ -85,12 +52,18 @@
     <link href="https://blog.karbo.online/django/python-django/"/>
     <id>https://blog.karbo.online/django/python-django/</id>
     <published>2019-04-23T09:20:22.000Z</published>
-    <updated>2019-05-04T06:56:24.771Z</updated>
+    <updated>2019-08-09T16:04:35.492Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文教你用Django搭建第一个网站，投票网站。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;本文教你用Django搭建第一个网站，投票网站。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;0.png&quot;
+        
+      
     
     </summary>
     
@@ -99,9 +72,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   
@@ -110,11 +83,18 @@
     <link href="https://blog.karbo.online/python/python-web/"/>
     <id>https://blog.karbo.online/python/python-web/</id>
     <published>2019-04-15T12:35:13.000Z</published>
-    <updated>2019-05-04T06:57:01.955Z</updated>
+    <updated>2019-08-09T16:07:01.475Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文教你使用Python进行网络编程。&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;本文教你使用Python进行网络编程。&lt;/p&gt;
+&lt;h1 id=&quot;API请求&quot;&gt;&lt;a href=&quot;#API请求&quot; class=&quot;headerlink&quot; title=&quot;API请求&quot;&gt;&lt;/a&gt;API请求&lt;/h1&gt;&lt;h2 id=&quot;安装requests包&quot;&gt;&lt;a
+        
+      
     
     </summary>
     
@@ -134,23 +114,28 @@
     <link href="https://blog.karbo.online/python/learn-python-and-numpy/"/>
     <id>https://blog.karbo.online/python/learn-python-and-numpy/</id>
     <published>2019-04-08T13:06:05.000Z</published>
-    <updated>2019-05-04T06:57:46.916Z</updated>
+    <updated>2019-08-09T15:36:16.125Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文旨在给忘记Python和NumPy相关语法的你一个速查手册。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;h1 id=&quot;Python3语法&quot;&gt;&lt;a href=&quot;#Python3语法&quot; class=&quot;headerlink&quot; title=&quot;Python3语法&quot;&gt;&lt;/a&gt;Python3语法&lt;/h1&gt;&lt;h2 id=&quot;语法特点&quot;&gt;&lt;a href=&quot;#语法特点&quot;
+        
+      
     
     </summary>
     
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -159,7 +144,7 @@
     <link href="https://blog.karbo.online/algorithm/colorclassify/"/>
     <id>https://blog.karbo.online/algorithm/colorclassify/</id>
     <published>2019-04-04T08:52:41.000Z</published>
-    <updated>2019-08-09T14:16:34.491Z</updated>
+    <updated>2019-08-09T14:21:08.639Z</updated>
     
     <summary type="html">
     
@@ -189,12 +174,17 @@
     <link href="https://blog.karbo.online/dl/kaggle-gpu/"/>
     <id>https://blog.karbo.online/dl/kaggle-gpu/</id>
     <published>2019-04-03T05:32:07.000Z</published>
-    <updated>2019-05-04T06:58:43.755Z</updated>
+    <updated>2019-08-09T14:29:57.391Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Kaggle上有免费供大家使用的GPU计算资源，本文教你如何使用它来训练自己的神经网络。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;h1 id=&quot;Kaggle是什么&quot;&gt;&lt;a href=&quot;#Kaggle是什么&quot; class=&quot;headerlink&quot;
+        
+      
     
     </summary>
     
@@ -210,16 +200,50 @@
   </entry>
   
   <entry>
+    <title>工具</title>
+    <link href="https://blog.karbo.online/tools/tools/"/>
+    <id>https://blog.karbo.online/tools/tools/</id>
+    <published>2019-04-02T04:50:45.000Z</published>
+    <updated>2019-08-09T16:17:05.513Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;数学&quot;&gt;&lt;a href=&quot;#数学&quot; class=&quot;headerlink&quot; title=&quot;数学&quot;&gt;&lt;/a&gt;数学&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.geogebra.org/&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="tools" scheme="https://blog.karbo.online/categories/tools/"/>
+    
+    
+      <category term="tools" scheme="https://blog.karbo.online/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
     <title>用YOLO实现目标检测</title>
     <link href="https://blog.karbo.online/dl/yolo-starter/"/>
     <id>https://blog.karbo.online/dl/yolo-starter/</id>
     <published>2019-03-28T03:15:56.000Z</published>
-    <updated>2019-05-04T06:59:14.869Z</updated>
+    <updated>2019-08-09T16:11:04.014Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Why-YOLO&quot;&gt;&lt;a href=&quot;#Why-YOLO&quot;
+        
+      
     
     </summary>
     
@@ -241,12 +265,19 @@
     <link href="https://blog.karbo.online/ml/mlcomparsion/"/>
     <id>https://blog.karbo.online/ml/mlcomparsion/</id>
     <published>2019-03-10T12:54:55.000Z</published>
-    <updated>2019-05-04T06:59:42.756Z</updated>
+    <updated>2019-08-09T15:59:05.027Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文教你如何选择合适自己的机器学习算法。&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;本文教你如何选择合适自己的机器学习算法。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;20.png&quot; alt&gt;&lt;/p&gt;
+&lt;h1 id=&quot;分类&quot;&gt;&lt;a href=&quot;#分类&quot; class=&quot;headerlink&quot; title=&quot;分类&quot;&gt;&lt;/a&gt;分类&lt;/h1&gt;&lt;h2
+        
+      
     
     </summary>
     
@@ -259,16 +290,21 @@
   
   <entry>
     <title>Linux-入门速成</title>
-    <link href="https://blog.karbo.online/linux/linux-ru-men-su-cheng/"/>
-    <id>https://blog.karbo.online/linux/linux-ru-men-su-cheng/</id>
+    <link href="https://blog.karbo.online/linux/linux-quickstart/"/>
+    <id>https://blog.karbo.online/linux/linux-quickstart/</id>
     <published>2019-03-08T15:49:37.000Z</published>
-    <updated>2019-05-04T07:00:12.949Z</updated>
+    <updated>2019-08-09T15:30:58.639Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。&lt;/p&gt;
-&lt;p&gt;（大多内容选自 &lt;a href=&quot;http://billie66.github.io/TLCL/book/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The Linux Command Line 的中文版&lt;/a&gt; ）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;1.png&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。&lt;/p&gt;
+&lt;p&gt;（大多内容选自 &lt;a href=&quot;http://billie66.github.io/TLCL/book/index.html&quot; target=&quot;_blank&quot;
+        
+      
     
     </summary>
     
@@ -277,36 +313,42 @@
     
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
   </entry>
   
   <entry>
-    <title>Markdown-语法入门</title>
-    <link href="https://blog.karbo.online/markdown/markdown-yu-fa-ru-men/"/>
-    <id>https://blog.karbo.online/markdown/markdown-yu-fa-ru-men/</id>
+    <title>Markdown-快速入门</title>
+    <link href="https://blog.karbo.online/markdown/markdown-beginner/"/>
+    <id>https://blog.karbo.online/markdown/markdown-beginner/</id>
     <published>2019-03-05T08:25:13.000Z</published>
-    <updated>2019-05-04T07:00:37.467Z</updated>
+    <updated>2019-08-09T15:50:49.338Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;Markdown-mark.svg&quot; alt&gt;&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Markdown-mark.svg&quot;
+        
+      
     
     </summary>
     
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
     
@@ -317,12 +359,19 @@
     <link href="https://blog.karbo.online/math/mathlearn/"/>
     <id>https://blog.karbo.online/math/mathlearn/</id>
     <published>2019-03-02T10:23:34.000Z</published>
-    <updated>2019-05-04T07:01:04.610Z</updated>
+    <updated>2019-08-09T15:57:19.987Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;本文搜集了一些网络上优秀的数学学习资源。&lt;/p&gt;
+      
+      
+        
+        
+          &lt;p&gt;本文搜集了一些网络上优秀的数学学习资源。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;1.png&quot; alt&gt;&lt;/p&gt;
+&lt;h1 id=&quot;3Blue1Brown&quot;&gt;&lt;a href=&quot;#3Blue1Brown&quot; class=&quot;headerlink&quot;
+        
+      
     
     </summary>
     
