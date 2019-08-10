@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-09T15:17:19.540Z</updated>
+  <updated>2019-08-10T12:00:27.067Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/linux/linux-u-drive/"/>
     <id>https://blog.karbo.online/linux/linux-u-drive/</id>
     <published>2019-05-04T06:50:40.000Z</published>
-    <updated>2019-08-09T15:17:19.540Z</updated>
+    <updated>2019-08-10T12:00:27.067Z</updated>
     
     <summary type="html">
     
@@ -52,7 +52,7 @@
     <link href="https://blog.karbo.online/django/python-django/"/>
     <id>https://blog.karbo.online/django/python-django/</id>
     <published>2019-04-23T09:20:22.000Z</published>
-    <updated>2019-08-09T16:04:35.492Z</updated>
+    <updated>2019-08-10T12:08:22.894Z</updated>
     
     <summary type="html">
     
@@ -144,7 +144,7 @@
     <link href="https://blog.karbo.online/algorithm/colorclassify/"/>
     <id>https://blog.karbo.online/algorithm/colorclassify/</id>
     <published>2019-04-04T08:52:41.000Z</published>
-    <updated>2019-08-09T14:21:08.639Z</updated>
+    <updated>2019-08-10T11:59:57.922Z</updated>
     
     <summary type="html">
     
@@ -231,7 +231,7 @@
     <link href="https://blog.karbo.online/dl/yolo-starter/"/>
     <id>https://blog.karbo.online/dl/yolo-starter/</id>
     <published>2019-03-28T03:15:56.000Z</published>
-    <updated>2019-08-09T16:11:04.014Z</updated>
+    <updated>2019-08-10T12:09:29.767Z</updated>
     
     <summary type="html">
     
@@ -239,9 +239,7 @@
       
         
         
-          &lt;p&gt;本文将介绍如何使用darknet框架下的yolo v3制作第一个属于自己的深度学习目标检测模型。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;0.png&quot; alt&gt;&lt;/p&gt;
-&lt;h1 id=&quot;Why-YOLO&quot;&gt;&lt;a href=&quot;#Why-YOLO&quot;
+          &lt;h1 id=&quot;Why-YOLO&quot;&gt;&lt;a href=&quot;#Why-YOLO&quot; class=&quot;headerlink&quot; title=&quot;Why YOLO?&quot;&gt;&lt;/a&gt;Why YOLO?&lt;/h1&gt;&lt;p&gt;You only look once
         
       
     
