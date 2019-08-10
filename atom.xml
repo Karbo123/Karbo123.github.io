@@ -72,9 +72,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -231,7 +231,7 @@
     <link href="https://blog.karbo.online/dl/yolo-starter/"/>
     <id>https://blog.karbo.online/dl/yolo-starter/</id>
     <published>2019-03-28T03:15:56.000Z</published>
-    <updated>2019-08-10T12:09:29.767Z</updated>
+    <updated>2019-08-10T12:12:12.948Z</updated>
     
     <summary type="html">
     
