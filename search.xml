@@ -306,9 +306,9 @@
             
             <tag> grammar </tag>
             
-            <tag> programing </tag>
-            
             <tag> markdown </tag>
+            
+            <tag> programing </tag>
             
             <tag> writing </tag>
             
@@ -323,7 +323,7 @@
       <link href="/math/mathlearn/"/>
       <url>/math/mathlearn/</url>
       
-        <content type="html"><![CDATA[<p>本文搜集了一些网络上优秀的数学学习资源。</p><p><img src="1.png" alt></p><h1 id="3Blue1Brown"><a href="#3Blue1Brown" class="headerlink" title="3Blue1Brown"></a>3Blue1Brown</h1><blockquote><p>3blue1brown的创始人是毕业于斯坦福大学的Grant Sanderson，他用“可以看见”的动画方式，通俗易懂、深入浅出的解释了数学原理。这是一种“让你懂”的解释，而不是一种“仅他懂”的证明。3blue1brown是我见过的最好的数学科普网站，没有之一。</p></blockquote><p><img src="2.png" alt></p><p><img src="3.png" alt></p><blockquote><p>链接：</p><ul><li><a href="https://www.3blue1brown.com/" target="_blank" rel="noopener">3Blue1Brown（油管）</a></li><li><a href="https://space.bilibili.com/88461692/" target="_blank" rel="noopener">3Blue1Brown（B站）</a></li></ul></blockquote><h1 id="沉浸式线性代数"><a href="#沉浸式线性代数" class="headerlink" title="沉浸式线性代数"></a>沉浸式线性代数</h1><blockquote><p>本网站试图用交互式的动图来解释线性代数，一图胜千言。</p></blockquote><ul><li><a href="http://immersivemath.com/ila/index.html" target="_blank" rel="noopener">immersive linear algebra</a></li></ul><p><img src="4.png" alt></p><p><img src="5.png" alt></p>]]></content>
+        <content type="html"><![CDATA[<p>本文搜集了一些网络上优秀的数学学习资源。</p><p><img src="1.jpg" alt></p><h1 id="3Blue1Brown"><a href="#3Blue1Brown" class="headerlink" title="3Blue1Brown"></a>3Blue1Brown</h1><blockquote><p>3blue1brown的创始人是毕业于斯坦福大学的Grant Sanderson，他用“可以看见”的动画方式，通俗易懂、深入浅出的解释了数学原理。这是一种“让你懂”的解释，而不是一种“仅他懂”的证明。3blue1brown是我见过的最好的数学科普网站，没有之一。</p></blockquote><p><img src="2.png" alt></p><p><img src="3.png" alt></p><blockquote><p>链接：</p><ul><li><a href="https://www.3blue1brown.com/" target="_blank" rel="noopener">3Blue1Brown（油管）</a></li><li><a href="https://space.bilibili.com/88461692/" target="_blank" rel="noopener">3Blue1Brown（B站）</a></li></ul></blockquote><h1 id="沉浸式线性代数"><a href="#沉浸式线性代数" class="headerlink" title="沉浸式线性代数"></a>沉浸式线性代数</h1><blockquote><p>本网站试图用交互式的动图来解释线性代数，一图胜千言。</p></blockquote><ul><li><a href="http://immersivemath.com/ila/index.html" target="_blank" rel="noopener">immersive linear algebra</a></li></ul><p><img src="4.png" alt></p><p><img src="5.png" alt></p>]]></content>
       
       
       <categories>
