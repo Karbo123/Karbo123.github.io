@@ -72,9 +72,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   
@@ -344,9 +344,9 @@
     
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
     
