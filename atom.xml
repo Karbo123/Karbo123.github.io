@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-10T12:00:27.067Z</updated>
+  <updated>2019-08-13T09:38:30.939Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>dlbooknotes</title>
+    <link href="https://blog.karbo.online/dl/dlbooknotes/"/>
+    <id>https://blog.karbo.online/dl/dlbooknotes/</id>
+    <published>2019-08-13T08:46:49.000Z</published>
+    <updated>2019-08-13T09:38:30.939Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;1-Introduction&quot;&gt;&lt;a href=&quot;#1-Introduction&quot; class=&quot;headerlink&quot; title=&quot;1. Introduction&quot;&gt;&lt;/a&gt;1. Introduction&lt;/h1&gt;&lt;p&gt;Knowledge based
+        
+      
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+      <category term="notes" scheme="https://blog.karbo.online/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>如何从源码编译linux内核并使其从u盘启动</title>
@@ -72,9 +100,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -344,9 +372,9 @@
     
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
-      <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
-    
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
     

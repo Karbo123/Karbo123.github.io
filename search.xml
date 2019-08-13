@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>dlbooknotes</title>
+      <link href="/dl/dlbooknotes/"/>
+      <url>/dl/dlbooknotes/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Knowledge based approach -&gt; Machine learning </p><p>Representation learning: 学会如何表示东西，而不仅仅是从input到output的映射</p><p>Model深度的计算方法有两种：</p><ul><li>计算图的深度（Instructions）</li><li>概率图的深度（Concepts）</li></ul><p>AI领域的维恩图：</p><p><img src="1.png" alt></p><h2 id="1-1-Who-should-read-this-book"><a href="#1-1-Who-should-read-this-book" class="headerlink" title="1.1 Who should read this book?"></a>1.1 Who should read this book?</h2><ul><li>University students</li><li>Software engineers</li></ul><h2 id="1-2-Historical-trends-in-deep-learning"><a href="#1-2-Historical-trends-in-deep-learning" class="headerlink" title="1.2 Historical trends in deep learning"></a>1.2 Historical trends in deep learning</h2><ol><li><p>一波三折：</p><ul><li><p>控制论（Cybernetics, 1940~1960）</p><blockquote><p>Linear model，分类边界是直线，不能XOR</p></blockquote></li><li><p>连结主义（Connectionism, 1980~1990）</p><blockquote><p>小单元的组合可以形成智能</p><p>BP出现</p></blockquote><p>其他ML方法兴起</p></li><li><p>深度学习（Deep Learning, 2006~NOW）</p><blockquote><p>逐层预训练（最初用在DBN上），更深，硬件更好</p></blockquote></li></ul></li><li><p>特点：</p><ul><li>数据集变大</li><li>模型变大</li><li>精度高、结构复杂、可落地</li></ul></li></ol><h1 id="2-Linear-Algebra"><a href="#2-Linear-Algebra" class="headerlink" title="2. Linear Algebra"></a>2. Linear Algebra</h1><h2 id="2-1-Scalars-Vectors-Matrices-and-Tensors"><a href="#2-1-Scalars-Vectors-Matrices-and-Tensors" class="headerlink" title="2.1 Scalars, Vectors, Matrices and Tensors"></a>2.1 Scalars, Vectors, Matrices and Tensors</h2><ul><li>Scalars：标量，就是一个数字</li><li>Vectors：向量，默认是列向量</li><li>Matrices：二维矩阵</li><li>Tensors：张量（多于两个axes）</li></ul><h2 id="2-2-Multiplying-Matrices-and-Vectors"><a href="#2-2-Multiplying-Matrices-and-Vectors" class="headerlink" title="2.2 Multiplying Matrices and Vectors"></a>2.2 Multiplying Matrices and Vectors</h2><ol><li><p>矩阵</p><ul><li><p>按位相乘（Element-wise product / Hadamard product）：$ A \odot B $</p></li><li><p>矩阵乘法：$ AB $</p></li></ul><p>性质：</p><ul><li>$ (AB)^T = B^T A^T $</li></ul></li><li><p>向量的dot product</p><p>性质：</p><ul><li>$ x^T y = y^T x$</li></ul></li></ol><h2 id="2-3-Identity-and-Inverse-Matrices"><a href="#2-3-Identity-and-Inverse-Matrices" class="headerlink" title="2.3 Identity and Inverse Matrices"></a>2.3 Identity and Inverse Matrices</h2><ol><li><p>$ n \times n $ 的单位矩阵 $ I_n $</p></li><li><p>逆矩阵 $ A^{-1} $</p></li></ol><h2 id="2-4-Linear-Dependence-and-Span"><a href="#2-4-Linear-Dependence-and-Span" class="headerlink" title="2.4 Linear Dependence and Span"></a>2.4 Linear Dependence and Span</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> dl </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> dl </tag>
+            
+            <tag> notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何从源码编译linux内核并使其从u盘启动</title>
       <link href="/linux/linux-u-drive/"/>
       <url>/linux/linux-u-drive/</url>
@@ -49,9 +76,9 @@
             
             <tag> python </tag>
             
-            <tag> web </tag>
-            
             <tag> django </tag>
+            
+            <tag> web </tag>
             
         </tags>
       
@@ -306,9 +333,9 @@
             
             <tag> grammar </tag>
             
-            <tag> markdown </tag>
-            
             <tag> programing </tag>
+            
+            <tag> markdown </tag>
             
             <tag> writing </tag>
             
