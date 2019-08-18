@@ -31,6 +31,31 @@
     
     
     <entry>
+      <title>Git快速入门与速查</title>
+      <link href="/git/git-beginner/"/>
+      <url>/git/git-beginner/</url>
+      
+        <content type="html"><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>Git是什么？说起Git你可能会知道它是一个版本管理的工具，但究竟什么是版本管理？</p><p><img src="1.png" alt></p><p>举个栗子，假如你要写某个很牛逼的论文，你先写了个稿子A（包含idea1和idea2）。然后过了一天你发现idea1不work了，不能写在论文里了，然后你把idea1的部分全部删掉了，并将稿子A保存为稿子B。然后又过了一天，你发现idea1又可以work了，可以将其重新写入文章里了，于是你需要将之前写过的关于idea1的部分重头写过。。。</p><p>是不是很麻烦，不过如果你稍微机智一些，你可以在保存稿子B时选择另存为，那么你就会同时拥有稿子A和B了，后面你就可以方便地直接从稿子A恢复回稿子了。不过当文件一多起来，就会变得很麻烦，想想你的目录下有一堆文件的情形。。。</p><p>如果你会使用Git的话，它就能很好地帮你管理这些稿子的“版本”了。可以这么说，你在第一天保存的稿子A是版本A，在第二天删掉了idea1的部分的稿子B是版本B，第三天你就需要将版本B回退到版本A。</p><p>是不是听起来很方便呢？嘿嘿嘿。。。</p><h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p>按照网上的教程，安装好Git，并配置好用户信息，配置SSH等等。</p><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>打开一个文件夹，点出鼠标右键的菜单，选择“Git Bash Here”，然后就能在此处打开Git的命令行界面了。</p><p>本地用法：</p><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> init <span class="token comment" spellcheck="true"># git库初始化</span><span class="token function">git</span> add <span class="token keyword">.</span> <span class="token comment" spellcheck="true"># 添加当前目录下的所有文件到缓存区</span><span class="token function">git</span> commit -m <span class="token string">"first commit"</span> <span class="token comment" spellcheck="true"># 提交缓存区的所有文件到git里，并附上提交的说明</span></code></pre><p>远程用法（在使用了“本地用法”之后）：</p><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> remote add origin <span class="token punctuation">[</span>GitHub的上传网址<span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 仅第一次需要：添加远端的推送地址</span><span class="token function">git</span> push -u origin master <span class="token comment" spellcheck="true"># 第一次推送到远端用这条，以后不用</span><span class="token comment" spellcheck="true"># git push # 以后推送到远端都用这条</span></code></pre><h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><ol><li><code>git branch dev</code>：创建名字为dev的分支</li><li><code>git checkout dev</code>：切换到分支dev</li><li><code>git branch</code>：查看分支</li><li>然后和平常一样的add和commit等，这些操作会在当前分支（dev）上进行</li><li><code>git checkout master</code>：切换回master分支</li><li><code>git merge dev</code>：将dev分支合并到master分支上</li><li><code>git branch -d dev</code>：删除dev分支</li></ol><h2 id="其他用法"><a href="#其他用法" class="headerlink" title="其他用法"></a>其他用法</h2><ol><li><code>git status</code>：查看状态和提示（例如哪些文件被修改了）</li><li><code>git diff xxx</code>：查看文件xxx被修改了哪里</li><li><code>git log</code>：查看commit的历史记录</li><li><code>git reset --hard HEAD^</code>：回退到上一个版本<br> <code>git reset --hard xxxx</code>：回退到指定的版本号（xxxx），版本号是用<code>git log</code>看到的一大串的数字字母字符串（版本号不需要打全，它会自动搜索和匹配前缀）<br> <code>HEAD</code>：当前版本<br> <code>HEAD^</code>：上一个当前版本<br> <code>HEAD^^</code>：上上一个当前版本<br> <code>HEAD~100</code>：上100个版本<br> （<strong>注意：回退版本号后，你将看不见你刚才在“未来”的版本，需要使用<code>git reflog</code>查看输入命令的历史记录，例如包括了版本号</strong>）</li><li><code>git checkout -- thefile</code>：把文件thefile回退到版本库中的状态（即取出版本库中的该文件，并覆盖到工作区）</li><li><code>git rm thefile</code>：从版本库移除thefile文件（需要再commit才能提交更改）</li><li><code>git clone [GitHub某仓库的下载地址]</code>：把仓库克隆到本地</li><li><code>git pull</code>：从远端拉取修改（获取最新的版本到本地）</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何从源码编译linux内核并使其从u盘启动</title>
       <link href="/linux/linux-u-drive/"/>
       <url>/linux/linux-u-drive/</url>

@@ -45,6 +45,33 @@
   </entry>
   
   <entry>
+    <title>Git快速入门与速查</title>
+    <link href="https://blog.karbo.online/git/git-beginner/"/>
+    <id>https://blog.karbo.online/git/git-beginner/</id>
+    <published>2019-07-09T09:00:51.000Z</published>
+    <updated>2019-08-18T10:01:26.466Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h1&gt;&lt;p&gt;Git是什么？说起Git你可能会知道它是一个版本管理的工具，但究竟什么是版本管理？&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="git" scheme="https://blog.karbo.online/categories/git/"/>
+    
+    
+      <category term="git" scheme="https://blog.karbo.online/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何从源码编译linux内核并使其从u盘启动</title>
     <link href="https://blog.karbo.online/linux/linux-u-drive/"/>
     <id>https://blog.karbo.online/linux/linux-u-drive/</id>
