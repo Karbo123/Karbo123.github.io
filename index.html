@@ -425,28 +425,6 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
     
     
     <div class="carousel-item amber white-text carousel-post bg-cover"
-            style="background-image: url('/linux/linux-u-drive/kernel.jpg');">
-        <div class="container">
-            <div class="row">
-                <div class="col s10 offset-s1">
-                    <div class="title center-align">如何从源码编译linux内核并使其从u盘启动</div>
-                    <div class="description center-align">
-                    
-                        本文教你如何从源代码编译 linux 内核，并将其装在 u 盘中，从而变成 “便携式 linux 系统”。
-                    
-                    </div>
-                    <div class="cover-btns">
-                        <a href="/linux/linux-u-drive/" class="waves-effect waves-light btn" target="_blank">
-                            <i class="icon fa fa-eye fa-fw"></i>阅读更多
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="carousel-item amber white-text carousel-post bg-cover"
             style="background-image: url('/git/git-beginner/cover.png');">
         <div class="container">
             <div class="row">
@@ -469,18 +447,40 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
     
     
     <div class="carousel-item amber white-text carousel-post bg-cover"
-            style="background-image: url('/medias/featureimages/18.jpg');">
+            style="background-image: url('/linux/linux-u-drive/kernel.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col s10 offset-s1">
-                    <div class="title center-align">工具</div>
+                    <div class="title center-align">如何从源码编译linux内核并使其从u盘启动</div>
                     <div class="description center-align">
                     
-                        本文介绍了一些常用的软件/编程工具，大大方便了开发和学习。
+                        本文教你如何从源代码编译 linux 内核，并将其装在 u 盘中，从而变成 “便携式 linux 系统”。
                     
                     </div>
                     <div class="cover-btns">
-                        <a href="/tools/tools/" class="waves-effect waves-light btn" target="_blank">
+                        <a href="/linux/linux-u-drive/" class="waves-effect waves-light btn" target="_blank">
+                            <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="carousel-item amber white-text carousel-post bg-cover"
+            style="background-image: url('/wsl/wsl2config/cover.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="title center-align">WSL2配置指南</div>
+                    <div class="description center-align">
+                    
+                        本文介绍了如何在Win10系统下使用WSL2，并基于WSL2的Ubuntu搭建Xfce桌面环境。
+                    
+                    </div>
+                    <div class="cover-btns">
+                        <a href="/wsl/wsl2config/" class="waves-effect waves-light btn" target="_blank">
                             <i class="icon fa fa-eye fa-fw"></i>阅读更多
                         </a>
                     </div>
@@ -717,22 +717,22 @@ $(function () {
     
     
     <div class="col s12 m6" data-aos="zoom-in-up">
-        <div class="post-card" style="background-image: url('/medias/featureimages/18.jpg')">
+        <div class="post-card" style="background-image: url('/wsl/wsl2config/cover.jpg')">
             <div class="post-body">
                 <div class="post-categories">
                     
-                    <a href="/categories/tools/" class="category" target="_blank">tools</a>
+                    <a href="/categories/wsl/" class="category" target="_blank">wsl</a>
                     
                 </div>
-                <a href="/tools/tools/" target="_blank">
-                    <h3 class="post-title">工具</h3>
+                <a href="/wsl/wsl2config/" target="_blank">
+                    <h3 class="post-title">WSL2配置指南</h3>
                 </a>
                 <p class="post-description">
                     
-                        本文介绍了一些常用的软件/编程工具，大大方便了开发和学习。
+                        本文介绍了如何在Win10系统下使用WSL2，并基于WSL2的Ubuntu搭建Xfce桌面环境。
                     
                 </p>
-                <a href="/tools/tools/" target="_blank"
+                <a href="/wsl/wsl2config/" target="_blank"
                         class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)">
                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                 </a>
@@ -781,6 +781,60 @@ $(function () {
     <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
         <div class="row article-row">
+            
+            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/wsl/wsl2config/">
+                        <div class="card-image">
+                            
+                            <img src="/wsl/wsl2config/cover.jpg" class="responsive-img" alt="WSL2配置指南">
+                            
+                            <span class="card-title">WSL2配置指南</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文介绍了如何在Win10系统下使用WSL2，并基于WSL2的Ubuntu搭建Xfce桌面环境。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/wsl/" class="post-category" target="_blank">
+                                    wsl
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/linux/" target="_blank">
+                            <span class="chip bg-color">linux</span>
+                        </a>
+                        
+                        <a href="/tags/wsl/" target="_blank">
+                            <span class="chip bg-color">wsl</span>
+                        </a>
+                        
+                        <a href="/tags/ubuntu/" target="_blank">
+                            <span class="chip bg-color">ubuntu</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
             <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
                 <div class="card">
@@ -969,12 +1023,12 @@ $(function () {
                             <span class="chip bg-color">python</span>
                         </a>
                         
-                        <a href="/tags/web/" target="_blank">
-                            <span class="chip bg-color">web</span>
-                        </a>
-                        
                         <a href="/tags/django/" target="_blank">
                             <span class="chip bg-color">django</span>
+                        </a>
+                        
+                        <a href="/tags/web/" target="_blank">
+                            <span class="chip bg-color">web</span>
                         </a>
                         
                     </div>
@@ -1074,16 +1128,16 @@ $(function () {
                     
                     <div class="card-action article-tags">
                         
+                        <a href="/tags/grammar/" target="_blank">
+                            <span class="chip bg-color">grammar</span>
+                        </a>
+                        
                         <a href="/tags/python/" target="_blank">
                             <span class="chip bg-color">python</span>
                         </a>
                         
                         <a href="/tags/numpy/" target="_blank">
                             <span class="chip bg-color">numpy</span>
-                        </a>
-                        
-                        <a href="/tags/grammar/" target="_blank">
-                            <span class="chip bg-color">grammar</span>
                         </a>
                         
                     </div>
@@ -1350,64 +1404,6 @@ $(function () {
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4 overflow-policy" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/linux/linux-quickstart/">
-                        <div class="card-image">
-                            
-                            <img src="/linux/linux-quickstart/cover.jpg" class="responsive-img" alt="Linux-入门速成">
-                            
-                            <span class="card-title">Linux-入门速成</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。（大多内容选自 The Linux Command Line 的中文版）
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/grammar/" target="_blank">
-                            <span class="chip bg-color">grammar</span>
-                        </a>
-                        
-                        <a href="/tags/linux/" target="_blank">
-                            <span class="chip bg-color">linux</span>
-                        </a>
-                        
-                        <a href="/tags/programing/" target="_blank">
-                            <span class="chip bg-color">programing</span>
-                        </a>
-                        
-                        <a href="/tags/os/" target="_blank">
-                            <span class="chip bg-color">os</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -1447,7 +1443,7 @@ $(function () {
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.7k</span>
+            <span class="white-color">41.3k</span>
             
 
             

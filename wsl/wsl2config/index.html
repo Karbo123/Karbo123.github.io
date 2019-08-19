@@ -4,17 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="一种颜色识别算法, 任我行">
-    <meta name="description" content="基本思想
-将RGB色彩空间转化为HSV色彩空间
-对HSV立方体色彩空间进行变换
-度量色彩距离
-对于在阈值范围内的色彩赋予标签
-若该色彩在所有备选颜色的阈值范围外，则拒绝识别
-
-
-色彩空间RGB转HSV通过调用rgb2hsv函数来实现转换。
-">
+    <meta name="keywords" content="WSL2配置指南, 任我行">
+    <meta name="description" content="安装WSL2升级Win10系统要使用WSL2需要系统的版本号不低于18917。而一般的Win10系统都是稳定版（意味着你的版本号一般来说都是低于18917的），需要加入Windows的预览体验计划。
+详细教程，参考这里：Windows 10">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>一种颜色识别算法 | 任我行</title>
+    <title>WSL2配置指南 | 任我行</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -269,13 +261,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/algorithm/colorclassify/cover.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/wsl/wsl2config/cover.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        一种颜色识别算法
+                        WSL2配置指南
                     </div>
                 </div>
             </div>
@@ -386,16 +378,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/algorithm/" target="_blank">
-                                <span class="chip bg-color">algorithm</span>
+                            <a href="/tags/linux/" target="_blank">
+                                <span class="chip bg-color">linux</span>
                             </a>
                         
-                            <a href="/tags/classifier/" target="_blank">
-                                <span class="chip bg-color">classifier</span>
+                            <a href="/tags/wsl/" target="_blank">
+                                <span class="chip bg-color">wsl</span>
                             </a>
                         
-                            <a href="/tags/ml/" target="_blank">
-                                <span class="chip bg-color">ml</span>
+                            <a href="/tags/ubuntu/" target="_blank">
+                                <span class="chip bg-color">ubuntu</span>
                             </a>
                         
                     </div>
@@ -406,8 +398,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/algorithm/" class="post-category" target="_blank">
-                                algorithm
+                            <a href="/categories/wsl/" class="post-category" target="_blank">
+                                wsl
                             </a>
                         
                     </div>
@@ -418,21 +410,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-04
+                    2019-08-19
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.9k
+                        1.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        8 分
+                        4 分
                     </div>
                     
                 
@@ -448,247 +440,136 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><ol>
-<li>将RGB色彩空间转化为HSV色彩空间</li>
-<li>对HSV立方体色彩空间进行变换</li>
-<li>度量色彩距离</li>
-<li>对于在阈值范围内的色彩赋予标签</li>
-<li>若该色彩在所有备选颜色的阈值范围外，则拒绝识别</li>
+                <h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><h2 id="升级Win10系统"><a href="#升级Win10系统" class="headerlink" title="升级Win10系统"></a>升级Win10系统</h2><p>要使用WSL2需要系统的版本号不低于18917。而一般的Win10系统都是稳定版（意味着你的版本号一般来说都是低于18917的），需要加入Windows的预览体验计划。</p>
+<p>详细教程，参考这里：<a href="https://jingyan.baidu.com/article/1876c85235c709890a137663.html" target="_blank" rel="noopener">Windows 10 20H1快速预览18917版系统更新教程</a></p>
+<h2 id="安装WSL"><a href="#安装WSL" class="headerlink" title="安装WSL"></a>安装WSL</h2><ol>
+<li><p>管理员身份打开powershell，输入下面的语句以打开“适用于Linux的Windows子系统”开关。</p>
+<pre class=" language-bash"><code class="language-bash">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</code></pre>
+</li>
+<li><p>重启电脑</p>
+</li>
+<li><p>打开微软的应用商店，搜索WSL，安装Ubuntu即可。</p>
+</li>
+<li><p>安装完成之后，可以在开始菜单找到橙色的Ubuntu图标，点击它打开Ubuntu。</p>
+</li>
+<li><p>第一次运行需要等待安装并设置Ubuntu的用户名和密码。</p>
+</li>
 </ol>
-<p><img src="2.png" alt></p>
-<h1 id="色彩空间RGB转HSV"><a href="#色彩空间RGB转HSV" class="headerlink" title="色彩空间RGB转HSV"></a>色彩空间RGB转HSV</h1><p>通过调用<code>rgb2hsv</code>函数来实现转换。</p>
-<p>输入参数r、g和b范围均在0到1，输出参数h范围0到360，输出参数s和v范围在0到1</p>
-<pre class=" language-c++"><code class="language-c++">/* RGB转HSV */
-/* 0~1, 0~1, 0~1 -> 0~360, 0~1, 0~1 */
-void rgb2hsv(float r, float g, float b, float& h, float& s, float& v)
-{
-    float max_val = MAX3(r, g, b), min_val = MIN3(r, g, b);
-    float diff = max_val - min_val;
-    // 计算H
-    if (max_val == min_val)
-        h = 0;
-    else if (max_val == r)
-    {
-        if (g >= b)
-            h = 60 * ((g - b) / diff) + 0;
-        else
-            h = 60 * ((g - b) / diff) + 360;
-    }
-    else if (max_val == g)
-    {
-        h = 60 * ((b - r) / diff) + 120;
-    }
-    else if (max_val == b)
-    {
-        h = 60 * ((r - g) / diff) + 240;
-    }
-    // 计算S
-    if (max_val == 0)
-        s = 0;
-    else
-        s = (diff / max_val);
-    // 计算V
-    v = max_val;
-}</code></pre>
-<h1 id="HSV色彩空间变换"><a href="#HSV色彩空间变换" class="headerlink" title="HSV色彩空间变换"></a>HSV色彩空间变换</h1><h2 id="HSV立方体色彩空间"><a href="#HSV立方体色彩空间" class="headerlink" title="HSV立方体色彩空间"></a>HSV立方体色彩空间</h2><p>传统的HSV立方体色彩空间并不能很好地度量颜色的相似程度。</p>
-<blockquote>
-<p>举个例子，考虑四种颜色。（假定h、s和v范围均在0~1）</p>
-<p>颜色A为<code>h=0, s=0.1, v=0.5</code>，颜色B为<code>h=0.5, s=0.1, v=0.5</code></p>
-<p>采用<code>L2</code>距离度量，颜色A到B的距离为0.5</p>
-<p>颜色C为<code>h=0, s=0.9, v=0.5</code>，颜色D为<code>h=0.5, s=0.9, v=0.5</code></p>
-<p>采用<code>L2</code>距离度量，颜色C到D的距离仍为0.5</p>
+<p>详细教程，参考这里：<a href="https://www.cnblogs.com/JettTang/p/8186315.html" target="_blank" rel="noopener">WSL（Windows Subsystem for Linux）的安装与使用</a></p>
+<h2 id="升级WSL到WSL2"><a href="#升级WSL到WSL2" class="headerlink" title="升级WSL到WSL2"></a>升级WSL到WSL2</h2><ol>
+<li><p>刚才安装的WSL还不是WSL2，需要虚拟化技术才可以。管理员身份打开powershell，输入下面指令以启用“虚拟机平台”可选组件：</p>
+<pre class=" language-bash"><code class="language-bash">Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform</code></pre>
+</li>
+<li><p>重启计算机</p>
+</li>
+<li><p>在 PowerShell 中运行下面指令以将WSL转变为WSL2：</p>
+<pre><code>wsl --set-version Ubuntu 2
+wsl --set-default-version 2</code></pre><blockquote>
+<p>可能提示需要开启虚拟化技术<br>参考这里：</p>
+<ul>
+<li><a href="https://guwq2014.iteye.com/blog/2426896" target="_blank" rel="noopener">如何开启windows的虚拟化？</a></li>
+<li><a href="https://jingyan.baidu.com/article/8ebacdf0261d3249f65cd531.html" target="_blank" rel="noopener">华硕主板BIOS设置中VT虚拟化技术选项怎么开启</a></li>
+</ul>
 </blockquote>
-<p><img src="1.png" alt></p>
-<p>这两个距离居然相同！这显然是不符合直觉的。我们直觉上应当认为A到B的距离应该小于C到D的距离，因为C和D两者色彩差异更大，而A和B都近似是某种灰色。</p>
-<p>在实践应用上，我们感兴趣的往往不是灰度，而是某一种鲜艳的颜色。而且灰度颜色受光照的影响比较大，难以用于实践。</p>
-<p>造成这种度量不均衡的原因是单纯在HSV立方体色彩空间中颜色的分布是不均衡的。如下图，我们发现灰度占据了绝大多数的空间，造成灰度对色彩距离度量的影响比较大。</p>
-<p><img src="2.png" alt></p>
-<p>所以我们要做的就是减少灰度对颜色距离度量的影响，突出不同色相的差异性。</p>
-<p>接下来我们将其变换到HSV圆盘色彩空间，以突出不同色相区别。</p>
-<h2 id="HSV圆盘色彩空间"><a href="#HSV圆盘色彩空间" class="headerlink" title="HSV圆盘色彩空间"></a>HSV圆盘色彩空间</h2><p>我们将HSV立方体色彩空间变换到锥体中。</p>
-<p><img src="3.png" alt></p>
-<p>考虑到色彩距离应该具备光照不变性，我们丢弃掉V轴，仅保留H和S分量构成的圆盘结构。</p>
-<p><img src="4.png" alt></p>
-<p>我们在圆盘中度量点A、B的距离便得到颜色相似度的度量值。</p>
-<p><img src="5.png" alt></p>
-<h1 id="度量颜色距离"><a href="#度量颜色距离" class="headerlink" title="度量颜色距离"></a>度量颜色距离</h1><p>在HSV圆盘色彩空间中，我们可以采用直线距离度量方式，也可以采用弧线形的距离度量方式。</p>
-<p>为简便起见，我们采用直线型的距离度量。</p>
-<p>为了更好的调节色彩识别的鲁棒性因素，我们引入调节参数<code>COLOR_ROBUST</code>，用于调节色彩饱和度的鲁棒性。该参数值越大，则将会具有更大的允许饱和度变化的范围；该参数越小，则对饱和度变化允许的范围越小。</p>
-<p>其中参数<code>COLOR_ROBUST</code>的实现是通过调节半径<code>s</code>的缩放来实现的。我们在半径<code>s</code>方向上对其进行套用函数：<br>$$<br>{1-(1-x)^n}<br>$$<br>其中n就是<code>COLOR_ROBUST</code>参数。</p>
-<p><img src="6.png" alt></p>
-<p>计算颜色距离的代码如下：</p>
-<pre class=" language-c++"><code class="language-c++">/* 计算颜色距离(输入范围均在0~1) */
-float getColorDistance(float h, float s, float h_dst, float s_dst)
-{
-    float x_src, y_src;
-    float x_dst, y_dst;
-    x_src = (1 - powf(1 - s, COLOR_ROBUST)) * cos(h * 2 * CV_PI);
-    y_src = (1 - powf(1 - s, COLOR_ROBUST)) * sin(h * 2 * CV_PI);
-    x_dst = (1 - powf(1 - s_dst, COLOR_ROBUST)) * cos(h_dst * 2 * CV_PI);
-    y_dst = (1 - powf(1 - s_dst, COLOR_ROBUST)) * sin(h_dst * 2 * CV_PI);
-    return sqrt(pow(x_src - x_dst, 2) + pow(y_src - y_dst, 2));
-}</code></pre>
-<h1 id="颜色距离阈值"><a href="#颜色距离阈值" class="headerlink" title="颜色距离阈值"></a>颜色距离阈值</h1><h2 id="阈值计算原理"><a href="#阈值计算原理" class="headerlink" title="阈值计算原理"></a>阈值计算原理</h2><p>由于颜色是任意指定的，如果选取固定的距离阈值将不能广泛适应实际情况。我们在这里应该采取一种自动的方式来计算这个阈值。</p>
-<p>标准颜色类似于聚类中心，我们把它抽象为颜色空间中的一个点，两两之间的距离抽象为线段。那么这个阈值可以用下图的方式计算。</p>
-<p><img src="7.png" alt></p>
-<p>这个阈值就是上图中各个圆的半径。原则是圆的半径从小到大依次选取。</p>
+</li>
+<li><p>在PowerShell 中输入下面指令确保WSL成功转化为第二版：</p>
+<pre class=" language-bash"><code class="language-bash">wsl -l -v</code></pre>
+<p>详细教程，参考这里：<a href="https://zhuanlan.zhihu.com/p/69121280" target="_blank" rel="noopener">在 Windows 中运行 Linux：WSL 2 使用入门</a></p>
+</li>
+</ol>
+<h1 id="配置Ubuntu"><a href="#配置Ubuntu" class="headerlink" title="配置Ubuntu"></a>配置Ubuntu</h1><p>详细教程，参考这里：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/57556340" target="_blank" rel="noopener">用WSL,MobaXterm,Cmder配置linux开发环境</a></li>
+</ul>
+<h2 id="更换源"><a href="#更换源" class="headerlink" title="更换源"></a>更换源</h2><p>输入下面命令更换软件源，并更新：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> /etc/apt/sources.list /etc/apt/sources.list.bak 
+<span class="token function">sudo</span> <span class="token function">sed</span> -i <span class="token string">'s/archive.ubuntu.com/mirrors.aliyun.com/g'</span> /etc/apt/sources.list
+<span class="token function">sudo</span> apt update
+<span class="token function">sudo</span> apt upgrade -y</code></pre>
+<p>如果报错，则按照报错的提示，再输入一遍就好了。</p>
+<h2 id="修改Win10盘的挂载点"><a href="#修改Win10盘的挂载点" class="headerlink" title="修改Win10盘的挂载点"></a>修改Win10盘的挂载点</h2><p>这步的操作是<strong>可选的</strong>，可以跳过。</p>
+<p>默认的Windows磁盘在WSL的访问方式是<code>/mnt</code>开头，可能不太方便，我们下面更换成是<code>/</code>开头的吧。</p>
+<p>打开这个文件：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> vim /etc/wsl.conf</code></pre>
+<p>添加下面三行内容，并保存此文件：</p>
+<pre><code>[automount] 
+root = / 
+options = &quot;metadata&quot;</code></pre><p>关掉WSL窗口，然后重启WSL，重启WSL的方法为在CMD输入：</p>
+<pre class=" language-bash"><code class="language-bash">net stop LxssManager
+net start LxssManager</code></pre>
+<p>再次打开WSL，输入<code>df -h</code>可以看到Win10盘的挂载点成功变更了。</p>
+<h2 id="安装并配置VSCode"><a href="#安装并配置VSCode" class="headerlink" title="安装并配置VSCode"></a>安装并配置VSCode</h2><p>这步的操作是<strong>可选的</strong>，可以跳过。</p>
+<p>安装VSCode和中文字体，因为WSL2没中文字体将显示为豆腐块</p>
 <ol>
-<li><p>一开始选取最小的半径必定是由最短的边决定的，半径为最短边的一半。如上图的圆A。</p>
+<li>安装中文字体（Noto Sans Mono CJK SC）：</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> -y fonts-noto-cjk fonts-noto-cjk-extra</code></pre>
+<ol start="2">
+<li><p>在Win10下载VSCode的deb包：<a href="https://code.visualstudio.com/#alt-downloads" target="_blank" rel="noopener">官网下载页面</a></p>
 </li>
-<li><p>第二个圆是与第一个相邻的圆，半径等于第一个圆的半径，如上图的圆B。</p>
-</li>
-<li><p>然后就从剩余的可选择半径中选取半径较小的，即圆C。</p>
-</li>
-<li><p>最后选取圆D。</p>
+<li><p>然后cd到deb包的下载目录，用下面的命令来安装此deb包（替换包的名字）：</p>
 </li>
 </ol>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>如下的<code>initColorInfo</code>函数实现了颜色信息的初始化功能。<br>调用该函数后，二维数组<code>color_table</code>存储了各个标准颜色的HSV值，数组<code>color_range_table</code>存储了颜色阈值信息。</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> ./code_1.31.1-1549938243_amd64.deb</code></pre>
+<ol start="4">
+<li>安装要启动VSCode必要依赖：</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> libgtk2.0-0 libxss1 libasound2</code></pre>
+<ol start="5">
+<li><p>输入<code>code .</code>以启动VSCode。（若还没图形界面则不会显示，等安装好了再进行第5步和第6步）</p>
+</li>
+<li><p>找到下面属性，并配置VSCode：</p>
+</li>
+</ol>
+<pre class=" language-json"><code class="language-json"><span class="token property">"Window.titleBarStyle"</span><span class="token operator">:</span> <span class="token string">"native"</span><span class="token punctuation">,</span>
+<span class="token property">"editor.fontFamily"</span><span class="token operator">:</span> <span class="token string">"monospace,'Noto Sans Mono CJK SC'"</span></code></pre>
+<h2 id="安装并配置Python"><a href="#安装并配置Python" class="headerlink" title="安装并配置Python"></a>安装并配置Python</h2><p>这步的操作是<strong>可选的</strong>，可以跳过。</p>
+<p>我们使用Miniconda来安装和配置Python。</p>
+<ol>
+<li><p>下载清华大学开源软件镜像站的Miniconda镜像（下载最新版本即可，可以在Win10下载好然后cd到下载目录中）：<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/" target="_blank" rel="noopener">下载地址</a></p>
+</li>
+<li><p>输入<code>bash Miniconda3-latest-Linux-x86_64.sh</code>命令安装。按照提示输入即可，建议在最后输入yes初始化python环境（会安装最新版本的python）。</p>
+</li>
+<li><p>重新打开终端窗口，python环境会自动启动。</p>
+</li>
+</ol>
+<p>详细教程，参考这里：<a href="https://ywnz.com/linuxjc/3834.html" target="_blank" rel="noopener">在linux系统中安装与卸载miniconda的方法</a></p>
+<h2 id="配置Xrdp"><a href="#配置Xrdp" class="headerlink" title="配置Xrdp"></a>配置Xrdp</h2><ol>
+<li>安装xrdp及相关：</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> xrdp
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> vnc4server
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> xubuntu-desktop</code></pre>
+<ol start="2">
+<li>修改port 3389，避免跟本机的端口冲突（例如修改成3390）：</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> vim /etc/xrdp/xrdp.ini</code></pre>
+<ol start="3">
+<li>设为启动桌面</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> xfce4-session <span class="token operator">></span>~/.xsession </code></pre>
+<ol start="4">
+<li>在<code>~</code>创建新文件，例如取名叫<code>run_remote_desktop.sh</code>，添加如下内容</li>
+</ol>
+<pre><code>echo &#39;Going to start xrdp so as to open remote desktop port...&#39;
+echo &#39;Please input your password...&#39;
+echo &#39;=========================================&#39;
+sudo service xrdp restart
+echo &#39;=========================================&#39;
+ipv4_address=$(/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk &#39;{print $2}&#39;|tr -d &quot;addr:&quot;)
+echo &quot;Your WSL2 is running on $ipv4_address:3390&quot;</code></pre><ol start="5">
+<li><p>最后执行<code>chmod 777 ~/run_remote_desktop.sh</code>以赋予权限</p>
+</li>
+<li><p>每次想要启动桌面就输入<code>bash ~/run_remote_desktop.sh</code>，然后输入密码，最后会提示：<code>Your WSL2 is running on 172.28.246.150:3390</code>类似的字样，打开Win10的远程桌面，输入此ip就可以远程连接了。</p>
+</li>
+</ol>
 <blockquote>
-<p><code>COLOR_NUM</code>是颜色数量，在此例子中<code>#define COLOR_NUM 6</code><br><code>color_table</code>的定义：<code>float color_table[COLOR_NUM][3]</code><br><code>color_range_table</code>的定义：<code>float color_range_table[COLOR_NUM]</code></p>
+<p>注：输入<code>netstat -tulpn | grep LISTEN</code>可以查看到监听的端口，确保3390端口正在被监听到，否则无法远程桌面。</p>
 </blockquote>
-<pre class=" language-c++"><code class="language-c++">/* 初始化颜色信息 */
-void initColorInfo()
-{
-    float h_dst, s_dst, v_dst;
-    for (int i = 0; i < COLOR_NUM; ++i)
-    {
-        // RGB空间
-        switch (i)
-        {
-        case 0: // Unknown(White)
-            color_table[i][0] = 255;
-            color_table[i][1] = 255;
-            color_table[i][2] = 255;
-            break;
-        case 1: // Red
-            color_table[i][0] = 148;
-            color_table[i][1] = 19;
-            color_table[i][2] = 24;
-            break;
-        case 2: // Orange
-            color_table[i][0] = 198;
-            color_table[i][1] = 115;
-            color_table[i][2] = 35;
-            break;
-        case 3: // Yellow
-            color_table[i][0] = 177;
-            color_table[i][1] = 152;
-            color_table[i][2] = 23;
-            break;
-        case 4: // Green
-            color_table[i][0] = 45;
-            color_table[i][1] = 93;
-            color_table[i][2] = 19;
-            break;
-        case 5: // Blue
-            color_table[i][0] = 39;
-            color_table[i][1] = 92;
-            color_table[i][2] = 132;
-            break;
-        }
-        // 转化为HSV空间
-        rgb2hsv(color_table[i][0] / 255.0, color_table[i][1] / 255.0, color_table[i][2] / 255.0, h_dst, s_dst, v_dst);
-        color_table[i][0] = h_dst / 360.0f;
-        color_table[i][1] = s_dst;
-        color_table[i][2] = v_dst;
-    }
-
-    // 计算可识别的颜色距离
-    float dist;
-    float min_dist;
-    float adjMat[COLOR_NUM][COLOR_NUM]; // 邻接矩阵(非对称)
-    bool activeNode[COLOR_NUM];
-    // 初始化邻接矩阵
-    for (int i = 0; i < COLOR_NUM; ++i)
-    {
-        for (int j = i + 1; j < COLOR_NUM; ++j)
-        {
-            dist = getColorDistance(color_table[i][0], color_table[i][1], color_table[j][0], color_table[j][1]);
-            adjMat[i][j] = dist;
-        }
-    }
-    // 初始化activeNode
-    for (int i = 0; i < COLOR_NUM; ++i) activeNode[i] = true;
-    // 初始化color_range_table
-    for (int i = 0; i < COLOR_NUM; ++i) color_range_table[i] = 0;
-    // 计算距离
-    while (1)
-    {
-        // 求出最短距离
-        min_dist = 1e9;
-        for (int i = 0; i < COLOR_NUM; ++i)
-        {
-            for (int j = i + 1; j < COLOR_NUM; ++j)
-            {
-                dist = adjMat[i][j];
-                if ((activeNode[i] == false) ^ (activeNode[j] == false)) dist *= 2;
-                if (dist>1e-6 && dist < min_dist)
-                {
-                    min_dist = dist;
-                }
-            }
-        }
-        // 一起减去最短距离
-        for (int i = 0; i < COLOR_NUM; ++i)
-        {
-            for (int j = i + 1; j < COLOR_NUM; ++j)
-            {
-                if (adjMat[i][j] > 1e-6)
-                {
-                    if ((activeNode[i] == false) ^ (activeNode[j] == false)) adjMat[i][j] -= min_dist / 2;
-                    else adjMat[i][j] -= min_dist;
-                }
-            }
-        }
-        // 更新color_range_table
-        for (int i = 0; i < COLOR_NUM; ++i)
-        {
-            if (activeNode[i] == true)
-            {
-                color_range_table[i] += min_dist / 2;
-            }
-        }
-        // 更新有效结点
-        for (int i = 0; i < COLOR_NUM; ++i)
-        {
-            for (int j = i + 1; j < COLOR_NUM; ++j)
-            {
-                if (adjMat[i][j] < 1e-6)
-                {
-                    activeNode[i] = false;
-                    activeNode[j] = false;
-                }
-            }
-        }
-        // 退出条件
-        int activeNodeNum = 0;
-        for (int i = 0; i < COLOR_NUM; ++i)
-        {
-            activeNodeNum += int(activeNode[i]);
-        }
-        if (activeNodeNum == 0) break;
-    }
-}</code></pre>
-<h1 id="颜色识别"><a href="#颜色识别" class="headerlink" title="颜色识别"></a>颜色识别</h1><p>当距离小于阈值时则判定为该颜色。如果都不符合，则拒绝识别。</p>
-<blockquote>
-<p>代码中使用参数<code>COLOR_RANGE_A</code>来控制颜色的容限，值越接近1代表颜色的可变化性越大，值越接近0代表容不得颜色变化过大。<br><code>ColorType</code>是颜色的枚举类型数组</p>
-</blockquote>
-<pre class=" language-c++"><code class="language-c++">/* 从HSV识别颜色 */
-/* H = 0~360, S = 0~1, V = 0~1 */
-ColorType hsvColorReg(float h, float s, float v)
-{
-    float dist;
-    h /= 360.0f;
-    for (int i = 0; i < COLOR_NUM; ++i)
-    {
-        dist = getColorDistance(h, s, color_table[i][0], color_table[i][1]);
-        if (dist <= COLOR_RANGE_A * color_range_table[i])
-        {
-            return ColorType(i);
-        }
-    }
-    return Unknown;
-}</code></pre>
+<p>详细教程，参考这里：</p>
+<ul>
+<li><a href="https://blog.csdn.net/BigWrist/article/details/81208667" target="_blank" rel="noopener">windows 10 WSL：Ubuntu 18.04 + xrdp</a></li>
+</ul>
 
             </div>
             <hr/>
@@ -847,9 +728,9 @@ ColorType hsvColorReg(float h, float s, float v)
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《一种颜色识别算法》
+                    《WSL2配置指南》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/algorithm/colorclassify/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/wsl/wsl2config/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Karbo
             </a> 采用
@@ -1148,53 +1029,55 @@ ColorType hsvColorReg(float h, float s, float v)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/python/learn-python-and-numpy/">
+                <a href="/wsl/wsl2config/">
                     <div class="card-image">
                         
-                        <img src="/python/learn-python-and-numpy/cover.jpg" class="responsive-img" alt="Python和NumPy语法回顾">
+                        <img src="/wsl/wsl2config/cover.jpg" class="responsive-img" alt="WSL2配置指南">
                         
-                        <span class="card-title">Python和NumPy语法回顾</span>
+                        <span class="card-title">WSL2配置指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文旨在给忘记Python和NumPy相关语法的你一个速查手册。
+                            本文介绍了如何在Win10系统下使用WSL2，并基于WSL2的Ubuntu搭建Xfce桌面环境。
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/python/" class="post-category" target="_blank">
-                                    python
+                            <a href="/categories/wsl/" class="post-category" target="_blank">
+                                    wsl
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/grammar/" target="_blank">
-                        <span class="chip bg-color">grammar</span>
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
                     </a>
                     
-                    <a href="/tags/python/" target="_blank">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/wsl/" target="_blank">
+                        <span class="chip bg-color">wsl</span>
                     </a>
                     
-                    <a href="/tags/numpy/" target="_blank">
-                        <span class="chip bg-color">numpy</span>
+                    <a href="/tags/ubuntu/" target="_blank">
+                        <span class="chip bg-color">ubuntu</span>
                     </a>
                     
                 </div>
@@ -1208,23 +1091,23 @@ ColorType hsvColorReg(float h, float s, float v)
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/dl/kaggle-gpu/">
+                <a href="/dl/dlbooknotes/">
                     <div class="card-image">
                         
-                        <img src="/dl/kaggle-gpu/cover.png" class="responsive-img" alt="在Kaggle免费使用GPU训练自己的神经网络">
+                        <img src="/dl/dlbooknotes/cover.png" class="responsive-img" alt="《Deep Learning》读书笔记">
                         
-                        <span class="card-title">在Kaggle免费使用GPU训练自己的神经网络</span>
+                        <span class="card-title">《Deep Learning》读书笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kaggle上有免费供大家使用的GPU计算资源，本文教你如何使用它来训练自己的神经网络。
+                            本文是花书《Deep Learning》的读书笔记，凝练了该书最主要的知识要点。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-03
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-13
                             </span>
                         <span class="publish-author">
                             
@@ -1245,12 +1128,8 @@ ColorType hsvColorReg(float h, float s, float v)
                         <span class="chip bg-color">dl</span>
                     </a>
                     
-                    <a href="/tags/kaggle/" target="_blank">
-                        <span class="chip bg-color">kaggle</span>
-                    </a>
-                    
-                    <a href="/tags/gpu/" target="_blank">
-                        <span class="chip bg-color">gpu</span>
+                    <a href="/tags/notes/" target="_blank">
+                        <span class="chip bg-color">notes</span>
                     </a>
                     
                 </div>
@@ -1361,13 +1240,6 @@ ColorType hsvColorReg(float h, float s, float v)
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
-    });
-</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">

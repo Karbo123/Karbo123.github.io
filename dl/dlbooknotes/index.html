@@ -414,14 +414,14 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        872
+                        1.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        3 分
+                        5 分
                     </div>
                     
                 
@@ -537,9 +537,11 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 </ol>
 <ol start="3">
-<li><p>Frobenius norm：（目标：Measure the size of a matrix）<br>$$<br>||A||<em>F = \sqrt{\sum</em>{i,j}A_{i,j}^2}<br>$$</p>
+<li><p>Frobenius norm：（目标：Measure the size of a matrix）</p>
+<p>$$<br>||A||<em>F = \sqrt{\sum</em>{i,j}A_{i,j}^2}<br>$$</p>
 </li>
-<li><p>Dot product and angle<br>$$<br>x^T y=||x||_2 ||y||_2 cos \theta<br>$$</p>
+<li><p>Dot product and angle</p>
+<p>$$<br>x^T y=||x||_2 ||y||_2 cos \theta<br>$$</p>
 </li>
 </ol>
 <h2 id="2-6-Special-Kinds-of-Matrices-and-Vectors"><a href="#2-6-Special-Kinds-of-Matrices-and-Vectors" class="headerlink" title="2.6 Special Kinds of Matrices and Vectors"></a>2.6 Special Kinds of Matrices and Vectors</h2><ol>
@@ -594,16 +596,58 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 <li><p>性质：</p>
 <ul>
-<li><p>实矩阵皆可SVD</p>
+<li>实矩阵皆可SVD</li>
+<li>$ A $的左奇异向量等于$ A A^T $的特征向量</li>
+<li>$ A $的右奇异向量等于$ A^T A $的特征向量</li>
+<li>$ A $的非零奇异值等于$ A^T A $的特征值的平方根，对$ A A^T $而言同理</li>
+</ul>
 </li>
-<li><p>$ A $的左奇异向量等于$ A A^T $的特征向量</p>
+</ol>
+<h2 id="2-9-The-Moore-Penrose-Pseudoinverse"><a href="#2-9-The-Moore-Penrose-Pseudoinverse" class="headerlink" title="2.9 The Moore-Penrose Pseudoinverse"></a>2.9 The Moore-Penrose Pseudoinverse</h2><ol>
+<li><p>伪逆的定义式：<br>$$<br>A^+ = \lim \limits_{\alpha \rightarrow 0} (A^T A + \alpha I)^{-1} A^T<br>$$</p>
 </li>
-<li><p>$ A $的右奇异向量等于$ A^T A $的特征向量</p>
+<li><p>计算式（因为定义式往往不好计算）：</p>
 </li>
-<li><p>$ A $的非零奇异值等于$ A^T A $的特征值的平方根，对$ A A^T $而言同理</p>
+</ol>
+<p>$$<br>A^+ = V D^+ U^T<br>$$</p>
+<pre><code>   其中$ U $ 、 $ D $ 和 $ V $ 是矩阵$ A $ 的SVD分解。而$ D^+ $是通过对$ D $取元素的倒数、转置得到的。</code></pre><ol start="3">
+<li><p>性质（考察解方程$ Ax=y $）：</p>
+<ul>
+<li><p>伪逆的用途：当方程严格求解不出来时，使用伪逆可以求得近似解。</p>
+</li>
+<li><p>当方程数不足时（行数少于列数），解应该有无穷多个。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||x||_2 $最小（类似于自动求得在L2正则情况下的最优解？）</p>
+</li>
+<li><p>当方程数很多时（行数多于列数），解可能不存在，对应于直线拟合。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||Ax-y||_2 $最小（类似于欧氏误差/回归误差最小？）</p>
 </li>
 </ul>
 </li>
+</ol>
+<h1 id="2-10-The-Trace-Operator"><a href="#2-10-The-Trace-Operator" class="headerlink" title="2.10 The Trace Operator"></a>2.10 The Trace Operator</h1><ol>
+<li><p>“迹”的定义：对角线元素的和<br>$$<br>Tr(A) = \sum_i A_{i,i}<br>$$</p>
+</li>
+<li><p>用Trace来简便表示：</p>
+<ul>
+<li>表示Frobenius norm：$ ||A||_F = \sqrt{Tr(A A^T)} $</li>
+</ul>
+</li>
+<li><p>Trace的性质：</p>
+<ul>
+<li>$ Tr(A) = Tr(A^T) $</li>
+<li>循环置换性：$ Tr(ABC) = Tr(CAB) = Tr(BCA) $，即可以把最后一个移到第一个（反之亦然），当两个矩阵时：$ Tr(AB) = Tr(BA) $</li>
+<li>对标量$ a $：$ Tr(a) = a $</li>
+</ul>
+</li>
+</ol>
+<h1 id="2-11-The-Determinant"><a href="#2-11-The-Determinant" class="headerlink" title="2.11 The Determinant"></a>2.11 The Determinant</h1><ol>
+<li>定义式：$ det(A) = \prod \limits_{i} v_i $，其中$ v_i $是第$ i $个特征值</li>
+<li>性质：<ul>
+<li>行列式为零：降秩，奇异</li>
+<li>行列式为一：正交矩阵行列式的绝对值必定为一</li>
+</ul>
+</li>
+</ol>
+<h1 id="2-12-Example-Principal-Components-Analysis"><a href="#2-12-Example-Principal-Components-Analysis" class="headerlink" title="2.12 Example: Principal Components Analysis"></a>2.12 Example: Principal Components Analysis</h1><ol>
+<li>Principal Components Analysis (PCA) 的主要思想：</li>
 </ol>
 
             </div>
@@ -1064,51 +1108,53 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/dl/dlbooknotes/">
+                <a href="/wsl/wsl2config/">
                     <div class="card-image">
                         
-                        <img src="/dl/dlbooknotes/cover.png" class="responsive-img" alt="《Deep Learning》读书笔记">
+                        <img src="/wsl/wsl2config/cover.jpg" class="responsive-img" alt="WSL2配置指南">
                         
-                        <span class="card-title">《Deep Learning》读书笔记</span>
+                        <span class="card-title">WSL2配置指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文是花书《Deep Learning》的读书笔记，凝练了该书最主要的知识要点。
+                            本文介绍了如何在Win10系统下使用WSL2，并基于WSL2的Ubuntu搭建Xfce桌面环境。
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-13
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-19
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/dl/" class="post-category" target="_blank">
-                                    dl
+                            <a href="/categories/wsl/" class="post-category" target="_blank">
+                                    wsl
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/dl/" target="_blank">
-                        <span class="chip bg-color">dl</span>
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
                     </a>
                     
-                    <a href="/tags/notes/" target="_blank">
-                        <span class="chip bg-color">notes</span>
+                    <a href="/tags/wsl/" target="_blank">
+                        <span class="chip bg-color">wsl</span>
+                    </a>
+                    
+                    <a href="/tags/ubuntu/" target="_blank">
+                        <span class="chip bg-color">ubuntu</span>
                     </a>
                     
                 </div>
@@ -1283,7 +1329,7 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.7k</span>
+            <span class="white-color">41.3k</span>
             
 
             

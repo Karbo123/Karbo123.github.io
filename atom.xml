@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-13T12:14:30.948Z</updated>
+  <updated>2019-08-19T14:17:09.640Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>WSL2配置指南</title>
+    <link href="https://blog.karbo.online/wsl/wsl2config/"/>
+    <id>https://blog.karbo.online/wsl/wsl2config/</id>
+    <published>2019-08-19T13:08:47.000Z</published>
+    <updated>2019-08-19T14:17:09.640Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;安装WSL2&quot;&gt;&lt;a href=&quot;#安装WSL2&quot; class=&quot;headerlink&quot; title=&quot;安装WSL2&quot;&gt;&lt;/a&gt;安装WSL2&lt;/h1&gt;&lt;h2 id=&quot;升级Win10系统&quot;&gt;&lt;a href=&quot;#升级Win10系统&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="wsl" scheme="https://blog.karbo.online/categories/wsl/"/>
+    
+    
+      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
+    
+      <category term="wsl" scheme="https://blog.karbo.online/tags/wsl/"/>
+    
+      <category term="ubuntu" scheme="https://blog.karbo.online/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《Deep Learning》读书笔记</title>
     <link href="https://blog.karbo.online/dl/dlbooknotes/"/>
     <id>https://blog.karbo.online/dl/dlbooknotes/</id>
     <published>2019-08-13T08:46:49.000Z</published>
-    <updated>2019-08-13T12:14:30.948Z</updated>
+    <updated>2019-08-18T12:29:34.038Z</updated>
     
     <summary type="html">
     
@@ -127,9 +157,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -186,11 +216,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -259,7 +289,7 @@
     <link href="https://blog.karbo.online/tools/tools/"/>
     <id>https://blog.karbo.online/tools/tools/</id>
     <published>2019-04-02T04:50:45.000Z</published>
-    <updated>2019-08-09T16:17:05.513Z</updated>
+    <updated>2019-08-19T13:13:56.766Z</updated>
     
     <summary type="html">
     
@@ -364,11 +394,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -397,9 +427,9 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
