@@ -414,14 +414,14 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.3k
+                        3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        13 分
                     </div>
                     
                 
@@ -581,12 +581,10 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <ol start="3">
 <li><p>性质：</p>
 <ul>
-<li><p>矩阵降秩$ \Leftrightarrow $ 至少其中一个特征值为零（因为$ det(A) = \prod \limits_{i} \lambda_i $）</p>
-</li>
-<li><p>正定：特征值都是正数；正定矩阵在二次型中的性质：$ \forall x, x^T A x \ge 0 $</p>
-</li>
-<li><p>乘以矩阵$ A $之后，单位圆被缩放了：</p>
-</li>
+<li>矩阵降秩$ \Leftrightarrow $ 至少其中一个特征值为零（因为$ det(A) = \prod \limits_{i} \lambda_i $）</li>
+<li>正定：特征值都是正数；正定矩阵在二次型中的性质：$ \forall x, x^T A x \ge 0 $</li>
+<li>对实对称矩阵$ A $，其特征向量矩阵$ Q $的第$ i $列记作向量$ d_i $（若特征值按降序排列那么特征矩阵也是唯一确定的），第$ i $大的特征值为$ \lambda_i $，则$ \lambda_i = d_i^T A d_i $（PCA分析要用到这条性质）</li>
+<li>乘以矩阵$ A $之后，单位圆被缩放了：</li>
 </ul>
 <p><img src="2.png" alt></p>
 </li>
@@ -647,9 +645,121 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 </ol>
 <h1 id="2-12-Example-Principal-Components-Analysis"><a href="#2-12-Example-Principal-Components-Analysis" class="headerlink" title="2.12 Example: Principal Components Analysis"></a>2.12 Example: Principal Components Analysis</h1><ol>
-<li>Principal Components Analysis (PCA) 的主要思想：</li>
+<li><p>Principal Components Analysis (PCA) 问题的数学描述（参考英文版花书的Page48）：</p>
+<ul>
+<li><p>数据集：我们有m个点$ {x^{(1)},…,x^{(m)}} $，其中对任意一个点$ x^{(i)}\in \mathbb{R}^n $</p>
+</li>
+<li><p>目标：构造从$ x^{(i)} \in \mathbb{R}^n $到$ c^{(i)} \in \mathbb{R}^l $的映射$ f(x)=c $（此处$ l \leq n $），以及复原的映射$ x \approx g(c) $，使得复原的误差最小。从而获得编码向量$ c $</p>
+</li>
+<li><p>选取：复原映射是线性映射$ g(c)=Dc $，其中矩阵$ D $的列向量都是相互正交的，且模长为一（注意$ D $可以不是一个方阵）</p>
+</li>
+</ul>
+</li>
+<li><p>求解：</p>
+<ul>
+<li>Step1：<br>对于一个点$ x $，以及已知的$ D $，求什么样的$ c $使得重建误差最小，相当于求$ c=f(x) $。通过化简以及通过对$c$求导，可以解得$ c = D^T x $，即$ f(x) = D^T x $</li>
+</ul>
+<p>$$<br>\min \limits_{c} ||x-Dc||^2_2<br>$$</p>
+<ul>
+<li><p>Step2：</p>
+<p>那么完整的重建回来的值就是$ r(x) = D D^T x $。假设$ l=1 $（压缩到1维），那么$ D $就只是一个列向量$ d $，则优化问题就是（求$ d $）<br>$$<br>\min_d \sum_i ||x^{(i)}-dd^Tx^{(i)}||^2,\quad subject ; to ; ||d||=1<br>\<br>\Leftrightarrow \min_d \sum_i ||x^{(i)}-x^{(i)T}dd||^2,\quad subject ; to ; ||d||=1<br>$$<br>我们用design matrix来表示样本，即$ X \in \mathbb{R}^{m \times n} $，矩阵的第$ i $行是第$ i $个样本$ x^{(i)T} $，那么上述问题则可以用矩阵范数表示成<br>$$<br>\Leftrightarrow \min_d  ||X-Xdd^T||<em>F^2,\quad subject ; to ; d^Td=1<br>\<br>\Leftrightarrow \min_d  Tr((X-Xdd^T)^T(X-Xdd^T)),\quad subject ; to ; d^Td=1<br>\<br>\Leftrightarrow \max_d  Tr(d^TX^TXd),\quad subject ; to ; d^Td=1<br>\<br>\Leftrightarrow \max_d  (d^T(X^TX)d),\quad subject ; to ; d^Td=1<br>$$<br>注意到上述最大化问题形似特征值分解问题（$ \lambda</em>{1} = d_1^T A d_1 $），即求某一个特征向量，使得特征值最大。那么只需要对矩阵$ X^T X $作特征值分解，找到最大的特征值所对应的特征向量，即为所求的$ d $。</p>
+<p>若$ l $为其他情形，类似地，取降序排列的前$ l $个特征值所对的特征向量（模长要为一）构造出矩阵$ D = (d_1, …, d_l) $即为所求的复原映射矩阵。</p>
+</li>
+</ul>
+</li>
 </ol>
-
+<h1 id="3-Probability-and-Information-Theory"><a href="#3-Probability-and-Information-Theory" class="headerlink" title="3. Probability and Information Theory"></a>3. Probability and Information Theory</h1><h2 id="3-1-Why-Probability"><a href="#3-1-Why-Probability" class="headerlink" title="3.1 Why Probability?"></a>3.1 Why Probability?</h2><ol>
+<li><p>产生不确定性的原因：</p>
+<ul>
+<li><p>被建模系统中本身就有的的不确定性</p>
+</li>
+<li><p>不完全的观测</p>
+</li>
+<li><p>不充分的建模</p>
+</li>
+</ul>
+</li>
+<li><p>建模过程中，更喜欢用simple but uncertain rule rather than a complex but certain one</p>
+</li>
+<li><p>概率的分类：</p>
+<ul>
+<li>Frequentist probability（频率论）：直接与事件发生的概率关联</li>
+<li>Bayesian probability（贝叶斯）：与定性的确定性关联</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-2-Random-Variables"><a href="#3-2-Random-Variables" class="headerlink" title="3.2 Random Variables"></a>3.2 Random Variables</h2><p>随机变量（that can take on different values randomly）的类型：</p>
+<ul>
+<li>离散型</li>
+<li>连续性</li>
+</ul>
+<h2 id="3-3-Probability-Distributions"><a href="#3-3-Probability-Distributions" class="headerlink" title="3.3 Probability Distributions"></a>3.3 Probability Distributions</h2><h3 id="3-3-1-Discrete-Variables-and-Probability-Mass-Functions"><a href="#3-3-1-Discrete-Variables-and-Probability-Mass-Functions" class="headerlink" title="3.3.1 Discrete Variables and Probability Mass Functions"></a>3.3.1 Discrete Variables and Probability Mass Functions</h3><p>概率质量函数（Probability Mass Functions = PMF）记作$ P(x) $</p>
+<p>联合分布（Joint Probability Distribution）记作$ P(x,y) $</p>
+<p>均匀分布（Uniform Distribution）$ P(x=x_i) = \frac{1}{k} $（with k different states）</p>
+<h3 id="3-3-2-Continuous-Variables-and-Probability-Density-Functions"><a href="#3-3-2-Continuous-Variables-and-Probability-Density-Functions" class="headerlink" title="3.3.2 Continuous Variables and Probability Density Functions"></a>3.3.2 Continuous Variables and Probability Density Functions</h3><p>概率密度函数（Probability Density Functions = PDF）记作$ p(x) $</p>
+<p>In the univariate example, the probability that x lies in the interval [a, b] is given by $ \int_{[a,b]} p(x) dx $</p>
+<p>均匀分布$ u(x;a,b) = \frac{1}{b-a} $（The “;” notation means “parametrized by”），denote by writing $ x\sim U(a,b) $</p>
+<h2 id="3-4-Marginal-Probability"><a href="#3-4-Marginal-Probability" class="headerlink" title="3.4 Marginal Probability"></a>3.4 Marginal Probability</h2><p>边缘概率分布：（已知联合分布，求单变量的分布）<br>$$<br>P(x) = \sum_y P(x,y)<br>\<br>p(x) = \int p(x,y) ; dy<br>$$</p>
+<h2 id="3-5-Conditional-Probability"><a href="#3-5-Conditional-Probability" class="headerlink" title="3.5 Conditional Probability"></a>3.5 Conditional Probability</h2><p>条件概率：$ P(y|x) $（已知$ x $，求$ y $。相当于图像分类问题）</p>
+<p>公式：$ P(x,y) = P(y|x) \times P(x) = P(x|y) \times P(y) $</p>
+<h2 id="3-6-The-Chain-Rule-of-Conditional-Probabilities"><a href="#3-6-The-Chain-Rule-of-Conditional-Probabilities" class="headerlink" title="3.6 The Chain Rule of Conditional Probabilities"></a>3.6 The Chain Rule of Conditional Probabilities</h2><p>多个变量的联合分布，可以拆成多个条件概率的连乘积：<br>$$<br>P(a,b,c) = P(a|b,c) \times P(b|c) \times P(c)<br>$$</p>
+<h2 id="3-7-Independence-and-Conditional-Independence"><a href="#3-7-Independence-and-Conditional-Independence" class="headerlink" title="3.7 Independence and Conditional Independence"></a>3.7 Independence and Conditional Independence</h2><p>变量x和y独立：$ \forall x, y, \quad p(x,y)=p(x) \times p(y) $, denote as $ x \perp y $</p>
+<p>变量x和y基于条件z独立：$ \forall x, y, z, \quad p(x,y|z)=p(x|z) \times p(y|z) $, denote as $ x \perp y , | , z $</p>
+<h2 id="3-8-Expectation-Variance-and-Covariance"><a href="#3-8-Expectation-Variance-and-Covariance" class="headerlink" title="3.8 Expectation, Variance and Covariance"></a>3.8 Expectation, Variance and Covariance</h2><ol>
+<li>期望（expectation）：</li>
+</ol>
+<p>   $$<br>   \mathbb{E}<em>{x \sim P}[f(x)] = \sum \limits</em>{x} P(x) f(x)<br>   \<br>   \mathbb{E}_{x \sim p}[f(x)] = \int p(x) f(x) , dx<br>   $$</p>
+<ol start="2">
+<li><p>方差（variance）：<br>$$<br>Var(f(x)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])^2]<br>$$<br>标准差（standard deviation）：$ \sqrt{Var(f(x))} $</p>
+</li>
+<li><p>协方差（covariance）：<br>$$<br>Cov(f(x),g(y)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])(g(y)-\mathbb{E}[g(y)])]<br>$$<br>The covariance gives some sense of how much two values are linearly related to each other.（只是描述线性相关程度的度量）</p>
+<ul>
+<li><p>协方差&gt;0时：一个变大另一个也会变大</p>
+</li>
+<li><p>协方差&lt;0时：一个变大另一个会变小</p>
+</li>
+</ul>
+<p>相关系数（Correlation）： $ \rho_{X,Y} = \frac{Cov(X,Y)}{\sigma_X \sigma_Y} $，该系数广泛用于度量两个变量之间的<strong>线性</strong>相关程度</p>
+<p><img src="3.png" alt></p>
+<p>性质：</p>
+<ul>
+<li>$ Cov=0 \Leftarrow independent $</li>
+<li>$ Cov \neq 0 \Leftrightarrow linear ; dependent $</li>
+<li>$ Cov=0 \Rightarrow there ; mush ; be ; no ; linear ; dependence  $</li>
+</ul>
+</li>
+</ol>
+<p><img src="4.png" alt></p>
+<p>   协方差矩阵：$ Cov(x)_{i,j} = Cov(x_i,x_j) $，其对角元素是方差。</p>
+<h2 id="3-9-Common-Probability-Distributions"><a href="#3-9-Common-Probability-Distributions" class="headerlink" title="3.9 Common Probability Distributions"></a>3.9 Common Probability Distributions</h2><h3 id="3-9-1-Bernoulli-Distribution"><a href="#3-9-1-Bernoulli-Distribution" class="headerlink" title="3.9.1 Bernoulli Distribution"></a>3.9.1 Bernoulli Distribution</h3><p>做一次实验得到1维的随机变量，只有两个可能的取值（0或1），像抛硬币一样：$ P(x) = \phi^x (1-\phi)^{1-x} $（好像类似于做一次实验得到了sigmoid输出的的随机变量，即一个node只有0或1？）</p>
+<h3 id="3-9-2-Multinoulli-Distribution"><a href="#3-9-2-Multinoulli-Distribution" class="headerlink" title="3.9.2 Multinoulli Distribution"></a>3.9.2 Multinoulli Distribution</h3><p>做一次实验得到k维的随机变量$ p=[0,1]^{k} $（意味着每一个entry只能是0或1），且满足$ \sum_i p_i = 1 $（意味着只有一个entry是1其他都是0），（好像类似于做一次实验然后得到了一个one-hot随机变量，即softmax output layer有k个nodes？）</p>
+<h3 id="3-9-3-Gaussian-Distribution"><a href="#3-9-3-Gaussian-Distribution" class="headerlink" title="3.9.3 Gaussian Distribution"></a>3.9.3 Gaussian Distribution</h3><p>高斯分布：<br>$$<br>\mathcal{N}(x;\mu,\sigma^2) = \sqrt{\frac{1}{2\pi \sigma^2}}exp(-\frac{(x-\mu)^2}{2\sigma^2})<br>$$</p>
+<ul>
+<li><p>精度（precision）：$ \beta = \frac{1}{\sigma^2} $，精度越大则高斯分布越集中</p>
+</li>
+<li><p>当不知道采取什么先验时，就选取高斯分布吧（因为高斯分布包含的先验知识少）</p>
+</li>
+<li><p>L2正则等于在MAP Bayesian inference中使用高斯分布作为prior（参见英文版花书的Page236）</p>
+</li>
+<li><p>多变量时：<br>$$<br>\mathcal{N}(x;\mu,\Sigma) = \sqrt{\frac{1}{(2\pi)^n det(\Sigma)}}exp(-\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu))<br>$$<br>其中$ \Sigma $是协方差阵，$ \mu $是均值向量。当然也可以写成精度矩阵的形式（此时精度矩阵$ \beta = \Sigma^{-1} $）</p>
+</li>
+</ul>
+<h3 id="3-9-4-Exponential-and-Laplace-Distributions"><a href="#3-9-4-Exponential-and-Laplace-Distributions" class="headerlink" title="3.9.4 Exponential and Laplace Distributions"></a>3.9.4 Exponential and Laplace Distributions</h3><ol>
+<li>指数分布：</li>
+</ol>
+<p>$$<br>p(x;\lambda) = \lambda 1_{x \geq 0} exp(-\lambda x)<br>$$</p>
+<ol start="2">
+<li>拉普拉斯分布（L1正则等于在MAP Bayesian inference中使用isotropic Laplace distribution作为最大化log-prior term的先验，参见英文版花书的Page236）：</li>
+</ol>
+<p>$$<br>Laplace(x;\mu,\gamma) = \frac{1}{2\gamma}exp(-\frac{|x-\mu|}{\gamma})<br>$$</p>
+<p><img src="5.png" alt></p>
+<h3 id="3-9-5-The-Dirac-Distribution-and-Empirical-Distribution"><a href="#3-9-5-The-Dirac-Distribution-and-Empirical-Distribution" class="headerlink" title="3.9.5 The Dirac Distribution and Empirical Distribution"></a>3.9.5 The Dirac Distribution and Empirical Distribution</h3><ol>
+<li><p>狄拉克分布：$ p(x) = \delta(x-\mu) $（$ \delta $为冲激函数，积分为1）</p>
+</li>
+<li><p>经验分布（概率密度函数，多个冲激的和。通过采样样本点去近似真实的分布）：<br>$$<br>\hat{p}(x) = \frac{1}{m} \sum_{i=1}^m \delta(x-x^{(i)})<br>$$</p>
+</li>
+</ol>
+<h3 id="3-9-6-Mixtures-of-Distributions"><a href="#3-9-6-Mixtures-of-Distributions" class="headerlink" title="3.9.6 Mixtures of Distributions"></a>3.9.6 Mixtures of Distributions</h3>
             </div>
             <hr/>
 
@@ -1329,7 +1439,7 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">41.3k</span>
+            <span class="white-color">43.1k</span>
             
 
             

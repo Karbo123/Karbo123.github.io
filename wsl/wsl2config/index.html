@@ -5,8 +5,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="WSL2配置指南, 任我行">
-    <meta name="description" content="安装WSL2升级Win10系统要使用WSL2需要系统的版本号不低于18917。而一般的Win10系统都是稳定版（意味着你的版本号一般来说都是低于18917的），需要加入Windows的预览体验计划。
-详细教程，参考这里：Windows 10">
+    <meta name="description" content="安装WSL2升级Win10系统要使用WSL2需要系统的版本号不低于18917。而一般的Win10系统都是稳定版（意味着你的版本号一般来说都是低于18917的，按下Win+R并输入winver回车可以查看系统版本），需要加入Windows的预">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -424,7 +423,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        5 分
                     </div>
                     
                 
@@ -440,7 +439,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><h2 id="升级Win10系统"><a href="#升级Win10系统" class="headerlink" title="升级Win10系统"></a>升级Win10系统</h2><p>要使用WSL2需要系统的版本号不低于18917。而一般的Win10系统都是稳定版（意味着你的版本号一般来说都是低于18917的），需要加入Windows的预览体验计划。</p>
+                <h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><h2 id="升级Win10系统"><a href="#升级Win10系统" class="headerlink" title="升级Win10系统"></a>升级Win10系统</h2><p>要使用WSL2需要系统的版本号不低于18917。而一般的Win10系统都是稳定版（意味着你的版本号一般来说都是低于18917的，按下Win+R并输入winver回车可以查看系统版本），需要加入Windows的预览体验计划。</p>
 <p>详细教程，参考这里：<a href="https://jingyan.baidu.com/article/1876c85235c709890a137663.html" target="_blank" rel="noopener">Windows 10 20H1快速预览18917版系统更新教程</a></p>
 <h2 id="安装WSL"><a href="#安装WSL" class="headerlink" title="安装WSL"></a>安装WSL</h2><ol>
 <li><p>管理员身份打开powershell，输入下面的语句以打开“适用于Linux的Windows子系统”开关。</p>
@@ -463,8 +462,9 @@
 <li><p>重启计算机</p>
 </li>
 <li><p>在 PowerShell 中运行下面指令以将WSL转变为WSL2：</p>
-<pre><code>wsl --set-version Ubuntu 2
-wsl --set-default-version 2</code></pre><blockquote>
+<pre class=" language-bash"><code class="language-bash">wsl --set-version Ubuntu 2
+wsl --set-default-version 2</code></pre>
+<blockquote>
 <p>可能提示需要开启虚拟化技术<br>参考这里：</p>
 <ul>
 <li><a href="https://guwq2014.iteye.com/blog/2426896" target="_blank" rel="noopener">如何开启windows的虚拟化？</a></li>
@@ -507,7 +507,7 @@ net start LxssManager</code></pre>
 <ol start="2">
 <li><p>在Win10下载VSCode的deb包：<a href="https://code.visualstudio.com/#alt-downloads" target="_blank" rel="noopener">官网下载页面</a></p>
 </li>
-<li><p>然后cd到deb包的下载目录，用下面的命令来安装此deb包（替换包的名字）：</p>
+<li><p>然后cd到deb包的下载目录，用下面的命令来安装此deb包（替换下面包的名字）：</p>
 </li>
 </ol>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> ./code_1.31.1-1549938243_amd64.deb</code></pre>
@@ -551,20 +551,21 @@ net start LxssManager</code></pre>
 <ol start="4">
 <li>在<code>~</code>创建新文件，例如取名叫<code>run_remote_desktop.sh</code>，添加如下内容</li>
 </ol>
-<pre><code>echo &#39;Going to start xrdp so as to open remote desktop port...&#39;
-echo &#39;Please input your password...&#39;
-echo &#39;=========================================&#39;
-sudo service xrdp restart
-echo &#39;=========================================&#39;
-ipv4_address=$(/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk &#39;{print $2}&#39;|tr -d &quot;addr:&quot;)
-echo &quot;Your WSL2 is running on $ipv4_address:3390&quot;</code></pre><ol start="5">
-<li><p>最后执行<code>chmod 777 ~/run_remote_desktop.sh</code>以赋予权限</p>
-</li>
-<li><p>每次想要启动桌面就输入<code>bash ~/run_remote_desktop.sh</code>，然后输入密码，最后会提示：<code>Your WSL2 is running on 172.28.246.150:3390</code>类似的字样，打开Win10的远程桌面，输入此ip就可以远程连接了。</p>
-</li>
+<pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token string">'Going to start xrdp so as to open remote desktop port...'</span>
+<span class="token keyword">echo</span> <span class="token string">'Please input your password...'</span>
+<span class="token keyword">echo</span> <span class="token string">'========================================='</span>
+<span class="token function">sudo</span> <span class="token function">service</span> xrdp restart
+<span class="token keyword">echo</span> <span class="token string">'========================================='</span>
+ipv4_address<span class="token operator">=</span><span class="token punctuation">$(</span>/sbin/ifconfig -a<span class="token operator">|</span><span class="token function">grep</span> inet<span class="token operator">|</span><span class="token function">grep</span> -v 127.0.0.1<span class="token operator">|</span><span class="token function">grep</span> -v inet6<span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$2</span>}'</span><span class="token operator">|</span><span class="token function">tr</span> -d <span class="token string">"addr:"</span><span class="token punctuation">)</span>
+<span class="token keyword">echo</span> <span class="token string">"Your WSL2 is running on <span class="token variable">$ipv4_address</span>:3390"</span></code></pre>
+<ol start="5">
+<li>最后执行<code>chmod 777 ~/run_remote_desktop.sh</code>以赋予权限</li>
+<li>每次想要启动桌面就输入<code>bash ~/run_remote_desktop.sh</code>，然后输入密码，最后会提示：<code>Your WSL2 is running on 172.28.246.150:3390</code>类似的字样，打开Win10的远程桌面，输入此ip就可以远程连接了。</li>
+<li>然后配置图形界面（例如前面还没有完成的对VSCode的配置）</li>
+<li>Enjoy developing！</li>
 </ol>
 <blockquote>
-<p>注：输入<code>netstat -tulpn | grep LISTEN</code>可以查看到监听的端口，确保3390端口正在被监听到，否则无法远程桌面。</p>
+<p>注：输入<code>netstat -tulpn | grep LISTEN</code>可以查看到监听的端口，确保3390端口正在监听，否则无法远程桌面。</p>
 </blockquote>
 <p>详细教程，参考这里：</p>
 <ul>
@@ -1249,7 +1250,7 @@ echo &quot;Your WSL2 is running on $ipv4_address:3390&quot;</code></pre><ol star
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">41.3k</span>
+            <span class="white-color">43.1k</span>
             
 
             
