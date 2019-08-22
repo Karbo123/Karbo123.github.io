@@ -7,9 +7,10 @@
     <meta name="keywords" content="Python的网络编程, 任我行">
     <meta name="description" content="本文教你使用Python进行网络编程。
 API请求安装requests包pip install --user requests
+
 处理API响应我们以找出GitHub上Stars最高的项目为例。代码如下：
 import requests
-im">
+i">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -420,7 +421,7 @@ im">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        227
+                        226
                     </div>
                     
 
@@ -444,36 +445,38 @@ im">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>本文教你使用Python进行网络编程。</p>
-<h1 id="API请求"><a href="#API请求" class="headerlink" title="API请求"></a>API请求</h1><h2 id="安装requests包"><a href="#安装requests包" class="headerlink" title="安装requests包"></a>安装requests包</h2><pre class=" language-python"><code class="language-python">pip install <span class="token operator">-</span><span class="token operator">-</span>user requests</code></pre>
+<h1 id="API请求"><a href="#API请求" class="headerlink" title="API请求"></a>API请求</h1><h2 id="安装requests包"><a href="#安装requests包" class="headerlink" title="安装requests包"></a>安装requests包</h2><pre class=" language-lang-python"><code class="language-lang-python">pip install --user requests
+</code></pre>
 <h2 id="处理API响应"><a href="#处理API响应" class="headerlink" title="处理API响应"></a>处理API响应</h2><p>我们以找出<code>GitHub</code>上<code>Stars</code>最高的项目为例。代码如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> requests
-<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<pre class=" language-lang-python"><code class="language-lang-python">import requests
+import matplotlib.pyplot as plt
 
-url <span class="token operator">=</span> <span class="token string">"https://api.github.com/search/repositories?q=language:python&amp;sort=stars"</span>
-r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
-response_dict <span class="token operator">=</span> r<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#解析成字典</span>
+url = "https://api.github.com/search/repositories?q=language:python&sort=stars"
+r = requests.get(url)
+response_dict = r.json()  #解析成字典
 
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'complete_results:'</span><span class="token punctuation">,</span> <span class="token operator">not</span> response_dict<span class="token punctuation">[</span><span class="token string">'incomplete_results'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#获取的结果是否完整</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'total_count:'</span><span class="token punctuation">,</span> response_dict<span class="token punctuation">[</span><span class="token string">'total_count'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#GitHub上的Python项目总数</span>
-repo_len <span class="token operator">=</span> len<span class="token punctuation">(</span>response_dict<span class="token punctuation">[</span><span class="token string">'items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#我们获取到的项目数量</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get_repo_num:'</span><span class="token punctuation">,</span> repo_len<span class="token punctuation">)</span>
+print('complete_results:', not response_dict['incomplete_results'])  #获取的结果是否完整
+print('total_count:', response_dict['total_count'])  #GitHub上的Python项目总数
+repo_len = len(response_dict['items'])  #我们获取到的项目数量
+print('get_repo_num:', repo_len)
 
-forks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>repo_len<span class="token punctuation">)</span><span class="token punctuation">]</span>
-stars <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>repo_len<span class="token punctuation">)</span><span class="token punctuation">]</span>
-<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>repo_len<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    item <span class="token operator">=</span> response_dict<span class="token punctuation">[</span><span class="token string">'items'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'rank:'</span><span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'name:'</span><span class="token punctuation">,</span> item<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    forks<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'forks_count'</span><span class="token punctuation">]</span>
-    stars<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'stargazers_count'</span><span class="token punctuation">]</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'fork:'</span><span class="token punctuation">,</span> forks<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'star:'</span><span class="token punctuation">,</span> stars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'--------------'</span><span class="token punctuation">)</span>
+forks = [0 for i in range(repo_len)]
+stars = [0 for i in range(repo_len)]
+for i in range(repo_len):
+    item = response_dict['items'][i]
+    print('rank:', i + 1)
+    print('name:', item['name'])
+    forks[i] = item['forks_count']
+    stars[i] = item['stargazers_count']
+    print('fork:', forks[i])
+    print('star:', stars[i])
+    print('--------------')
 
-plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>repo_len<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> forks<span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>repo_len<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> stars<span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>legend<span class="token punctuation">(</span>loc<span class="token operator">=</span><span class="token string">'upper right'</span><span class="token punctuation">,</span> labels<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'forks'</span><span class="token punctuation">,</span> <span class="token string">'stars'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+plt.plot([i for i in range(repo_len)], forks)
+plt.plot([i for i in range(repo_len)], stars)
+plt.legend(loc='upper right', labels=['forks', 'stars'])
+plt.show()
+</code></pre>
 <p>输出结果：</p>
 <pre><code>complete_results: True
 total_count: 3660823
@@ -491,7 +494,8 @@ rank: 30
 name: python-patterns
 fork: 4350
 star: 19983
---------------</code></pre><p><img src="0.png" alt></p>
+--------------
+</code></pre><p><img src="0.png" alt></p>
 
             </div>
             <hr/>
@@ -1173,7 +1177,7 @@ star: 19983
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

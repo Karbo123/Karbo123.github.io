@@ -442,13 +442,15 @@
 <h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p>按照网上的教程，安装好Git，并配置好用户信息，配置SSH等等。</p>
 <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>打开一个文件夹，点出鼠标右键的菜单，选择“Git Bash Here”，然后就能在此处打开Git的命令行界面了。</p>
 <p>本地用法：</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> init <span class="token comment" spellcheck="true"># git库初始化</span>
-<span class="token function">git</span> add <span class="token keyword">.</span> <span class="token comment" spellcheck="true"># 添加当前目录下的所有文件到缓存区</span>
-<span class="token function">git</span> commit -m <span class="token string">"first commit"</span> <span class="token comment" spellcheck="true"># 提交缓存区的所有文件到git里，并附上提交的说明</span></code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">git init # git库初始化
+git add . # 添加当前目录下的所有文件到缓存区
+git commit -m "first commit" # 提交缓存区的所有文件到git里，并附上提交的说明
+</code></pre>
 <p>远程用法（在使用了“本地用法”之后）：</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> remote add origin <span class="token punctuation">[</span>GitHub的上传网址<span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 仅第一次需要：添加远端的推送地址</span>
-<span class="token function">git</span> push -u origin master <span class="token comment" spellcheck="true"># 第一次推送到远端用这条，以后不用</span>
-<span class="token comment" spellcheck="true"># git push # 以后推送到远端都用这条</span></code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">git remote add origin [GitHub的上传网址] # 仅第一次需要：添加远端的推送地址
+git push -u origin master # 第一次推送到远端用这条，以后不用
+# git push # 以后推送到远端都用这条
+</code></pre>
 <h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><ol>
 <li><code>git branch dev</code>：创建名字为dev的分支</li>
 <li><code>git checkout dev</code>：切换到分支dev</li>
@@ -1141,7 +1143,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

@@ -474,28 +474,28 @@
 </li>
 </ol>
 <p><img src="2.png" alt></p>
-<ol start="3">
+<ol>
 <li>点击页面上部的<code>New Kernel</code>来创建一个新的<code>Kernel</code>。粗略地说<code>Kernel</code>就是一个代码的工程项目。</li>
 </ol>
 <p><img src="3.png" alt></p>
-<ol start="4">
+<ol>
 <li>点击左边的<code>Script</code>来创建一个脚本。这个脚本就是你项目运行的主要文件。</li>
 </ol>
 <p><img src="4.png" alt></p>
-<ol start="5">
+<ol>
 <li>顶部的标题栏的功能。</li>
 </ol>
 <p><img src="5.png" alt></p>
-<ol start="6">
+<ol>
 <li>侧边状态栏的主要功能。<code>Sessions</code>显示资源占用状态，<code>Versions</code>显示版本管理，<code>Draft Environment</code>显示你上传数据（注意：上传后该区域只读，不能写），<code>Settings</code>显示设置（如<code>GPU</code>开关、包的管理）</li>
 </ol>
 <p><img src="6.png" alt></p>
-<ol start="7">
+<ol>
 <li>底部状态栏功能。</li>
 </ol>
 <p><img src="7.png" alt></p>
 <p>用完<code>Kernel</code>建议点击类似电源键的按钮关闭<code>Kernel</code>哦（关闭后所有输出文件将会丢失）</p>
-<ol start="8">
+<ol>
 <li>代码输入窗口。它已预先帮你输入一些示例代码，可以删掉重写。</li>
 </ol>
 <p><img src="8.png" alt></p>
@@ -507,7 +507,8 @@
 <p>然后按照实际情况修改<code>train.py</code>的相关参数，例如将<code>batch_size</code>改成<code>128</code>，<code>epochs</code>改小一点等等。</p>
 <p>注意训练时间不能超过<code>6</code>个小时，否则<code>Kaggle</code>会自动关闭你的<code>Kernel</code>。</p>
 <p>并且<code>Keras</code>版的<code>YOLO</code>的标签文件与<code>Darknet</code>版的不同，标签文件要重新生成。然后执行：</p>
-<pre><code> cat 2007_train.txt 2007_val.txt &gt; train.txt</code></pre><p>即我们使用验证集和训练集混合起来一起训练，最后替换下路径前缀。</p>
+<pre><code> cat 2007_train.txt 2007_val.txt &gt; train.txt
+</code></pre><p>即我们使用验证集和训练集混合起来一起训练，最后替换下路径前缀。</p>
 <p>但有以下几点要注意下：</p>
 <ol>
 <li><p>上传后不能在线修改你上传的东西，只能删除该压缩包（删除方法见第三节：再次训练）后重新上传（如果数据量巨大，重新上传十分费时）。所以最好需要确保第一次上传的东西就没有问题，否则更改会比较繁琐。</p>
@@ -529,23 +530,25 @@
 <li>对于上传了文件：<code>../input/数据集的名字/上传的文件名字</code></li>
 <li>对于上传了压缩包：<code>../input/数据集的名字/压缩包的名字/压缩包底下的路径</code></li>
 </ul>
-<ol start="3">
+<ol>
 <li><p>其中上述的 <code>图片路径的</code>.txt<code>文件</code> 不能单纯按照<a href="https://my.oschina.net/u/876354/blog/1927881" target="_blank" rel="noopener">【AI实战】动手训练自己的目标检测模型（YOLO篇）</a>来做，你要将路径替换成上述第二点描述的那样。因为你执行的主脚本文件并不是在你上传的东西里面，你需要使用类似<code>../input/XXX/XXX</code>的格式来调用你上传的东西。</p>
 </li>
 <li><p>对于脚本中的文件路径也是如此，类似于上述的第三点来做。否则会提示会找不到你上传的文件。实际上有关路径的一切东西都要按照上述的路径规则来做，否则就找不到文件。</p>
 </li>
 <li><p>如果提示<code>import</code>时找不到文件，这是因为你上传的包没有加入系统变量，那么你需要：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> sys
-kaggle_path_prefix <span class="token operator">=</span> <span class="token string">"../input/keras-yolov3tiny-voc2007/keras-yolo3/"</span>
-sys<span class="token punctuation">.</span>path<span class="token punctuation">.</span>append<span class="token punctuation">(</span>kaggle_path_prefix<span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">import sys
+kaggle_path_prefix = "../input/keras-yolov3tiny-voc2007/keras-yolo3/"
+sys.path.append(kaggle_path_prefix)
+</code></pre>
 </li>
 </ol>
 <p>这里请根据你的实际情况修改上述<code>kaggle_path_prefix</code>的值。</p>
 <p>这里<code>kaggle_path_prefix</code>目录下需要包含那个你刚刚上传的压缩包里名叫<code>yolo3</code>的<code>Python</code>包的文件夹。</p>
-<ol start="6">
+<ol>
 <li>保存文件的路径请直接填写文件名，像这样：</li>
 </ol>
-<pre class=" language-python"><code class="language-python">model<span class="token punctuation">.</span>save_weights<span class="token punctuation">(</span><span class="token string">'trained_weights_final.h5'</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">model.save_weights('trained_weights_final.h5')
+</code></pre>
 <p>这是因为<code>input</code>文件夹是只读的，且保存到其他地方去无法输出下载，你也找不到输出的文件。况且当<code>Kernel</code>关闭后你的一切东西就会丢失。</p>
 <h3 id="运行并提交"><a href="#运行并提交" class="headerlink" title="运行并提交"></a>运行并提交</h3><p>点击顶部标题栏亮起的蓝色<code>Commit</code>按钮，以运行全部代码并保存结果，最后它会保存你输出的文件。</p>
 <p>如果允许的窗口不慎点没了，可以右侧的<code>Versions</code>中，点击：</p>
@@ -568,11 +571,11 @@ sys<span class="token punctuation">.</span>path<span class="token punctuation">.
 </li>
 </ol>
 <p><img src="13.png" alt></p>
-<ol start="3">
+<ol>
 <li>然后点击<code>Settings</code></li>
 </ol>
 <p><img src="14.png" alt></p>
-<ol start="4">
+<ol>
 <li>最后点击<code>Delete Dataset</code>并确认即可</li>
 </ol>
 <p><img src="15.png" alt></p>
@@ -1257,7 +1260,7 @@ sys<span class="token punctuation">.</span>path<span class="token punctuation">.
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

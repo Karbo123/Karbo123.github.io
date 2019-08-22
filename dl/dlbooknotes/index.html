@@ -5,9 +5,9 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="《Deep Learning》读书笔记, 任我行">
-    <meta name="description" content="1. IntroductionKnowledge based approach -&amp;gt; Machine learning 
-Representation learning: 学会如何表示东西，而不仅仅是从input到output的映射
-">
+    <meta name="description" content="开始撰写日期：2019-8-13完成撰写日期：not finished
+1. IntroductionKnowledge based approach -&amp;gt; Machine learning 
+Representation learn">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -414,14 +414,14 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3k
+                        4.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        13 分
+                        21 分
                     </div>
                     
                 
@@ -437,7 +437,8 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Knowledge based approach -&gt; Machine learning </p>
+                <p>开始撰写日期：2019-8-13<br>完成撰写日期：not finished</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Knowledge based approach -&gt; Machine learning </p>
 <p>Representation learning: 学会如何表示东西，而不仅仅是从input到output的映射</p>
 <p>Model深度的计算方法有两种：</p>
 <ul>
@@ -488,27 +489,27 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <h2 id="2-2-Multiplying-Matrices-and-Vectors"><a href="#2-2-Multiplying-Matrices-and-Vectors" class="headerlink" title="2.2 Multiplying Matrices and Vectors"></a>2.2 Multiplying Matrices and Vectors</h2><ol>
 <li><p>矩阵</p>
 <ul>
-<li><p>按位相乘（Element-wise product / Hadamard product）：$ A \odot B $</p>
+<li><p>按位相乘（Element-wise product / Hadamard product）：$A \odot B$</p>
 </li>
-<li><p>矩阵乘法：$ AB $</p>
+<li><p>矩阵乘法：$AB$</p>
 </li>
 </ul>
 <p>性质：</p>
 <ul>
-<li>$ (AB)^T = B^T A^T $</li>
+<li>$(AB)^T = B^T A^T$</li>
 </ul>
 </li>
 <li><p>向量的dot product</p>
 <p>性质：</p>
 <ul>
-<li>$ x^T y = y^T x$</li>
+<li>$x^T y = y^T x$</li>
 </ul>
 </li>
 </ol>
 <h2 id="2-3-Identity-and-Inverse-Matrices"><a href="#2-3-Identity-and-Inverse-Matrices" class="headerlink" title="2.3 Identity and Inverse Matrices"></a>2.3 Identity and Inverse Matrices</h2><ol>
-<li><p>$ n \times n $ 的单位矩阵 $ I_n $</p>
+<li><p>$ n \times n $ 的单位矩阵 $I_n$</p>
 </li>
-<li><p>逆矩阵 $ A^{-1} $</p>
+<li><p>逆矩阵 $A^{-1}$</p>
 </li>
 </ol>
 <h2 id="2-4-Linear-Dependence-and-Span"><a href="#2-4-Linear-Dependence-and-Span" class="headerlink" title="2.4 Linear Dependence and Span"></a>2.4 Linear Dependence and Span</h2><p>概念：</p>
@@ -520,8 +521,8 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </ul>
 <h2 id="2-5-Norms"><a href="#2-5-Norms" class="headerlink" title="2.5 Norms"></a>2.5 Norms</h2><ol>
 <li><p>$ L^p $范数（$ p \ge 1 $）：（目标：Measure the size of a vector）</p>
-<p>$$<br>||x||_p=(\sum_i|x_i|^p)^{\frac{1}{p}}<br>$$</p>
-</li>
+<script type="math/tex; mode=display">
+||x||_p=(\sum_i|x_i|^p)^{\frac{1}{p}}</script></li>
 <li><p>$ L^p $范数的特殊情形</p>
 <ul>
 <li><p>$ L^2 $ norm： Euclidean norm, denoted as $ ||x|| $; </p>
@@ -531,17 +532,15 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 <li><p>$ L^0 $ norm：非零元素的个数</p>
 </li>
-<li><p>Max norm：$ ||x||<em>\infty = \max \limits</em>{i} | x_{i} | $</p>
+<li><p>Max norm：$||x||_{\infty} = \max \limits_{i} | x_{i} |$</p>
 </li>
 </ul>
 </li>
 </ol>
-<ol start="3">
-<li><p>Frobenius norm：（目标：Measure the size of a matrix）</p>
-<p>$$<br>||A||<em>F = \sqrt{\sum</em>{i,j}A_{i,j}^2}<br>$$</p>
+<ol>
+<li><p>Frobenius norm（目标：Measure the size of a matrix）：<script type="math/tex">|| A ||_{ F } = \sqrt { \sum_{i,j} A_{i,j} ^ 2}</script></p>
 </li>
-<li><p>Dot product and angle</p>
-<p>$$<br>x^T y=||x||_2 ||y||_2 cos \theta<br>$$</p>
+<li><p>Dot product and angle： $x^T y=||x||_2 ||y||_2 cos \theta$</p>
 </li>
 </ol>
 <h2 id="2-6-Special-Kinds-of-Matrices-and-Vectors"><a href="#2-6-Special-Kinds-of-Matrices-and-Vectors" class="headerlink" title="2.6 Special Kinds of Matrices and Vectors"></a>2.6 Special Kinds of Matrices and Vectors</h2><ol>
@@ -549,7 +548,7 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <p>只有主对角线上是非零元素（可以不是方阵）</p>
 <p>性质：</p>
 <ul>
-<li>$ diag(v)^{-1} = diag([1/v_1, … , 1/v_n]^T) $</li>
+<li>$diag(v)^{-1} = diag([1/v_1, … , 1/v_n]^T)$</li>
 </ul>
 </li>
 <li><p>Symmetric matrix（对称阵）</p>
@@ -566,19 +565,23 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 </ol>
 <h2 id="2-7-Eigendecomposition"><a href="#2-7-Eigendecomposition" class="headerlink" title="2.7 Eigendecomposition"></a>2.7 Eigendecomposition</h2><ol>
-<li><p>特征值$ \lambda $和特征向量$ v $，基本性质：<br>$$<br>A v = \lambda v<br>$$</p>
-</li>
+<li><p>特征值$ \lambda $和特征向量$ v $，基本性质：</p>
+<script type="math/tex; mode=display">
+A v = \lambda v</script></li>
 <li><p>类型：</p>
 <ul>
-<li><p>对一个方阵$ A $的特征分解为：<br>$$<br>A = V diag(\lambda) V^{-1}<br>$$<br>其中矩阵$ V = [v^{(1)}, …, v^{(n)}]$ ，向量$ \lambda = [\lambda_1, …, \lambda_n]^T $</p>
+<li><p>对一个方阵$ A $的特征分解为：</p>
+<script type="math/tex; mode=display">
+A = V diag(\lambda) V^{-1}</script><p>其中矩阵$ V = [v^{(1)}, …, v^{(n)}]$ ，向量$ \lambda = [\lambda_1, …, \lambda_n]^T $</p>
 </li>
-<li><p>实对称矩阵$ A $的特征分解（eg: 二次型、Hessian阵）：<br>$$<br>A = Q \Lambda Q^{-1} = Q \Lambda Q^T<br>$$</p>
-</li>
+<li><p>实对称矩阵$ A $的特征分解（eg: 二次型、Hessian阵）：</p>
+<script type="math/tex; mode=display">
+A = Q \Lambda Q^{-1} = Q \Lambda Q^T</script></li>
 </ul>
 </li>
 </ol>
 <p>   其中$ Q $是由特征向量组成的正交矩阵（具有性质：$ Q^{-1} = Q^T $）；$ \Lambda $是由特征值组成的对角阵（降序排列）</p>
-<ol start="3">
+<ol>
 <li><p>性质：</p>
 <ul>
 <li>矩阵降秩$ \Leftrightarrow $ 至少其中一个特征值为零（因为$ det(A) = \prod \limits_{i} \lambda_i $）</li>
@@ -590,7 +593,9 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 </ol>
 <h2 id="2-8-Singular-Value-Decomposition"><a href="#2-8-Singular-Value-Decomposition" class="headerlink" title="2.8 Singular Value Decomposition"></a>2.8 Singular Value Decomposition</h2><ol>
-<li><p>SVD分解（$A$的size: $ m \times n $）：<br>$$<br>A = U D V^T<br>$$<br>其中 $ U $（size: $ m \times m $） 和 $ V $（size: $ n \times n $）都是正交矩阵， $ D $（size: $ m \times n $）是对角阵。<br>且$ D $的组成元素是奇异值，$ U $的列向量是左奇异向量，$ V $的列向量是右奇异向量。</p>
+<li><p>SVD分解（$A$的size: $ m \times n $）：</p>
+<script type="math/tex; mode=display">
+A = U D V^T</script><p>其中 $ U $（size: $ m \times m $） 和 $ V $（size: $ n \times n $）都是正交矩阵， $ D $（size: $ m \times n $）是对角阵。<br>且$ D $的组成元素是奇异值，$ U $的列向量是左奇异向量，$ V $的列向量是右奇异向量。</p>
 </li>
 <li><p>性质：</p>
 <ul>
@@ -602,27 +607,27 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </li>
 </ol>
 <h2 id="2-9-The-Moore-Penrose-Pseudoinverse"><a href="#2-9-The-Moore-Penrose-Pseudoinverse" class="headerlink" title="2.9 The Moore-Penrose Pseudoinverse"></a>2.9 The Moore-Penrose Pseudoinverse</h2><ol>
-<li><p>伪逆的定义式：<br>$$<br>A^+ = \lim \limits_{\alpha \rightarrow 0} (A^T A + \alpha I)^{-1} A^T<br>$$</p>
-</li>
+<li><p>伪逆的定义式：</p>
+<script type="math/tex; mode=display">
+A^+ = \lim \limits_{\alpha \rightarrow 0} (A^T A + \alpha I)^{-1} A^T</script></li>
 <li><p>计算式（因为定义式往往不好计算）：</p>
+<script type="math/tex; mode=display">
+A^+ = V D^+ U^T</script><p>其中$ U $ 、 $ D $ 和 $ V $ 是矩阵$ A $ 的SVD分解。而$ D^+ $是通过对$ D $取元素的倒数、转置得到的。</p>
 </li>
-</ol>
-<p>$$<br>A^+ = V D^+ U^T<br>$$</p>
-<pre><code>   其中$ U $ 、 $ D $ 和 $ V $ 是矩阵$ A $ 的SVD分解。而$ D^+ $是通过对$ D $取元素的倒数、转置得到的。</code></pre><ol start="3">
 <li><p>性质（考察解方程$ Ax=y $）：</p>
 <ul>
 <li><p>伪逆的用途：当方程严格求解不出来时，使用伪逆可以求得近似解。</p>
 </li>
 <li><p>当方程数不足时（行数少于列数），解应该有无穷多个。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||x||_2 $最小（类似于自动求得在L2正则情况下的最优解？）</p>
 </li>
-<li><p>当方程数很多时（行数多于列数），解可能不存在，对应于直线拟合。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||Ax-y||_2 $最小（类似于欧氏误差/回归误差最小？）</p>
-</li>
+<li>当方程数很多时（行数多于列数），解可能不存在，对应于直线拟合。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||Ax-y||_2 $最小（类似于欧氏误差/回归误差最小？）</li>
 </ul>
 </li>
 </ol>
-<h1 id="2-10-The-Trace-Operator"><a href="#2-10-The-Trace-Operator" class="headerlink" title="2.10 The Trace Operator"></a>2.10 The Trace Operator</h1><ol>
-<li><p>“迹”的定义：对角线元素的和<br>$$<br>Tr(A) = \sum_i A_{i,i}<br>$$</p>
-</li>
+<h2 id="2-10-The-Trace-Operator"><a href="#2-10-The-Trace-Operator" class="headerlink" title="2.10 The Trace Operator"></a>2.10 The Trace Operator</h2><ol>
+<li><p>“迹”的定义：对角线元素的和</p>
+<script type="math/tex; mode=display">
+Tr(A) = \sum_i A_{i,i}</script></li>
 <li><p>用Trace来简便表示：</p>
 <ul>
 <li>表示Frobenius norm：$ ||A||_F = \sqrt{Tr(A A^T)} $</li>
@@ -636,7 +641,7 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </ul>
 </li>
 </ol>
-<h1 id="2-11-The-Determinant"><a href="#2-11-The-Determinant" class="headerlink" title="2.11 The Determinant"></a>2.11 The Determinant</h1><ol>
+<h2 id="2-11-The-Determinant"><a href="#2-11-The-Determinant" class="headerlink" title="2.11 The Determinant"></a>2.11 The Determinant</h2><ol>
 <li>定义式：$ det(A) = \prod \limits_{i} v_i $，其中$ v_i $是第$ i $个特征值</li>
 <li>性质：<ul>
 <li>行列式为零：降秩，奇异</li>
@@ -644,10 +649,10 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 </ul>
 </li>
 </ol>
-<h1 id="2-12-Example-Principal-Components-Analysis"><a href="#2-12-Example-Principal-Components-Analysis" class="headerlink" title="2.12 Example: Principal Components Analysis"></a>2.12 Example: Principal Components Analysis</h1><ol>
+<h2 id="2-12-Example-Principal-Components-Analysis"><a href="#2-12-Example-Principal-Components-Analysis" class="headerlink" title="2.12 Example: Principal Components Analysis"></a>2.12 Example: Principal Components Analysis</h2><ol>
 <li><p>Principal Components Analysis (PCA) 问题的数学描述（参考英文版花书的Page48）：</p>
 <ul>
-<li><p>数据集：我们有m个点$ {x^{(1)},…,x^{(m)}} $，其中对任意一个点$ x^{(i)}\in \mathbb{R}^n $</p>
+<li><p>数据集：我们有m个点$ \{x^{(1)},…,x^{(m)}\} $，其中对任意一个点$ x^{(i)}\in \mathbb{R}^n $</p>
 </li>
 <li><p>目标：构造从$ x^{(i)} \in \mathbb{R}^n $到$ c^{(i)} \in \mathbb{R}^l $的映射$ f(x)=c $（此处$ l \leq n $），以及复原的映射$ x \approx g(c) $，使得复原的误差最小。从而获得编码向量$ c $</p>
 </li>
@@ -659,16 +664,29 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <ul>
 <li>Step1：<br>对于一个点$ x $，以及已知的$ D $，求什么样的$ c $使得重建误差最小，相当于求$ c=f(x) $。通过化简以及通过对$c$求导，可以解得$ c = D^T x $，即$ f(x) = D^T x $</li>
 </ul>
-<p>$$<br>\min \limits_{c} ||x-Dc||^2_2<br>$$</p>
-<ul>
+<script type="math/tex; mode=display">
+\min \limits_{c} ||x-Dc||^2_2</script><ul>
 <li><p>Step2：</p>
-<p>那么完整的重建回来的值就是$ r(x) = D D^T x $。假设$ l=1 $（压缩到1维），那么$ D $就只是一个列向量$ d $，则优化问题就是（求$ d $）<br>$$<br>\min_d \sum_i ||x^{(i)}-dd^Tx^{(i)}||^2,\quad subject ; to ; ||d||=1<br>\<br>\Leftrightarrow \min_d \sum_i ||x^{(i)}-x^{(i)T}dd||^2,\quad subject ; to ; ||d||=1<br>$$<br>我们用design matrix来表示样本，即$ X \in \mathbb{R}^{m \times n} $，矩阵的第$ i $行是第$ i $个样本$ x^{(i)T} $，那么上述问题则可以用矩阵范数表示成<br>$$<br>\Leftrightarrow \min_d  ||X-Xdd^T||<em>F^2,\quad subject ; to ; d^Td=1<br>\<br>\Leftrightarrow \min_d  Tr((X-Xdd^T)^T(X-Xdd^T)),\quad subject ; to ; d^Td=1<br>\<br>\Leftrightarrow \max_d  Tr(d^TX^TXd),\quad subject ; to ; d^Td=1<br>\<br>\Leftrightarrow \max_d  (d^T(X^TX)d),\quad subject ; to ; d^Td=1<br>$$<br>注意到上述最大化问题形似特征值分解问题（$ \lambda</em>{1} = d_1^T A d_1 $），即求某一个特征向量，使得特征值最大。那么只需要对矩阵$ X^T X $作特征值分解，找到最大的特征值所对应的特征向量，即为所求的$ d $。</p>
+<p>那么完整的重建回来的值就是$ r(x) = D D^T x $。假设$ l=1 $（压缩到1维），那么$ D $就只是一个列向量$ d $，则优化问题就是（求$ d $）</p>
+<script type="math/tex; mode=display">
+\min_d \sum_i ||x^{(i)}-dd^Tx^{(i)}||^2,\quad subject \; to \; ||d||=1
+\\
+\Leftrightarrow \min_d \sum_i ||x^{(i)}-x^{(i)T}dd||^2,\quad subject \; to \; ||d||=1</script><p>我们用design matrix来表示样本，即$ X \in \mathbb{R}^{m \times n} $，矩阵的第$ i $行是第$ i $个样本$ x^{(i)T} $，那么上述问题则可以用矩阵范数表示成</p>
+<script type="math/tex; mode=display">
+\Leftrightarrow \min_d  ||X-Xdd^T||_F^2,\quad subject \; to \; d^Td=1</script><script type="math/tex; mode=display">
+\Leftrightarrow \min_d  Tr((X-Xdd^T)^T(X-Xdd^T)),\quad subject \; to \; d^Td=1</script><script type="math/tex; mode=display">
+\Leftrightarrow \max_d  Tr(d^TX^TXd),\quad subject \; to \; d^Td=1</script><script type="math/tex; mode=display">
+\Leftrightarrow \max_d  (d^T(X^TX)d),\quad subject \; to \; d^Td=1</script><p>注意到上述最大化问题形似特征值分解问题（$ \lambda_{1} = d_1^T A d_1 $），即求某一个特征向量，使得特征值最大。那么只需要对矩阵$ X^T X $作特征值分解，找到最大的特征值所对应的特征向量，即为所求的$ d $。</p>
 <p>若$ l $为其他情形，类似地，取降序排列的前$ l $个特征值所对的特征向量（模长要为一）构造出矩阵$ D = (d_1, …, d_l) $即为所求的复原映射矩阵。</p>
 </li>
 </ul>
 </li>
 </ol>
-<h1 id="3-Probability-and-Information-Theory"><a href="#3-Probability-and-Information-Theory" class="headerlink" title="3. Probability and Information Theory"></a>3. Probability and Information Theory</h1><h2 id="3-1-Why-Probability"><a href="#3-1-Why-Probability" class="headerlink" title="3.1 Why Probability?"></a>3.1 Why Probability?</h2><ol>
+<h1 id="3-Probability-and-Information-Theory"><a href="#3-Probability-and-Information-Theory" class="headerlink" title="3. Probability and Information Theory"></a>3. Probability and Information Theory</h1><ul>
+<li>概率论：作出概率上的推断</li>
+<li>信息论：定量分析不确定性</li>
+</ul>
+<h2 id="3-1-Why-Probability"><a href="#3-1-Why-Probability" class="headerlink" title="3.1 Why Probability?"></a>3.1 Why Probability?</h2><ol>
 <li><p>产生不确定性的原因：</p>
 <ul>
 <li><p>被建模系统中本身就有的的不确定性</p>
@@ -693,26 +711,53 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <li>离散型</li>
 <li>连续性</li>
 </ul>
-<h2 id="3-3-Probability-Distributions"><a href="#3-3-Probability-Distributions" class="headerlink" title="3.3 Probability Distributions"></a>3.3 Probability Distributions</h2><h3 id="3-3-1-Discrete-Variables-and-Probability-Mass-Functions"><a href="#3-3-1-Discrete-Variables-and-Probability-Mass-Functions" class="headerlink" title="3.3.1 Discrete Variables and Probability Mass Functions"></a>3.3.1 Discrete Variables and Probability Mass Functions</h3><p>概率质量函数（Probability Mass Functions = PMF）记作$ P(x) $</p>
+<h2 id="3-3-Probability-Distributions"><a href="#3-3-Probability-Distributions" class="headerlink" title="3.3 Probability Distributions"></a>3.3 Probability Distributions</h2><h3 id="3-3-1-Discrete-Variables-and-Probability-Mass-Functions"><a href="#3-3-1-Discrete-Variables-and-Probability-Mass-Functions" class="headerlink" title="3.3.1 Discrete Variables and Probability Mass Functions"></a>3.3.1 Discrete Variables and Probability Mass Functions</h3><ol>
+<li><p>概率质量函数（Probability Mass Functions = PMF）记作$ P(x) $</p>
 <p>联合分布（Joint Probability Distribution）记作$ P(x,y) $</p>
 <p>均匀分布（Uniform Distribution）$ P(x=x_i) = \frac{1}{k} $（with k different states）</p>
-<h3 id="3-3-2-Continuous-Variables-and-Probability-Density-Functions"><a href="#3-3-2-Continuous-Variables-and-Probability-Density-Functions" class="headerlink" title="3.3.2 Continuous Variables and Probability Density Functions"></a>3.3.2 Continuous Variables and Probability Density Functions</h3><p>概率密度函数（Probability Density Functions = PDF）记作$ p(x) $</p>
+</li>
+</ol>
+<h3 id="3-3-2-Continuous-Variables-and-Probability-Density-Functions"><a href="#3-3-2-Continuous-Variables-and-Probability-Density-Functions" class="headerlink" title="3.3.2 Continuous Variables and Probability Density Functions"></a>3.3.2 Continuous Variables and Probability Density Functions</h3><ol>
+<li><p>概率密度函数（Probability Density Functions = PDF）记作$ p(x) $</p>
 <p>In the univariate example, the probability that x lies in the interval [a, b] is given by $ \int_{[a,b]} p(x) dx $</p>
 <p>均匀分布$ u(x;a,b) = \frac{1}{b-a} $（The “;” notation means “parametrized by”），denote by writing $ x\sim U(a,b) $</p>
-<h2 id="3-4-Marginal-Probability"><a href="#3-4-Marginal-Probability" class="headerlink" title="3.4 Marginal Probability"></a>3.4 Marginal Probability</h2><p>边缘概率分布：（已知联合分布，求单变量的分布）<br>$$<br>P(x) = \sum_y P(x,y)<br>\<br>p(x) = \int p(x,y) ; dy<br>$$</p>
-<h2 id="3-5-Conditional-Probability"><a href="#3-5-Conditional-Probability" class="headerlink" title="3.5 Conditional Probability"></a>3.5 Conditional Probability</h2><p>条件概率：$ P(y|x) $（已知$ x $，求$ y $。相当于图像分类问题）</p>
+</li>
+</ol>
+<h2 id="3-4-Marginal-Probability"><a href="#3-4-Marginal-Probability" class="headerlink" title="3.4 Marginal Probability"></a>3.4 Marginal Probability</h2><ol>
+<li>边缘概率分布：（已知联合分布，求单变量的分布）</li>
+</ol>
+<script type="math/tex; mode=display">
+P(x) = \sum_y P(x,y)
+\\
+p(x) = \int p(x,y) \; dy</script><h2 id="3-5-Conditional-Probability"><a href="#3-5-Conditional-Probability" class="headerlink" title="3.5 Conditional Probability"></a>3.5 Conditional Probability</h2><ol>
+<li><p>条件概率：$ P(y|x) $（已知$ x $，求$ y $。相当于图像分类问题）</p>
 <p>公式：$ P(x,y) = P(y|x) \times P(x) = P(x|y) \times P(y) $</p>
-<h2 id="3-6-The-Chain-Rule-of-Conditional-Probabilities"><a href="#3-6-The-Chain-Rule-of-Conditional-Probabilities" class="headerlink" title="3.6 The Chain Rule of Conditional Probabilities"></a>3.6 The Chain Rule of Conditional Probabilities</h2><p>多个变量的联合分布，可以拆成多个条件概率的连乘积：<br>$$<br>P(a,b,c) = P(a|b,c) \times P(b|c) \times P(c)<br>$$</p>
-<h2 id="3-7-Independence-and-Conditional-Independence"><a href="#3-7-Independence-and-Conditional-Independence" class="headerlink" title="3.7 Independence and Conditional Independence"></a>3.7 Independence and Conditional Independence</h2><p>变量x和y独立：$ \forall x, y, \quad p(x,y)=p(x) \times p(y) $, denote as $ x \perp y $</p>
-<p>变量x和y基于条件z独立：$ \forall x, y, z, \quad p(x,y|z)=p(x|z) \times p(y|z) $, denote as $ x \perp y , | , z $</p>
+</li>
+</ol>
+<h2 id="3-6-The-Chain-Rule-of-Conditional-Probabilities"><a href="#3-6-The-Chain-Rule-of-Conditional-Probabilities" class="headerlink" title="3.6 The Chain Rule of Conditional Probabilities"></a>3.6 The Chain Rule of Conditional Probabilities</h2><ol>
+<li><p>多个变量的联合分布，可以拆成多个条件概率的连乘积：</p>
+<script type="math/tex; mode=display">
+P(a,b,c) = P(a|b,c) \times P(b|c) \times P(c)</script></li>
+</ol>
+<h2 id="3-7-Independence-and-Conditional-Independence"><a href="#3-7-Independence-and-Conditional-Independence" class="headerlink" title="3.7 Independence and Conditional Independence"></a>3.7 Independence and Conditional Independence</h2><ol>
+<li><p>变量x和y独立：$ \forall x, y, \quad p(x,y)=p(x) \times p(y) $, denote as $ x \perp y $</p>
+</li>
+<li><p>变量x和y基于条件z独立：$ \forall x, y, z, \quad p(x,y|z)=p(x|z) \times p(y|z) $, denote as $ x \perp y \, | \, z $</p>
+</li>
+</ol>
 <h2 id="3-8-Expectation-Variance-and-Covariance"><a href="#3-8-Expectation-Variance-and-Covariance" class="headerlink" title="3.8 Expectation, Variance and Covariance"></a>3.8 Expectation, Variance and Covariance</h2><ol>
 <li>期望（expectation）：</li>
 </ol>
-<p>   $$<br>   \mathbb{E}<em>{x \sim P}[f(x)] = \sum \limits</em>{x} P(x) f(x)<br>   \<br>   \mathbb{E}_{x \sim p}[f(x)] = \int p(x) f(x) , dx<br>   $$</p>
-<ol start="2">
-<li><p>方差（variance）：<br>$$<br>Var(f(x)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])^2]<br>$$<br>标准差（standard deviation）：$ \sqrt{Var(f(x))} $</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{x \sim P}[f(x)] = \sum \limits_{x} P(x) f(x)</script><script type="math/tex; mode=display">
+\mathbb{E}_{x \sim p}[f(x)] = \int p(x) f(x) \, dx</script><ol>
+<li><p>方差（variance）：</p>
+<script type="math/tex; mode=display">
+Var(f(x)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])^2]</script><p>标准差（standard deviation）：$ \sqrt{Var(f(x))} $</p>
 </li>
-<li><p>协方差（covariance）：<br>$$<br>Cov(f(x),g(y)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])(g(y)-\mathbb{E}[g(y)])]<br>$$<br>The covariance gives some sense of how much two values are linearly related to each other.（只是描述线性相关程度的度量）</p>
+<li><p>协方差（covariance）：</p>
+<script type="math/tex; mode=display">
+Cov(f(x),g(y)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])(g(y)-\mathbb{E}[g(y)])]</script><p>The covariance gives some sense of how much two values are linearly related to each other.（只是描述线性相关程度的度量）</p>
 <ul>
 <li><p>协方差&gt;0时：一个变大另一个也会变大</p>
 </li>
@@ -724,42 +769,196 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 <p>性质：</p>
 <ul>
 <li>$ Cov=0 \Leftarrow independent $</li>
-<li>$ Cov \neq 0 \Leftrightarrow linear ; dependent $</li>
-<li>$ Cov=0 \Rightarrow there ; mush ; be ; no ; linear ; dependence  $</li>
+<li>$ Cov \neq 0 \Leftrightarrow linear \; dependent $</li>
+<li>$ Cov=0 \Rightarrow there \; mush \; be \; no \; linear \; dependence  $</li>
 </ul>
 </li>
 </ol>
 <p><img src="4.png" alt></p>
 <p>   协方差矩阵：$ Cov(x)_{i,j} = Cov(x_i,x_j) $，其对角元素是方差。</p>
 <h2 id="3-9-Common-Probability-Distributions"><a href="#3-9-Common-Probability-Distributions" class="headerlink" title="3.9 Common Probability Distributions"></a>3.9 Common Probability Distributions</h2><h3 id="3-9-1-Bernoulli-Distribution"><a href="#3-9-1-Bernoulli-Distribution" class="headerlink" title="3.9.1 Bernoulli Distribution"></a>3.9.1 Bernoulli Distribution</h3><p>做一次实验得到1维的随机变量，只有两个可能的取值（0或1），像抛硬币一样：$ P(x) = \phi^x (1-\phi)^{1-x} $（好像类似于做一次实验得到了sigmoid输出的的随机变量，即一个node只有0或1？）</p>
-<h3 id="3-9-2-Multinoulli-Distribution"><a href="#3-9-2-Multinoulli-Distribution" class="headerlink" title="3.9.2 Multinoulli Distribution"></a>3.9.2 Multinoulli Distribution</h3><p>做一次实验得到k维的随机变量$ p=[0,1]^{k} $（意味着每一个entry只能是0或1），且满足$ \sum_i p_i = 1 $（意味着只有一个entry是1其他都是0），（好像类似于做一次实验然后得到了一个one-hot随机变量，即softmax output layer有k个nodes？）</p>
-<h3 id="3-9-3-Gaussian-Distribution"><a href="#3-9-3-Gaussian-Distribution" class="headerlink" title="3.9.3 Gaussian Distribution"></a>3.9.3 Gaussian Distribution</h3><p>高斯分布：<br>$$<br>\mathcal{N}(x;\mu,\sigma^2) = \sqrt{\frac{1}{2\pi \sigma^2}}exp(-\frac{(x-\mu)^2}{2\sigma^2})<br>$$</p>
-<ul>
+<h3 id="3-9-2-Multinoulli-Distribution"><a href="#3-9-2-Multinoulli-Distribution" class="headerlink" title="3.9.2 Multinoulli Distribution"></a>3.9.2 Multinoulli Distribution</h3><p>做一次实验得到k维的随机变量$ p=[0,1]^{k} $（意味着每一个entry只能是0或1，且只能有一个entry是1其他都是0），且满足$ \sum_i p_i = 1 $（例如投骰子$p_1=p_2=…=p_6=\frac{1}{6}$。此处的$p_i$不代表随机变量的结果，只代表这个entry取到1的概率），（好像类似于做一次实验然后得到了一个one-hot随机变量，即softmax output layer有k个nodes？）</p>
+<h3 id="3-9-3-Gaussian-Distribution"><a href="#3-9-3-Gaussian-Distribution" class="headerlink" title="3.9.3 Gaussian Distribution"></a>3.9.3 Gaussian Distribution</h3><ol>
+<li>高斯分布：</li>
+</ol>
+<script type="math/tex; mode=display">
+\mathcal{N}(x;\mu,\sigma^2) = \sqrt{\frac{1}{2\pi \sigma^2}}exp(-\frac{(x-\mu)^2}{2\sigma^2})</script><ul>
 <li><p>精度（precision）：$ \beta = \frac{1}{\sigma^2} $，精度越大则高斯分布越集中</p>
 </li>
 <li><p>当不知道采取什么先验时，就选取高斯分布吧（因为高斯分布包含的先验知识少）</p>
 </li>
 <li><p>L2正则等于在MAP Bayesian inference中使用高斯分布作为prior（参见英文版花书的Page236）</p>
 </li>
-<li><p>多变量时：<br>$$<br>\mathcal{N}(x;\mu,\Sigma) = \sqrt{\frac{1}{(2\pi)^n det(\Sigma)}}exp(-\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu))<br>$$<br>其中$ \Sigma $是协方差阵，$ \mu $是均值向量。当然也可以写成精度矩阵的形式（此时精度矩阵$ \beta = \Sigma^{-1} $）</p>
+<li><p>多变量时：</p>
+<script type="math/tex; mode=display">
+\mathcal{N}(x;\mu,\Sigma) = \sqrt{\frac{1}{(2\pi)^n det(\Sigma)}}exp(-\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu))</script><p>其中$ \Sigma $是协方差阵，$ \mu $是均值向量。当然也可以写成精度矩阵的形式（此时精度矩阵$ \beta = \Sigma^{-1} $）</p>
+</li>
+<li><p>isotropic（各向同性）：协方差阵是scalar乘以identity matrix</p>
+<ul>
+<li>isotropic：像圆一样的分布</li>
+<li>diagonal（协方差阵）：沿着轴向分布（像椭圆一样）</li>
+<li>full-rank（协方差阵）：可以任意斜着分布（像斜着的椭圆一样，不必沿着坐标轴）</li>
+</ul>
 </li>
 </ul>
 <h3 id="3-9-4-Exponential-and-Laplace-Distributions"><a href="#3-9-4-Exponential-and-Laplace-Distributions" class="headerlink" title="3.9.4 Exponential and Laplace Distributions"></a>3.9.4 Exponential and Laplace Distributions</h3><ol>
 <li>指数分布：</li>
 </ol>
-<p>$$<br>p(x;\lambda) = \lambda 1_{x \geq 0} exp(-\lambda x)<br>$$</p>
-<ol start="2">
+<script type="math/tex; mode=display">
+p(x;\lambda) = \lambda 1_{x \geq 0} exp(-\lambda x)</script><ol>
 <li>拉普拉斯分布（L1正则等于在MAP Bayesian inference中使用isotropic Laplace distribution作为最大化log-prior term的先验，参见英文版花书的Page236）：</li>
 </ol>
-<p>$$<br>Laplace(x;\mu,\gamma) = \frac{1}{2\gamma}exp(-\frac{|x-\mu|}{\gamma})<br>$$</p>
-<p><img src="5.png" alt></p>
+<script type="math/tex; mode=display">
+Laplace(x;\mu,\gamma) = \frac{1}{2\gamma}exp(-\frac{|x-\mu|}{\gamma})</script><p><img src="5.png" alt></p>
 <h3 id="3-9-5-The-Dirac-Distribution-and-Empirical-Distribution"><a href="#3-9-5-The-Dirac-Distribution-and-Empirical-Distribution" class="headerlink" title="3.9.5 The Dirac Distribution and Empirical Distribution"></a>3.9.5 The Dirac Distribution and Empirical Distribution</h3><ol>
 <li><p>狄拉克分布：$ p(x) = \delta(x-\mu) $（$ \delta $为冲激函数，积分为1）</p>
 </li>
-<li><p>经验分布（概率密度函数，多个冲激的和。通过采样样本点去近似真实的分布）：<br>$$<br>\hat{p}(x) = \frac{1}{m} \sum_{i=1}^m \delta(x-x^{(i)})<br>$$</p>
+<li><p>经验分布（概率密度函数，多个冲激的和。通过采样样本点去近似真实的分布）：</p>
+<script type="math/tex; mode=display">
+\hat{p}(x) = \frac{1}{m} \sum_{i=1}^m \delta(x-x^{(i)})</script></li>
+</ol>
+<h3 id="3-9-6-Mixtures-of-Distributions"><a href="#3-9-6-Mixtures-of-Distributions" class="headerlink" title="3.9.6 Mixtures of Distributions"></a>3.9.6 Mixtures of Distributions</h3><ol>
+<li><p>混合分布定义：（$P(c)$是multinoulli distribution，表示从多个子分布中选取一个distribution的挑选行为。$P(x|c)$则表示被挑选到之后的子分布的贡献）</p>
+<script type="math/tex; mode=display">
+P(x) = \sum_i P(c=i) P(x|c=i)</script><ul>
+<li>Empirical Distribution是Mixtures of Distributions的一个例子之一。（此时$P(c=i)=\frac{1}{m}$，说明每个子分布被选中的概率是一样的）</li>
+<li>通过混合分布，可以产生出复杂的概率分布。</li>
+</ul>
+</li>
+<li><p>Latent variable（隐藏变量）：是一种不能被直接观测到的随机变量</p>
+<ul>
+<li>在混合分布中，随机变量$c$就是一个latent variable（因为混合分布你只能观测到表象，并不能观测到它的内部机制）</li>
+</ul>
+</li>
+<li><p>Gaussian mixture model（高斯混合模型）：子分布都是高斯分布</p>
+<ul>
+<li>高斯混合模型是一个universal approximator of densities：任何光滑的分布都可以用高斯混合模型近似</li>
+</ul>
+</li>
+<li><p>Prior probability：$P(c)$，未观测任何东西就能被事先确定下来</p>
+</li>
+<li><p>Posterior probability：$P(c|x)$，因为观测了$x$之后才被计算出来</p>
 </li>
 </ol>
-<h3 id="3-9-6-Mixtures-of-Distributions"><a href="#3-9-6-Mixtures-of-Distributions" class="headerlink" title="3.9.6 Mixtures of Distributions"></a>3.9.6 Mixtures of Distributions</h3>
+<h2 id="3-10-Useful-Properties-of-Common-Functions"><a href="#3-10-Useful-Properties-of-Common-Functions" class="headerlink" title="3.10 Useful Properties of Common Functions"></a>3.10 Useful Properties of Common Functions</h2><ol>
+<li>Logistic sigmoid：</li>
+</ol>
+<p><img src="6.png" alt></p>
+<script type="math/tex; mode=display">
+\sigma(x) = \frac{1}{1+e^{-x}}</script><ul>
+<li>常用于生成Bernoulli分布的参数$\phi$（二分类任务的输出概率值）</li>
+<li>当softmax的两个node分别为0和x时，则退化为单个node输出的sigmoid情况</li>
+</ul>
+<ol>
+<li>Softplus：</li>
+</ol>
+<p><img src="7.png" alt></p>
+<script type="math/tex; mode=display">
+\zeta(x) = ln(1+e^{x})</script><ul>
+<li>常用于产生高斯分布中的$\beta$或$\sigma$值（因为输出值大于零）</li>
+<li>也用于softmax+nll中的合成计算</li>
+<li>是ReLU的softened版本，plus的名字源自于$y=x$的正数部分的含义</li>
+</ul>
+<h2 id="3-11-Bayes’s-Rule"><a href="#3-11-Bayes’s-Rule" class="headerlink" title="3.11 Bayes’s Rule"></a>3.11 Bayes’s Rule</h2><ol>
+<li>贝叶斯公式</li>
+</ol>
+<script type="math/tex; mode=display">
+P(x|y) = \frac{P(x)P(y|x)}{P(y)}</script><ul>
+<li>此处的$P(y)$可以通过$P(y)=\sum_x P(y|x)P(x)$计算出来（边缘分布的计算公式）</li>
+<li>那么我们就只需要知道$P(y|x)$和$P(x)$，就可以推测出$P(x|y)$了</li>
+</ul>
+<h2 id="3-12-Technical-Details-of-Continuous-Variables"><a href="#3-12-Technical-Details-of-Continuous-Variables" class="headerlink" title="3.12 Technical Details of Continuous Variables"></a>3.12 Technical Details of Continuous Variables</h2><ol>
+<li>Measure zero：零测度（例如线在面中的测度是零）</li>
+<li><p>Almost everywhere：几乎所有（除了可以忽略的特例之外，几乎所有）</p>
+</li>
+<li><p>若随机变量$x$和$y$满足$y=g(x)$，则：</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+p_x(x)=p_y(g(x))|det(\frac{\partial g(x)}{\partial x})|</script><h2 id="3-13-Information-Theory"><a href="#3-13-Information-Theory" class="headerlink" title="3.13 Information Theory"></a>3.13 Information Theory</h2><ol>
+<li><p>Idea：</p>
+<ul>
+<li>info=0：必然事件</li>
+<li>info很大：难以发生的事件</li>
+<li>info有可加性时：独立事件</li>
+</ul>
+</li>
+<li><p>Self-information（自信息，只对一个outcome进行uncertainty的度量）：</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+I(x)=-log(P(x))</script><ul>
+<li>当使用e为底时，单位是nat；当使用2为底时，单位是bits或shannons</li>
+</ul>
+<ol>
+<li>Shannon entropy（香农熵$H(P)$，自信息在distribution上的期望）：</li>
+</ol>
+<script type="math/tex; mode=display">
+H(x) = \mathbb{E}_{x \sim P} [I(x)] = - \mathbb{E}_{x \sim P} [log \, P(x)]</script><ul>
+<li>近乎确定性的分布（outcome近乎确定发生）：low entropy</li>
+<li>接近均匀分布（不确定性程度大）：high entropy</li>
+<li>对于连续变量，Shannon entropy又称作differential entropy</li>
+</ul>
+<ol>
+<li><p>Kullback-Leibler divergence（KL散度/相对熵）：</p>
+<script type="math/tex; mode=display">
+D_{KL}(P||Q) = \mathbb{E}_{x \sim P} [log \, \frac{P(x)}{Q(x)}] = \mathbb{E}_{x \sim P} [log \, P(x) - log \, Q(x)]</script><ul>
+<li>用于描述两个分布的差异性</li>
+<li>不可交换性（非对称的）。非负的。分布的差异越大则数值越大（分布相等时值为零）</li>
+</ul>
+</li>
+<li><p>Cross-entropy（交叉熵）：</p>
+<script type="math/tex; mode=display">
+H(P,Q) = H(P) + D_{KL} (P||Q) = - \mathbb{E}_{x \sim P} [ log \, Q(x)]</script><ul>
+<li>对$Q$最小化交叉熵，等价于最小化KL散度（因为KL散度的第一项与$Q$无关）。</li>
+<li>对离散分布的$p$和$q$，交叉熵即$H(p,q) = -\sum_x p(x)\; log \, q(x)$</li>
+<li>交叉熵损失函数解读（my perspective）：<ul>
+<li>假设softmax层的输出节点数为$n$，那么softmax层的输出就构成了离散概率分布$Q(x)$，且离散随机变量$x$的取值范围是$0 \sim (n-1)$。每一次inference就对应着输入的sample的分布被映射到$Q(x)$的过程。注意，每一次inference得到的prediction并不是deterministic的，只是我们最后取了分布$Q(x)$中概率最大的$x$值作为prediction罢了。</li>
+<li>那么我们training时制作的one-hot label，就是为$Q(x)$制作的标签。我们假设标签服从分布$P(x)$。</li>
+<li>注意，每一次inference所对应的$P(x)$和$Q(x)$都是不同的（除非你输入的sample是同一个）</li>
+<li>我们classification task的目的就是想要model的输出越接近$P(x)$越好，那么我们的任务就是要最小化模型推断得到的分布$Q(x)$和我们制作的标签分布$ P(x) $之间的差异。</li>
+<li>我们使用KL散度度量时，目标就是最小化$D_{KL}(P||Q)$（必须要让$x \sim P$，否则会出现花书Fig3.6的情况，我们想要的是Fig3.6左边那幅图的样子）。对于同一个sample，我们用optimizer调节parameters相当于优化输出分布$Q(x)$，所以$Q(x)$实质上是一个可变的分布。又因为对$Q$最小化交叉熵，等价于最小化KL散度。所以我们只需要最小化交叉熵就可以了。</li>
+<li>举个例子，假设softmax输出层4个nodes。我们inference一次相当于生成了一个分布$Q(x)$，以及我们从dataset中取出所对应sample的标签分布$P(x)$。假设分布$Q(x)$可以用一个向量定量表示成$q=[0.1,0.1,0.6,0.2]$，标签分布$P(x)$定量表示成$p=[0,0,1,0]$。随机变量$x$的取值则自然是$0 \sim 3$。那么交叉熵（其中$q_y$的意思是取标签所对应的softmax输出值）：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{align}
+H(P,Q) & = - \mathbb{E}_{x \sim P} [ log \, Q(x)] \\
+& = - \sum_{i=0}^{3}\; p_i\;log\,q_i \\
+& = - log \, q_{y} \\
+& = - log \, 0.6 \\
+& = 0.51
+\end{align}</script><h2 id="3-14-Structured-Probabilistic-Models"><a href="#3-14-Structured-Probabilistic-Models" class="headerlink" title="3.14 Structured Probabilistic Models"></a>3.14 Structured Probabilistic Models</h2><ol>
+<li><p>Motivation：</p>
+<ul>
+<li>举例：如果能将联合分布$p(a,b,c)$拆成几个因子的乘积，例如$p(a)p(b|a)p(c|b)$，那么将能极大地减少参数量（这个例子是有向模型）</li>
+<li>推广开来，即这种思想需要将复杂的分布拆解成几个容易表示出来的因子。我们将这种因子分解的方法，用graph表示，就叫做Structured Probabilistic Models</li>
+</ul>
+</li>
+<li><p>结构概率模型的种类（对于一个distribution可能同时存在两种图描述方式，即有向/无向只是对于distribution的描述方式，而非种类的划分方式）：</p>
+<ul>
+<li><p>有向模型（将因子表示成条件概率分布）：</p>
+<script type="math/tex; mode=display">
+p(x_1,...,x_n)=\prod_{i=1}^n p(x_i|Pa_\mathcal{G}(x_i))</script><p>其中$Pa_\mathcal{G}(x_i)$表示的是$x_i$的父节点</p>
+<p><img src="8.png" alt></p>
+</li>
+<li><p>无向模型（将因子表示成函数）：</p>
+<script type="math/tex; mode=display">
+p(x_1,...,x_n) = \frac{1}{Z} \prod_{i=1}^n \phi^{(i)}(\mathcal{C^{(i)}})</script><p>其中$\mathcal{C^{(i)}}$表示第$i$个clique，即彼此连接结点的集合，例如下图有三个clique（第一个：abc，第二个：bd，第三个：ce），$\phi^{(i)}(\cdot)$表示函数。前面的$\frac{1}{Z}$作用是归一化（因为不归一化的话，就不能保证这个连乘积项的求和是1）</p>
+<p><img src="9.png" alt></p>
+</li>
+<li><p>有向图模型着重强调了因果的顺序关系；无向图模型着重强调了变量的集合间的interaction关系。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="4-Numerical-Computation"><a href="#4-Numerical-Computation" class="headerlink" title="4. Numerical Computation"></a>4. Numerical Computation</h1><h2 id="4-1-Overflow-and-Underflow"><a href="#4-1-Overflow-and-Underflow" class="headerlink" title="4.1 Overflow and Underflow"></a>4.1 Overflow and Underflow</h2><ol>
+<li>aaaa</li>
+</ol>
+
             </div>
             <hr/>
 
@@ -1439,7 +1638,7 @@ Representation learning: 学会如何表示东西，而不仅仅是从input到ou
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

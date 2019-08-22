@@ -458,7 +458,7 @@
 <p><img src="2.png" alt></p>
 <h1 id="色彩空间RGB转HSV"><a href="#色彩空间RGB转HSV" class="headerlink" title="色彩空间RGB转HSV"></a>色彩空间RGB转HSV</h1><p>通过调用<code>rgb2hsv</code>函数来实现转换。</p>
 <p>输入参数r、g和b范围均在0到1，输出参数h范围0到360，输出参数s和v范围在0到1</p>
-<pre class=" language-c++"><code class="language-c++">/* RGB转HSV */
+<pre class=" language-lang-c++"><code class="language-lang-c++">/* RGB转HSV */
 /* 0~1, 0~1, 0~1 -> 0~360, 0~1, 0~1 */
 void rgb2hsv(float r, float g, float b, float& h, float& s, float& v)
 {
@@ -489,7 +489,8 @@ void rgb2hsv(float r, float g, float b, float& h, float& s, float& v)
         s = (diff / max_val);
     // 计算V
     v = max_val;
-}</code></pre>
+}
+</code></pre>
 <h1 id="HSV色彩空间变换"><a href="#HSV色彩空间变换" class="headerlink" title="HSV色彩空间变换"></a>HSV色彩空间变换</h1><h2 id="HSV立方体色彩空间"><a href="#HSV立方体色彩空间" class="headerlink" title="HSV立方体色彩空间"></a>HSV立方体色彩空间</h2><p>传统的HSV立方体色彩空间并不能很好地度量颜色的相似程度。</p>
 <blockquote>
 <p>举个例子，考虑四种颜色。（假定h、s和v范围均在0~1）</p>
@@ -514,10 +515,12 @@ void rgb2hsv(float r, float g, float b, float& h, float& s, float& v)
 <h1 id="度量颜色距离"><a href="#度量颜色距离" class="headerlink" title="度量颜色距离"></a>度量颜色距离</h1><p>在HSV圆盘色彩空间中，我们可以采用直线距离度量方式，也可以采用弧线形的距离度量方式。</p>
 <p>为简便起见，我们采用直线型的距离度量。</p>
 <p>为了更好的调节色彩识别的鲁棒性因素，我们引入调节参数<code>COLOR_ROBUST</code>，用于调节色彩饱和度的鲁棒性。该参数值越大，则将会具有更大的允许饱和度变化的范围；该参数越小，则对饱和度变化允许的范围越小。</p>
-<p>其中参数<code>COLOR_ROBUST</code>的实现是通过调节半径<code>s</code>的缩放来实现的。我们在半径<code>s</code>方向上对其进行套用函数：<br>$$<br>{1-(1-x)^n}<br>$$<br>其中n就是<code>COLOR_ROBUST</code>参数。</p>
+<p>其中参数<code>COLOR_ROBUST</code>的实现是通过调节半径<code>s</code>的缩放来实现的。我们在半径<code>s</code>方向上对其进行套用函数：</p>
+<script type="math/tex; mode=display">
+{1-(1-x)^n}</script><p>其中n就是<code>COLOR_ROBUST</code>参数。</p>
 <p><img src="6.png" alt></p>
 <p>计算颜色距离的代码如下：</p>
-<pre class=" language-c++"><code class="language-c++">/* 计算颜色距离(输入范围均在0~1) */
+<pre class=" language-lang-c++"><code class="language-lang-c++">/* 计算颜色距离(输入范围均在0~1) */
 float getColorDistance(float h, float s, float h_dst, float s_dst)
 {
     float x_src, y_src;
@@ -527,7 +530,8 @@ float getColorDistance(float h, float s, float h_dst, float s_dst)
     x_dst = (1 - powf(1 - s_dst, COLOR_ROBUST)) * cos(h_dst * 2 * CV_PI);
     y_dst = (1 - powf(1 - s_dst, COLOR_ROBUST)) * sin(h_dst * 2 * CV_PI);
     return sqrt(pow(x_src - x_dst, 2) + pow(y_src - y_dst, 2));
-}</code></pre>
+}
+</code></pre>
 <h1 id="颜色距离阈值"><a href="#颜色距离阈值" class="headerlink" title="颜色距离阈值"></a>颜色距离阈值</h1><h2 id="阈值计算原理"><a href="#阈值计算原理" class="headerlink" title="阈值计算原理"></a>阈值计算原理</h2><p>由于颜色是任意指定的，如果选取固定的距离阈值将不能广泛适应实际情况。我们在这里应该采取一种自动的方式来计算这个阈值。</p>
 <p>标准颜色类似于聚类中心，我们把它抽象为颜色空间中的一个点，两两之间的距离抽象为线段。那么这个阈值可以用下图的方式计算。</p>
 <p><img src="7.png" alt></p>
@@ -537,16 +541,14 @@ float getColorDistance(float h, float s, float h_dst, float s_dst)
 </li>
 <li><p>第二个圆是与第一个相邻的圆，半径等于第一个圆的半径，如上图的圆B。</p>
 </li>
-<li><p>然后就从剩余的可选择半径中选取半径较小的，即圆C。</p>
-</li>
-<li><p>最后选取圆D。</p>
-</li>
+<li>然后就从剩余的可选择半径中选取半径较小的，即圆C。</li>
+<li>最后选取圆D。</li>
 </ol>
 <h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>如下的<code>initColorInfo</code>函数实现了颜色信息的初始化功能。<br>调用该函数后，二维数组<code>color_table</code>存储了各个标准颜色的HSV值，数组<code>color_range_table</code>存储了颜色阈值信息。</p>
 <blockquote>
 <p><code>COLOR_NUM</code>是颜色数量，在此例子中<code>#define COLOR_NUM 6</code><br><code>color_table</code>的定义：<code>float color_table[COLOR_NUM][3]</code><br><code>color_range_table</code>的定义：<code>float color_range_table[COLOR_NUM]</code></p>
 </blockquote>
-<pre class=" language-c++"><code class="language-c++">/* 初始化颜色信息 */
+<pre class=" language-lang-c++"><code class="language-lang-c++">/* 初始化颜色信息 */
 void initColorInfo()
 {
     float h_dst, s_dst, v_dst;
@@ -668,12 +670,13 @@ void initColorInfo()
         }
         if (activeNodeNum == 0) break;
     }
-}</code></pre>
+}
+</code></pre>
 <h1 id="颜色识别"><a href="#颜色识别" class="headerlink" title="颜色识别"></a>颜色识别</h1><p>当距离小于阈值时则判定为该颜色。如果都不符合，则拒绝识别。</p>
 <blockquote>
 <p>代码中使用参数<code>COLOR_RANGE_A</code>来控制颜色的容限，值越接近1代表颜色的可变化性越大，值越接近0代表容不得颜色变化过大。<br><code>ColorType</code>是颜色的枚举类型数组</p>
 </blockquote>
-<pre class=" language-c++"><code class="language-c++">/* 从HSV识别颜色 */
+<pre class=" language-lang-c++"><code class="language-lang-c++">/* 从HSV识别颜色 */
 /* H = 0~360, S = 0~1, V = 0~1 */
 ColorType hsvColorReg(float h, float s, float v)
 {
@@ -688,7 +691,8 @@ ColorType hsvColorReg(float h, float s, float v)
         }
     }
     return Unknown;
-}</code></pre>
+}
+</code></pre>
 
             </div>
             <hr/>
@@ -1377,7 +1381,7 @@ ColorType hsvColorReg(float h, float s, float v)
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

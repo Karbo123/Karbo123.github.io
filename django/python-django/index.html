@@ -426,14 +426,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        8.1k
+                        7.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        31 分
+                        30 分
                     </div>
                     
                 
@@ -463,14 +463,18 @@
 <h1 id="Django安装和配置"><a href="#Django安装和配置" class="headerlink" title="Django安装和配置"></a>Django安装和配置</h1><p>创建一个项目工程文件夹，以后所有的操作都要在此文件夹下进行，例如我是<code>web</code>文件夹下。打开系统自带的<code>cmd</code>（最好是cmd），并切换到此文件夹下</p>
 <p>例如我的文件夹路径是<code>E:\PythonProjects\web</code>，那么我先输入<code>e:</code>再敲回车，使得切换到<code>E</code>盘，然后再<code>cd E:\PythonProjects\web</code>即可。</p>
 <p>然后在<code>cmd</code>输入（其中<code>my_env</code>是创建的虚拟环境的名字）：</p>
-<pre class=" language-bash"><code class="language-bash">python -m venv my_env</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">python -m venv my_env
+</code></pre>
 <p>来创建<code>python</code>的虚拟环境。然后输入：</p>
-<pre class=" language-bash"><code class="language-bash">my_env\Scripts\activate.bat</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">my_env\Scripts\activate.bat
+</code></pre>
 <p>来激活虚拟环境，此时<code>cmd</code>提示输入的前端应该有<code>(my_env)</code>字样，表明进入了虚拟环境。<br>若要退出虚拟环境，请输入：<code>my_env\Scripts\deactivate.bat</code></p>
 <p>最后安装<code>Django</code>：</p>
-<pre><code>pip install Django</code></pre><p>安装后，输入：<code>python -m django --version</code>命令，可以查看<code>Django</code>的版本。<br>我这里的版本是<code>2.2</code>。</p>
+<pre><code>pip install Django
+</code></pre><p>安装后，输入：<code>python -m django --version</code>命令，可以查看<code>Django</code>的版本。<br>我这里的版本是<code>2.2</code>。</p>
 <h1 id="建立工程"><a href="#建立工程" class="headerlink" title="建立工程"></a>建立工程</h1><p>紧接着，我们来创建一些建立我们网站所必备的文件，输入下面的代码来创建一个工程。</p>
-<pre class=" language-bash"><code class="language-bash">django-admin startproject mysite</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">django-admin startproject mysite
+</code></pre>
 <p>我们会发现在当前目录下多了一个叫<code>mysite</code>的文件夹，里面的文件是工程的必备文件。<br>这个<code>startproject</code>命令创建了如下的文件结构：</p>
 <pre><code>mysite/
         manage.py
@@ -478,7 +482,8 @@
                 __init__.py
                 settings.py
                 urls.py
-                wsgi.py</code></pre><p>这些目录和文件的用处是：</p>
+                wsgi.py
+</code></pre><p>这些目录和文件的用处是：</p>
 <ol>
 <li>最外层的<code>mysite/</code> 根目录只是你项目的容器， <code>Django</code> 不关心它的名字，你可以将它重命名为任何你喜欢的名字。</li>
 <li><code>manage.py</code>: 一个让你用各种方式管理 <code>Django</code> 项目的命令行工具。你可以阅读 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/django-admin/" target="_blank" rel="noopener">django-admin and manage.py</a> 获取所有 <code>manage.py</code> 的细节。</li>
@@ -490,7 +495,8 @@
 </ol>
 <p>然后我们运行如下命令：</p>
 <pre><code>cd mysite
-python manage.py runserver</code></pre><p>来在本地端口运行服务器。我们在浏览器中输入<code>http://localhost:8000/</code>或<code>https://127.0.0.1:8000/</code>来打开网页。正常情况下应该会看到如下界面：</p>
+python manage.py runserver
+</code></pre><p>来在本地端口运行服务器。我们在浏览器中输入<code>http://localhost:8000/</code>或<code>https://127.0.0.1:8000/</code>来打开网页。正常情况下应该会看到如下界面：</p>
 <p><img src="1.png" alt></p>
 <p>表示已经成功运行啦！<br>注意：</p>
 <ol>
@@ -502,7 +508,8 @@ python manage.py runserver</code></pre><p>来在本地端口运行服务器。�
 <p><strong>项目 VS 应用</strong><br>项目和应用有啥区别？应用是一个专门做某件事的网络应用程序——比如博客系统，或者公共记录的数据库，或者简单的投票程序。项目则是一个网站使用的配置和应用的集合。项目可以包含很多个应用。应用可以被很多个项目使用。</p>
 </blockquote>
 <p>请确定你现在处于 <code>manage.py</code> 所在的目录下，然后我们使用如下指令来创建一个名为<code>polls</code>的应用：</p>
-<pre><code>python manage.py startapp polls</code></pre><p>这将会创建一个 <code>polls</code> 目录，它的目录结构大致如下：</p>
+<pre><code>python manage.py startapp polls
+</code></pre><p>这将会创建一个 <code>polls</code> 目录，它的目录结构大致如下：</p>
 <pre><code>polls/
         migrations/
                 __init__.py
@@ -511,33 +518,38 @@ python manage.py runserver</code></pre><p>来在本地端口运行服务器。�
         apps.py
         models.py
         tests.py
-        views.py</code></pre><p>这个目录结构包括了投票应用的全部内容。</p>
+        views.py
+</code></pre><p>这个目录结构包括了投票应用的全部内容。</p>
 <h1 id="编写简单的视图和绑定URL"><a href="#编写简单的视图和绑定URL" class="headerlink" title="编写简单的视图和绑定URL"></a>编写简单的视图和绑定URL</h1><p>打开 <code>polls/views.py</code>，把下面这些 <code>Python</code> 代码添加进去：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> HttpResponse
-<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">"Hello, world. You're at the polls index."</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">from django.http import HttpResponse
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+</code></pre>
 <p>这是 <code>Django</code> 中最简单的视图。如果想看见效果，我们需要将一个 <code>URL</code> 映射到它——这就是我们需要 <code>URLconf</code> 的原因了。</p>
 <p>为了创建 <code>URLconf</code>，请在 <code>polls</code> 目录里新建一个 <code>urls.py</code> 文件。<br>在 <code>polls/urls.py</code> 中，输入如下代码：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> path
-<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> views
-urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
-    path<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">from django.urls import path
+from . import views
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+</code></pre>
 <p>一般来说，每一个应用都应该有一个自己的<code>urls.py</code>文件。第一项为空<code>&#39;&#39;</code>表明不再增加<code>url</code>的下级路径；第二项<code>views.index</code>表明调用刚刚编写的<code>views.py</code>文件里的<code>index()</code>函数来响应请求。</p>
 <p>下一步是要在根 <code>URLconf</code> 文件（可以理解为全局的<code>url</code>配置文件）中记录我们刚刚创建的 <code>polls.urls</code> 模块。在 <code>mysite/urls.py</code> 文件的 <code>urlpatterns</code> 列表里插入一个 <code>include()</code>， 如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib <span class="token keyword">import</span> admin
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> include<span class="token punctuation">,</span> path
-urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
-    path<span class="token punctuation">(</span><span class="token string">'polls/'</span><span class="token punctuation">,</span> include<span class="token punctuation">(</span><span class="token string">'polls.urls'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    path<span class="token punctuation">(</span><span class="token string">'admin/'</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>urls<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">from django.contrib import admin
+from django.urls import include, path
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+</code></pre>
 <p>函数 <code>include()</code> 允许引用其它 <code>URLconfs</code>。每当 <code>Django</code> 遇到 <code>include</code> 时，它会截断与此项匹配的 <code>URL</code> 的部分，并将剩余的字符串发送到 <code>URLconf</code> 以供进一步处理。举个例子，就是假如输入的地址是<code>http://localhost:8000/polls/</code>，那么它就会截断匹配的部分，在这个例子里也就是整个<code>http://localhost:8000/polls/</code>，剩下的空字符串<code>&#39;&#39;</code>给<code>polls.urls</code>的<code>urlpatterns</code>去做匹配处理，恰好匹配到空字符串<code>&#39;&#39;</code>，然后就会调用<code>polls.view.index</code>函数去处理。</p>
 <p><code>Django</code>设计 <code>include()</code> 的理念是使其可以即插即用。因为投票应用有它自己的 <code>URLconf( polls/urls.py )</code>，他们能够被放在 <code>&quot;/polls/&quot;</code> ，<code>&quot;/fun_polls/&quot;</code> ，<code>&quot;/content/polls/&quot;</code>，或者其他任何路径下，这个应用都能够正常工作。</p>
 <blockquote>
 <p><strong>何时使用 include()</strong><br>当包括其它 <code>URL</code> 文件时你应该总是使用 <code>include()</code>，而 <code>admin.site.urls</code> 是例外。</p>
 </blockquote>
 <p>你刚刚已经把视图<code>view</code>与<code>url</code>绑定了，输入：</p>
-<pre class=" language-bash"><code class="language-bash">python manage.py runserver</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">python manage.py runserver
+</code></pre>
 <p>来运行服务器，在浏览器输入<code>http://localhost:8000/polls/</code>，正常情况下应该看到字符串：<code>Hello, world. You&#39;re at the polls index.</code></p>
 <blockquote>
 <p>函数 <code>path()</code> 具有四个参数，两个必须的参数：<code>route</code> 和 <code>view</code>，两个可选参数：<code>kwargs</code> 和 <code>name</code>。现在，是时候来研究这些参数的含义了。<br><strong>path() 参数： route</strong><br>route 是一个匹配 URL 的准则（类似正则表达式）。当 Django 响应一个请求时，它会从 urlpatterns 的第一项开始，按顺序依次匹配列表中的项，直到找到匹配的项。<br>这些准则不会匹配 GET 和 POST 参数或域名。例如，URLconf 在处理请求 <a href="https://www.example.com/myapp/" target="_blank" rel="noopener">https://www.example.com/myapp/</a> 时，它会尝试匹配 myapp/ 。处理请求 <a href="https://www.example.com/myapp/?page=3" target="_blank" rel="noopener">https://www.example.com/myapp/?page=3</a> 时，也只会尝试匹配 myapp/。<br><strong>path() 参数： view</strong><br>当 Django 找到了一个匹配的准则，就会调用这个特定的视图函数，并传入一个 HttpRequest 对象作为第一个参数，被“捕获”的参数以关键字参数的形式传入。稍后，我们会给出一个例子。<br><strong>path() 参数： kwargs</strong><br>任意个关键字参数可以作为一个字典传递给目标视图函数。本教程中不会使用这一特性。<br><strong>path() 参数： name</strong><br>为你的 URL 取名能使你在 Django 的任意地方唯一地引用它，尤其是在模板中。这个有用的特性允许你只改一个文件就能全局地修改某个 URL 模式。</p>
@@ -547,29 +559,31 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
 <p>此外，关注一下文件头部的 <code>INSTALLED_APPS</code> 设置项。这里包括了会在你项目中启用的所有 <code>Django</code> 应用。应用能在多个项目中使用，你也可以打包并且发布应用，让别人使用它们。</p>
 <p>通常， <code>INSTALLED_APPS</code> 默认包括了以下 Django 的自带应用：</p>
 <ul>
-<li><code>django.contrib.admin</code> – 管理员站点， 你很快就会使用它。</li>
-<li><code>django.contrib.auth</code> – 认证授权系统。</li>
-<li><code>django.contrib.contenttypes</code> – 内容类型框架。</li>
-<li><code>django.contrib.sessions</code> – 会话框架。</li>
-<li><code>django.contrib.messages</code> – 消息框架。</li>
-<li><code>django.contrib.staticfiles</code> – 管理静态文件的框架。</li>
+<li><code>django.contrib.admin</code> — 管理员站点， 你很快就会使用它。</li>
+<li><code>django.contrib.auth</code> — 认证授权系统。</li>
+<li><code>django.contrib.contenttypes</code> — 内容类型框架。</li>
+<li><code>django.contrib.sessions</code> — 会话框架。</li>
+<li><code>django.contrib.messages</code> — 消息框架。</li>
+<li><code>django.contrib.staticfiles</code> — 管理静态文件的框架。</li>
 </ul>
 <p>这些应用被默认启用是为了给常规项目提供方便。</p>
 <p>默认开启的某些应用需要至少一个数据表，所以，在使用他们之前，需要在数据库中创建一些表。请执行以下命令：</p>
-<pre><code>python manage.py migrate</code></pre><p>这个 <code>migrate</code> 命令检查 <code>INSTALLED_APPS</code> 设置，为其中的每个应用创建需要的数据表，至于具体会创建什么，这取决于你的 <code>mysite/settings.py</code> 设置文件和每个应用的数据库迁移文件（我们稍后会介绍这个）。这个命令所执行的每个迁移操作都会在终端中显示出来。<code>migrate</code>命令只会为在 <code>INSTALLED_APPS</code> 里声明了的应用进行数据库迁移。</p>
+<pre><code>python manage.py migrate
+</code></pre><p>这个 <code>migrate</code> 命令检查 <code>INSTALLED_APPS</code> 设置，为其中的每个应用创建需要的数据表，至于具体会创建什么，这取决于你的 <code>mysite/settings.py</code> 设置文件和每个应用的数据库迁移文件（我们稍后会介绍这个）。这个命令所执行的每个迁移操作都会在终端中显示出来。<code>migrate</code>命令只会为在 <code>INSTALLED_APPS</code> 里声明了的应用进行数据库迁移。</p>
 <h2 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h2><p>在 <code>Django</code> 里写一个数据库驱动的 <code>Web</code> 应用的第一步是定义模型 - 也就是数据库结构设计和附加的其它元数据。</p>
 <p>在这个简单的投票应用中，需要创建两个模型：问题 <code>Question</code> 和选项 <code>Choice</code>。<code>Question</code> 模型包括问题描述和发布时间。<code>Choice</code> 模型有两个字段，选项描述和当前得票数。每个选项属于一个问题。</p>
 <p>这些概念可以通过一个简单的 <code>Python</code> 类来描述。按照下面的例子来编辑 <code>polls/models.py</code> 文件：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> models
+<pre class=" language-lang-python"><code class="language-lang-python">from django.db import models
 
-<span class="token keyword">class</span> <span class="token class-name">Question</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    question_text <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">)</span>
-    pub_date <span class="token operator">=</span> models<span class="token punctuation">.</span>DateTimeField<span class="token punctuation">(</span><span class="token string">'date published'</span><span class="token punctuation">)</span>
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
 
-<span class="token keyword">class</span> <span class="token class-name">Choice</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    question <span class="token operator">=</span> models<span class="token punctuation">.</span>ForeignKey<span class="token punctuation">(</span>Question<span class="token punctuation">,</span> on_delete<span class="token operator">=</span>models<span class="token punctuation">.</span>CASCADE<span class="token punctuation">)</span>
-    choice_text <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">)</span>
-    votes <span class="token operator">=</span> models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span>default<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span></code></pre>
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+</code></pre>
 <p>每个字段都是 <code>Field</code> 类的实例 - 比如，字符字段被表示为 <code>CharField</code> ，日期时间字段被表示为 <code>DateTimeField</code> 。这将告诉 <code>Django</code> 每个字段要处理的数据类型。</p>
 <p>每个 <code>Field</code> 类实例变量的名字（例如 <code>question_text</code> 或 <code>pub_date</code> ）也是字段名，所以最好使用对机器友好的格式。你将会在 <code>Python</code> 代码里使用它们，而数据库会将它们作为列名。</p>
 <p>你可以使用可选的选项来为 <code>Field</code> 定义一个人类可读的名字。这个功能在很多 <code>Django</code> 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有提供此名称，<code>Django</code> 将会使用对机器友好的名称，也就是变量名。在上面的例子中，我们只为 <code>Question.pub_date</code> 定义了对人类友好的名字。对于模型内的其它字段，它们的机器友好名也会被作为人类友好名使用。</p>
@@ -587,21 +601,26 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
     &#39;django.contrib.sessions&#39;,
     &#39;django.contrib.messages&#39;,
     &#39;django.contrib.staticfiles&#39;,
-]</code></pre><p>现在你的 <code>Django</code> 项目会包含 <code>polls</code> 应用。接着运行下面的命令：</p>
-<pre><code>python manage.py makemigrations polls</code></pre><p><code>makemigrations</code>命令会在<code>polls/migrations/</code>目录下生成一些关于<code>polls/models.py</code>修改记录的文件。但是并没有修改到数据库。</p>
+]
+</code></pre><p>现在你的 <code>Django</code> 项目会包含 <code>polls</code> 应用。接着运行下面的命令：</p>
+<pre><code>python manage.py makemigrations polls
+</code></pre><p><code>makemigrations</code>命令会在<code>polls/migrations/</code>目录下生成一些关于<code>polls/models.py</code>修改记录的文件。但是并没有修改到数据库。</p>
 <p>你将会看到类似于下面这样的输出：</p>
 <pre><code>Migrations for &#39;polls&#39;:
   polls/migrations/0001_initial.py:
     - Create model Choice
     - Create model Question
-    - Add field question to choice</code></pre><p>现在，再次运行 <code>migrate</code> 命令，在数据库里创建刚刚建立的模型的数据表：</p>
-<pre><code>python manage.py migrate</code></pre><p>这会使得数据库得以修改，使数据库包含了我们刚刚新建立的模型参数。</p>
+    - Add field question to choice
+</code></pre><p>现在，再次运行 <code>migrate</code> 命令，在数据库里创建刚刚建立的模型的数据表：</p>
+<pre><code>python manage.py migrate
+</code></pre><p>这会使得数据库得以修改，使数据库包含了我们刚刚新建立的模型参数。</p>
 <p>我们应该会看到类似的输出：</p>
 <pre><code>Operations to perform:
   Apply all migrations: admin, auth, contenttypes, polls, sessions
 Running migrations:
   Rendering model states... DONE
-  Applying polls.0001_initial... OK</code></pre><p>最后一行表明，模型更改成功同步于数据库上（在数据库里创建了与模型相关的存储结构）。</p>
+  Applying polls.0001_initial... OK
+</code></pre><p>最后一行表明，模型更改成功同步于数据库上（在数据库里创建了与模型相关的存储结构）。</p>
 <p>这个 <code>migrate</code> 命令选中所有还没有执行过的迁移（<code>Django</code> 通过在数据库中创建一个特殊的表 <code>django_migrations</code> 来跟踪执行过哪些迁移）并应用在数据库上 - 也就是将你对模型的更改同步到数据库结构上。</p>
 <p>迁移是非常强大的功能，它能让你在开发过程中持续的改变数据库结构而不需要重新删除和创建表 - 它专注于使数据库平滑升级而不会丢失数据。我们会在后面的教程中更加深入的学习这部分内容。</p>
 <p>现在，你只需要记住，改变模型并生效只需要这三步：</p>
@@ -611,104 +630,112 @@ Running migrations:
 <li>运行 <code>python manage.py migrate</code> 来应用数据库迁移。</li>
 </ol>
 <h1 id="Django命令行"><a href="#Django命令行" class="headerlink" title="Django命令行"></a>Django命令行</h1><p>运行：</p>
-<pre><code>python manage.py shell</code></pre><p>来打开<code>Django</code>的命令行。</p>
+<pre><code>python manage.py shell
+</code></pre><p>来打开<code>Django</code>的命令行。</p>
 <p>我们使用这个命令而不是简单的使用 <code>Python</code> 是因为 <code>manage.py</code> 会设置 <code>DJANGO_SETTINGS_MODULE</code> 环境变量，这个变量会让 <code>Django</code> 根据 <code>mysite/settings.py</code> 文件来设置 <code>Python</code> 包的导入路径。</p>
 <p>当你成功进入命令行后，来试试数据库的<code>API</code> 吧，它允许你从数据库中读取和修改<code>Choice</code>和<code>Question</code>的数据。</p>
 <p>输入下述Python命令：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> polls<span class="token punctuation">.</span>models <span class="token keyword">import</span> Choice<span class="token punctuation">,</span> Question  <span class="token comment" spellcheck="true">#导入我们刚刚写的类</span>
+<pre class=" language-lang-python"><code class="language-lang-python">from polls.models import Choice, Question  #导入我们刚刚写的类
 
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后输出&lt;QuerySet []>，表明Question类还没有对象（还没有数据）</span>
+Question.objects.all() #执行后输出<QuerySet []>，表明Question类还没有对象（还没有数据）
 
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>utils <span class="token keyword">import</span> timezone <span class="token comment" spellcheck="true">#导入时区</span>
-q <span class="token operator">=</span> Question<span class="token punctuation">(</span>question_text<span class="token operator">=</span><span class="token string">"What's new?"</span><span class="token punctuation">,</span> pub_date<span class="token operator">=</span>timezone<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#创建一个问题</span>
-q<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#将q保存到数据库中</span>
+from django.utils import timezone #导入时区
+q = Question(question_text="What's new?", pub_date=timezone.now()) #创建一个问题
+q.save() #将q保存到数据库中
 
-q<span class="token punctuation">.</span>id <span class="token comment" spellcheck="true"># 现在它有id值了（为1）</span>
-q<span class="token punctuation">.</span>question_text <span class="token comment" spellcheck="true">#输出："What's new?"</span>
-q<span class="token punctuation">.</span>pub_date <span class="token comment" spellcheck="true">#输出时间</span>
+q.id # 现在它有id值了（为1）
+q.question_text #输出："What's new?"
+q.pub_date #输出时间
 
-q<span class="token punctuation">.</span>question_text <span class="token operator">=</span> <span class="token string">"What's up?"</span> <span class="token comment" spellcheck="true">#再次改变question_text值</span>
-q<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#再次保存到数据库中</span>
+q.question_text = "What's up?" #再次改变question_text值
+q.save() #再次保存到数据库中
 
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#展示数据库中Question的所有数据</span></code></pre>
+Question.objects.all() #展示数据库中Question的所有数据
+</code></pre>
 <p>但是，我们注意到，输入<code>Question.objects.all()</code>时，返回的<code>&lt;QuerySet [&lt;Question: Question object (1)&gt;]&gt;</code>值，并没有让我们了解到这个对象具体是什么样的，我们想让它有个对自己的描述，让我们清楚这是个什么样的对象。</p>
 <p>让我们通过编辑 <code>Question</code> 模型的代码（位于 <code>polls/models.py</code> 中）来修复这个问题。给 <code>Question</code> 和 <code>Choice</code> 增加 <code>__str__()</code>方法：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> models
+<pre class=" language-lang-python"><code class="language-lang-python">from django.db import models
 
-<span class="token keyword">class</span> <span class="token class-name">Question</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># ...</span>
-    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>question_text
+class Question(models.Model):
+    # ...
+    def __str__(self):
+        return self.question_text
 
-<span class="token keyword">class</span> <span class="token class-name">Choice</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># ...</span>
-    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>choice_text</code></pre>
+class Choice(models.Model):
+    # ...
+    def __str__(self):
+        return self.choice_text
+</code></pre>
 <p>给模型增加<code>__str__()</code> 方法是很重要的，这不仅仅能给你在命令行里使用带来方便，<code>Django</code> 自动生成的 <code>admin</code> 里也使用这个方法来表示对象。</p>
 <p>注意：这些都是常规的 <code>Python</code>方法。让我们添加一个自定义的方法，这只是为了演示：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> datetime
+<pre class=" language-lang-python"><code class="language-lang-python">import datetime
 
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> models
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>utils <span class="token keyword">import</span> timezone
+from django.db import models
+from django.utils import timezone
 
-<span class="token keyword">class</span> <span class="token class-name">Question</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># ...</span>
-    <span class="token keyword">def</span> <span class="token function">was_published_recently</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>pub_date <span class="token operator">>=</span> timezone<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> datetime<span class="token punctuation">.</span>timedelta<span class="token punctuation">(</span>days<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span></code></pre>
+class Question(models.Model):
+    # ...
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+</code></pre>
 <p>新加入的 <code>import datetime</code> 和 <code>from django.utils import timezone</code> 分别导入了 Python 的标准 <code>datetime</code> 模块和 <code>Django</code> 中和时区相关的 <code>django.utils.timezone</code>工具模块。如果你不太熟悉 <code>Python</code> 中的时区处理，看看 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/i18n/timezones/" target="_blank" rel="noopener">时区支持文档</a> 吧。</p>
 <p>保存文件然后通过 <code>python manage.py shell</code> 命令再次打开 <code>Python</code> 交互式命令行：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> polls<span class="token punctuation">.</span>models <span class="token keyword">import</span> Choice<span class="token punctuation">,</span> Question
+<pre class=" language-lang-python"><code class="language-lang-python">from polls.models import Choice, Question
 
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#输出：&lt;QuerySet [&lt;Question: What's up?>]></span>
+Question.objects.all() #输出：<QuerySet [<Question: What's up?>]>
 
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#依据id查找对象</span>
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>question_text__startswith<span class="token operator">=</span><span class="token string">'What'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#依据question_text内容查找对象</span>
+Question.objects.filter(id=1) #依据id查找对象
+Question.objects.filter(question_text__startswith='What') #依据question_text内容查找对象
 
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>utils <span class="token keyword">import</span> timezone
-current_year <span class="token operator">=</span> timezone<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>year <span class="token comment" spellcheck="true">#今年</span>
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pub_date__year<span class="token operator">=</span>current_year<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#依据年份查找对象</span>
+from django.utils import timezone
+current_year = timezone.now().year #今年
+Question.objects.get(pub_date__year=current_year) #依据年份查找对象
 
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#访问不存在的对象会引起异常</span>
+Question.objects.get(id=2) #访问不存在的对象会引起异常
 
-Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pk<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#大多时候，该语句等价于Question.objects.get(id=1)</span>
+Question.objects.get(pk=1) #大多时候，该语句等价于Question.objects.get(id=1)
 
-q <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pk<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-q<span class="token punctuation">.</span>was_published_recently<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#调用was_published_recently()方法</span>
+q = Question.objects.get(pk=1)
+q.was_published_recently() #调用was_published_recently()方法
 
 
-q <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pk<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#显示与q相关联的choice，返回&lt;QuerySet []>，注：choice_set是由于ForeignKey自动生成的子成员</span>
+q = Question.objects.get(pk=1)
+q.choice_set.all() #显示与q相关联的choice，返回<QuerySet []>，注：choice_set是由于ForeignKey自动生成的子成员
 
-<span class="token comment" spellcheck="true"># 创建三个choice，会在Choice自动创建对象</span>
-q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>create<span class="token punctuation">(</span>choice_text<span class="token operator">=</span><span class="token string">'Not much'</span><span class="token punctuation">,</span> votes<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
-q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>create<span class="token punctuation">(</span>choice_text<span class="token operator">=</span><span class="token string">'The sky'</span><span class="token punctuation">,</span> votes<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
-c <span class="token operator">=</span> q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>create<span class="token punctuation">(</span>choice_text<span class="token operator">=</span><span class="token string">'Just hacking again'</span><span class="token punctuation">,</span> votes<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+# 创建三个choice，会在Choice自动创建对象
+q.choice_set.create(choice_text='Not much', votes=0)
+q.choice_set.create(choice_text='The sky', votes=0)
+c = q.choice_set.create(choice_text='Just hacking again', votes=0)
 
-c<span class="token punctuation">.</span>question <span class="token comment" spellcheck="true">#Choice对象访问自己的question子属性，返回&lt;Question: What's up?></span>
+c.question #Choice对象访问自己的question子属性，返回<Question: What's up?>
 
-<span class="token comment" spellcheck="true"># Question对象反之亦能关联到Choice对象</span>
-q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#返回q关联到的choice的集合</span>
-q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#返回q关联到的choice的个数</span>
+# Question对象反之亦能关联到Choice对象
+q.choice_set.all() #返回q关联到的choice的集合
+q.choice_set.count() #返回q关联到的choice的个数
 
-Choice<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>question__pub_date__year<span class="token operator">=</span>current_year<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#依据年份返回choice的集合</span>
+Choice.objects.filter(question__pub_date__year=current_year) #依据年份返回choice的集合
 
-c <span class="token operator">=</span> q<span class="token punctuation">.</span>choice_set<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>choice_text__startswith<span class="token operator">=</span><span class="token string">'Just hacking'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#获取一个choice</span>
-c<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#删除这个choice</span></code></pre>
+c = q.choice_set.filter(choice_text__startswith='Just hacking') #获取一个choice
+c.delete() #删除这个choice
+</code></pre>
 <p>阅读 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/models/relations/" target="_blank" rel="noopener">访问关系对象</a> 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/db/queries/#field-lookups-intro" target="_blank" rel="noopener">查找字段</a> 文档。数据库 API 的所有细节可以在 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/db/queries/" target="_blank" rel="noopener">数据库 API 参考</a> 文档中找到。</p>
 <h1 id="Django管理页面"><a href="#Django管理页面" class="headerlink" title="Django管理页面"></a>Django管理页面</h1><p>管理界面不是为了网站的访问者，而是为管理者准备的。</p>
 <h2 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h2><p>首先，我们得创建一个能登录管理页面的用户。请运行下面的命令：</p>
-<pre><code>python manage.py createsuperuser</code></pre><p>然后输入用户名、邮箱和两次密码，以创建管理员账号。</p>
+<pre><code>python manage.py createsuperuser
+</code></pre><p>然后输入用户名、邮箱和两次密码，以创建管理员账号。</p>
 <h2 id="进入管理界面"><a href="#进入管理界面" class="headerlink" title="进入管理界面"></a>进入管理界面</h2><p><code>Django</code> 的管理界面默认就是启用的。让我们启动开发服务器，看看它到底是什么样的。<br>如果开发服务器未启动，用以下命令启动它：</p>
-<pre><code>python manage.py runserver</code></pre><p>然后输入浏览器地址：<code>http://localhost:8000/admin/</code>来打开管理页面，输入账号和密码登陆即可。</p>
+<pre><code>python manage.py runserver
+</code></pre><p>然后输入浏览器地址：<code>http://localhost:8000/admin/</code>来打开管理页面，输入账号和密码登陆即可。</p>
 <p>正常情况下，你会看到类似如下图的界面：</p>
 <p><img src="2.png" alt></p>
 <p>其中<code>Groups</code>和<code>Users</code>是可编辑的。它们是由 <code>django.contrib.auth</code> 提供的，这是 <code>Django</code> 开发的认证框架。</p>
 <h2 id="向管理页面中加入投票应用"><a href="#向管理页面中加入投票应用" class="headerlink" title="向管理页面中加入投票应用"></a>向管理页面中加入投票应用</h2><p>但是我们的投票应用在哪呢？它没在索引页面里显示。</p>
 <p>只需要做一件事：我们得告诉管理页面，问题 <code>Question</code> 对象需要被管理。打开 <code>polls/admin.py</code> 文件，把它编辑成下面这样：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib <span class="token keyword">import</span> admin
-<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
+<pre class=" language-lang-python"><code class="language-lang-python">from django.contrib import admin
+from .models import Question
 
-admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>register<span class="token punctuation">(</span>Question<span class="token punctuation">)</span></code></pre>
+admin.site.register(Question)
+</code></pre>
 <p>类似地，你也可以往<code>admin</code>中添加<code>Choice</code>类。</p>
 <p>添加<code>Question</code>类后，刷新界面，应该会是这个样子：</p>
 <p><img src="3.png" alt></p>
@@ -724,47 +751,52 @@ admin<span class="token punctuation">.</span>site<span class="token punctuation"
 <p>在 Django 中，网页和其他内容都是从视图派生而来。每一个视图表现为一个简单的 Python 函数（或者说方法，如果是在基于类的视图里的话）。Django 将会根据用户请求的 URL 来选择使用哪个视图（更准确的说，是根据 URL 中域名之后的部分）。</p>
 <p>为了将 URL 和视图关联起来，Django 使用了 URLconfs 来配置。URLconf 将 URL 模式映射到视图。本教程只会介绍 URLconf 的基础内容，你可以看看 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/urls/" target="_blank" rel="noopener">URL调度器</a> 以获取更多内容。</p>
 <h2 id="编写更多视图"><a href="#编写更多视图" class="headerlink" title="编写更多视图"></a>编写更多视图</h2><p>现在让我们向 <code>polls/views.py</code> 里添加更多视图。这些视图有一些不同，因为他们接收参数：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">detail</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">"You're looking at question %s."</span> <span class="token operator">%</span> question_id<span class="token punctuation">)</span>
+<pre class=" language-lang-python"><code class="language-lang-python">def detail(request, question_id):
+    return HttpResponse("You're looking at question %s." % question_id)
 
-<span class="token keyword">def</span> <span class="token function">results</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    response <span class="token operator">=</span> <span class="token string">"You're looking at the results of question %s."</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span>response <span class="token operator">%</span> question_id<span class="token punctuation">)</span>
+def results(request, question_id):
+    response = "You're looking at the results of question %s."
+    return HttpResponse(response % question_id)
 
-<span class="token keyword">def</span> <span class="token function">vote</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">"You're voting on question %s."</span> <span class="token operator">%</span> question_id<span class="token punctuation">)</span></code></pre>
+def vote(request, question_id):
+    return HttpResponse("You're voting on question %s." % question_id)
+</code></pre>
 <p>把这些新视图添加进 <code>polls.urls</code> 模块里，只要添加几个 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/urls/#django.conf.urls.url" target="_blank" rel="noopener"><code>url()</code></a> 函数调用就行：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> path
-<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> views
+<pre class=" language-lang-python"><code class="language-lang-python">from django.urls import path
+from . import views
 
-urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token comment" spellcheck="true"># example: /polls/</span>
-    path<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true"># example: /polls/5/</span>
-    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>detail<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true"># example: /polls/5/results/</span>
-    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/results/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>results<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'results'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true"># example: /polls/5/vote/</span>
-    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/vote/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>vote<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'vote'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span></code></pre>
+urlpatterns = [
+    # example: /polls/
+    path('', views.index, name='index'),
+    # example: /polls/5/
+    path('<int:question_id>/', views.detail, name='detail'),
+    # example: /polls/5/results/
+    path('<int:question_id>/results/', views.results, name='results'),
+    # example: /polls/5/vote/
+    path('<int:question_id>/vote/', views.vote, name='vote'),
+]
+</code></pre>
 <p>然后看看你的浏览器，如果你转到 <code>/polls/34/</code> ，Django 将会运行 <code>detail()</code> 方法并且展示你在 URL 里提供的问题 ID。再试试 <code>/polls/34/vote/</code> 和 <code>/polls/34/vote/</code> ——你将会看到暂时用于占位的结果和投票页。</p>
 <p>当某人请求你网站的某一页面时——比如说，<code>/polls/34/</code> ，Django 将会载入 <code>mysite.urls</code> 模块，因为这在配置项 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/settings/#std:setting-ROOT_URLCONF" target="_blank" rel="noopener"><code>ROOT_URLCONF</code></a> 中设置了。然后 Django 寻找名为 <code>urlpatterns</code> 变量并且按序匹配正则表达式。在找到匹配项 <code>polls/</code>，它切掉了匹配的文本（<code>polls/</code>），将剩余文本——<code>34/</code>，发送至 <code>polls.urls</code> ，URLconf 做进一步处理。在这里剩余文本匹配了 <code>&lt;int:question_id&gt;/</code>，使得我们 Django 以如下形式调用 <code>detail()</code>:</p>
-<pre class=" language-python"><code class="language-python">detail<span class="token punctuation">(</span>request<span class="token operator">=</span><span class="token operator">&lt;</span>HttpRequest object<span class="token operator">></span><span class="token punctuation">,</span> question_id<span class="token operator">=</span><span class="token number">34</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">detail(request=<HttpRequest object>, question_id=34)
+</code></pre>
 <p><code>question_id=34</code> 由 <code>&lt;int:question_id&gt;</code> 匹配生成。使用尖括号“捕获”这部分 URL，且以关键字参数的形式发送给视图函数。上述字符串的 <code>:question_id&gt;</code> 部分定义了将被用于区分匹配模式的变量名，而 <code>int:</code> 则是一个转换器决定了应该以什么变量类型匹配这部分的 URL 路径。</p>
 <p>为每个 URL 加上不必要的东西，例如 <code>.html</code> ，是没有必要的。不过如果你非要加的话，也是可以的:</p>
-<pre class=" language-python"><code class="language-python">path<span class="token punctuation">(</span><span class="token string">'polls/latest.html'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">path('polls/latest.html', views.index),
+</code></pre>
 <h2 id="写一个真正有用的视图"><a href="#写一个真正有用的视图" class="headerlink" title="写一个真正有用的视图"></a>写一个真正有用的视图</h2><p>每个视图必须要做的只有两件事：返回一个包含被请求页面内容的 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponse" target="_blank" rel="noopener"><code>HttpResponse</code></a> 对象，或者抛出一个异常，比如 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/views/#django.http.Http404" target="_blank" rel="noopener"><code>Http404</code></a> 。至于你还想干些什么，随便你。</p>
 <p>你的视图可以从数据库里读取记录，可以使用一个模板引擎（比如 Django 自带的，或者其他第三方的），可以生成一个 PDF 文件，可以输出一个 XML，创建一个 ZIP 文件，你可以做任何你想做的事，使用任何你想用的 Python 库。</p>
 <p>因为 Django 自带的数据库 API 很方便，我们曾在 <a href="https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial02/" target="_blank" rel="noopener">教程第 2 部分</a> 中学过，所以我们试试在视图里使用它。我们在 <code>index()</code> 函数里插入了一些新内容，让它能展示数据库里以发布日期排序的最近 5 个投票问题，以空格分割：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> HttpResponse
-<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
+<pre class=" language-lang-python"><code class="language-lang-python">from django.http import HttpResponse
+from .models import Question
 
-<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    latest_question_list <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>order_by<span class="token punctuation">(</span><span class="token string">'-pub_date'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span>
-    output <span class="token operator">=</span> <span class="token string">', '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>q<span class="token punctuation">.</span>question_text <span class="token keyword">for</span> q <span class="token keyword">in</span> latest_question_list<span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span>output<span class="token punctuation">)</span>
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    output = ', '.join([q.question_text for q in latest_question_list])
+    return HttpResponse(output)
 
-<span class="token comment" spellcheck="true"># Leave the rest of the views (detail, results, vote) unchanged</span></code></pre>
+# Leave the rest of the views (detail, results, vote) unchanged
+</code></pre>
 <p>这里有个问题：页面的设计写死在视图函数的代码里的。如果你想改变页面的样子，你需要编辑 Python 代码。</p>
 <p>所以让我们使用 Django 的模板系统，只要创建一个视图，就可以将页面的设计从代码中分离出来。</p>
 <h3 id="使用模板"><a href="#使用模板" class="headerlink" title="使用模板"></a>使用模板</h3><p>首先，在你的 <code>polls</code> 目录里创建一个 <code>templates</code> 目录。Django 将会自动地在这个目录里查找模板文件。</p>
@@ -776,107 +808,121 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
 <p>换句话说，Django不会区分<code>templates</code> 文件夹的父文件夹，即需要 <code>templates</code> 文件夹下的子文件夹来区分所属的应用程序。</p>
 </blockquote>
 <p>将下面的代码输入到刚刚创建的模板文件中：</p>
-<pre class=" language-html"><code class="language-html">{ % if latest_question_list % }
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+<pre class=" language-lang-html"><code class="language-lang-html">{ % if latest_question_list % }
+    <ul>
     { % for question in latest_question_list % }
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/polls/{{ question.id }}/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
     { % endfor % }
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+    </ul>
 { % else % }
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>No polls are available.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-{ % endif % }</code></pre>
+    <p>No polls are available.</p>
+{ % endif % }
+</code></pre>
 <p>然后，让我们更新一下 <code>polls/views.py</code> 里的 <code>index</code> 视图来使用模板：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> HttpResponse
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>template <span class="token keyword">import</span> loader
-<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
+<pre class=" language-lang-python"><code class="language-lang-python">from django.http import HttpResponse
+from django.template import loader
+from .models import Question
 
-<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    latest_question_list <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>order_by<span class="token punctuation">(</span><span class="token string">'-pub_date'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span>
-    template <span class="token operator">=</span> loader<span class="token punctuation">.</span>get_template<span class="token punctuation">(</span><span class="token string">'polls/index.html'</span><span class="token punctuation">)</span>
-    context <span class="token operator">=</span> <span class="token punctuation">{</span>
-        <span class="token string">'latest_question_list'</span><span class="token punctuation">:</span> latest_question_list<span class="token punctuation">,</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span>template<span class="token punctuation">.</span>render<span class="token punctuation">(</span>context<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    template = loader.get_template('polls/index.html')
+    context = {
+        'latest_question_list': latest_question_list,
+    }
+    return HttpResponse(template.render(context, request))
+</code></pre>
 <p>上述代码的作用是，载入 <code>polls/index.html</code> 模板文件，并且向它传递一个上下文(context)。这个上下文是一个字典，它将模板内的变量映射为 Python 对象。</p>
 <p>用你的浏览器访问 <code>/polls/</code> ，你将会看见一个无序列表，列出了我们添加的 “What’s up” 投票问题，链接指向这个投票的详情页。</p>
 <h3 id="一个快捷函数：render"><a href="#一个快捷函数：render" class="headerlink" title="一个快捷函数：render()"></a>一个快捷函数：render()</h3><p>「载入模板，填充上下文，再返回由它生成的 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponse" target="_blank" rel="noopener"><code>HttpResponse</code></a> 对象」是一个非常常用的操作流程。于是 Django 提供了一个快捷函数，我们用它来重写 <code>index()</code> 视图：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render
-<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
+<pre class=" language-lang-python"><code class="language-lang-python">from django.shortcuts import render
+from .models import Question
 
-<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    latest_question_list <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>order_by<span class="token punctuation">(</span><span class="token string">'-pub_date'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span>
-    context <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'latest_question_list'</span><span class="token punctuation">:</span> latest_question_list<span class="token punctuation">}</span>
-    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'polls/index.html'</span><span class="token punctuation">,</span> context<span class="token punctuation">)</span></code></pre>
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'polls/index.html', context)
+</code></pre>
 <p>注意到，我们不再需要导入 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/templates/#module-django.template.loader" target="_blank" rel="noopener"><code>loader</code></a> 和 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponse" target="_blank" rel="noopener"><code>HttpResponse</code></a> 。</p>
 <p><code>render()</code>函数以request作为第一个参数，模板的路径为第二个参数，第三个的字典参数为可选参数。然后返回<a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponse" target="_blank" rel="noopener"><code>HttpResponse</code></a>类型的对象。</p>
 <h3 id="抛出-404-错误"><a href="#抛出-404-错误" class="headerlink" title="抛出 404 错误"></a>抛出 404 错误</h3><p>现在，我们来处理投票详情视图——它会显示指定投票的问题标题。下面是这个视图的代码：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> Http404
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render
+<pre class=" language-lang-python"><code class="language-lang-python">from django.http import Http404
+from django.shortcuts import render
 
-<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
-<span class="token comment" spellcheck="true"># ...</span>
-<span class="token keyword">def</span> <span class="token function">detail</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        question <span class="token operator">=</span> Question<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pk<span class="token operator">=</span>question_id<span class="token punctuation">)</span>
-    <span class="token keyword">except</span> Question<span class="token punctuation">.</span>DoesNotExist<span class="token punctuation">:</span>
-        <span class="token keyword">raise</span> Http404<span class="token punctuation">(</span><span class="token string">"Question does not exist"</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'polls/detail.html'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'question'</span><span class="token punctuation">:</span> question<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+from .models import Question
+# ...
+def detail(request, question_id):
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'polls/detail.html', {'question': question})
+</code></pre>
 <p>这里有个新原则。如果指定问题 ID 所对应的问题不存在，这个视图就会抛出一个 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/views/#django.http.Http404" target="_blank" rel="noopener"><code>Http404</code></a> 异常。</p>
 <p>我们稍后再讨论你需要在 <code>polls/detail.html</code> 里输入什么，但是如果你想试试上面这段代码是否正常工作的话，你可以暂时把下面这段输进去：</p>
-<pre class=" language-html"><code class="language-html">{{ question }}</code></pre>
+<pre class=" language-lang-html"><code class="language-lang-html">{{ question }}
+</code></pre>
 <p>这样你就能测试了。</p>
 <p>输入不存在的id会出现类似如下的结果：</p>
 <p><img src="4.png" alt></p>
 <h3 id="一个快捷函数：get-object-or-404"><a href="#一个快捷函数：get-object-or-404" class="headerlink" title="一个快捷函数：get_object_or_404()"></a>一个快捷函数：get_object_or_404()</h3><p>尝试用 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/models/querysets/#django.db.models.query.QuerySet.get" target="_blank" rel="noopener"><code>get()</code></a> 函数获取一个对象，如果不存在就抛出 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/views/#django.http.Http404" target="_blank" rel="noopener"><code>Http404</code></a> 错误也是一个普遍的流程。Django 也提供了一个快捷函数，下面是修改后的详情 <code>detail()</code> 视图代码：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> get_object_or_404<span class="token punctuation">,</span> render
-<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Question
-<span class="token comment" spellcheck="true"># ...</span>
-<span class="token keyword">def</span> <span class="token function">detail</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> question_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    question <span class="token operator">=</span> get_object_or_404<span class="token punctuation">(</span>Question<span class="token punctuation">,</span> pk<span class="token operator">=</span>question_id<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'polls/detail.html'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'question'</span><span class="token punctuation">:</span> question<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">from django.shortcuts import get_object_or_404, render
+from .models import Question
+# ...
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/detail.html', {'question': question})
+</code></pre>
 <p><code>get_object_or_404()</code>函数使用Django的数据对象作为第一个参数，使用任意数量的筛选参数作为余下的参数，这些筛选参数会传递给<code>get()</code>函数。如果对象不存在，会引起404错误。</p>
 <p>也有 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/shortcuts/#django.shortcuts.get_list_or_404" target="_blank" rel="noopener"><code>get_list_or_404()</code></a> 函数，工作原理和 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/shortcuts/#django.shortcuts.get_object_or_404" target="_blank" rel="noopener"><code>get_object_or_404()</code></a> 一样，除了 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/models/querysets/#django.db.models.query.QuerySet.get" target="_blank" rel="noopener"><code>get()</code></a> 函数被换成了 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/models/querysets/#django.db.models.query.QuerySet.filter" target="_blank" rel="noopener"><code>filter()</code></a> 函数。如果列表为空的话会抛出 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/http/views/#django.http.Http404" target="_blank" rel="noopener"><code>Http404</code></a> 异常。</p>
 <h3 id="使用模板系统"><a href="#使用模板系统" class="headerlink" title="使用模板系统"></a>使用模板系统</h3><p>回过头去看看我们的 <code>detail()</code> 视图。它向模板传递了上下文变量 <code>question</code> 。下面是 <code>polls/detail.html</code> 模板里正式的代码：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+<pre class=" language-lang-html"><code class="language-lang-html"><h1>{{ question.question_text }}</h1>
+<ul>
 { % for choice in question.choice_set.all % }
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>{{ choice.choice_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <li>{{ choice.choice_text }}</li>
 { % endfor % }
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span></code></pre>
+</ul>
+</code></pre>
 <p>模板系统统一使用点符号来访问变量的属性。在示例 <code></code> 中，首先 Django 尝试对 <code>question</code> 对象使用字典查找（也就是使用 <code>obj.get(str)</code> 操作），如果失败了就尝试属性查找（也就是 <code>obj.str</code> 操作），结果是成功了。如果这一操作也失败的话，将会尝试列表查找（也就是 <code>obj[int]</code> 操作）。</p>
 <p>在 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/templates/builtins/#std:templatetag-for" target="_blank" rel="noopener"><code>{ % for % }</code></a> 循环中发生的函数调用：<code>question.choice_set.all</code> 被解释为 Python 代码 <code>question.choice_set.all()</code> ，将会返回一个可迭代的 <code>Choice</code> 对象，这一对象可以在 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/templates/builtins/#std:templatetag-for" target="_blank" rel="noopener"><code>{ %for % }</code></a> 标签内部使用。</p>
 <p>查看 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/templates/" target="_blank" rel="noopener">模板指南</a> 可以了解关于模板的更多信息。</p>
 <h3 id="去除模板中的硬编码-URL"><a href="#去除模板中的硬编码-URL" class="headerlink" title="去除模板中的硬编码 URL"></a>去除模板中的硬编码 URL</h3><p>还记得吗，我们在 <code>polls/index.html</code> 里编写投票链接时，链接是硬编码的：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/polls/{{ question.id }}/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-lang-html"><code class="language-lang-html"><li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+</code></pre>
 <p>问题在于，硬编码和强耦合的链接，对于一个包含很多应用的项目来说，修改起来是十分困难的。然而，因为你在 <code>polls.urls</code> 的 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/urls/#django.conf.urls.url" target="_blank" rel="noopener"><code>url()</code></a> 函数中通过 name 参数为 URL 定义了名字，你可以使用 <code>{ % url % }</code> 标签代替它：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ % url <span class="token punctuation">'</span>detail<span class="token punctuation">'</span> question.id % }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-lang-html"><code class="language-lang-html"><li><a href="{ % url 'detail' question.id % }">{{ question.question_text }}</a></li>
+</code></pre>
 <p>这个标签的工作方式是在 <code>polls.urls</code> 模块的 URL 定义中寻具有指定名字的条目。你可以回忆一下，具有名字 <code>detail</code> 的 URL 是在如下语句中定义的：</p>
-<pre class=" language-python"><code class="language-python"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token comment" spellcheck="true"># the 'name' value as called by the { % url % } template tag</span>
-path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>detail<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">...
+# the 'name' value as called by the { % url % } template tag
+path('<int:question_id>/', views.detail, name='detail'),
+...
+</code></pre>
 <p>也就是说，<code>url &#39;detail&#39; question.id</code>返回的是<code>/polls/2/</code>，因为<code>question.id</code>类似于参数被传入<code>&lt;int:question_id&gt;/</code>。</p>
 <p>如果你想改变投票详情视图的 URL，比如想改成 <code>polls/specifics/12/</code> ，你不用在模板里修改任何东西（包括其它模板），只要在 <code>polls/urls.py</code> 里稍微修改一下就行：</p>
-<pre class=" language-python"><code class="language-python"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token comment" spellcheck="true"># added the word 'specifics'</span>
-path<span class="token punctuation">(</span><span class="token string">'specifics/&lt;int:question_id>/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>detail<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">...
+# added the word 'specifics'
+path('specifics/<int:question_id>/', views.detail, name='detail'),
+...
+</code></pre>
 <h3 id="为-URL-名称添加命名空间"><a href="#为-URL-名称添加命名空间" class="headerlink" title="为 URL 名称添加命名空间"></a>为 URL 名称添加命名空间</h3><p>教程项目只有一个应用，<code>polls</code> 。在一个真实的 Django 项目中，可能会有五个，十个，二十个，甚至更多应用。Django 如何分辨重名的 URL 呢？举个例子，<code>polls</code> 应用有 <code>detail</code> 视图，可能另一个博客应用也有同名的视图。Django 如何知道 <code>{ % url % }</code> 标签到底对应哪一个应用的 URL 呢？</p>
 <p>答案是：在根 URLconf 中添加命名空间。在 <code>polls/urls.py</code> 文件中稍作修改，加上 <code>app_name</code> 设置命名空间：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> path
-<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> views
+<pre class=" language-lang-python"><code class="language-lang-python">from django.urls import path
+from . import views
 
-app_name <span class="token operator">=</span> <span class="token string">'polls'</span>
-urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
-    path<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>detail<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/results/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>results<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'results'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    path<span class="token punctuation">(</span><span class="token string">'&lt;int:question_id>/vote/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>vote<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'vote'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span></code></pre>
+app_name = 'polls'
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('<int:question_id>/', views.detail, name='detail'),
+    path('<int:question_id>/results/', views.results, name='results'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
+]
+</code></pre>
 <p>现在，编辑 <code>polls/index.html</code> 文件，从：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ % url <span class="token punctuation">'</span>detail<span class="token punctuation">'</span> question.id % }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-lang-html"><code class="language-lang-html"><li><a href="{ % url 'detail' question.id % }">{{ question.question_text }}</a></li>
+</code></pre>
 <p>修改为指向具有命名空间的详细视图：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ % url <span class="token punctuation">'</span>polls:detail<span class="token punctuation">'</span> question.id % }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>{{ question.question_text }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-lang-html"><code class="language-lang-html"><li><a href="{ % url 'polls:detail' question.id % }">{{ question.question_text }}</a></li>
+</code></pre>
 <h1 id="TO-BE-CONTINUED…"><a href="#TO-BE-CONTINUED…" class="headerlink" title="TO BE CONTINUED…"></a>TO BE CONTINUED…</h1><p><a href="https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial04/" target="_blank" rel="noopener">https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial04/</a></p>
 
             </div>
@@ -1556,7 +1602,7 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

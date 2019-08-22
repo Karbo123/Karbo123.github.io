@@ -443,7 +443,8 @@
 <p>详细教程，参考这里：<a href="https://jingyan.baidu.com/article/1876c85235c709890a137663.html" target="_blank" rel="noopener">Windows 10 20H1快速预览18917版系统更新教程</a></p>
 <h2 id="安装WSL"><a href="#安装WSL" class="headerlink" title="安装WSL"></a>安装WSL</h2><ol>
 <li><p>管理员身份打开powershell，输入下面的语句以打开“适用于Linux的Windows子系统”开关。</p>
-<pre class=" language-bash"><code class="language-bash">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+</code></pre>
 </li>
 <li><p>重启电脑</p>
 </li>
@@ -457,13 +458,15 @@
 <p>详细教程，参考这里：<a href="https://www.cnblogs.com/JettTang/p/8186315.html" target="_blank" rel="noopener">WSL（Windows Subsystem for Linux）的安装与使用</a></p>
 <h2 id="升级WSL到WSL2"><a href="#升级WSL到WSL2" class="headerlink" title="升级WSL到WSL2"></a>升级WSL到WSL2</h2><ol>
 <li><p>刚才安装的WSL还不是WSL2，需要虚拟化技术才可以。管理员身份打开powershell，输入下面指令以启用“虚拟机平台”可选组件：</p>
-<pre class=" language-bash"><code class="language-bash">Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+</code></pre>
 </li>
 <li><p>重启计算机</p>
 </li>
 <li><p>在 PowerShell 中运行下面指令以将WSL转变为WSL2：</p>
-<pre class=" language-bash"><code class="language-bash">wsl --set-version Ubuntu 2
-wsl --set-default-version 2</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">wsl --set-version Ubuntu 2
+wsl --set-default-version 2
+</code></pre>
 <blockquote>
 <p>可能提示需要开启虚拟化技术<br>参考这里：</p>
 <ul>
@@ -473,7 +476,8 @@ wsl --set-default-version 2</code></pre>
 </blockquote>
 </li>
 <li><p>在PowerShell 中输入下面指令确保WSL成功转化为第二版：</p>
-<pre class=" language-bash"><code class="language-bash">wsl -l -v</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">wsl -l -v
+</code></pre>
 <p>详细教程，参考这里：<a href="https://zhuanlan.zhihu.com/p/69121280" target="_blank" rel="noopener">在 Windows 中运行 Linux：WSL 2 使用入门</a></p>
 </li>
 </ol>
@@ -482,47 +486,55 @@ wsl --set-default-version 2</code></pre>
 <li><a href="https://zhuanlan.zhihu.com/p/57556340" target="_blank" rel="noopener">用WSL,MobaXterm,Cmder配置linux开发环境</a></li>
 </ul>
 <h2 id="更换源"><a href="#更换源" class="headerlink" title="更换源"></a>更换源</h2><p>输入下面命令更换软件源，并更新：</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> /etc/apt/sources.list /etc/apt/sources.list.bak 
-<span class="token function">sudo</span> <span class="token function">sed</span> -i <span class="token string">'s/archive.ubuntu.com/mirrors.aliyun.com/g'</span> /etc/apt/sources.list
-<span class="token function">sudo</span> apt update
-<span class="token function">sudo</span> apt upgrade -y</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 
+sudo sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+sudo apt update
+sudo apt upgrade -y
+</code></pre>
 <p>如果报错，则按照报错的提示，再输入一遍就好了。</p>
 <h2 id="修改Win10盘的挂载点"><a href="#修改Win10盘的挂载点" class="headerlink" title="修改Win10盘的挂载点"></a>修改Win10盘的挂载点</h2><p>这步的操作是<strong>可选的</strong>，可以跳过。</p>
 <p>默认的Windows磁盘在WSL的访问方式是<code>/mnt</code>开头，可能不太方便，我们下面更换成是<code>/</code>开头的吧。</p>
 <p>打开这个文件：</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> vim /etc/wsl.conf</code></pre>
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo vim /etc/wsl.conf
+</code></pre>
 <p>添加下面三行内容，并保存此文件：</p>
 <pre><code>[automount] 
 root = / 
-options = &quot;metadata&quot;</code></pre><p>关掉WSL窗口，然后重启WSL，重启WSL的方法为在CMD输入：</p>
-<pre class=" language-bash"><code class="language-bash">net stop LxssManager
-net start LxssManager</code></pre>
+options = &quot;metadata&quot;
+</code></pre><p>关掉WSL窗口，然后重启WSL，重启WSL的方法为在CMD输入：</p>
+<pre class=" language-lang-bash"><code class="language-lang-bash">net stop LxssManager
+net start LxssManager
+</code></pre>
 <p>再次打开WSL，输入<code>df -h</code>可以看到Win10盘的挂载点成功变更了。</p>
 <h2 id="安装并配置VSCode"><a href="#安装并配置VSCode" class="headerlink" title="安装并配置VSCode"></a>安装并配置VSCode</h2><p>这步的操作是<strong>可选的</strong>，可以跳过。</p>
 <p>安装VSCode和中文字体，因为WSL2没中文字体将显示为豆腐块</p>
 <ol>
 <li>安装中文字体（Noto Sans Mono CJK SC）：</li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> -y fonts-noto-cjk fonts-noto-cjk-extra</code></pre>
-<ol start="2">
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo apt install -y fonts-noto-cjk fonts-noto-cjk-extra
+</code></pre>
+<ol>
 <li><p>在Win10下载VSCode的deb包：<a href="https://code.visualstudio.com/#alt-downloads" target="_blank" rel="noopener">官网下载页面</a></p>
 </li>
 <li><p>然后cd到deb包的下载目录，用下面的命令来安装此deb包（替换下面包的名字）：</p>
 </li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> ./code_1.31.1-1549938243_amd64.deb</code></pre>
-<ol start="4">
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo apt install ./code_1.31.1-1549938243_amd64.deb
+</code></pre>
+<ol>
 <li>安装要启动VSCode必要依赖：</li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt <span class="token function">install</span> libgtk2.0-0 libxss1 libasound2</code></pre>
-<ol start="5">
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo apt install libgtk2.0-0 libxss1 libasound2
+</code></pre>
+<ol>
 <li><p>输入<code>code .</code>以启动VSCode。（若还没图形界面则不会显示，等安装好了再进行第5步和第6步）</p>
 </li>
 <li><p>找到下面属性，并配置VSCode：</p>
 </li>
 </ol>
-<pre class=" language-json"><code class="language-json"><span class="token property">"Window.titleBarStyle"</span><span class="token operator">:</span> <span class="token string">"native"</span><span class="token punctuation">,</span>
-<span class="token property">"editor.fontFamily"</span><span class="token operator">:</span> <span class="token string">"monospace,'Noto Sans Mono CJK SC'"</span></code></pre>
+<pre class=" language-lang-json"><code class="language-lang-json">"Window.titleBarStyle": "native",
+"editor.fontFamily": "monospace,'Noto Sans Mono CJK SC'"
+</code></pre>
 <h2 id="安装并配置Python"><a href="#安装并配置Python" class="headerlink" title="安装并配置Python"></a>安装并配置Python</h2><p>这步的操作是<strong>可选的</strong>，可以跳过。</p>
 <p>我们使用Miniconda来安装和配置Python。</p>
 <ol>
@@ -537,28 +549,32 @@ net start LxssManager</code></pre>
 <h2 id="配置Xrdp"><a href="#配置Xrdp" class="headerlink" title="配置Xrdp"></a>配置Xrdp</h2><ol>
 <li>安装xrdp及相关：</li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> xrdp
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> vnc4server
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> xubuntu-desktop</code></pre>
-<ol start="2">
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo apt-get install xrdp
+sudo apt-get install vnc4server
+sudo apt-get install xubuntu-desktop
+</code></pre>
+<ol>
 <li>修改port 3389，避免跟本机的端口冲突（例如修改成3390）：</li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> vim /etc/xrdp/xrdp.ini</code></pre>
-<ol start="3">
+<pre class=" language-lang-bash"><code class="language-lang-bash">sudo vim /etc/xrdp/xrdp.ini
+</code></pre>
+<ol>
 <li>设为启动桌面</li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> xfce4-session <span class="token operator">></span>~/.xsession </code></pre>
-<ol start="4">
+<pre class=" language-lang-bash"><code class="language-lang-bash">echo xfce4-session >~/.xsession
+</code></pre>
+<ol>
 <li>在<code>~</code>创建新文件，例如取名叫<code>run_remote_desktop.sh</code>，添加如下内容</li>
 </ol>
-<pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token string">'Going to start xrdp so as to open remote desktop port...'</span>
-<span class="token keyword">echo</span> <span class="token string">'Please input your password...'</span>
-<span class="token keyword">echo</span> <span class="token string">'========================================='</span>
-<span class="token function">sudo</span> <span class="token function">service</span> xrdp restart
-<span class="token keyword">echo</span> <span class="token string">'========================================='</span>
-ipv4_address<span class="token operator">=</span><span class="token punctuation">$(</span>/sbin/ifconfig -a<span class="token operator">|</span><span class="token function">grep</span> inet<span class="token operator">|</span><span class="token function">grep</span> -v 127.0.0.1<span class="token operator">|</span><span class="token function">grep</span> -v inet6<span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$2</span>}'</span><span class="token operator">|</span><span class="token function">tr</span> -d <span class="token string">"addr:"</span><span class="token punctuation">)</span>
-<span class="token keyword">echo</span> <span class="token string">"Your WSL2 is running on <span class="token variable">$ipv4_address</span>:3390"</span></code></pre>
-<ol start="5">
+<pre class=" language-lang-bash"><code class="language-lang-bash">echo 'Going to start xrdp so as to open remote desktop port...'
+echo 'Please input your password...'
+echo '========================================='
+sudo service xrdp restart
+echo '========================================='
+ipv4_address=$(/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:")
+echo "Your WSL2 is running on $ipv4_address:3390"
+</code></pre>
+<ol>
 <li>最后执行<code>chmod 777 ~/run_remote_desktop.sh</code>以赋予权限</li>
 <li>每次想要启动桌面就输入<code>bash ~/run_remote_desktop.sh</code>，然后输入密码，最后会提示：<code>Your WSL2 is running on 172.28.246.150:3390</code>类似的字样，打开Win10的远程桌面，输入此ip就可以远程连接了。</li>
 <li>然后配置图形界面（例如前面还没有完成的对VSCode的配置）</li>
@@ -1250,7 +1266,7 @@ ipv4_address<span class="token operator">=</span><span class="token punctuation"
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             

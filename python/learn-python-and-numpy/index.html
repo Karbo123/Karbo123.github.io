@@ -522,13 +522,13 @@
 </ol>
 <h2 id="字典-的用法【class的一种】"><a href="#字典-的用法【class的一种】" class="headerlink" title="字典{}的用法【class的一种】"></a>字典{}的用法【class的一种】</h2><ol>
 <li><p>即键值表，并不关心多对键值对的顺序，可修改</p>
-<pre class=" language-python"><code class="language-python">rect <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">20</span><span class="token punctuation">}</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">rect = {'x':10, 'y':5, 0:20}
+</code></pre>
 <p>上述字典rect里有三个键（key），分别是’x’，’y’和0。作为下标带入rect[key]就可以得到相应的值</p>
 </li>
 <li><p>新建键值对：直接赋值即可（如<code>rect[&#39;newkey&#39;]=&#39;newval&#39;</code>）</p>
 </li>
-<li><p>删除键值对：如<code>del rect[&#39;newkey&#39;]</code></p>
-</li>
+<li>删除键值对：如<code>del rect[&#39;newkey&#39;]</code></li>
 </ol>
 <h2 id="集合-的简单介绍【class的一种】"><a href="#集合-的简单介绍【class的一种】" class="headerlink" title="集合{}的简单介绍【class的一种】"></a>集合{}的简单介绍【class的一种】</h2><ol>
 <li>通过函数<code>set(a)</code>可以将数组a的元素去除重复，返回一个集合类型的量</li>
@@ -543,8 +543,9 @@
 <li>in被包含（如elem in a），not in不被包含</li>
 </ol>
 <h2 id="for循环的用法"><a href="#for循环的用法" class="headerlink" title="for循环的用法"></a>for循环的用法</h2><ol>
-<li>基本格式：<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> elem <span class="token keyword">in</span> arr<span class="token punctuation">:</span>
- <span class="token keyword">print</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span></code></pre>
+<li>基本格式：<pre class=" language-lang-python"><code class="language-lang-python">for elem in arr:
+ print(elem)
+</code></pre>
 例子：</li>
 </ol>
 <ul>
@@ -555,7 +556,7 @@
 <li><code>for val in a.values()</code> # a是字典</li>
 <li><code>for key in a</code> # a是字典(仅遍历键key)</li>
 </ul>
-<ol start="2">
+<ol>
 <li>注意事项：</li>
 </ol>
 <ul>
@@ -568,25 +569,28 @@
 <li><code>dict.values()</code>返回一个元素是值的dict_values对象（而<code>list(dict.values())</code>才是真正的列表）</li>
 </ul>
 <h2 id="if语句的用法"><a href="#if语句的用法" class="headerlink" title="if语句的用法"></a>if语句的用法</h2><ol>
-<li>例子：<pre class=" language-python"><code class="language-python"> <span class="token keyword">if</span> a<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">:</span>
-     <span class="token comment" spellcheck="true">#...</span>
- <span class="token keyword">elif</span> a<span class="token operator">==</span><span class="token number">2</span><span class="token punctuation">:</span>
-     <span class="token comment" spellcheck="true">#...</span>
- <span class="token keyword">else</span><span class="token punctuation">:</span>
-     <span class="token comment" spellcheck="true">#...</span></code></pre>
+<li>例子：<pre class=" language-lang-python"><code class="language-lang-python"> if a==1:
+     #...
+ elif a==2:
+     #...
+ else:
+     #...
+</code></pre>
 </li>
 </ol>
 <h2 id="while循环的用法"><a href="#while循环的用法" class="headerlink" title="while循环的用法"></a>while循环的用法</h2><ol>
-<li>例子<pre class=" language-python"><code class="language-python"> <span class="token keyword">while</span> boolvar<span class="token punctuation">:</span>
-     <span class="token comment" spellcheck="true">#TODO</span></code></pre>
+<li>例子<pre class=" language-lang-python"><code class="language-lang-python"> while boolvar:
+     #TODO
+</code></pre>
 </li>
 <li>用break退出while或for循环</li>
 <li>continue跳过此次循环，进入下一轮</li>
 </ol>
 <h2 id="函数的用法"><a href="#函数的用法" class="headerlink" title="函数的用法"></a>函数的用法</h2><ol>
-<li>例子<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> 函数名<span class="token punctuation">(</span>参数表<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 参数可以是列表（与实参共用内存空间，除非传递副本如a[:]）</span>
-     <span class="token comment" spellcheck="true"># 计算</span>
-     <span class="token keyword">return</span> ReturnVal <span class="token comment" spellcheck="true"># 非必需，ReturnVal可以是字典</span></code></pre>
+<li>例子<pre class=" language-lang-python"><code class="language-lang-python"> def 函数名(参数表): # 参数可以是列表（与实参共用内存空间，除非传递副本如a[:]）
+     # 计算
+     return ReturnVal # 非必需，ReturnVal可以是字典
+</code></pre>
 </li>
 <li>有形参与实参之分，实参传值给形参进入函数内部</li>
 <li>参数传递的两种方法：<ul>
@@ -595,32 +599,38 @@
 </ul>
 </li>
 <li>参数可以有默认值，如def f(x,y=0)，默认值要列在最后</li>
-<li>传递任意数量的实参的写法：(“任意数量的参数*inputs”必须放在参数表的末尾)<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token operator">*</span>inputs<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 将多个输入的参数封装到一个名为inputs的元组里，调用例子：f(4,8,7,1,3)</span>
-     <span class="token keyword">print</span><span class="token punctuation">(</span>inputs<span class="token punctuation">)</span></code></pre>
+<li>传递任意数量的实参的写法：(“任意数量的参数*inputs”必须放在参数表的末尾)<pre class=" language-lang-python"><code class="language-lang-python"> def f(*inputs): # 将多个输入的参数封装到一个名为inputs的元组里，调用例子：f(4,8,7,1,3)
+     print(inputs)
+</code></pre>
 </li>
-<li>传递任意数量的关键字实参的写法：（同理，放在参数表的末尾）<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span><span class="token operator">**</span>dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
-     <span class="token comment" spellcheck="true">#获得x和字典dict（调用例子：f('3',name='karbo',age=99)）</span></code></pre>
+<li>传递任意数量的关键字实参的写法：（同理，放在参数表的末尾）<pre class=" language-lang-python"><code class="language-lang-python"> def f(x,**dict):
+     #获得x和字典dict（调用例子：f('3',name='karbo',age=99)）
+</code></pre>
 </li>
 </ol>
 <h2 id="类的用法"><a href="#类的用法" class="headerlink" title="类的用法"></a>类的用法</h2><ol>
-<li>例子：<pre class=" language-python"><code class="language-python"> <span class="token keyword">class</span> <span class="token class-name">Rect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 约定：首字母大写的是类（推荐驼峰命名法）</span></code></pre>
+<li>例子：<pre class=" language-lang-python"><code class="language-lang-python"> class Rect():  # 约定：首字母大写的是类（推荐驼峰命名法）
+</code></pre>
 </li>
-<li>类里的函数（方法）必定包含参数self<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 构造函数（不包含return语句）</span>
- self<span class="token punctuation">.</span>x <span class="token operator">=</span> x <span class="token comment" spellcheck="true">#有默认值1</span>
- self<span class="token punctuation">.</span>y <span class="token operator">=</span> y <span class="token comment" spellcheck="true">#有默认值1</span>
- self<span class="token punctuation">.</span>is_active <span class="token operator">=</span> <span class="token boolean">True</span>  <span class="token comment" spellcheck="true"># 置默认值</span>
-<span class="token keyword">def</span> <span class="token function">compute_area</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
- <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_active<span class="token punctuation">:</span>
-     <span class="token keyword">return</span> self<span class="token punctuation">.</span>x <span class="token operator">*</span> self<span class="token punctuation">.</span>y
- <span class="token keyword">return</span> <span class="token number">0</span></code></pre>
+<li>类里的函数（方法）必定包含参数self<pre class=" language-lang-python"><code class="language-lang-python">def __init__(self, x=1, y=1):  # 构造函数（不包含return语句）
+ self.x = x #有默认值1
+ self.y = y #有默认值1
+ self.is_active = True  # 置默认值
+def compute_area(self):
+ if self.is_active:
+     return self.x * self.y
+ return 0
+</code></pre>
 </li>
-<li>使用方法<pre class=" language-python"><code class="language-python">MYRECT <span class="token operator">=</span> Rect<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#用赋值的方法创建对象（不必传递self参数）</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>MYRECT<span class="token punctuation">.</span>compute_area<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 调用函数并打印</span></code></pre>
+<li>使用方法<pre class=" language-lang-python"><code class="language-lang-python">MYRECT = Rect(3)  #用赋值的方法创建对象（不必传递self参数）
+print(MYRECT.compute_area())  # 调用函数并打印
+</code></pre>
 </li>
-<li>继承的例子：<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Cube</span><span class="token punctuation">(</span>Rect<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#Cube继承自Rect</span>
- <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> z<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-     super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#初始化继承到的内容（通过super()函数的返回值可以访问继承到的东西）</span>
-     self<span class="token punctuation">.</span>z <span class="token operator">=</span> z</code></pre>
+<li>继承的例子：<pre class=" language-lang-python"><code class="language-lang-python">class Cube(Rect): #Cube继承自Rect
+ def __init__(self, x=1, y=1, z=1):
+     super().__init__(x, y) #初始化继承到的内容（通过super()函数的返回值可以访问继承到的东西）
+     self.z = z
+</code></pre>
 </li>
 <li>注意事项：<ul>
 <li>子类同名方法会覆盖父类的</li>
@@ -629,12 +639,13 @@
 </li>
 </ol>
 <h2 id="模块的用法"><a href="#模块的用法" class="headerlink" title="模块的用法"></a>模块的用法</h2><ol>
-<li>在模块文件（.py）写入函数，然后在另一个.py文件import模块文件名即可。<br> 如：<pre class=" language-python"><code class="language-python"> <span class="token comment" spellcheck="true">#在模块PRINTABC.py</span>
- <span class="token keyword">def</span> <span class="token function">printabc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc'</span><span class="token punctuation">)</span>
- <span class="token comment" spellcheck="true">#调用者main.py</span>
- <span class="token keyword">import</span> PRINTABC <span class="token comment" spellcheck="true">#import模块</span>
- PRINTABC<span class="token punctuation">.</span>printabc<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#要加上作用域PRINTABC.</span></code></pre>
+<li>在模块文件（.py）写入函数，然后在另一个.py文件import模块文件名即可。<br> 如：<pre class=" language-lang-python"><code class="language-lang-python"> #在模块PRINTABC.py
+ def printabc():
+     print('abc')
+ #调用者main.py
+ import PRINTABC #import模块
+ PRINTABC.printabc() #要加上作用域PRINTABC.
+</code></pre>
 </li>
 <li>import其他用法：<ul>
 <li>使用模块别名:import tensorflow as tf # 调用时需要加上tf.</li>
@@ -649,18 +660,22 @@
 <li>【读】</li>
 </ol>
 <ul>
-<li>全部一次性读取：<pre class=" language-python"><code class="language-python"><span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'a.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#使用with使得文件在不再被调用后自动关闭（不用with的写法：打开myfile=open("a.txt")关闭myfile.close()）</span>
-  <span class="token keyword">print</span><span class="token punctuation">(</span>myfile<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#read()函数将内容全部读取</span></code></pre>
+<li>全部一次性读取：<pre class=" language-lang-python"><code class="language-lang-python">with open('a.txt') as myfile: #使用with使得文件在不再被调用后自动关闭（不用with的写法：打开myfile=open("a.txt")关闭myfile.close()）
+  print(myfile.read()) #read()函数将内容全部读取
+</code></pre>
 文件路径是相对路径或绝对路径</li>
-<li>逐行读取：<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> line <span class="token keyword">in</span> myfile<span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#读取一行到line里，注意：它不抛弃末尾的\n，即line字符串末尾</span>
-有换行符</code></pre>
+<li>逐行读取：<pre class=" language-lang-python"><code class="language-lang-python">for line in myfile: #读取一行到line里，注意：它不抛弃末尾的\n，即line字符串末尾
+有换行符
+</code></pre>
 </li>
-<li>读取所有行到一个列表中：<pre class=" language-python"><code class="language-python">arr_lines <span class="token operator">=</span> myfile<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#一行为一个元素的列表，同理不抛弃末尾的\n</span></code></pre>
+<li>读取所有行到一个列表中：<pre class=" language-lang-python"><code class="language-lang-python">arr_lines = myfile.readlines() #一行为一个元素的列表，同理不抛弃末尾的\n
+</code></pre>
 </li>
 </ul>
-<ol start="2">
-<li>【写】<pre class=" language-python"><code class="language-python"><span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'a.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 可选项：读r（默认），写w，追加a，读写r+</span>
- myfile<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'hello!'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 只将内容写入，并不会自动添加\n</span></code></pre>
+<ol>
+<li>【写】<pre class=" language-lang-python"><code class="language-lang-python">with open('a.txt', 'w') as myfile: # 可选项：读r（默认），写w，追加a，读写r+
+ myfile.write('hello!') # 只将内容写入，并不会自动添加\n
+</code></pre>
 </li>
 </ol>
 <ul>
@@ -671,56 +686,62 @@
 </li>
 </ul>
 <h2 id="存储数据结构（JSON）："><a href="#存储数据结构（JSON）：" class="headerlink" title="存储数据结构（JSON）："></a>存储数据结构（JSON）：</h2><ol>
-<li>完整例子：<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> json
-<span class="token keyword">def</span> <span class="token function">READ_JSON_FILE</span><span class="token punctuation">(</span>FILENAME<span class="token punctuation">)</span><span class="token punctuation">:</span>
- <span class="token keyword">with</span> open<span class="token punctuation">(</span>FILENAME<span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span>
-     <span class="token keyword">return</span> json<span class="token punctuation">.</span>load<span class="token punctuation">(</span>myfile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#返回读取到的文件内容</span>
-<span class="token keyword">def</span> <span class="token function">WRITE_JSON_FILE</span><span class="token punctuation">(</span>WHAT<span class="token punctuation">,</span> FILENAME<span class="token punctuation">)</span><span class="token punctuation">:</span>
- <span class="token keyword">with</span> open<span class="token punctuation">(</span>FILENAME<span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span>
-     json<span class="token punctuation">.</span>dump<span class="token punctuation">(</span>WHAT<span class="token punctuation">,</span> myfile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#将WHAT写入路径为FILENAME的文件里</span></code></pre>
+<li>完整例子：<pre class=" language-lang-python"><code class="language-lang-python">import json
+def READ_JSON_FILE(FILENAME):
+ with open(FILENAME) as myfile:
+     return json.load(myfile) #返回读取到的文件内容
+def WRITE_JSON_FILE(WHAT, FILENAME):
+ with open(FILENAME, 'w') as myfile:
+     json.dump(WHAT, myfile) #将WHAT写入路径为FILENAME的文件里
+</code></pre>
 <h2 id="异常机制"><a href="#异常机制" class="headerlink" title="异常机制"></a>异常机制</h2></li>
-<li>例子：<pre class=" language-python"><code class="language-python"> <span class="token keyword">try</span><span class="token punctuation">:</span>
-     <span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'a.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> myfile<span class="token punctuation">:</span>
-         contents <span class="token operator">=</span> myfile<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
- <span class="token keyword">except</span> FileNotFoundError<span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#try失败后</span>
-     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Sorry, the file not found.'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#换成语句pass可以跳过（pass相当于占位符，不起作用，是空语句）</span>
- <span class="token keyword">else</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#try成功后执行else部分</span>
-     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'It has'</span><span class="token punctuation">,</span> str<span class="token punctuation">(</span>len<span class="token punctuation">(</span>contents<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'words.'</span><span class="token punctuation">)</span></code></pre>
+<li>例子：<pre class=" language-lang-python"><code class="language-lang-python"> try:
+     with open('a.txt') as myfile:
+         contents = myfile.read()
+ except FileNotFoundError: #try失败后
+     print('Sorry, the file not found.') #换成语句pass可以跳过（pass相当于占位符，不起作用，是空语句）
+ else: #try成功后执行else部分
+     print('It has', str(len(contents.split())), 'words.')
+</code></pre>
 </li>
 <li>常见的异常有：</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">错误类型</th>
-<th align="center">解释</th>
+<th style="text-align:center">错误类型</th>
+<th style="text-align:center">解释</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">OverflowError</td>
-<td align="center">数值运算超出最大限制</td>
+<tbody>
+<tr>
+<td style="text-align:center">OverflowError</td>
+<td style="text-align:center">数值运算超出最大限制</td>
 </tr>
 <tr>
-<td align="center">ZeroDivisionError</td>
-<td align="center">除(或取模)零 (所有数据类型)</td>
+<td style="text-align:center">ZeroDivisionError</td>
+<td style="text-align:center">除(或取模)零 (所有数据类型)</td>
 </tr>
 <tr>
-<td align="center">IOError</td>
-<td align="center">输入/输出操作失败</td>
+<td style="text-align:center">IOError</td>
+<td style="text-align:center">输入/输出操作失败</td>
 </tr>
 <tr>
-<td align="center">IndexError</td>
-<td align="center">序列中没有此索引(index)</td>
+<td style="text-align:center">IndexError</td>
+<td style="text-align:center">序列中没有此索引(index)</td>
 </tr>
 <tr>
-<td align="center">FileNotFoundError</td>
-<td align="center">文件未找到</td>
+<td style="text-align:center">FileNotFoundError</td>
+<td style="text-align:center">文件未找到</td>
 </tr>
 <tr>
-<td align="center">NameError</td>
-<td align="center">访问一个不存在的变量</td>
+<td style="text-align:center">NameError</td>
+<td style="text-align:center">访问一个不存在的变量</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h1 id="NumPy语法"><a href="#NumPy语法" class="headerlink" title="NumPy语法"></a>NumPy语法</h1><h2 id="ndarray基本属性"><a href="#ndarray基本属性" class="headerlink" title="ndarray基本属性"></a>ndarray基本属性</h2><ol>
 <li><code>ndarray.ndim</code>维度</li>
 <li><code>ndarray.shape</code>形状尺寸</li>
@@ -731,112 +752,117 @@
 </ol>
 <h2 id="ndarray生成"><a href="#ndarray生成" class="headerlink" title="ndarray生成"></a>ndarray生成</h2><p>array()是函数，ndarray()是类</p>
 <ol>
-<li>list转ndarray<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>complex<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#显式指定为复数类型</span>
-c <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#0~10</span></code></pre>
+<li>list转ndarray<pre class=" language-lang-python"><code class="language-lang-python">a = np.array([1,2,3,4])
+b = np.array([[1,2],[3,4]], dtype=complex) #显式指定为复数类型
+c = np.array([i for i in range(1, 11)]) #0~10
+</code></pre>
 </li>
-<li>arange生成<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#0~14</span>
-b <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#5~9</span>
-c <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#1~9.5，间隔0.5</span></code></pre>
+<li>arange生成<pre class=" language-lang-python"><code class="language-lang-python">a = np.arange(15) #0~14
+b = np.arange(5, 10) #5~9
+c = np.arange(1, 10, 0.5) #1~9.5，间隔0.5
+</code></pre>
 </li>
-<li>zeros、ones、eye、empty生成（默认是np.float64类型）<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>int64<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#指定为np.int64类型，元素全是0</span>
-b <span class="token operator">=</span> np<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#默认为np.float64类型，元素全是1</span>
-c <span class="token operator">=</span> np<span class="token punctuation">.</span>eye<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#默认为np.float64类型，大小为3*3的单位矩阵</span>
-d <span class="token operator">=</span> np<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>complex<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#指定为复数，元素未初始化（依据内存状态）</span></code></pre>
+<li>zeros、ones、eye、empty生成（默认是np.float64类型）<pre class=" language-lang-python"><code class="language-lang-python">a = np.zeros([2, 3], dtype=np.int64) #指定为np.int64类型，元素全是0
+b = np.ones([2, 3]) #默认为np.float64类型，元素全是1
+c = np.eye(3) #默认为np.float64类型，大小为3*3的单位矩阵
+d = np.empty([2, 3], dtype=complex) #指定为复数，元素未初始化（依据内存状态）
+</code></pre>
 </li>
-<li>linspace生成<br>返回等间隔分布的数组<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#a == [ 1.    3.25  5.5   7.75 10.  ]</span></code></pre>
+<li>linspace生成<br>返回等间隔分布的数组<pre class=" language-lang-python"><code class="language-lang-python">a = np.linspace(1, 10, 5) #a == [ 1.    3.25  5.5   7.75 10.  ]
+</code></pre>
 </li>
 </ol>
 <h2 id="ndarray的操作"><a href="#ndarray的操作" class="headerlink" title="ndarray的操作"></a>ndarray的操作</h2><ol>
-<li>reshape<br>注意<code>reshape</code>函数返回的是引用，指向同一内存空间。<br>若要不同请使用深拷贝，请使用深拷贝<code>.copy()</code>。<pre class=" language-python"><code class="language-python">x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#生成长度为12的ndarray</span>
-a <span class="token operator">=</span> np<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后x的值仍不变</span>
-b <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后x的值仍不变</span>
-c <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#执行后x的值仍不变</span></code></pre>
-输出效果（a、b和c都一样）：<pre class=" language-python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">1</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
-<span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
-<span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span></code></pre>
+<li>reshape<br>注意<code>reshape</code>函数返回的是引用，指向同一内存空间。<br>若要不同请使用深拷贝，请使用深拷贝<code>.copy()</code>。<pre class=" language-lang-python"><code class="language-lang-python">x = np.array([i for i in range(1, 13)]) #生成长度为12的ndarray
+a = np.reshape(x, [3, 4]) #执行后x的值仍不变
+b = x.reshape([3, 4]) #执行后x的值仍不变
+c = x.reshape(3, 4) #执行后x的值仍不变
+</code></pre>
+输出效果（a、b和c都一样）：<pre class=" language-lang-python"><code class="language-lang-python">[[ 1  2  3  4]
+[ 5  6  7  8]
+[ 9 10 11 12]]
+</code></pre>
 </li>
-<li>读取单个元素<pre class=" language-python"><code class="language-python">a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行第3列的元素（建议）</span>
-a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行第3列的元素（先取出第二行[ 5  6  7  8]，再取出第三个元素7）</span></code></pre>
+<li>读取单个元素<pre class=" language-lang-python"><code class="language-lang-python">a[1,2] #取出第2行第3列的元素（建议）
+a[1][2] #取出第2行第3列的元素（先取出第二行[ 5  6  7  8]，再取出第三个元素7）
+</code></pre>
 </li>
-<li>读取整行/列<pre class=" language-python"><code class="language-python">a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2列（建议）</span>
-a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行（注意：a[:]等价于a）</span>
-a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 取出第2行（建议）</span>
-a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行（建议）</span>
-a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出第2行（注意：[:]不起作用）</span></code></pre>
+<li>读取整行/列<pre class=" language-lang-python"><code class="language-lang-python">a[:,1] #取出第2列（建议）
+a[:][1] #取出第2行（注意：a[:]等价于a）
+a[1] # 取出第2行（建议）
+a[1,:] #取出第2行（建议）
+a[1][:] #取出第2行（注意：[:]不起作用）
+</code></pre>
 </li>
 <li>拷贝<br>ndarray深拷贝请使用<code>y=x.copy()</code>，而不是<code>y=x[:]</code>！<br>对数值型的赋值都是深拷贝</li>
 </ol>
 <p>拷贝实验一：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> a <span class="token comment" spellcheck="true">#b是a的引用</span>
-b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span> <span class="token comment" spellcheck="true">#实质上是修改了a</span>
+<pre class=" language-lang-python"><code class="language-lang-python">import numpy as np
+x = np.array([i for i in range(1, 13)])
+a = x.reshape([3, 4])
+b = a #b是a的引用
+b[0, 0] = 99 #实质上是修改了a
 
 输出结果：
-<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">99</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a被修改了</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span></code></pre>
-<p>拷贝实验二：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#取出a第1行的引用</span>
-b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span> <span class="token comment" spellcheck="true">#实质上是修改了a的第1行的第1个元素</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
-
-输出结果：
-<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">99</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a被修改了</span></code></pre>
-<p>拷贝实验三：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#数值型赋值，b不是a[0,0]的引用</span>
-b <span class="token operator">=</span> <span class="token number">99</span> <span class="token comment" spellcheck="true">#仅修改了b</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
-
-输出结果：
-<span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">1</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a保持原样</span></code></pre>
-<p>拷贝实验四：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#这种操作对ndarray无效，仅对list有效</span>
-b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
-
-输出结果：
-<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">99</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a被修改了</span></code></pre>
-<p>拷贝实验五：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-a <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> a<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#使用了ndarray的深拷贝</span>
-b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
-
-输出结果：
-<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span>  <span class="token number">2</span>  <span class="token number">3</span>  <span class="token number">4</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">5</span>  <span class="token number">6</span>  <span class="token number">7</span>  <span class="token number">8</span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span> <span class="token number">9</span> <span class="token number">10</span> <span class="token number">11</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#a保持原样</span></code></pre>
-<ol start="5">
-<li>连续区域赋值<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-y <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
-x<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
-y<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">99</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+[[99  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]] #a被修改了
+print(a)
 </code></pre>
-</li>
+<p>拷贝实验二：</p>
+<pre class=" language-lang-python"><code class="language-lang-python">import numpy as np
+x = np.array([i for i in range(1, 13)])
+a = x.reshape([3, 4])
+b = a[0] #取出a第1行的引用
+b[0] = 99 #实质上是修改了a的第1行的第1个元素
+print(a)
+
+输出结果：
+[[99  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]] #a被修改了
+</code></pre>
+<p>拷贝实验三：</p>
+<pre class=" language-lang-python"><code class="language-lang-python">import numpy as np
+x = np.array([i for i in range(1, 13)])
+a = x.reshape([3, 4])
+b = a[0, 0] #数值型赋值，b不是a[0,0]的引用
+b = 99 #仅修改了b
+print(a)
+
+输出结果：
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]] #a保持原样
+</code></pre>
+<p>拷贝实验四：</p>
+<pre class=" language-lang-python"><code class="language-lang-python">import numpy as np
+x = np.array([i for i in range(1, 13)])
+a = x.reshape([3, 4])
+b = a[:] #这种操作对ndarray无效，仅对list有效
+b[0, 0] = 99
+print(a)
+
+输出结果：
+[[99  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]] #a被修改了
+</code></pre>
+<p>拷贝实验五：</p>
+<pre class=" language-lang-python"><code class="language-lang-python">import numpy as np
+x = np.array([i for i in range(1, 13)])
+a = x.reshape([3, 4])
+b = a.copy() #使用了ndarray的深拷贝
+b[0, 0] = 99
+print(a)
+
+输出结果：
+[[1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]] #a保持原样
+</code></pre>
+<ol>
+<li>连续区域赋值<br>```python<br>import numpy as np<br>x = np.array([i for i in range(1, 13)])<br>y = x.reshape([3, 4]).copy()<br>x[3:6] = 99<br>y[1:3, 0:3] = 99<br>print(x)<br>print(y)</li>
 </ol>
 <p>输出结果：<br>[ 1  2  3 99 99 99  7  8  9 10 11 12]<br>[[ 1  2  3  4]<br> [99 99 99  8]<br> [99 99 99 12]]</p>
 <pre><code>
@@ -857,17 +883,12 @@ print(b)
  [ True  True  True  True]]
 [[1 2 3 4]
  [5 6 7 0]
- [0 0 0 0]]</code></pre><ol start="7">
+ [0 0 0 0]]
+</code></pre><ol>
 <li>ndarray保存到文件</li>
 </ol>
 <ul>
-<li>单个ndarray的二进制保存（.npy后缀）<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-np<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">'x.npy'</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span>
-y <span class="token operator">=</span> np<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">'x.npy'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
-</code></pre>
-</li>
+<li>单个ndarray的二进制保存（.npy后缀）<br>```python<br>import numpy as np<br>x = np.array([i for i in range(1, 13)]).reshape([3, 4])<br>np.save(‘x.npy’, x)<br>y = np.load(‘x.npy’)<br>print(y)</li>
 </ul>
 <p>输出结果：<br>[[ 1  2  3  4]<br> [ 5  6  7  8]<br> [ 9 10 11 12]]</p>
 <pre><code>- 单个ndarray的文本保存（.txt后缀）
@@ -881,31 +902,18 @@ print(y)
 输出结果：
 [[ 1.  2.  3.  4.]
  [ 5.  6.  7.  8.]
- [ 9. 10. 11. 12.]]</code></pre><ul>
-<li>多个ndarray的二进制保存（.npz后缀）<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-a <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-b <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">)</span>
-c <span class="token operator">=</span> np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>b<span class="token punctuation">)</span>
-np<span class="token punctuation">.</span>savez<span class="token punctuation">(</span><span class="token string">"result.npz"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> sin_array<span class="token operator">=</span>c<span class="token punctuation">)</span>
-r <span class="token operator">=</span> np<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">"result.npz"</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token string">"arr_0"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token string">"arr_1"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token string">"sin_array"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-</code></pre>
-</li>
+ [ 9. 10. 11. 12.]]
+</code></pre><ul>
+<li>多个ndarray的二进制保存（.npz后缀）<br>```python<br>import numpy as np<br>a = np.array([[1, 2, 3], [4, 5, 6]])<br>b = np.arange(0, 1.0, 0.1)<br>c = np.sin(b)<br>np.savez(“result.npz”, a, b, sin_array=c)<br>r = np.load(“result.npz”)<br>print(r[“arr_0”])<br>print(r[“arr_1”])<br>print(r[“sin_array”])</li>
 </ul>
-<p>输出结果：<br>[[1 2 3]<br> [4 5 6]]<br>[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]<br>[0.         0.09983342 0.19866933 0.29552021 0.38941834 0.47942554<br> 0.56464247 0.64421769 0.71735609 0.78332691]</p>
-<pre><code>
-# 相关链接
-1. [Python 3.7.3 文档](https://docs.python.org/zh-cn/3/)
-2. [Python 教程](https://docs.python.org/zh-cn/3/tutorial/)
-3. [NumPy Tutorial](https://www.numpy.org/devdocs/user/quickstart.html)
-4. [NumPy for Matlab users](https://www.numpy.org/devdocs/user/numpy-for-matlab-users.html)
+<p>输出结果：<br>[[1 2 3]<br> [4 5 6]]<br>[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]<br>[0.         0.09983342 0.19866933 0.29552021 0.38941834 0.47942554<br> 0.56464247 0.64421769 0.71735609 0.78332691]<br>```</p>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol>
+<li><a href="https://docs.python.org/zh-cn/3/" target="_blank" rel="noopener">Python 3.7.3 文档</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/tutorial/" target="_blank" rel="noopener">Python 教程</a></li>
+<li><a href="https://www.numpy.org/devdocs/user/quickstart.html" target="_blank" rel="noopener">NumPy Tutorial</a></li>
+<li><a href="https://www.numpy.org/devdocs/user/numpy-for-matlab-users.html" target="_blank" rel="noopener">NumPy for Matlab users</a></li>
+</ol>
 
-
-
-
-</code></pre>
             </div>
             <hr/>
 
@@ -1594,7 +1602,7 @@ r <span class="token operator">=</span> np<span class="token punctuation">.</spa
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">43.1k</span>
+            <span class="white-color">44.6k</span>
             
 
             
