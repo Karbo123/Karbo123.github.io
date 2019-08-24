@@ -4,12 +4,12 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="如何从源码编译linux内核并使其从u盘启动, 任我行">
-    <meta name="description" content="
-准备 linux 环境，可以在 VMware 虚拟机里运行。我这里用的是 Archlinux 系统，不同系统大同小异。
-
-编译内核安装环境首先安装 base-devel 软件组，这个组包含了 make 和 gcc 等需要的软件包。
-sud">
+    <meta name="keywords" content="《Deep Learning》读书笔记（Ch2.LinearAlgebra）, 任我行">
+    <meta name="description" content="2. Linear Algebra2.1 Scalars, Vectors, Matrices and Tensors
+Scalars：标量，就是一个数字
+Vectors：向量，默认是列向量
+Matrices：二维矩阵
+Tensors：张量">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@ sud">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>如何从源码编译linux内核并使其从u盘启动 | 任我行</title>
+    <title>《Deep Learning》读书笔记（Ch2.LinearAlgebra） | 任我行</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +264,13 @@ sud">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/linux/linux-u-drive/kernel.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/dl/dlbooknotes2/cover.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        如何从源码编译linux内核并使其从u盘启动
+                        《Deep Learning》读书笔记（Ch2.LinearAlgebra）
                     </div>
                 </div>
             </div>
@@ -381,12 +381,12 @@ sud">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux/" target="_blank">
-                                <span class="chip bg-color">linux</span>
+                            <a href="/tags/dl/" target="_blank">
+                                <span class="chip bg-color">dl</span>
                             </a>
                         
-                            <a href="/tags/kernels/" target="_blank">
-                                <span class="chip bg-color">kernels</span>
+                            <a href="/tags/notes/" target="_blank">
+                                <span class="chip bg-color">notes</span>
                             </a>
                         
                     </div>
@@ -397,8 +397,8 @@ sud">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                linux
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                dl
                             </a>
                         
                     </div>
@@ -409,21 +409,21 @@ sud">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-05-04
+                    2019-08-19
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.3k
+                        1.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        7 分
                     </div>
                     
                 
@@ -439,155 +439,206 @@ sud">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>准备 linux 环境，可以在 VMware 虚拟机里运行。<br>我这里用的是 Archlinux 系统，不同系统大同小异。</p>
-</blockquote>
-<h1 id="编译内核"><a href="#编译内核" class="headerlink" title="编译内核"></a>编译内核</h1><h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>首先安装 <code>base-devel</code> 软件组，这个组包含了 make 和 gcc 等需要的软件包。</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo pacman -S base-devel
-</code></pre>
-<h2 id="下载内核并解压"><a href="#下载内核并解压" class="headerlink" title="下载内核并解压"></a>下载内核并解压</h2><p>从<a href="https://www.kernel.org/" target="_blank" rel="noopener">这里</a>下载linux内核。<br>我们以版本<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.11.tar.xz" target="_blank" rel="noopener">5.0.11</a>为例子。<br>首先新建个文件夹叫 <code>kernelbuild</code> 然后下载内核压缩包到该文件夹</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">mkdir ~/kernelbuild
-cd ~/kernelbuild
-wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.11.tar.xz
-</code></pre>
-<p>然后我们解压内核压缩包：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">tar -xvJf linux-5.0.11.tar.xz
-</code></pre>
-<p>为确保内核树绝对干净，进入内核目录并执行 <code>make mrproper</code> 命令：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd linux-5.0.11
-make clean && make mrproper
-</code></pre>
-<h2 id="配置内核并编译"><a href="#配置内核并编译" class="headerlink" title="配置内核并编译"></a>配置内核并编译</h2><p>内核配置，会进入配置界面：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make x86_64_defconfig
-make menuconfig
-</code></pre>
-<p><img src="menuconfig.png" alt></p>
-<p>确保选中以下选项（按 y 选中，按 n 取消选择；按上下左右方向键移动选择的光标位置；回车确认）：</p>
-<ul>
-<li><p>General Setup –&gt; [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support</p>
-</li>
-<li><p>Device Drivers –&gt; Block Devices –&gt; [*] RAM block device support</p>
-</li>
-<li><p>Device Drivers -&gt; Input device support -&gt; [*] Keyboard -&gt; 全部选择为[*]</p>
-</li>
-<li><p>Device Drivers -&gt; HID support -&gt; 全部选择为[*]</p>
-</li>
-<li>Device Drivers -&gt; HID support -&gt; USB HID support -&gt; 全部选择为[*]</li>
+                <h1 id="2-Linear-Algebra"><a href="#2-Linear-Algebra" class="headerlink" title="2. Linear Algebra"></a>2. Linear Algebra</h1><h2 id="2-1-Scalars-Vectors-Matrices-and-Tensors"><a href="#2-1-Scalars-Vectors-Matrices-and-Tensors" class="headerlink" title="2.1 Scalars, Vectors, Matrices and Tensors"></a>2.1 Scalars, Vectors, Matrices and Tensors</h2><ul>
+<li>Scalars：标量，就是一个数字</li>
+<li>Vectors：向量，默认是列向量</li>
+<li>Matrices：二维矩阵</li>
+<li>Tensors：张量（多于两个axes）</li>
 </ul>
-<p>然后编译（需要等上十几分钟吧，再此期间你可以继续进行下一步busybox的准备）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make -j4 bzImage
-</code></pre>
-<p>最后生成的 <code>arch/x86_64/boot/bzImage</code> 才是我们想要的内核文件（这个文件才8M多而已）</p>
-<h1 id="准备-BusyBox-工具"><a href="#准备-BusyBox-工具" class="headerlink" title="准备 BusyBox 工具"></a>准备 BusyBox 工具</h1><p>到<a href="https://busybox.net/" target="_blank" rel="noopener">官网</a>下载 BusyBox，以1.30.1版本为例。</p>
-<p>下载并解压：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ～
-wget https://busybox.net/downloads/busybox-1.30.1.tar.bz2
-tar -jxvf busybox-1.30.1.tar.bz2
-cd busybox-1.30.1/
-</code></pre>
-<p>然后进行配置：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make defconfig
-make menuconfig
-</code></pre>
-<p>确保选中：</p>
+<h2 id="2-2-Multiplying-Matrices-and-Vectors"><a href="#2-2-Multiplying-Matrices-and-Vectors" class="headerlink" title="2.2 Multiplying Matrices and Vectors"></a>2.2 Multiplying Matrices and Vectors</h2><ol>
+<li><p>矩阵</p>
 <ul>
-<li>BusyBox Setting-&gt;Build Options-&gt;[*]Build Busybox as a static binary (no shared libs)</li>
+<li><p>按位相乘（Element-wise product / Hadamard product）：$A \odot B$</p>
+</li>
+<li><p>矩阵乘法：$AB$</p>
+</li>
 </ul>
-<p>然后编译（编译很快）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make
-</code></pre>
-<p>最后安装：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make install
-</code></pre>
-<p>执行 ls ，会发现多了一个 <code>_install</code> 目录，我们要用它来构建 linux 的根目录。</p>
-<h1 id="准备-linux-所需文件"><a href="#准备-linux-所需文件" class="headerlink" title="准备 linux 所需文件"></a>准备 linux 所需文件</h1><p>首先在用户目录下新建一个文件夹 romfs ，然后把 <code>_install</code> 目录中的内容全部复制到 <code>romfs</code> 中。</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ~
-mkdir romfs
-cp -r busybox-1.30.1/_install/* romfs/
-</code></pre>
-<p>然后创建我们 linux 目录下的文件夹：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd romfs/
-mkdir proc mnt var tmp dev sys etc
-</code></pre>
-<p>然后创建软链接：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">ln -s bin/sh init
-</code></pre>
-<p>接着我们创建设备：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd dev/
-sudo mknod console c 5 1
-sudo mknod null c 1 3
-sudo mknod tty c 5 0
-sudo mknod tty1 c 4 1
-sudo mknod tty2 c 4 2
-sudo mknod tty3 c 4 3
-sudo mknod tty4 c 4 4
-</code></pre>
-<p>然后制作压缩镜像（可能还要执行<code>sudo pacman -S cpio</code>）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ~/romfs/
-find . | cpio -H newc -o > ../romfs.img
-cd ../
-gzip romfs.img -f
-</code></pre>
-<h1 id="在-u-盘建立文件系统和-EFI-引导"><a href="#在-u-盘建立文件系统和-EFI-引导" class="headerlink" title="在 u 盘建立文件系统和 EFI 引导"></a>在 u 盘建立文件系统和 EFI 引导</h1><blockquote>
-<p><strong>这部分教程使用 GPT+EFI 作为启动引导。</strong><br>如果你执意使用 GPT+BIOS 作为引导，则请按照下面的步骤来操作（应该可行）：</p>
-<blockquote>
-<ol>
-<li>创建两个分区：FAT32（例如64MB）和EXT4（例如256MB）。并设置FAT32的启动标识为<code>bios_grub</code>类型。</li>
-<li>创建文件夹/mnt/usb，将EXT4分区挂载到 /mnt/usb，再创建文件夹 /mnt/usb/boot</li>
-<li>然后安装grub：<code>grub-install --target=i386-pc --debug --removable --boot-directory=/mnt/usb/boot /dev/sdd</code></li>
-<li>复制 bzImage 和 romfs.img.gz 过去到 /mnt/usb/boot</li>
-<li>创建 grub.cfg，并写入一些内容（与下面教程的相应部分类似），酌情修改。</li>
-<li>重启电脑，选择从Legacy启动，保存修改，将u盘的优先级调到最高。再次启动即可。</li>
-</ol>
-</blockquote>
-</blockquote>
-<h2 id="u-盘分区"><a href="#u-盘分区" class="headerlink" title="u 盘分区"></a>u 盘分区</h2><p>插入u盘，使用<code>GParted</code>进行分区。</p>
-<ol>
-<li><p>在右上角选中你的u盘（例如我的是/dev/sdd），删除所有分区，然后点菜单栏的勾勾按钮。<br><img src="gparted.png" alt></p>
+<p>性质：</p>
+<ul>
+<li>$(AB)^T = B^T A^T$</li>
+</ul>
 </li>
-<li><p>然后新建两个分区，一个是FAT32，一个是EXT4，大小分别为64M和256M足矣。然后打勾勾确定。</p>
-</li>
-<li><p>更改刚刚建立的FAT32分区的标识为<code>boot,esp</code>。</p>
+<li><p>向量的dot product</p>
+<p>性质：</p>
+<ul>
+<li>$x^T y = y^T x$</li>
+</ul>
 </li>
 </ol>
-<p><img src="gparted2.png" alt></p>
-<h2 id="安装-Grub-到-u-盘"><a href="#安装-Grub-到-u-盘" class="headerlink" title="安装 Grub 到 u 盘"></a>安装 Grub 到 u 盘</h2><p>首先挂载刚刚建立的 <code>FAT32</code> 分区到 <code>/mnt/usb</code> 目录下：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd /mnt
-sudo mkdir efi_partition
-sudo mkdir boot_partition
-sudo mount /dev/sdd1 ./efi_partition
-sudo mount /dev/sdd2 ./boot_partition
-</code></pre>
-<p>然后将 grub 安装到 u 盘：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo grub-install --target=x86_64-efi --boot-directory=/mnt/boot_partition --efi-directory=/mnt/efi_partition --bootloader-id=karbo --removable --debug
-</code></pre>
-<p>安装成功后应该会在最后的输出看到：<code>安装完成。没有报告错误。</code>类似的字样。</p>
-<p>然后将编译好的文件复制过去：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo cp ~/kernelbuild/linux-5.0.11/arch/x86_64/boot/bzImage /mnt/boot_partition/
-sudo cp ~/romfs.img.gz /mnt/boot_partition
-</code></pre>
-<p>最后创建个文本文件：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo micro /mnt/boot_partition/grub/grub.cfg
-</code></pre>
-<p>内容为：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">menuentry "karbo-linux" {
-set root='hd0,gpt2'
-linux /bzImage root=/dev/ram
-initrd /romfs.img.gz
-}
-</code></pre>
-<p>最后重启电脑，狂按F2，调整为<code>UEFI</code>启动，并把你u盘启动的优先级调到最顶上来，保存更改，再次启动即可。</p>
-<p>应该会看到类似如下的界面：</p>
-<p><img src="final.jpeg" alt></p>
-<blockquote>
-<p>如果在UEFI里没有找到你的u盘，那么可能是你插入了多个usb存储设备，尝试将其他usb存储设备拔掉，并重试。</p>
-</blockquote>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><p><a href="https://wiki.archlinux.org/index.php/Kernels/Compilation/Traditional_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">Kernels/Compilation/Traditional (简体中文)</a>)</p>
+<h2 id="2-3-Identity-and-Inverse-Matrices"><a href="#2-3-Identity-and-Inverse-Matrices" class="headerlink" title="2.3 Identity and Inverse Matrices"></a>2.3 Identity and Inverse Matrices</h2><ol>
+<li><p>$ n \times n $ 的单位矩阵 $I_n$</p>
 </li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/27009845" target="_blank" rel="noopener">制作 U 盘 Linux</a></p>
+<li><p>逆矩阵 $A^{-1}$</p>
 </li>
-<li><p><a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">GRUB/Tips and tricks (简体中文)</a>)</p>
+</ol>
+<h2 id="2-4-Linear-Dependence-and-Span"><a href="#2-4-Linear-Dependence-and-Span" class="headerlink" title="2.4 Linear Dependence and Span"></a>2.4 Linear Dependence and Span</h2><p>概念：</p>
+<ul>
+<li>无解/一个解/无穷多解</li>
+<li>线性组合</li>
+<li>线性张成空间（span）</li>
+<li>线性相关（linear dependence）/线性独立（linearly independent）</li>
+</ul>
+<h2 id="2-5-Norms"><a href="#2-5-Norms" class="headerlink" title="2.5 Norms"></a>2.5 Norms</h2><ol>
+<li><p>$ L^p $范数（$ p \ge 1 $）：（目标：Measure the size of a vector）</p>
+<script type="math/tex; mode=display">
+||x||_p=(\sum_i|x_i|^p)^{\frac{1}{p}}</script></li>
+<li><p>$ L^p $范数的特殊情形</p>
+<ul>
+<li><p>$ L^2 $ norm： Euclidean norm, denoted as $ ||x|| $; </p>
+<p>Squared $ L^2 $ norm can be calculated as $ x^T x $ </p>
+</li>
+<li><p>$ L^1 $ norm</p>
+</li>
+<li><p>$ L^0 $ norm：非零元素的个数</p>
+</li>
+<li><p>Max norm：$||x||_{\infty} = \max \limits_{i} | x_{i} |$</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>Frobenius norm（目标：Measure the size of a matrix）：<script type="math/tex">|| A ||_{ F } = \sqrt { \sum_{i,j} A_{i,j} ^ 2}</script></p>
+</li>
+<li><p>Dot product and angle： $x^T y=||x||_2 ||y||_2 cos \theta$</p>
+</li>
+</ol>
+<h2 id="2-6-Special-Kinds-of-Matrices-and-Vectors"><a href="#2-6-Special-Kinds-of-Matrices-and-Vectors" class="headerlink" title="2.6 Special Kinds of Matrices and Vectors"></a>2.6 Special Kinds of Matrices and Vectors</h2><ol>
+<li><p>Diagonal matrix（对角阵）</p>
+<p>只有主对角线上是非零元素（可以不是方阵）</p>
+<p>性质：</p>
+<ul>
+<li>$diag(v)^{-1} = diag([1/v_1, … , 1/v_n]^T)$</li>
+</ul>
+</li>
+<li><p>Symmetric matrix（对称阵）</p>
+<p>沿着对角线对称（$ A = A^T $）</p>
+</li>
+<li><p>Unit vector（$ ||x||_2 = 1 $）</p>
+</li>
+<li><p>Orthogonal matrix（正交矩阵，$ A^T A=A A^T = I $）</p>
+<p>性质：</p>
+<ul>
+<li>行/列向量都是标准正交的（Orthonormal, 模长为一、相互垂直）</li>
+<li>$ A^{-1} = A^T $</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-7-Eigendecomposition"><a href="#2-7-Eigendecomposition" class="headerlink" title="2.7 Eigendecomposition"></a>2.7 Eigendecomposition</h2><ol>
+<li><p>特征值$ \lambda $和特征向量$ v $，基本性质：</p>
+<script type="math/tex; mode=display">
+A v = \lambda v</script></li>
+<li><p>类型：</p>
+<ul>
+<li><p>对一个方阵$ A $的特征分解为：</p>
+<script type="math/tex; mode=display">
+A = V diag(\lambda) V^{-1}</script><p>其中矩阵$ V = [v^{(1)}, …, v^{(n)}]$ ，向量$ \lambda = [\lambda_1, …, \lambda_n]^T $</p>
+</li>
+<li><p>实对称矩阵$ A $的特征分解（eg: 二次型、Hessian阵）：</p>
+<script type="math/tex; mode=display">
+A = Q \Lambda Q^{-1} = Q \Lambda Q^T</script></li>
+</ul>
+</li>
+</ol>
+<p>   其中$ Q $是由特征向量组成的正交矩阵（具有性质：$ Q^{-1} = Q^T $）；$ \Lambda $是由特征值组成的对角阵（降序排列）</p>
+<ol>
+<li><p>性质：</p>
+<ul>
+<li>矩阵降秩$ \Leftrightarrow $ 至少其中一个特征值为零（因为$ det(A) = \prod \limits_{i} \lambda_i $）</li>
+<li>正定：特征值都是正数；正定矩阵在二次型中的性质：$ \forall x, x^T A x \ge 0 $</li>
+<li>对实对称矩阵$ A $，其特征向量矩阵$ Q $的第$ i $列记作向量$ d_i $（若特征值按降序排列那么特征矩阵也是唯一确定的），第$ i $大的特征值为$ \lambda_i $，则$ \lambda_i = d_i^T A d_i $（PCA分析要用到这条性质）</li>
+<li>乘以矩阵$ A $之后，单位圆被缩放了：</li>
+</ul>
+<p><img src="2.png" alt></p>
+</li>
+</ol>
+<h2 id="2-8-Singular-Value-Decomposition"><a href="#2-8-Singular-Value-Decomposition" class="headerlink" title="2.8 Singular Value Decomposition"></a>2.8 Singular Value Decomposition</h2><ol>
+<li><p>SVD分解（$A$的size: $ m \times n $）：</p>
+<script type="math/tex; mode=display">
+A = U D V^T</script><p>其中 $ U $（size: $ m \times m $） 和 $ V $（size: $ n \times n $）都是正交矩阵， $ D $（size: $ m \times n $）是对角阵。<br>且$ D $的组成元素是奇异值，$ U $的列向量是左奇异向量，$ V $的列向量是右奇异向量。</p>
+</li>
+<li><p>性质：</p>
+<ul>
+<li>实矩阵皆可SVD</li>
+<li>$ A $的左奇异向量等于$ A A^T $的特征向量</li>
+<li>$ A $的右奇异向量等于$ A^T A $的特征向量</li>
+<li>$ A $的非零奇异值等于$ A^T A $的特征值的平方根，对$ A A^T $而言同理</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-9-The-Moore-Penrose-Pseudoinverse"><a href="#2-9-The-Moore-Penrose-Pseudoinverse" class="headerlink" title="2.9 The Moore-Penrose Pseudoinverse"></a>2.9 The Moore-Penrose Pseudoinverse</h2><ol>
+<li><p>伪逆的定义式：</p>
+<script type="math/tex; mode=display">
+A^+ = \lim \limits_{\alpha \rightarrow 0} (A^T A + \alpha I)^{-1} A^T</script></li>
+<li><p>计算式（因为定义式往往不好计算）：</p>
+<script type="math/tex; mode=display">
+A^+ = V D^+ U^T</script><p>其中$ U $ 、 $ D $ 和 $ V $ 是矩阵$ A $ 的SVD分解。而$ D^+ $是通过对$ D $取元素的倒数、转置得到的。</p>
+</li>
+<li><p>性质（考察解方程$ Ax=y $）：</p>
+<ul>
+<li><p>伪逆的用途：当方程严格求解不出来时，使用伪逆可以求得近似解。</p>
+</li>
+<li><p>当方程数不足时（行数少于列数），解应该有无穷多个。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||x||_2 $最小（类似于自动求得在L2正则情况下的最优解？）</p>
+</li>
+<li>当方程数很多时（行数多于列数），解可能不存在，对应于直线拟合。使用伪逆求得的唯一解$ x = A^+ y $自动满足性质：$ ||Ax-y||_2 $最小（类似于欧氏误差/回归误差最小？）</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-10-The-Trace-Operator"><a href="#2-10-The-Trace-Operator" class="headerlink" title="2.10 The Trace Operator"></a>2.10 The Trace Operator</h2><ol>
+<li><p>“迹”的定义：对角线元素的和</p>
+<script type="math/tex; mode=display">
+Tr(A) = \sum_i A_{i,i}</script></li>
+<li><p>用Trace来简便表示：</p>
+<ul>
+<li>表示Frobenius norm：$ ||A||_F = \sqrt{Tr(A A^T)} $</li>
+</ul>
+</li>
+<li><p>Trace的性质：</p>
+<ul>
+<li>$ Tr(A) = Tr(A^T) $</li>
+<li>循环置换性：$ Tr(ABC) = Tr(CAB) = Tr(BCA) $，即可以把最后一个移到第一个（反之亦然），当两个矩阵时：$ Tr(AB) = Tr(BA) $</li>
+<li>对标量$ a $：$ Tr(a) = a $</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-11-The-Determinant"><a href="#2-11-The-Determinant" class="headerlink" title="2.11 The Determinant"></a>2.11 The Determinant</h2><ol>
+<li>定义式：$ det(A) = \prod \limits_{i} v_i $，其中$ v_i $是第$ i $个特征值</li>
+<li>性质：<ul>
+<li>行列式为零：降秩，奇异</li>
+<li>行列式为一：正交矩阵行列式的绝对值必定为一</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-12-Example-Principal-Components-Analysis"><a href="#2-12-Example-Principal-Components-Analysis" class="headerlink" title="2.12 Example: Principal Components Analysis"></a>2.12 Example: Principal Components Analysis</h2><ol>
+<li><p>Principal Components Analysis (PCA) 问题的数学描述（参考英文版花书的Page48）：</p>
+<ul>
+<li><p>数据集：我们有m个点$ \{x^{(1)},…,x^{(m)}\} $，其中对任意一个点$ x^{(i)}\in \mathbb{R}^n $</p>
+</li>
+<li><p>目标：构造从$ x^{(i)} \in \mathbb{R}^n $到$ c^{(i)} \in \mathbb{R}^l $的映射$ f(x)=c $（此处$ l \leq n $），以及复原的映射$ x \approx g(c) $，使得复原的误差最小。从而获得编码向量$ c $</p>
+</li>
+<li><p>选取：复原映射是线性映射$ g(c)=Dc $，其中矩阵$ D $的列向量都是相互正交的，且模长为一（注意$ D $可以不是一个方阵）</p>
+</li>
+</ul>
+</li>
+<li><p>求解：</p>
+<ul>
+<li>Step1：<br>对于一个点$ x $，以及已知的$ D $，求什么样的$ c $使得重建误差最小，相当于求$ c=f(x) $。通过化简以及通过对$c$求导，可以解得$ c = D^T x $，即$ f(x) = D^T x $</li>
+</ul>
+<script type="math/tex; mode=display">
+\min \limits_{c} ||x-Dc||^2_2</script><ul>
+<li><p>Step2：</p>
+<p>那么完整的重建回来的值就是$ r(x) = D D^T x $。假设$ l=1 $（压缩到1维），那么$ D $就只是一个列向量$ d $，则优化问题就是（求$ d $）</p>
+<script type="math/tex; mode=display">
+\min_d \sum_i ||x^{(i)}-dd^Tx^{(i)}||^2,\quad subject \; to \; ||d||=1
+\\
+\Leftrightarrow \min_d \sum_i ||x^{(i)}-x^{(i)T}dd||^2,\quad subject \; to \; ||d||=1</script><p>我们用design matrix来表示样本，即$ X \in \mathbb{R}^{m \times n} $，矩阵的第$ i $行是第$ i $个样本$ x^{(i)T} $，那么上述问题则可以用矩阵范数表示成</p>
+<script type="math/tex; mode=display">
+\Leftrightarrow \min_d  ||X-Xdd^T||_F^2,\quad subject \; to \; d^Td=1</script><script type="math/tex; mode=display">
+\Leftrightarrow \min_d  Tr((X-Xdd^T)^T(X-Xdd^T)),\quad subject \; to \; d^Td=1</script><script type="math/tex; mode=display">
+\Leftrightarrow \max_d  Tr(d^TX^TXd),\quad subject \; to \; d^Td=1</script><script type="math/tex; mode=display">
+\Leftrightarrow \max_d  (d^T(X^TX)d),\quad subject \; to \; d^Td=1</script><p>注意到上述最大化问题形似特征值分解问题（$ \lambda_{1} = d_1^T A d_1 $），即求某一个特征向量，使得特征值最大。那么只需要对矩阵$ X^T X $作特征值分解，找到最大的特征值所对应的特征向量，即为所求的$ d $。</p>
+<p>若$ l $为其他情形，类似地，取降序排列的前$ l $个特征值所对的特征向量（模长要为一）构造出矩阵$ D = (d_1, …, d_l) $即为所求的复原映射矩阵。</p>
+</li>
+</ul>
 </li>
 </ol>
 
@@ -748,9 +799,9 @@ initrd /romfs.img.gz
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《如何从源码编译linux内核并使其从u盘启动》
+                    《《Deep Learning》读书笔记（Ch2.LinearAlgebra）》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/linux/linux-u-drive/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/dl/dlbooknotes2/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Karbo
             </a> 采用
@@ -1053,30 +1104,30 @@ initrd /romfs.img.gz
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/git/git-beginner/">
+                <a href="/wsl/wsl2config/">
                     <div class="card-image">
                         
-                        <img src="/git/git-beginner/cover.png" class="responsive-img" alt="Git快速入门与速查">
+                        <img src="/wsl/wsl2config/cover.jpg" class="responsive-img" alt="WSL2配置指南">
                         
-                        <span class="card-title">Git快速入门与速查</span>
+                        <span class="card-title">WSL2配置指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文介绍了Git的基本概念和用法，能够帮助初学者迅速掌握Git工具的使用。以及GitHub的日常用法。
+                            本文介绍了如何在Win10系统下使用WSL2，并基于WSL2的Ubuntu搭建Xfce桌面环境。
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-19
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/git/" class="post-category" target="_blank">
-                                    git
+                            <a href="/categories/wsl/" class="post-category" target="_blank">
+                                    wsl
                                 </a>
                             
                             
@@ -1086,8 +1137,16 @@ initrd /romfs.img.gz
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/git/" target="_blank">
-                        <span class="chip bg-color">git</span>
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/wsl/" target="_blank">
+                        <span class="chip bg-color">wsl</span>
+                    </a>
+                    
+                    <a href="/tags/ubuntu/" target="_blank">
+                        <span class="chip bg-color">ubuntu</span>
                     </a>
                     
                 </div>
@@ -1101,30 +1160,30 @@ initrd /romfs.img.gz
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/django/python-django/">
+                <a href="/dl/dlbooknotes1/">
                     <div class="card-image">
                         
-                        <img src="/django/python-django/cover.png" class="responsive-img" alt="用Django搭建第一个投票网站">
+                        <img src="/dl/dlbooknotes1/cover.png" class="responsive-img" alt="《Deep Learning》读书笔记（Ch1.Introduction）">
                         
-                        <span class="card-title">用Django搭建第一个投票网站</span>
+                        <span class="card-title">《Deep Learning》读书笔记（Ch1.Introduction）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文教你用Django搭建第一个网站，投票网站。
+                            本文是花书《Deep Learning》第一章（Introduction）的读书笔记。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-13
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/django/" class="post-category" target="_blank">
-                                    django
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
                                 </a>
                             
                             
@@ -1134,16 +1193,12 @@ initrd /romfs.img.gz
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python/" target="_blank">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/dl/" target="_blank">
+                        <span class="chip bg-color">dl</span>
                     </a>
                     
-                    <a href="/tags/django/" target="_blank">
-                        <span class="chip bg-color">django</span>
-                    </a>
-                    
-                    <a href="/tags/web/" target="_blank">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/notes/" target="_blank">
+                        <span class="chip bg-color">notes</span>
                     </a>
                     
                 </div>

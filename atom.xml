@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-20T07:03:10.719Z</updated>
+  <updated>2019-08-24T08:30:23.722Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《Deep Learning》读书笔记（Ch4.NumericalComputation）</title>
+    <link href="https://blog.karbo.online/dl/dlbooknotes4/"/>
+    <id>https://blog.karbo.online/dl/dlbooknotes4/</id>
+    <published>2019-08-24T08:30:18.000Z</published>
+    <updated>2019-08-24T08:30:23.722Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;4-Numerical-Computation&quot;&gt;&lt;a href=&quot;#4-Numerical-Computation&quot; class=&quot;headerlink&quot; title=&quot;4. Numerical Computation&quot;&gt;&lt;/a&gt;4. Numerical
+        
+      
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+      <category term="notes" scheme="https://blog.karbo.online/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《Deep Learning》读书笔记（Ch3.ProbabilityandInformationTheory）</title>
+    <link href="https://blog.karbo.online/dl/dlbooknotes3/"/>
+    <id>https://blog.karbo.online/dl/dlbooknotes3/</id>
+    <published>2019-08-22T12:17:46.000Z</published>
+    <updated>2019-08-24T08:28:38.411Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;3-Probability-and-Information-Theory&quot;&gt;&lt;a href=&quot;#3-Probability-and-Information-Theory&quot; class=&quot;headerlink&quot; title=&quot;3. Probability and
+        
+      
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+      <category term="notes" scheme="https://blog.karbo.online/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>WSL2配置指南</title>
@@ -47,11 +103,11 @@
   </entry>
   
   <entry>
-    <title>《Deep Learning》读书笔记</title>
-    <link href="https://blog.karbo.online/dl/dlbooknotes/"/>
-    <id>https://blog.karbo.online/dl/dlbooknotes/</id>
-    <published>2019-08-13T08:46:49.000Z</published>
-    <updated>2019-08-22T13:58:06.043Z</updated>
+    <title>《Deep Learning》读书笔记（Ch2.LinearAlgebra）</title>
+    <link href="https://blog.karbo.online/dl/dlbooknotes2/"/>
+    <id>https://blog.karbo.online/dl/dlbooknotes2/</id>
+    <published>2019-08-19T09:46:57.000Z</published>
+    <updated>2019-08-24T08:25:49.054Z</updated>
     
     <summary type="html">
     
@@ -59,8 +115,35 @@
       
         
         
-          &lt;p&gt;开始撰写日期：2019-8-13&lt;br&gt;完成撰写日期：not finished&lt;/p&gt;
-&lt;h1 id=&quot;1-Introduction&quot;&gt;&lt;a href=&quot;#1-Introduction&quot; class=&quot;headerlink&quot; title=&quot;1.
+          &lt;h1 id=&quot;2-Linear-Algebra&quot;&gt;&lt;a href=&quot;#2-Linear-Algebra&quot; class=&quot;headerlink&quot; title=&quot;2. Linear Algebra&quot;&gt;&lt;/a&gt;2. Linear Algebra&lt;/h1&gt;&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+      <category term="notes" scheme="https://blog.karbo.online/tags/notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《Deep Learning》读书笔记（Ch1.Introduction）</title>
+    <link href="https://blog.karbo.online/dl/dlbooknotes1/"/>
+    <id>https://blog.karbo.online/dl/dlbooknotes1/</id>
+    <published>2019-08-13T08:46:50.000Z</published>
+    <updated>2019-08-24T08:20:41.235Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;1-Introduction&quot;&gt;&lt;a href=&quot;#1-Introduction&quot; class=&quot;headerlink&quot; title=&quot;1. Introduction&quot;&gt;&lt;/a&gt;1. Introduction&lt;/h1&gt;&lt;p&gt;Knowledge based
         
       
     
@@ -217,11 +300,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -395,11 +478,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -428,11 +511,11 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
-    
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
     

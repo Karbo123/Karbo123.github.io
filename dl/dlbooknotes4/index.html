@@ -4,12 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="如何从源码编译linux内核并使其从u盘启动, 任我行">
-    <meta name="description" content="
-准备 linux 环境，可以在 VMware 虚拟机里运行。我这里用的是 Archlinux 系统，不同系统大同小异。
+    <meta name="keywords" content="《Deep Learning》读书笔记（Ch4.NumericalComputation）, 任我行">
+    <meta name="description" content="4. Numerical Computation4.1 Overflow and Underflow
+Underflow：十分靠近零的数，被舍入到零
 
-编译内核安装环境首先安装 base-devel 软件组，这个组包含了 make 和 gcc 等需要的软件包。
-sud">
+例如$\frac{1}{x}$的除数在负数、正数、零的地方表现都不同；例如$log(x)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +16,7 @@ sud">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>如何从源码编译linux内核并使其从u盘启动 | 任我行</title>
+    <title>《Deep Learning》读书笔记（Ch4.NumericalComputation） | 任我行</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +263,13 @@ sud">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/linux/linux-u-drive/kernel.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/dl/dlbooknotes4/cover.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        如何从源码编译linux内核并使其从u盘启动
+                        《Deep Learning》读书笔记（Ch4.NumericalComputation）
                     </div>
                 </div>
             </div>
@@ -381,12 +380,12 @@ sud">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux/" target="_blank">
-                                <span class="chip bg-color">linux</span>
+                            <a href="/tags/dl/" target="_blank">
+                                <span class="chip bg-color">dl</span>
                             </a>
                         
-                            <a href="/tags/kernels/" target="_blank">
-                                <span class="chip bg-color">kernels</span>
+                            <a href="/tags/notes/" target="_blank">
+                                <span class="chip bg-color">notes</span>
                             </a>
                         
                     </div>
@@ -397,8 +396,8 @@ sud">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                linux
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                dl
                             </a>
                         
                     </div>
@@ -409,21 +408,21 @@ sud">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-05-04
+                    2019-08-24
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.3k
+                        300
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        1 分
                     </div>
                     
                 
@@ -439,157 +438,45 @@ sud">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>准备 linux 环境，可以在 VMware 虚拟机里运行。<br>我这里用的是 Archlinux 系统，不同系统大同小异。</p>
-</blockquote>
-<h1 id="编译内核"><a href="#编译内核" class="headerlink" title="编译内核"></a>编译内核</h1><h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>首先安装 <code>base-devel</code> 软件组，这个组包含了 make 和 gcc 等需要的软件包。</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo pacman -S base-devel
-</code></pre>
-<h2 id="下载内核并解压"><a href="#下载内核并解压" class="headerlink" title="下载内核并解压"></a>下载内核并解压</h2><p>从<a href="https://www.kernel.org/" target="_blank" rel="noopener">这里</a>下载linux内核。<br>我们以版本<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.11.tar.xz" target="_blank" rel="noopener">5.0.11</a>为例子。<br>首先新建个文件夹叫 <code>kernelbuild</code> 然后下载内核压缩包到该文件夹</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">mkdir ~/kernelbuild
-cd ~/kernelbuild
-wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.11.tar.xz
-</code></pre>
-<p>然后我们解压内核压缩包：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">tar -xvJf linux-5.0.11.tar.xz
-</code></pre>
-<p>为确保内核树绝对干净，进入内核目录并执行 <code>make mrproper</code> 命令：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd linux-5.0.11
-make clean && make mrproper
-</code></pre>
-<h2 id="配置内核并编译"><a href="#配置内核并编译" class="headerlink" title="配置内核并编译"></a>配置内核并编译</h2><p>内核配置，会进入配置界面：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make x86_64_defconfig
-make menuconfig
-</code></pre>
-<p><img src="menuconfig.png" alt></p>
-<p>确保选中以下选项（按 y 选中，按 n 取消选择；按上下左右方向键移动选择的光标位置；回车确认）：</p>
+                <h1 id="4-Numerical-Computation"><a href="#4-Numerical-Computation" class="headerlink" title="4. Numerical Computation"></a>4. Numerical Computation</h1><h2 id="4-1-Overflow-and-Underflow"><a href="#4-1-Overflow-and-Underflow" class="headerlink" title="4.1 Overflow and Underflow"></a>4.1 Overflow and Underflow</h2><ol>
+<li><p>Underflow：十分靠近零的数，被舍入到零</p>
 <ul>
-<li><p>General Setup –&gt; [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support</p>
-</li>
-<li><p>Device Drivers –&gt; Block Devices –&gt; [*] RAM block device support</p>
-</li>
-<li><p>Device Drivers -&gt; Input device support -&gt; [*] Keyboard -&gt; 全部选择为[*]</p>
-</li>
-<li><p>Device Drivers -&gt; HID support -&gt; 全部选择为[*]</p>
-</li>
-<li>Device Drivers -&gt; HID support -&gt; USB HID support -&gt; 全部选择为[*]</li>
+<li>例如$\frac{1}{x}$的除数在负数、正数、零的地方表现都不同；例如$log(x)$不能输入零</li>
 </ul>
-<p>然后编译（需要等上十几分钟吧，再此期间你可以继续进行下一步busybox的准备）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make -j4 bzImage
-</code></pre>
-<p>最后生成的 <code>arch/x86_64/boot/bzImage</code> 才是我们想要的内核文件（这个文件才8M多而已）</p>
-<h1 id="准备-BusyBox-工具"><a href="#准备-BusyBox-工具" class="headerlink" title="准备 BusyBox 工具"></a>准备 BusyBox 工具</h1><p>到<a href="https://busybox.net/" target="_blank" rel="noopener">官网</a>下载 BusyBox，以1.30.1版本为例。</p>
-<p>下载并解压：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ～
-wget https://busybox.net/downloads/busybox-1.30.1.tar.bz2
-tar -jxvf busybox-1.30.1.tar.bz2
-cd busybox-1.30.1/
-</code></pre>
-<p>然后进行配置：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make defconfig
-make menuconfig
-</code></pre>
-<p>确保选中：</p>
+</li>
+<li><p>Overflow：溢出（趋近正无穷/负无穷）</p>
 <ul>
-<li>BusyBox Setting-&gt;Build Options-&gt;[*]Build Busybox as a static binary (no shared libs)</li>
+<li>例如softmax的计算（原式）：<ul>
+<li>当$x_j$很负时，分母接近零，可能会underflow</li>
+<li>当$x_j$很正时，各项非常大，可能会overflow</li>
+<li>变式就不会出现underflow/overflow了，使得数值计算稳定；目前也有一些软件包（例如Theano）可以自动检测和修复数值稳定性</li>
 </ul>
-<p>然后编译（编译很快）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make
-</code></pre>
-<p>最后安装：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make install
-</code></pre>
-<p>执行 ls ，会发现多了一个 <code>_install</code> 目录，我们要用它来构建 linux 的根目录。</p>
-<h1 id="准备-linux-所需文件"><a href="#准备-linux-所需文件" class="headerlink" title="准备 linux 所需文件"></a>准备 linux 所需文件</h1><p>首先在用户目录下新建一个文件夹 romfs ，然后把 <code>_install</code> 目录中的内容全部复制到 <code>romfs</code> 中。</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ~
-mkdir romfs
-cp -r busybox-1.30.1/_install/* romfs/
-</code></pre>
-<p>然后创建我们 linux 目录下的文件夹：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd romfs/
-mkdir proc mnt var tmp dev sys etc
-</code></pre>
-<p>然后创建软链接：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">ln -s bin/sh init
-</code></pre>
-<p>接着我们创建设备：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd dev/
-sudo mknod console c 5 1
-sudo mknod null c 1 3
-sudo mknod tty c 5 0
-sudo mknod tty1 c 4 1
-sudo mknod tty2 c 4 2
-sudo mknod tty3 c 4 3
-sudo mknod tty4 c 4 4
-</code></pre>
-<p>然后制作压缩镜像（可能还要执行<code>sudo pacman -S cpio</code>）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ~/romfs/
-find . | cpio -H newc -o > ../romfs.img
-cd ../
-gzip romfs.img -f
-</code></pre>
-<h1 id="在-u-盘建立文件系统和-EFI-引导"><a href="#在-u-盘建立文件系统和-EFI-引导" class="headerlink" title="在 u 盘建立文件系统和 EFI 引导"></a>在 u 盘建立文件系统和 EFI 引导</h1><blockquote>
-<p><strong>这部分教程使用 GPT+EFI 作为启动引导。</strong><br>如果你执意使用 GPT+BIOS 作为引导，则请按照下面的步骤来操作（应该可行）：</p>
-<blockquote>
-<ol>
-<li>创建两个分区：FAT32（例如64MB）和EXT4（例如256MB）。并设置FAT32的启动标识为<code>bios_grub</code>类型。</li>
-<li>创建文件夹/mnt/usb，将EXT4分区挂载到 /mnt/usb，再创建文件夹 /mnt/usb/boot</li>
-<li>然后安装grub：<code>grub-install --target=i386-pc --debug --removable --boot-directory=/mnt/usb/boot /dev/sdd</code></li>
-<li>复制 bzImage 和 romfs.img.gz 过去到 /mnt/usb/boot</li>
-<li>创建 grub.cfg，并写入一些内容（与下面教程的相应部分类似），酌情修改。</li>
-<li>重启电脑，选择从Legacy启动，保存修改，将u盘的优先级调到最高。再次启动即可。</li>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+softmax(x)_i & = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}} \quad （原式） \\
+& = \frac{e^{x_i-max(x)}}{\sum_{j=1}^{n} e^{x_j-max(x)}} \quad （变式）
+\end{align}</script></li>
 </ol>
-</blockquote>
-</blockquote>
-<h2 id="u-盘分区"><a href="#u-盘分区" class="headerlink" title="u 盘分区"></a>u 盘分区</h2><p>插入u盘，使用<code>GParted</code>进行分区。</p>
-<ol>
-<li><p>在右上角选中你的u盘（例如我的是/dev/sdd），删除所有分区，然后点菜单栏的勾勾按钮。<br><img src="gparted.png" alt></p>
-</li>
-<li><p>然后新建两个分区，一个是FAT32，一个是EXT4，大小分别为64M和256M足矣。然后打勾勾确定。</p>
-</li>
-<li><p>更改刚刚建立的FAT32分区的标识为<code>boot,esp</code>。</p>
+<h2 id="4-2-Poor-Conditioning"><a href="#4-2-Poor-Conditioning" class="headerlink" title="4.2 Poor Conditioning"></a>4.2 Poor Conditioning</h2><ol>
+<li><p>条件数：</p>
+<script type="math/tex; mode=display">
+condition \; number = \max_{i,j} |\frac{\lambda_i}{\lambda_j}|</script><ul>
+<li>条件数越大，$A^{-1}$对输入就越敏感（即解方程$Ax=b$的解$x$误差很大），小的输入扰动对输出的影响很大</li>
+</ul>
 </li>
 </ol>
-<p><img src="gparted2.png" alt></p>
-<h2 id="安装-Grub-到-u-盘"><a href="#安装-Grub-到-u-盘" class="headerlink" title="安装 Grub 到 u 盘"></a>安装 Grub 到 u 盘</h2><p>首先挂载刚刚建立的 <code>FAT32</code> 分区到 <code>/mnt/usb</code> 目录下：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd /mnt
-sudo mkdir efi_partition
-sudo mkdir boot_partition
-sudo mount /dev/sdd1 ./efi_partition
-sudo mount /dev/sdd2 ./boot_partition
-</code></pre>
-<p>然后将 grub 安装到 u 盘：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo grub-install --target=x86_64-efi --boot-directory=/mnt/boot_partition --efi-directory=/mnt/efi_partition --bootloader-id=karbo --removable --debug
-</code></pre>
-<p>安装成功后应该会在最后的输出看到：<code>安装完成。没有报告错误。</code>类似的字样。</p>
-<p>然后将编译好的文件复制过去：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo cp ~/kernelbuild/linux-5.0.11/arch/x86_64/boot/bzImage /mnt/boot_partition/
-sudo cp ~/romfs.img.gz /mnt/boot_partition
-</code></pre>
-<p>最后创建个文本文件：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo micro /mnt/boot_partition/grub/grub.cfg
-</code></pre>
-<p>内容为：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">menuentry "karbo-linux" {
-set root='hd0,gpt2'
-linux /bzImage root=/dev/ram
-initrd /romfs.img.gz
-}
-</code></pre>
-<p>最后重启电脑，狂按F2，调整为<code>UEFI</code>启动，并把你u盘启动的优先级调到最顶上来，保存更改，再次启动即可。</p>
-<p>应该会看到类似如下的界面：</p>
-<p><img src="final.jpeg" alt></p>
-<blockquote>
-<p>如果在UEFI里没有找到你的u盘，那么可能是你插入了多个usb存储设备，尝试将其他usb存储设备拔掉，并重试。</p>
-</blockquote>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><p><a href="https://wiki.archlinux.org/index.php/Kernels/Compilation/Traditional_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">Kernels/Compilation/Traditional (简体中文)</a>)</p>
+<h2 id="4-3-Gradient-Based-Optimization"><a href="#4-3-Gradient-Based-Optimization" class="headerlink" title="4.3 Gradient-Based Optimization"></a>4.3 Gradient-Based Optimization</h2><ol>
+<li><p>Steepest descent（gradient descent）：</p>
+<script type="math/tex; mode=display">
+x^{'} = x - \epsilon \nabla_x f(x)</script></li>
+<li><p>Line search：从几个待定的$\epsilon$中选出使得$f(x-\epsilon\nabla_x f(x))$值最小的$\epsilon$作为结果</p>
 </li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/27009845" target="_blank" rel="noopener">制作 U 盘 Linux</a></p>
-</li>
-<li><p><a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">GRUB/Tips and tricks (简体中文)</a>)</p>
+<li><p>Hill climbing：上升离散参数的目标函数</p>
 </li>
 </ol>
+<h3 id="4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices"><a href="#4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices" class="headerlink" title="4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices"></a>4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices</h3><p>1. </p>
 
             </div>
             <hr/>
@@ -748,9 +635,9 @@ initrd /romfs.img.gz
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《如何从源码编译linux内核并使其从u盘启动》
+                    《《Deep Learning》读书笔记（Ch4.NumericalComputation）》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/linux/linux-u-drive/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/dl/dlbooknotes4/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Karbo
             </a> 采用
@@ -1049,45 +936,51 @@ initrd /romfs.img.gz
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/git/git-beginner/">
+                <a href="/dl/dlbooknotes4/">
                     <div class="card-image">
                         
-                        <img src="/git/git-beginner/cover.png" class="responsive-img" alt="Git快速入门与速查">
+                        <img src="/dl/dlbooknotes4/cover.png" class="responsive-img" alt="《Deep Learning》读书笔记（Ch4.NumericalComputation）">
                         
-                        <span class="card-title">Git快速入门与速查</span>
+                        <span class="card-title">《Deep Learning》读书笔记（Ch4.NumericalComputation）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文介绍了Git的基本概念和用法，能够帮助初学者迅速掌握Git工具的使用。以及GitHub的日常用法。
+                            本文是花书《Deep Learning》第一章（Numerical Computation）的读书笔记。
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/git/" class="post-category" target="_blank">
-                                    git
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/git/" target="_blank">
-                        <span class="chip bg-color">git</span>
+                    <a href="/tags/dl/" target="_blank">
+                        <span class="chip bg-color">dl</span>
+                    </a>
+                    
+                    <a href="/tags/notes/" target="_blank">
+                        <span class="chip bg-color">notes</span>
                     </a>
                     
                 </div>
@@ -1101,30 +994,30 @@ initrd /romfs.img.gz
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/django/python-django/">
+                <a href="/dl/dlbooknotes3/">
                     <div class="card-image">
                         
-                        <img src="/django/python-django/cover.png" class="responsive-img" alt="用Django搭建第一个投票网站">
+                        <img src="/dl/dlbooknotes3/cover.png" class="responsive-img" alt="《Deep Learning》读书笔记（Ch3.ProbabilityandInformationTheory）">
                         
-                        <span class="card-title">用Django搭建第一个投票网站</span>
+                        <span class="card-title">《Deep Learning》读书笔记（Ch3.ProbabilityandInformationTheory）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文教你用Django搭建第一个网站，投票网站。
+                            本文是花书《Deep Learning》第三章（Probability and Information Theory）的读书笔记。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/django/" class="post-category" target="_blank">
-                                    django
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
                                 </a>
                             
                             
@@ -1134,16 +1027,12 @@ initrd /romfs.img.gz
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python/" target="_blank">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/dl/" target="_blank">
+                        <span class="chip bg-color">dl</span>
                     </a>
                     
-                    <a href="/tags/django/" target="_blank">
-                        <span class="chip bg-color">django</span>
-                    </a>
-                    
-                    <a href="/tags/web/" target="_blank">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/notes/" target="_blank">
+                        <span class="chip bg-color">notes</span>
                     </a>
                     
                 </div>
