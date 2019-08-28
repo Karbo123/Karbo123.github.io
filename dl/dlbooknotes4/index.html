@@ -415,14 +415,14 @@ Underflow：十分靠近零的数，被舍入到零
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        300
+                        759
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        3 分
                     </div>
                     
                 
@@ -476,7 +476,28 @@ x^{'} = x - \epsilon \nabla_x f(x)</script></li>
 <li><p>Hill climbing：上升离散参数的目标函数</p>
 </li>
 </ol>
-<h3 id="4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices"><a href="#4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices" class="headerlink" title="4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices"></a>4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices</h3><p>1. </p>
+<h3 id="4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices"><a href="#4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices" class="headerlink" title="4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices"></a>4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices</h3><ol>
+<li><p>Jacobian matrix：向量对向量求导</p>
+<p>如果$f:\mathbb{R}^m \rightarrow \mathbb{R}^n$，那么雅可比矩阵定义为$J_{i,j}=\frac{\partial}{\partial x_j}f(x)_i（注：J \in \mathbb{R}^{n \times m}）$</p>
+</li>
+<li><p>Hessian matrix：标量对向量的二阶导</p>
+<p>如果$f:\mathbb{R}^n \rightarrow \mathbb{R}$，那么海森矩阵的定义为$H_{i,j}=\frac{\partial^2}{\partial x_i \partial x_j}f(x)$</p>
+<ul>
+<li>当二阶偏导连续时，海森矩阵是实对称矩阵。（一般情况下都满足二阶导连续，所以一般默认海森矩阵是实对称矩阵，因而可以将$H$作特征值分解，分解为$Q \Lambda Q^T$）</li>
+<li>在某一点的方向二阶导是$d^THd$，其中$d$是该点方向的单位向量，$H$是海森矩阵</li>
+<li>注意到$d^THd$与$H$的特征值相关联：当$d$是$H$的第$i$个特征向量时，该点的二阶导等于第$i$个特征值；二阶导的取值范围是$[\lambda_n,\lambda_1]$。</li>
+<li>所以海森矩阵的特征值可以近似看作二阶导（曲率）</li>
+<li>一阶导为零且海森矩阵正定：局部最小值；一阶导为零且海森矩阵负定：局部最大值；一阶导为零且海森矩阵的特征值有正有负，则该点一定是鞍点。</li>
+</ul>
+</li>
+<li><p>二阶泰勒展式：</p>
+<script type="math/tex; mode=display">
+f(x) \approx f(x^{(0)}) + (x-x^{(0)})^T \mathcal{g}+\frac{1}{2}(x-x^{(0)})^TH(x-x^{(0)})</script><ul>
+<li>如果使用一阶的梯度下降法，取学习率为$\epsilon$（更新规则$x \leftarrow x-\epsilon \mathcal{g}$），那么当取$\epsilon=\frac{\mathcal{g}^T\mathcal{g}}{\mathcal{g}^TH\mathcal{g}}$时，能一下子跳到此方向（gradient方向）的局部极小值（抛物面近似）。（英文花书Page88）</li>
+<li>使用Newton’s method时，更新规则为$x \leftarrow x - H^{-1} \mathcal{g}$，能一下子跳到极值点（抛物面近似）。（见英文花书Page311）</li>
+</ul>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -936,29 +957,28 @@ x^{'} = x - \epsilon \nabla_x f(x)</script></li>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/dl/dlbooknotes4/">
+                <a href="/dl/conv-understanding/">
                     <div class="card-image">
                         
-                        <img src="/dl/dlbooknotes4/cover.png" class="responsive-img" alt="《Deep Learning》读书笔记（Ch4.NumericalComputation）">
+                        <img src="https://miro.medium.com/max/3872/1*deIf5n24IfP08lYDCPdXSw.jpeg" class="responsive-img" alt="理解深度学习中的各种卷积">
                         
-                        <span class="card-title">《Deep Learning》读书笔记（Ch4.NumericalComputation）</span>
+                        <span class="card-title">理解深度学习中的各种卷积</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文是花书《Deep Learning》第一章（Numerical Computation）的读书笔记。
+                            Towards intuitive understanding of convolutions through visualizations
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-24
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-28
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -971,16 +991,11 @@ x^{'} = x - \epsilon \nabla_x f(x)</script></li>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/dl/" target="_blank">
                         <span class="chip bg-color">dl</span>
-                    </a>
-                    
-                    <a href="/tags/notes/" target="_blank">
-                        <span class="chip bg-color">notes</span>
                     </a>
                     
                 </div>
@@ -1159,7 +1174,7 @@ x^{'} = x - \epsilon \nabla_x f(x)</script></li>
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">44.9k</span>
+            <span class="white-color">46k</span>
             
 
             

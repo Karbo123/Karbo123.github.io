@@ -4,11 +4,36 @@
   
     
     <entry>
+      <title>理解深度学习中的各种卷积</title>
+      <link href="/dl/conv-understanding/"/>
+      <url>/dl/conv-understanding/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>参考文献：<a href="https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215" target="_blank" rel="noopener">A Comprehensive Introduction to Different Types of Convolutions in Deep Learning</a></p></blockquote><h1 id="1-Convolution-v-s-Cross-correlation"><a href="#1-Convolution-v-s-Cross-correlation" class="headerlink" title="1. Convolution v.s. Cross-correlation"></a>1. Convolution v.s. Cross-correlation</h1><p>卷积（Convolution）与互相关（Cross-correlation）</p><p><img src="https://miro.medium.com/max/1908/1*K500B9Jdwddeh3TTlViQLg.jpeg" alt="Difference between convolution and cross-correlation in signal processing."></p><p>In Deep Learning, the filters in convolution are not reversed. Rigorously speaking, it’s cross-correlation. We essentially perform element-wise multiplication and addition. But it’s a convention to just call it convolution in deep learning. </p><h1 id="2-Convolution-in-Deep-Learning"><a href="#2-Convolution-in-Deep-Learning" class="headerlink" title="2. Convolution in Deep Learning"></a>2. Convolution in Deep Learning</h1><ol><li><p>理清概念：</p><ul><li>layers and filters are at the same level</li><li>while channels and kernels are at one level below</li><li>Channels and feature maps are the same thing</li><li>“channel” is usually used to describe the structure of a “layer”</li><li>“kernel” is used to describe the structure of a “filter”（A “Kernel” refers to a 2D array of weights. The term “filter” is for 3D structures of multiple kernels stacked together. ）</li></ul></li><li><p>卷积</p><p><img src="https://miro.medium.com/max/1000/1*Emy_ai48XaOeGDgykLypPg.gif" alt="The first step of 2D convolution for multi-channels: each of the kernels in the filter are applied to three channels in the input layer, separately."></p><p>Then these three channels are summed together（element-wise addition）to form one single channel (3 x 3 x 1). </p><p><img src="https://miro.medium.com/max/1000/1*5otecXBNlms3lslqlYworA.gif" alt="The second step of 2D convolution for multi-channels: then these three channels are summed together（element-wise addition）to form one single channel."></p><p>上述过程又可以看作这样：（2D卷积）</p><p><img src="https://miro.medium.com/max/3280/1*oFVlkvZp848nh-QoD3pREw.png" alt="Standard 2D convolution. Mapping one layer with depth Din to another layer with depth Dout, by using Dout filters."></p><p>上述卷积被称作2D卷积是因为filter的自由度其实只有2维，不能在channel方向上移动（因为kernel size == channel size）。虽然的确实在3D volumetric data上的卷积。一次卷积操作过后得到的是一个单通道的图片。</p><blockquote><p><strong>1 x 1 Convolution</strong></p><p><img src="https://miro.medium.com/max/1446/1*deVKbCzJs_7eL6p2ltkY0g.png" alt="1 x 1 convolution, where the filter size is 1 x 1 x D."></p><p>Initially, 1 x 1 convolutions were proposed in the Network-in-network <a href="https://arxiv.org/abs/1312.4400" target="_blank" rel="noopener">paper</a>. They were then highly used in the Google Inception <a href="https://arxiv.org/abs/1409.4842" target="_blank" rel="noopener">paper</a>. A few advantages of 1 x 1 convolutions are:</p><ul><li>Dimensionality reduction for efficient computations</li><li>Efficient low dimensional embedding, or feature pooling</li><li>Applying nonlinearity again after convolution</li></ul><p><strong>Convolution Arithmetic</strong></p><p><img src="https://miro.medium.com/max/395/1*d03OGSWsBqAKBTP2QSvi3g.gif" alt></p><p>尺寸计算：</p><script type="math/tex; mode=display">\begin{align}W_{out} &= \lfloor \frac{W_{equal}-K}{S} \rfloor + 1 \\&= \lfloor \frac{W_{in}-K+(P_{left}+P_{right})}{S} \rfloor + 1\\&= \lfloor \frac{W_{in}-K+2P}{S} \rfloor + 1\end{align}</script></blockquote></li></ol><h1 id="3-3D-Convolution"><a href="#3-3D-Convolution" class="headerlink" title="3. 3D Convolution"></a>3. 3D Convolution</h1><p>   当kernel size &lt; channel size时，filter有3个自由度，一次卷积操作过后得到的是多通道的图片（3D data）</p><p>   <img src="https://miro.medium.com/max/1610/1*wUVVgZnzBwYKgQyTBK_5sg.png" alt="In 3D convolution, a 3D filter can move in all 3-direction（height, width, channel of the image）. At each position, the element-wise multiplication and addition provide one number. Since the filter slides through a 3D space, the output numbers are arranged in a 3D space as well. The output is then a 3D data."></p><p>   Similar as 2D convolutions which encode spatial relationships of objects in a 2D domain, 3D convolutions can describe the spatial relationships of objects in the 3D space.</p><h1 id="4-Transposed-Convolution（Deconvolution）"><a href="#4-Transposed-Convolution（Deconvolution）" class="headerlink" title="4. Transposed Convolution（Deconvolution）"></a>4. Transposed Convolution（Deconvolution）</h1><ul><li><p>目的：做上采样（up-sampling）</p></li><li><p>别名：transposed convolution == deconvolution（不太合适） == fractionally strided convolution</p></li></ul><p>It is always possible to implement a transposed convolution with a direct convolution.</p><p><img src="https://miro.medium.com/max/344/1*KGrCz7aav02KoGuO6znO0w.gif" alt="Up-sampling a 2 x 2 input to a 4 x 4 output."></p><p>Interestingly enough, one can map the same 2 x 2 input image to a different image size, by applying fancy padding &amp; stride.</p><p><img src="https://miro.medium.com/max/395/1*Lpn4nag_KRMfGkx1k6bV-g.gif" alt="Up-sampling a 2 x 2 input to a 5 x 5 output."></p><blockquote><p><strong>为什么叫做“转置卷积”？</strong></p><p>我们先看下卷积使用矩阵乘法怎么做（$Kernel \times Large = Small$）：</p><p><img src="https://miro.medium.com/max/1398/1*9ngOwG-uHaJO8Od0ePB-fQ.jpeg" alt="Matrix multiplication for convolution: from a Large input image（4 x 4）to a Small output image（2 x 2）."></p><p>如果我们认为$C^T C \approx I$那么$Kernel^{\, T} \times Small = Large$将可以复原输入：</p><p><img src="https://miro.medium.com/max/1424/1*zfIgQ6uyowDUhkMBBKh4bg.png" alt="Matrix multiplication for convolution: from a Small input image（2 x 2）to a Large output image（4 x 4）."></p><p>As you can see here, we perform up-sampling from a small image to a large image. That is what we want to achieve. And now, you can also see where the name “transposed convolution” comes from.</p><p><strong>Checkerboard artifacts</strong></p><p>One unpleasant behavior that people observe when using transposed convolution is the so-called checkerboard artifacts（棋盘效应）.</p><p><img src="https://miro.medium.com/max/1610/1*w08YkXF_hTBRFoQ1lhffpg.png" alt="A few examples of checkerboard artifacts."></p></blockquote><h1 id="5-Dilated-Convolution（Atrous-Convolution）"><a href="#5-Dilated-Convolution（Atrous-Convolution）" class="headerlink" title="5. Dilated Convolution（Atrous Convolution）"></a>5. Dilated Convolution（Atrous Convolution）</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> dl </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> dl </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《Deep Learning》读书笔记（Ch4.NumericalComputation）</title>
       <link href="/dl/dlbooknotes4/"/>
       <url>/dl/dlbooknotes4/</url>
       
-        <content type="html"><![CDATA[<h1 id="4-Numerical-Computation"><a href="#4-Numerical-Computation" class="headerlink" title="4. Numerical Computation"></a>4. Numerical Computation</h1><h2 id="4-1-Overflow-and-Underflow"><a href="#4-1-Overflow-and-Underflow" class="headerlink" title="4.1 Overflow and Underflow"></a>4.1 Overflow and Underflow</h2><ol><li><p>Underflow：十分靠近零的数，被舍入到零</p><ul><li>例如$\frac{1}{x}$的除数在负数、正数、零的地方表现都不同；例如$log(x)$不能输入零</li></ul></li><li><p>Overflow：溢出（趋近正无穷/负无穷）</p><ul><li>例如softmax的计算（原式）：<ul><li>当$x_j$很负时，分母接近零，可能会underflow</li><li>当$x_j$很正时，各项非常大，可能会overflow</li><li>变式就不会出现underflow/overflow了，使得数值计算稳定；目前也有一些软件包（例如Theano）可以自动检测和修复数值稳定性</li></ul></li></ul><script type="math/tex; mode=display">\begin{align}softmax(x)_i & = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}} \quad （原式） \\& = \frac{e^{x_i-max(x)}}{\sum_{j=1}^{n} e^{x_j-max(x)}} \quad （变式）\end{align}</script></li></ol><h2 id="4-2-Poor-Conditioning"><a href="#4-2-Poor-Conditioning" class="headerlink" title="4.2 Poor Conditioning"></a>4.2 Poor Conditioning</h2><ol><li><p>条件数：</p><script type="math/tex; mode=display">condition \; number = \max_{i,j} |\frac{\lambda_i}{\lambda_j}|</script><ul><li>条件数越大，$A^{-1}$对输入就越敏感（即解方程$Ax=b$的解$x$误差很大），小的输入扰动对输出的影响很大</li></ul></li></ol><h2 id="4-3-Gradient-Based-Optimization"><a href="#4-3-Gradient-Based-Optimization" class="headerlink" title="4.3 Gradient-Based Optimization"></a>4.3 Gradient-Based Optimization</h2><ol><li><p>Steepest descent（gradient descent）：</p><script type="math/tex; mode=display">x^{'} = x - \epsilon \nabla_x f(x)</script></li><li><p>Line search：从几个待定的$\epsilon$中选出使得$f(x-\epsilon\nabla_x f(x))$值最小的$\epsilon$作为结果</p></li><li><p>Hill climbing：上升离散参数的目标函数</p></li></ol><h3 id="4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices"><a href="#4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices" class="headerlink" title="4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices"></a>4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices</h3><p>1. </p>]]></content>
+        <content type="html"><![CDATA[<h1 id="4-Numerical-Computation"><a href="#4-Numerical-Computation" class="headerlink" title="4. Numerical Computation"></a>4. Numerical Computation</h1><h2 id="4-1-Overflow-and-Underflow"><a href="#4-1-Overflow-and-Underflow" class="headerlink" title="4.1 Overflow and Underflow"></a>4.1 Overflow and Underflow</h2><ol><li><p>Underflow：十分靠近零的数，被舍入到零</p><ul><li>例如$\frac{1}{x}$的除数在负数、正数、零的地方表现都不同；例如$log(x)$不能输入零</li></ul></li><li><p>Overflow：溢出（趋近正无穷/负无穷）</p><ul><li>例如softmax的计算（原式）：<ul><li>当$x_j$很负时，分母接近零，可能会underflow</li><li>当$x_j$很正时，各项非常大，可能会overflow</li><li>变式就不会出现underflow/overflow了，使得数值计算稳定；目前也有一些软件包（例如Theano）可以自动检测和修复数值稳定性</li></ul></li></ul><script type="math/tex; mode=display">\begin{align}softmax(x)_i & = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}} \quad （原式） \\& = \frac{e^{x_i-max(x)}}{\sum_{j=1}^{n} e^{x_j-max(x)}} \quad （变式）\end{align}</script></li></ol><h2 id="4-2-Poor-Conditioning"><a href="#4-2-Poor-Conditioning" class="headerlink" title="4.2 Poor Conditioning"></a>4.2 Poor Conditioning</h2><ol><li><p>条件数：</p><script type="math/tex; mode=display">condition \; number = \max_{i,j} |\frac{\lambda_i}{\lambda_j}|</script><ul><li>条件数越大，$A^{-1}$对输入就越敏感（即解方程$Ax=b$的解$x$误差很大），小的输入扰动对输出的影响很大</li></ul></li></ol><h2 id="4-3-Gradient-Based-Optimization"><a href="#4-3-Gradient-Based-Optimization" class="headerlink" title="4.3 Gradient-Based Optimization"></a>4.3 Gradient-Based Optimization</h2><ol><li><p>Steepest descent（gradient descent）：</p><script type="math/tex; mode=display">x^{'} = x - \epsilon \nabla_x f(x)</script></li><li><p>Line search：从几个待定的$\epsilon$中选出使得$f(x-\epsilon\nabla_x f(x))$值最小的$\epsilon$作为结果</p></li><li><p>Hill climbing：上升离散参数的目标函数</p></li></ol><h3 id="4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices"><a href="#4-3-1-Beyond-the-Gradient-Jacobian-and-Hessian-Matrices" class="headerlink" title="4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices"></a>4.3.1 Beyond the Gradient: Jacobian and Hessian Matrices</h3><ol><li><p>Jacobian matrix：向量对向量求导</p><p>如果$f:\mathbb{R}^m \rightarrow \mathbb{R}^n$，那么雅可比矩阵定义为$J_{i,j}=\frac{\partial}{\partial x_j}f(x)_i（注：J \in \mathbb{R}^{n \times m}）$</p></li><li><p>Hessian matrix：标量对向量的二阶导</p><p>如果$f:\mathbb{R}^n \rightarrow \mathbb{R}$，那么海森矩阵的定义为$H_{i,j}=\frac{\partial^2}{\partial x_i \partial x_j}f(x)$</p><ul><li>当二阶偏导连续时，海森矩阵是实对称矩阵。（一般情况下都满足二阶导连续，所以一般默认海森矩阵是实对称矩阵，因而可以将$H$作特征值分解，分解为$Q \Lambda Q^T$）</li><li>在某一点的方向二阶导是$d^THd$，其中$d$是该点方向的单位向量，$H$是海森矩阵</li><li>注意到$d^THd$与$H$的特征值相关联：当$d$是$H$的第$i$个特征向量时，该点的二阶导等于第$i$个特征值；二阶导的取值范围是$[\lambda_n,\lambda_1]$。</li><li>所以海森矩阵的特征值可以近似看作二阶导（曲率）</li><li>一阶导为零且海森矩阵正定：局部最小值；一阶导为零且海森矩阵负定：局部最大值；一阶导为零且海森矩阵的特征值有正有负，则该点一定是鞍点。</li></ul></li><li><p>二阶泰勒展式：</p><script type="math/tex; mode=display">f(x) \approx f(x^{(0)}) + (x-x^{(0)})^T \mathcal{g}+\frac{1}{2}(x-x^{(0)})^TH(x-x^{(0)})</script><ul><li>如果使用一阶的梯度下降法，取学习率为$\epsilon$（更新规则$x \leftarrow x-\epsilon \mathcal{g}$），那么当取$\epsilon=\frac{\mathcal{g}^T\mathcal{g}}{\mathcal{g}^TH\mathcal{g}}$时，能一下子跳到此方向（gradient方向）的局部极小值（抛物面近似）。（英文花书Page88）</li><li>使用Newton’s method时，更新规则为$x \leftarrow x - H^{-1} \mathcal{g}$，能一下子跳到极值点（抛物面近似）。（见英文花书Page311）</li></ul></li></ol>]]></content>
       
       
       <categories>
@@ -211,9 +236,9 @@
             
             <tag> python </tag>
             
-            <tag> django </tag>
-            
             <tag> web </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -267,11 +292,11 @@
       
         <tags>
             
-            <tag> grammar </tag>
-            
             <tag> python </tag>
             
             <tag> numpy </tag>
+            
+            <tag> grammar </tag>
             
         </tags>
       
@@ -435,11 +460,11 @@
       
         <tags>
             
+            <tag> grammar </tag>
+            
             <tag> linux </tag>
             
             <tag> programing </tag>
-            
-            <tag> grammar </tag>
             
             <tag> os </tag>
             
@@ -466,9 +491,9 @@
       
         <tags>
             
-            <tag> programing </tag>
-            
             <tag> grammar </tag>
+            
+            <tag> programing </tag>
             
             <tag> markdown </tag>
             

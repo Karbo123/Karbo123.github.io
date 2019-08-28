@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-08-24T08:30:23.722Z</updated>
+  <updated>2019-08-28T13:13:38.119Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>理解深度学习中的各种卷积</title>
+    <link href="https://blog.karbo.online/dl/conv-understanding/"/>
+    <id>https://blog.karbo.online/dl/conv-understanding/</id>
+    <published>2019-08-28T11:42:09.000Z</published>
+    <updated>2019-08-28T13:13:38.119Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;参考文献：&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《Deep Learning》读书笔记（Ch4.NumericalComputation）</title>
     <link href="https://blog.karbo.online/dl/dlbooknotes4/"/>
     <id>https://blog.karbo.online/dl/dlbooknotes4/</id>
     <published>2019-08-24T08:30:18.000Z</published>
-    <updated>2019-08-24T08:30:23.722Z</updated>
+    <updated>2019-08-26T12:53:43.183Z</updated>
     
     <summary type="html">
     
@@ -241,9 +268,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   
@@ -300,11 +327,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -478,11 +505,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -511,9 +538,9 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
