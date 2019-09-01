@@ -4,12 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="如何从源码编译linux内核并使其从u盘启动, 任我行">
-    <meta name="description" content="
-准备 linux 环境，可以在 VMware 虚拟机里运行。我这里用的是 Archlinux 系统，不同系统大同小异。
-
-编译内核安装环境首先安装 base-devel 软件组，这个组包含了 make 和 gcc 等需要的软件包。
-sud">
+    <meta name="keywords" content="3D分类笔记, 任我行">
+    <meta name="description" content="PointNet
+CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation》
+在线介绍：http://stanford.edu">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +15,7 @@ sud">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>如何从源码编译linux内核并使其从u盘启动 | 任我行</title>
+    <title>3D分类笔记 | 任我行</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +262,13 @@ sud">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/linux/linux-u-drive/kernel.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        如何从源码编译linux内核并使其从u盘启动
+                        3D分类笔记
                     </div>
                 </div>
             </div>
@@ -381,12 +379,8 @@ sud">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux/" target="_blank">
-                                <span class="chip bg-color">linux</span>
-                            </a>
-                        
-                            <a href="/tags/kernels/" target="_blank">
-                                <span class="chip bg-color">kernels</span>
+                            <a href="/tags/3d/" target="_blank">
+                                <span class="chip bg-color">3d</span>
                             </a>
                         
                     </div>
@@ -397,8 +391,8 @@ sud">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                linux
+                            <a href="/categories/3d/" class="post-category" target="_blank">
+                                3d
                             </a>
                         
                     </div>
@@ -409,21 +403,21 @@ sud">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-05-04
+                    2019-08-31
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.3k
+                        1.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        6 分
                     </div>
                     
                 
@@ -439,155 +433,126 @@ sud">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>准备 linux 环境，可以在 VMware 虚拟机里运行。<br>我这里用的是 Archlinux 系统，不同系统大同小异。</p>
+                <h1 id="PointNet"><a href="#PointNet" class="headerlink" title="PointNet"></a>PointNet</h1><blockquote>
+<p>CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation》</p>
+<p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet/</a></p>
+<p>paper下载：<a href="https://arxiv.org/abs/1612.00593" target="_blank" rel="noopener">https://arxiv.org/abs/1612.00593</a></p>
+<p>pytorch代码：<a href="https://github.com/fxia22/pointnet.pytorch" target="_blank" rel="noopener">https://github.com/fxia22/pointnet.pytorch</a></p>
 </blockquote>
-<h1 id="编译内核"><a href="#编译内核" class="headerlink" title="编译内核"></a>编译内核</h1><h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>首先安装 <code>base-devel</code> 软件组，这个组包含了 make 和 gcc 等需要的软件包。</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo pacman -S base-devel
-</code></pre>
-<h2 id="下载内核并解压"><a href="#下载内核并解压" class="headerlink" title="下载内核并解压"></a>下载内核并解压</h2><p>从<a href="https://www.kernel.org/" target="_blank" rel="noopener">这里</a>下载linux内核。<br>我们以版本<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.11.tar.xz" target="_blank" rel="noopener">5.0.11</a>为例子。<br>首先新建个文件夹叫 <code>kernelbuild</code> 然后下载内核压缩包到该文件夹</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">mkdir ~/kernelbuild
-cd ~/kernelbuild
-wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.11.tar.xz
-</code></pre>
-<p>然后我们解压内核压缩包：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">tar -xvJf linux-5.0.11.tar.xz
-</code></pre>
-<p>为确保内核树绝对干净，进入内核目录并执行 <code>make mrproper</code> 命令：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd linux-5.0.11
-make clean && make mrproper
-</code></pre>
-<h2 id="配置内核并编译"><a href="#配置内核并编译" class="headerlink" title="配置内核并编译"></a>配置内核并编译</h2><p>内核配置，会进入配置界面：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make x86_64_defconfig
-make menuconfig
-</code></pre>
-<p><img src="menuconfig.png" alt></p>
-<p>确保选中以下选项（按 y 选中，按 n 取消选择；按上下左右方向键移动选择的光标位置；回车确认）：</p>
-<ul>
-<li><p>General Setup –&gt; [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support</p>
-</li>
-<li><p>Device Drivers –&gt; Block Devices –&gt; [*] RAM block device support</p>
-</li>
-<li><p>Device Drivers -&gt; Input device support -&gt; [*] Keyboard -&gt; 全部选择为[*]</p>
-</li>
-<li><p>Device Drivers -&gt; HID support -&gt; 全部选择为[*]</p>
-</li>
-<li>Device Drivers -&gt; HID support -&gt; USB HID support -&gt; 全部选择为[*]</li>
-</ul>
-<p>然后编译（需要等上十几分钟吧，再此期间你可以继续进行下一步busybox的准备）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make -j4 bzImage
-</code></pre>
-<p>最后生成的 <code>arch/x86_64/boot/bzImage</code> 才是我们想要的内核文件（这个文件才8M多而已）</p>
-<h1 id="准备-BusyBox-工具"><a href="#准备-BusyBox-工具" class="headerlink" title="准备 BusyBox 工具"></a>准备 BusyBox 工具</h1><p>到<a href="https://busybox.net/" target="_blank" rel="noopener">官网</a>下载 BusyBox，以1.30.1版本为例。</p>
-<p>下载并解压：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ～
-wget https://busybox.net/downloads/busybox-1.30.1.tar.bz2
-tar -jxvf busybox-1.30.1.tar.bz2
-cd busybox-1.30.1/
-</code></pre>
-<p>然后进行配置：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make defconfig
-make menuconfig
-</code></pre>
-<p>确保选中：</p>
-<ul>
-<li>BusyBox Setting-&gt;Build Options-&gt;[*]Build Busybox as a static binary (no shared libs)</li>
-</ul>
-<p>然后编译（编译很快）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make
-</code></pre>
-<p>最后安装：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">make install
-</code></pre>
-<p>执行 ls ，会发现多了一个 <code>_install</code> 目录，我们要用它来构建 linux 的根目录。</p>
-<h1 id="准备-linux-所需文件"><a href="#准备-linux-所需文件" class="headerlink" title="准备 linux 所需文件"></a>准备 linux 所需文件</h1><p>首先在用户目录下新建一个文件夹 romfs ，然后把 <code>_install</code> 目录中的内容全部复制到 <code>romfs</code> 中。</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ~
-mkdir romfs
-cp -r busybox-1.30.1/_install/* romfs/
-</code></pre>
-<p>然后创建我们 linux 目录下的文件夹：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd romfs/
-mkdir proc mnt var tmp dev sys etc
-</code></pre>
-<p>然后创建软链接：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">ln -s bin/sh init
-</code></pre>
-<p>接着我们创建设备：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd dev/
-sudo mknod console c 5 1
-sudo mknod null c 1 3
-sudo mknod tty c 5 0
-sudo mknod tty1 c 4 1
-sudo mknod tty2 c 4 2
-sudo mknod tty3 c 4 3
-sudo mknod tty4 c 4 4
-</code></pre>
-<p>然后制作压缩镜像（可能还要执行<code>sudo pacman -S cpio</code>）：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd ~/romfs/
-find . | cpio -H newc -o > ../romfs.img
-cd ../
-gzip romfs.img -f
-</code></pre>
-<h1 id="在-u-盘建立文件系统和-EFI-引导"><a href="#在-u-盘建立文件系统和-EFI-引导" class="headerlink" title="在 u 盘建立文件系统和 EFI 引导"></a>在 u 盘建立文件系统和 EFI 引导</h1><blockquote>
-<p><strong>这部分教程使用 GPT+EFI 作为启动引导。</strong><br>如果你执意使用 GPT+BIOS 作为引导，则请按照下面的步骤来操作（应该可行）：</p>
-<blockquote>
 <ol>
-<li>创建两个分区：FAT32（例如64MB）和EXT4（例如256MB）。并设置FAT32的启动标识为<code>bios_grub</code>类型。</li>
-<li>创建文件夹/mnt/usb，将EXT4分区挂载到 /mnt/usb，再创建文件夹 /mnt/usb/boot</li>
-<li>然后安装grub：<code>grub-install --target=i386-pc --debug --removable --boot-directory=/mnt/usb/boot /dev/sdd</code></li>
-<li>复制 bzImage 和 romfs.img.gz 过去到 /mnt/usb/boot</li>
-<li>创建 grub.cfg，并写入一些内容（与下面教程的相应部分类似），酌情修改。</li>
-<li>重启电脑，选择从Legacy启动，保存修改，将u盘的优先级调到最高。再次启动即可。</li>
-</ol>
-</blockquote>
-</blockquote>
-<h2 id="u-盘分区"><a href="#u-盘分区" class="headerlink" title="u 盘分区"></a>u 盘分区</h2><p>插入u盘，使用<code>GParted</code>进行分区。</p>
+<li><p>概括</p>
+<p>提出了一种“天然”适用于处理point cloud数据的Net。并且给出理论分析和较多实验。声称达到了state-of-the-art的效果：模型结构简单、精度高、计算复杂度低。</p>
+<p>TODO IDEA：如果对称函数/max pooling换做了sort函数/top k函数（排序后返回前k大的值），那会怎么样？没有层次化特征提取的过程（PointNet++已解决）？</p>
+</li>
+<li><p>难点</p>
+<p>最大的难点是如何处理point cloud数据的无序性，因为传统的操作都是有顺序依赖的（例如卷积，它是顺序相关的）。此外，点之间的空间相关性、变换（平移旋转等）的不变性也是难点所在。</p>
+<p>传统的处理方法：将点云数据投影到二维平面然后使用图像的方法处理；将点云数据划分到有空间依赖关系的voxel；数据sort之后再输入；使用RNN尝试消除输入的顺序性。</p>
+</li>
+<li><p>思想</p>
+<p>使用具有对称性质的函数（例如max函数），来实现处理点云的无序性。</p>
+<p>形式化表述即：</p>
+<script type="math/tex; mode=display">
+f(\{x_1,...,x_n\}) \approx g(h(x_1),...,h(x_n))</script><p>意思是说，先进行非线性变换$h(\cdot)$，再使用对称函数$g(\cdot)$，就能近似出某一个能实现无序性的函数$f(\cdot)$。且$h(\cdot)$决定了$f(\cdot)$，所以关键是如何学习$h(\cdot)$。</p>
+<p>其中函数$h(\cdot)$使用多层感知机自动学习出来，$g(\cdot)$是某一个对称函数（例如max函数），$x_i$是第$i$个点。</p>
+</li>
+<li><p>实现方式</p>
 <ol>
-<li><p>在右上角选中你的u盘（例如我的是/dev/sdd），删除所有分区，然后点菜单栏的勾勾按钮。<br><img src="gparted.png" alt></p>
+<li><p>网络前端（实现变换不变性）</p>
+<p>使用与输入数据相关的spatial transformer network（缩写stn），来生成一个仿射变换矩阵（它是方阵，例如一个object有2500个points且point的维度是3（x、y和z坐标构成3维）的点，那么丢进这个网络则会得到一个3x3大小的方阵）<br>然后将输入数据点施加这个仿射变换（乘以它），就得到预处理后的结果（虽然还是2500个维度是3的点）。可能可以认为这个仿射变换的作用是消除camera的摆放视角（看作是某一种变换）的影响？？</p>
+<pre class=" language-lang-python"><code class="language-lang-python">input data size: [batchsize, 3, 2500]
+after many conv1d: [batchsize, 1024, 2500]
+after max function: [batchsize, 1024, 1]
+after view: [batchsize, 1024]
+after many fc layer: [batchsize, 9]
+after reshape to matrix: [batchsize, 3, 3]
+after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why？？可能类似于resnet的思想，或者是其他原因）
+</code></pre>
+<p>且我们在loss上加了正则约束项$||I-AA^T||^2_F$，使得学习到的矩阵$A$尽可能地是正交矩阵。</p>
 </li>
-<li><p>然后新建两个分区，一个是FAT32，一个是EXT4，大小分别为64M和256M足矣。然后打勾勾确定。</p>
+<li><p>网络中端（消除输入的顺序性）</p>
+<p>然后按照下图来操作：</p>
+<p><img src="http://stanford.edu/~rqi/pointnet/images/pointnet.jpg" alt></p>
+<p>两处用到了stn网络。stn生成仿射矩阵后对每个points都施加相同的仿射变换，不同sample的仿射矩阵不一样，都需要用stn网络计算出来。至于为什么后面也有个stn，那就只能姑且认为是stn网络起到类似于batchnorm的作用了。。。</p>
+<p>其中max函数对每个feature_dim（共1024个）扫视一遍，然后取max（例如2500个points则取2500个数值中最大的，然后形成相应feature_dim上的值）</p>
+<p>上图中蓝色部分是分类网络，黄色部分是分割网络。分割网络需要cancat global features和local features。（但实际上local features并没有充分地提取局部特征，例如密度表征等，所以后来才提出了其改进版PointNet++，但速度更慢）</p>
 </li>
-<li><p>更改刚刚建立的FAT32分区的标识为<code>boot,esp</code>。</p>
+<li><p>网络后端（分类or分割）</p>
+<ul>
+<li><p>分类就是正常的Classificaion网络了</p>
+</li>
+<li><p>分割则是继续使用conv1d，然后view得到<code>[batchsize, 2500, classnum]</code>，再view作<code>[batchsize*2500, classnum]</code>然后使用softmax，最后再view回来<code>[batchsize, 2500, classnum]</code>就好了</p>
+</li>
+</ul>
 </li>
 </ol>
-<p><img src="gparted2.png" alt></p>
-<h2 id="安装-Grub-到-u-盘"><a href="#安装-Grub-到-u-盘" class="headerlink" title="安装 Grub 到 u 盘"></a>安装 Grub 到 u 盘</h2><p>首先挂载刚刚建立的 <code>FAT32</code> 分区到 <code>/mnt/usb</code> 目录下：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">cd /mnt
-sudo mkdir efi_partition
-sudo mkdir boot_partition
-sudo mount /dev/sdd1 ./efi_partition
-sudo mount /dev/sdd2 ./boot_partition
-</code></pre>
-<p>然后将 grub 安装到 u 盘：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo grub-install --target=x86_64-efi --boot-directory=/mnt/boot_partition --efi-directory=/mnt/efi_partition --bootloader-id=karbo --removable --debug
-</code></pre>
-<p>安装成功后应该会在最后的输出看到：<code>安装完成。没有报告错误。</code>类似的字样。</p>
-<p>然后将编译好的文件复制过去：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo cp ~/kernelbuild/linux-5.0.11/arch/x86_64/boot/bzImage /mnt/boot_partition/
-sudo cp ~/romfs.img.gz /mnt/boot_partition
-</code></pre>
-<p>最后创建个文本文件：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">sudo micro /mnt/boot_partition/grub/grub.cfg
-</code></pre>
-<p>内容为：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">menuentry "karbo-linux" {
-set root='hd0,gpt2'
-linux /bzImage root=/dev/ram
-initrd /romfs.img.gz
-}
-</code></pre>
-<p>最后重启电脑，狂按F2，调整为<code>UEFI</code>启动，并把你u盘启动的优先级调到最顶上来，保存更改，再次启动即可。</p>
-<p>应该会看到类似如下的界面：</p>
-<p><img src="final.jpeg" alt></p>
-<blockquote>
-<p>如果在UEFI里没有找到你的u盘，那么可能是你插入了多个usb存储设备，尝试将其他usb存储设备拔掉，并重试。</p>
+</li>
+</ol>
+<h1 id="PointNet-1"><a href="#PointNet-1" class="headerlink" title="PointNet++"></a>PointNet++</h1><blockquote>
+<p>NIPS2017《PointNet++: Deep Hierarchical Feature Learning onPoint Sets in a Metric Space》</p>
+<p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet2/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet2/</a></p>
+<p>paper下载：<a href="https://arxiv.org/abs/1706.02413" target="_blank" rel="noopener">https://arxiv.org/abs/1706.02413</a></p>
 </blockquote>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><p><a href="https://wiki.archlinux.org/index.php/Kernels/Compilation/Traditional_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">Kernels/Compilation/Traditional (简体中文)</a>)</p>
+<ol>
+<li><p>概括</p>
+<p>是PointNet的升级版。针对PointNet对local features提取能力弱的缺点（例如不能应对points density的variation），提出使用层级结构来提取local features。简言之，就是模仿了CNN的分层特征提取，它将全体Points划分为许多local regions（类比于CNN中Kernel大小的概念），然后使用原始版本的PointNet提取regions里点的特征，并利用centroid取代regions的点，实现点数的减少，再多次这样，最后就能提取包含local features的features了。</p>
+<p>结果：特征表达更有效、鲁棒、精度高、但是计算代价高且慢（比PointNet慢几倍）</p>
+<p>其他：作者还发现在Non-Euclidean Metric Space（为geodesic distances）中模型的表现也很好，可以抵抗object的形变（例如不同姿态的猫）。作者可视化了the first level kernels，<a href="http://stanford.edu/~rqi/pointnet2/images/features.jpg" target="_blank" rel="noopener">戳图</a>。</p>
+<p>TODO IDEA：可能不同的度量空间对性能也有影响？感觉划定local regions的方式过于粗暴和生硬，有待改进？</p>
 </li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/27009845" target="_blank" rel="noopener">制作 U 盘 Linux</a></p>
+<li><p>难点</p>
+<p>如何有效地提取local features以抵抗density variation？（density variation：即点云的密度变化，稀疏的点云和密集的点云对模型精度的影响比较大，模型应该能对这种变化鲁棒才行）</p>
 </li>
-<li><p><a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">GRUB/Tips and tricks (简体中文)</a>)</p>
+<li><p>思想</p>
+<p>模仿CNN的做法（分层级的特征提取）</p>
+</li>
+<li><p>实现方式</p>
+<ol>
+<li><p>Hierarchical Point Set Feature Learning using <code>set abstraction levels</code></p>
+<p>set abstraction levels由Sampling layer、Grouping layer和PointNet layer组成</p>
+<ol>
+<li><p>Sampling layer</p>
+<p>作用：确定local regions的centroid位置</p>
+<p>算法：farthest point sampling (FPS)最远点采样</p>
+</li>
+<li><p>Grouping layer</p>
+<p>作用：确定centroid的neighborhood</p>
+<p>算法（选其一）：</p>
+<ul>
+<li><p>ball query（推荐）：确定球面的半径，然后在半径以内的点都作为邻居</p>
+</li>
+<li><p>kNN（不推荐）：排序出最近的K个点作为邻居</p>
+</li>
+</ul>
+<ol>
+<li><p>PointNet layer</p>
+<p>作用：特征提取</p>
+<p>算法过程：</p>
+<ul>
+<li><p>先将neighborhood的坐标转换为相对于centroid的相对坐标</p>
+</li>
+<li><p>再使用原始版本的PointNet作特征提取，提取到的特征作为centroid的特征。原本的neighborhood则不必再用，centroid作为下一个set abstraction levels的输入。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Robust Feature Learning under Non-Uniform Sampling Density</p>
+<p>刚才所谓的set abstraction levels可能对density不鲁棒，我们需要融合多尺度（multi-scale，可以理解为neighborhood数量的多少，不一定是相同centroid的）的信息来达到鲁棒性。</p>
+<p>不是多尺度的我们叫SSG（ablated PointNet++ with single scale grouping in each level），多尺度的我们叫MSG（multi-scale grouping）或MRG（multi-resolution grouping）。</p>
+<p><img src="2_1.png" alt></p>
+<p>我们提出了两种多尺度融合方式：MSG、MRG。</p>
+<p>举个例子，MSG就是分别使用9999个、999个、99个neighborhood所提取到的features作concatenation所得到的features的方式；而MRG就是使用3个99neighborhood接着串联用1个99neighborhood再cancat（并联）直接使用999个neighborhood得到的特征。</p>
+<p>效果上MSG慢但是精度高，MRG快但是精度不高。</p>
+<p>注意：作者训练时使用了DropPoints（DP）技术（randomly dropping out input points with a randomized probability for each instance），但是model的density variation是否一部分得益于此（data的augmentation）不得而知。</p>
+</li>
+<li><p>训练流程</p>
+</li>
+</ol>
+<p><img src="http://stanford.edu/~rqi/pointnet2/images/pnpp.jpg" alt></p>
+<p>对于segmentation，还要对feature插值回原图的分辨率才能对每个点进行分类。</p>
+<p>而classification则直接fc+softmax就好了。</p>
 </li>
 </ol>
 
@@ -748,9 +713,9 @@ initrd /romfs.img.gz
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《如何从源码编译linux内核并使其从u盘启动》
+                    《3D分类笔记》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/linux/linux-u-drive/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/3d/3dclassificationnotes/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Karbo
             </a> 采用
@@ -1049,45 +1014,48 @@ initrd /romfs.img.gz
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/git/git-beginner/">
+                <a href="/3d/3dclassificationnotes/">
                     <div class="card-image">
                         
-                        <img src="/git/git-beginner/cover.png" class="responsive-img" alt="Git快速入门与速查">
                         
-                        <span class="card-title">Git快速入门与速查</span>
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="3D分类笔记">
+                        
+                        <span class="card-title">3D分类笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文介绍了Git的基本概念和用法，能够帮助初学者迅速掌握Git工具的使用。以及GitHub的日常用法。
+                            本文是3D分类任务的学习笔记
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-31
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/git/" class="post-category" target="_blank">
-                                    git
+                            <a href="/categories/3d/" class="post-category" target="_blank">
+                                    3d
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/git/" target="_blank">
-                        <span class="chip bg-color">git</span>
+                    <a href="/tags/3d/" target="_blank">
+                        <span class="chip bg-color">3d</span>
                     </a>
                     
                 </div>
@@ -1101,30 +1069,30 @@ initrd /romfs.img.gz
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/django/python-django/">
+                <a href="/dl/conv-understanding/">
                     <div class="card-image">
                         
-                        <img src="/django/python-django/cover.png" class="responsive-img" alt="用Django搭建第一个投票网站">
+                        <img src="https://miro.medium.com/max/3872/1*deIf5n24IfP08lYDCPdXSw.jpeg" class="responsive-img" alt="理解深度学习中的各种卷积">
                         
-                        <span class="card-title">用Django搭建第一个投票网站</span>
+                        <span class="card-title">理解深度学习中的各种卷积</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文教你用Django搭建第一个网站，投票网站。
+                            Towards intuitive understanding of convolutions through visualizations
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/django/" class="post-category" target="_blank">
-                                    django
+                            <a href="/categories/dl/" class="post-category" target="_blank">
+                                    dl
                                 </a>
                             
                             
@@ -1134,16 +1102,8 @@ initrd /romfs.img.gz
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python/" target="_blank">
-                        <span class="chip bg-color">python</span>
-                    </a>
-                    
-                    <a href="/tags/django/" target="_blank">
-                        <span class="chip bg-color">django</span>
-                    </a>
-                    
-                    <a href="/tags/web/" target="_blank">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/dl/" target="_blank">
+                        <span class="chip bg-color">dl</span>
                     </a>
                     
                 </div>
