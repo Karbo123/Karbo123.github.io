@@ -410,14 +410,14 @@ CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segme
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.8k
+                        4.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        6 分
+                        17 分
                     </div>
                     
                 
@@ -436,38 +436,29 @@ CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segme
                 <h1 id="PointNet"><a href="#PointNet" class="headerlink" title="PointNet"></a>PointNet</h1><blockquote>
 <p>CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation》</p>
 <p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet/</a></p>
-<p>paper下载：<a href="https://arxiv.org/abs/1612.00593" target="_blank" rel="noopener">https://arxiv.org/abs/1612.00593</a></p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html</a></p>
 <p>pytorch代码：<a href="https://github.com/fxia22/pointnet.pytorch" target="_blank" rel="noopener">https://github.com/fxia22/pointnet.pytorch</a></p>
 </blockquote>
-<ol>
-<li><p>概括</p>
-<p>提出了一种“天然”适用于处理point cloud数据的Net。并且给出理论分析和较多实验。声称达到了state-of-the-art的效果：模型结构简单、精度高、计算复杂度低。</p>
+<h2 id="概括"><a href="#概括" class="headerlink" title="概括"></a>概括</h2><p>提出了一种“天然”适用于处理point cloud数据的Net。并且给出理论分析和较多实验。声称达到了state-of-the-art的效果：模型结构简单、精度高、计算复杂度低。</p>
 <p>TODO IDEA：如果对称函数/max pooling换做了sort函数/top k函数（排序后返回前k大的值），那会怎么样？没有层次化特征提取的过程（PointNet++已解决）？</p>
-</li>
-<li><p>难点</p>
-<p>最大的难点是如何处理point cloud数据的无序性，因为传统的操作都是有顺序依赖的（例如卷积，它是顺序相关的）。此外，点之间的空间相关性、变换（平移旋转等）的不变性也是难点所在。</p>
+<h2 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h2><p>最大的难点是如何处理point cloud数据的无序性，因为传统的操作都是有顺序依赖的（例如卷积，它是顺序相关的）。此外，点之间的空间相关性、变换（平移旋转等）的不变性也是难点所在。</p>
 <p>传统的处理方法：将点云数据投影到二维平面然后使用图像的方法处理；将点云数据划分到有空间依赖关系的voxel；数据sort之后再输入；使用RNN尝试消除输入的顺序性。</p>
-</li>
-<li><p>思想</p>
-<p>使用具有对称性质的函数（例如max函数），来实现处理点云的无序性。</p>
+<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>使用具有对称性质的函数（例如max函数），来实现处理点云的无序性。</p>
 <p>形式化表述即：</p>
 <script type="math/tex; mode=display">
-f(\{x_1,...,x_n\}) \approx g(h(x_1),...,h(x_n))</script><p>意思是说，先进行非线性变换$h(\cdot)$，再使用对称函数$g(\cdot)$，就能近似出某一个能实现无序性的函数$f(\cdot)$。且$h(\cdot)$决定了$f(\cdot)$，所以关键是如何学习$h(\cdot)$。</p>
-<p>其中函数$h(\cdot)$使用多层感知机自动学习出来，$g(\cdot)$是某一个对称函数（例如max函数），$x_i$是第$i$个点。</p>
-</li>
-<li><p>实现方式</p>
-<ol>
+   f(\{x_1,...,x_n\}) \approx g(h(x_1),...,h(x_n))</script><p>   意思是说，先进行非线性变换$h(\cdot)$，再使用对称函数$g(\cdot)$，就能近似出某一个能实现无序性的函数$f(\cdot)$。且$h(\cdot)$决定了$f(\cdot)$，所以关键是如何学习$h(\cdot)$。</p>
+<p>   其中函数$h(\cdot)$使用多层感知机自动学习出来，$g(\cdot)$是某一个对称函数（例如max函数），$x_i$是第$i$个点。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
 <li><p>网络前端（实现变换不变性）</p>
 <p>使用与输入数据相关的spatial transformer network（缩写stn），来生成一个仿射变换矩阵（它是方阵，例如一个object有2500个points且point的维度是3（x、y和z坐标构成3维）的点，那么丢进这个网络则会得到一个3x3大小的方阵）<br>然后将输入数据点施加这个仿射变换（乘以它），就得到预处理后的结果（虽然还是2500个维度是3的点）。可能可以认为这个仿射变换的作用是消除camera的摆放视角（看作是某一种变换）的影响？？</p>
-<pre class=" language-lang-python"><code class="language-lang-python">input data size: [batchsize, 3, 2500]
+<pre><code>input data size: [batchsize, 3, 2500]
 after many conv1d: [batchsize, 1024, 2500]
 after max function: [batchsize, 1024, 1]
 after view: [batchsize, 1024]
 after many fc layer: [batchsize, 9]
 after reshape to matrix: [batchsize, 3, 3]
 after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why？？可能类似于resnet的思想，或者是其他原因）
-</code></pre>
-<p>且我们在loss上加了正则约束项$||I-AA^T||^2_F$，使得学习到的矩阵$A$尽可能地是正交矩阵。</p>
+</code></pre><p>且我们在loss上加了正则约束项$||I-AA^T||^2_F$，使得学习到的矩阵$A$尽可能地是正交矩阵。</p>
 </li>
 <li><p>网络中端（消除输入的顺序性）</p>
 <p>然后按照下图来操作：</p>
@@ -485,28 +476,18 @@ after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why�
 </ul>
 </li>
 </ol>
-</li>
-</ol>
 <h1 id="PointNet-1"><a href="#PointNet-1" class="headerlink" title="PointNet++"></a>PointNet++</h1><blockquote>
 <p>NIPS2017《PointNet++: Deep Hierarchical Feature Learning onPoint Sets in a Metric Space》</p>
 <p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet2/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet2/</a></p>
-<p>paper下载：<a href="https://arxiv.org/abs/1706.02413" target="_blank" rel="noopener">https://arxiv.org/abs/1706.02413</a></p>
+<p>paper下载：<a href="http://papers.nips.cc/paper/7095-pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space" target="_blank" rel="noopener">http://papers.nips.cc/paper/7095-pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space</a></p>
 </blockquote>
-<ol>
-<li><p>概括</p>
-<p>是PointNet的升级版。针对PointNet对local features提取能力弱的缺点（例如不能应对points density的variation），提出使用层级结构来提取local features。简言之，就是模仿了CNN的分层特征提取，它将全体Points划分为许多local regions（类比于CNN中Kernel大小的概念），然后使用原始版本的PointNet提取regions里点的特征，并利用centroid取代regions的点，实现点数的减少，再多次这样，最后就能提取包含local features的features了。</p>
+<h2 id="概括-1"><a href="#概括-1" class="headerlink" title="概括"></a>概括</h2><p>是PointNet的升级版。针对PointNet对local features提取能力弱的缺点（例如不能应对points density的variation），提出使用层级结构来提取local features。简言之，就是模仿了CNN的分层特征提取，它将全体Points划分为许多local regions（类比于CNN中Kernel大小的概念），然后使用原始版本的PointNet提取regions里点的特征，并利用centroid取代regions的点，实现点数的减少，再多次这样，最后就能提取包含local features的features了。</p>
 <p>结果：特征表达更有效、鲁棒、精度高、但是计算代价高且慢（比PointNet慢几倍）</p>
 <p>其他：作者还发现在Non-Euclidean Metric Space（为geodesic distances）中模型的表现也很好，可以抵抗object的形变（例如不同姿态的猫）。作者可视化了the first level kernels，<a href="http://stanford.edu/~rqi/pointnet2/images/features.jpg" target="_blank" rel="noopener">戳图</a>。</p>
 <p>TODO IDEA：可能不同的度量空间对性能也有影响？感觉划定local regions的方式过于粗暴和生硬，有待改进？</p>
-</li>
-<li><p>难点</p>
-<p>如何有效地提取local features以抵抗density variation？（density variation：即点云的密度变化，稀疏的点云和密集的点云对模型精度的影响比较大，模型应该能对这种变化鲁棒才行）</p>
-</li>
-<li><p>思想</p>
-<p>模仿CNN的做法（分层级的特征提取）</p>
-</li>
-<li><p>实现方式</p>
-<ol>
+<h2 id="难点-1"><a href="#难点-1" class="headerlink" title="难点"></a>难点</h2><p>如何有效地提取local features以抵抗density variation？（density variation：即点云的密度变化，稀疏的点云和密集的点云对模型精度的影响比较大，模型应该能对这种变化鲁棒才行）</p>
+<h2 id="思想-1"><a href="#思想-1" class="headerlink" title="思想"></a>思想</h2><p>模仿CNN的做法（分层级的特征提取）</p>
+<h2 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h2><ol>
 <li><p>Hierarchical Point Set Feature Learning using <code>set abstraction levels</code></p>
 <p>set abstraction levels由Sampling layer、Grouping layer和PointNet layer组成</p>
 <ol>
@@ -523,18 +504,16 @@ after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why�
 <li><p>kNN（不推荐）：排序出最近的K个点作为邻居</p>
 </li>
 </ul>
-<ol>
+</li>
 <li><p>PointNet layer</p>
-<p>作用：特征提取</p>
-<p>算法过程：</p>
+<p>  作用：特征提取</p>
+<p>  算法过程：</p>
 <ul>
 <li><p>先将neighborhood的坐标转换为相对于centroid的相对坐标</p>
 </li>
 <li><p>再使用原始版本的PointNet作特征提取，提取到的特征作为centroid的特征。原本的neighborhood则不必再用，centroid作为下一个set abstraction levels的输入。</p>
 </li>
 </ul>
-</li>
-</ol>
 </li>
 </ol>
 </li>
@@ -553,6 +532,150 @@ after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why�
 <p><img src="http://stanford.edu/~rqi/pointnet2/images/pnpp.jpg" alt></p>
 <p>对于segmentation，还要对feature插值回原图的分辨率才能对每个点进行分类。</p>
 <p>而classification则直接fc+softmax就好了。</p>
+<h1 id="KCNet"><a href="#KCNet" class="headerlink" title="KCNet"></a>KCNet</h1><blockquote>
+<p>CVPR2018《Mining Point Cloud Local Structures by Kernel Correlation and Graph Pooling》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Shen_Mining_Point_Cloud_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Shen_Mining_Point_Cloud_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h2 id="概括-2"><a href="#概括-2" class="headerlink" title="概括"></a>概括</h2><ul>
+<li><p>作者针对PointNet对local features提取能力弱的缺点（然而PointNet++速度慢），提出使用Kernel Correlation + Graph Pooling的方法来更有效地提取local features。</p>
+</li>
+<li><p>特点：Kernel的Shape可学习（并且可视化后有直观的几何意义）；不再使用handcrafted的features（如法向量、协方差矩阵）学习了</p>
+</li>
+<li><p>有益效果：在PointNet的基础上，能有效地提取local features</p>
+</li>
+<li><p>与PointNet++的比较：同样是局部化的特征提取，KCNet使用的是人为设计的度量函数，而PointNet++是自动提取特征（套用PointNet）；KCNet是对每一个点都提取了local feature，而PointNet++是只对FPS采样出来的点为centroid以及确定的邻域范围内使用PointNet来提取local feature。KCNet中有明显的模板/卷积核概念，而PointNet/PointNet++中没有明显的这一概念。</p>
+</li>
+<li><p>TODO IDEA：感觉point set的相似度衡量（correlation）过于依赖于选取，是否可能有自动学习这一过程，或者使这一过程更加自然？KCNet实现了Kernel，但是没有对应于stride的东西？是否可以多次地使用这种Kernel Layer而不是只用一次，类似于CNN的叠层使用一样？其中的高斯径向基的$\sigma$是否有自动学习的方法？</p>
+</li>
+</ul>
+<h2 id="难点-2"><a href="#难点-2" class="headerlink" title="难点"></a>难点</h2><p>如何更加有效地提取local features？</p>
+<p>PointNet++是将Point Cloud划分为多个分区，然后各个分区使用PointNet，以实现层次化的特征提取，那么KCNet又能怎么做呢？</p>
+<p>PointNet的致命缺陷：PointNet只能感知点的是否存在，而不能编码/表征该点neighborhood的几何结构信息，造成局部描述能力弱。</p>
+<h2 id="思想-2"><a href="#思想-2" class="headerlink" title="思想"></a>思想</h2><p>更加模仿CNN的做法（Learnable的PointSet模板匹配）</p>
+<p>具体地说：</p>
+<ul>
+<li>我们有L个Kernel，每个Kernel有M个点，也就是说一个Kernel是一个point set，并且Kernel里点的位置都是learnable的，这就好比是我们有L个可变形的模板，或者说我们有L个可学习的“卷积核”。然后我们用数学方法人为地构造了一个叫KC(A,B)的度量函数用于度量point set A和point set B的相似程度，值越大越相似。然后这里的point set A就是Kernel，point set B就是我们model输入的point cloud里的其中一个点p的neighborhood的点集，也就是Kernel在整个point cloud上每一个点走过了一遍，因为有L个Kernel，所以一个点会得到一个L维的向量。以上就是Kernel Correlation的含义。</li>
+<li>然后我们遍历每个点，基于该点的邻居的feature值，每个维度上取max，便是graph max pooling；将邻居的features作算术平均替换掉该点，便是graph average pooling。这就是graph pooling的含义。</li>
+</ul>
+<h2 id="额外的Knowledge"><a href="#额外的Knowledge" class="headerlink" title="额外的Knowledge"></a>额外的Knowledge</h2><ul>
+<li>点云可能不止xyz坐标，或许还包括强度、法向量等信息，构成更高维的描述向量。点云只是描述Object surface的点，无Object内部的点。</li>
+<li>处理点云的4种主流方法：<ul>
+<li>volumetric-based：Volumetric-based approachpartitions the 3D space into regular voxels and apply 3D convolution on the voxels</li>
+<li>patch-based：Patch-based approach parameterizes 3D surface into local patches and apply convolution over these patches</li>
+<li>graph-based：Graph-based approach characterizes point clouds by graphs.</li>
+<li>point-based：Pointbased approach such as PointNet directly operates on point clouds</li>
+</ul>
+</li>
+</ul>
+<h2 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h2><p><img src="3_2.png" alt></p>
+<ol>
+<li><p>kernel correlation layer（Learning on Local Geometric Structure）</p>
+<p>所定义的度量函数为（我将论文的式子换了个形式好看些）：</p>
+<script type="math/tex; mode=display">
+KC(K,p) = \frac{1}{|N|}\sum_{p_K\in K} \sum_{p_N\in N}K_\sigma(p_K,p_N-p)</script><p>其中$K$代表Kernel（里面有$M$个点，其中的点用$p_K$表示）；$N$代表点$p$的邻居（不包含点$p$），邻居点记作$p_N$；$|N|$表示点$p$邻居的个数。</p>
+<p>其中的$p_N-p$就是表示相对坐标，暗示Kernel应该是以原点为centroid的。</p>
+<p>其中$K_\sigma$选用高斯径向基函数，那么最相似时这个$KC(K,p)$的值就是$M$（最大值），最小值就是$0$。</p>
+</li>
+<li><p>graph-based pooling layer（Learning on Local Feature Structure）</p>
+<p>作者借助了一个数据结构，他起名叫“KNNG（K最近邻图）”，用来存储每一个点的邻居是谁，使用KNN算法得出邻居成员。</p>
+<p>图结构的Pooling起到了feature aggregation的作用，据作者声称加强了特征的鲁棒性。</p>
+<ul>
+<li><p>Graph max pooling就是neighborhood特征的最大值（各个通道上）</p>
+</li>
+<li><p>Graph average pooling的直观解释：就是neighborhood特征的算术均值。原文中描述比较复杂，直观地说就是这样：</p>
+<p><img src="3_1.png" alt></p>
+<p>值得注意的是，pooling只是以邻居的特征计算后赋给自己。不知道为什么不算上自己的特征？？</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>速度快（只比PointNet稍慢），精度还算高（虽然不是最高的）</p>
+<p>鲁棒性（随机替换point为噪点）：graph max pooling比graph average pooling更鲁棒；单纯使用graph max pooling比结合着使用graph max pooling + kernel correlation鲁棒性能更好，只使用kernel correlation鲁棒性能最差。</p>
+<p>注意：作者训练时没有用data augmentation的方法</p>
+<h1 id="SO-Net"><a href="#SO-Net" class="headerlink" title="SO-Net"></a>SO-Net</h1><blockquote>
+<p>CVPR2018《SO-Net: Self-Organizing Network for Point Cloud Analysis》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Li_SO-Net_Self-Organizing_Network_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Li_SO-Net_Self-Organizing_Network_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h2 id="概括-3"><a href="#概括-3" class="headerlink" title="概括"></a>概括</h2><ul>
+<li>针对一些网络在处理point cloud时的缺点，如：不能对点的空间分布进行建模（例如PointNet++，只是能获取局部信息不能得到局部区域之间的空间关系），提出了SO-Net。SO的含义是利用Self-organizing map的Net。</li>
+<li>结果：它具有能够对点的空间分布进行建模、层次化特征提取、可调节的感受野范围的优点，并能够用于多种任务如重建、分类、分割等等。取得了相似或超过SOTA的性能，因为可并行化和架构简单使得训练速度很快。</li>
+<li>贡献：<ul>
+<li>We design a permutation invariant network - the SO-Net that explicitly utilizes the <strong>spatial distribution of point clouds</strong>.</li>
+<li>With point-to-node kNN search on SOM, hierarchical feature extraction is performed with systematically <strong>adjustable receptive field overlap</strong>（可调节的、感受野之间有交叠）.</li>
+<li>We propose a <strong>point cloud autoencoder as pre-training</strong> to improve network performance in various tasks.</li>
+<li>Compared with state-of-the-art approaches, similar or better performance is achieved in various applications with <strong>significantly faster training speed</strong>.</li>
+</ul>
+</li>
+<li>TODO IDEA：作者发现将CNN直接用于SOM图上性能不升反降，为什么（推测：可能是SOM的2D map并不是保持了原本的空间对应关系，可能nodes之间是乱序的，导致用conv2d时精度反而降低）？</li>
+</ul>
+<h2 id="难点-3"><a href="#难点-3" class="headerlink" title="难点"></a>难点</h2><p>如何对local regions之间的空间关系进行建模？举个例子，即怎么显式地知道region A在region B的左边？</p>
+<h2 id="额外的Knowledge-1"><a href="#额外的Knowledge-1" class="headerlink" title="额外的Knowledge"></a>额外的Knowledge</h2><ol>
+<li><p>该文Related Work里对点云处理的“综述”比较详尽，怒赞！！！</p>
+</li>
+<li><p>网上找的SOM简介：<a href="https://www.cnblogs.com/surfzjy/p/7944454.html" target="_blank" rel="noopener">【机器学习笔记】自组织映射网络（SOM）</a></p>
+</li>
+</ol>
+<h2 id="思想-3"><a href="#思想-3" class="headerlink" title="思想"></a>思想</h2><ul>
+<li>点云的空间分布编码：使用SOM中nodes自带的拓扑结构实现</li>
+<li>交叠感受野且可调：使用“point-to-node kNN search”，使得感受野大概率交叠，并且感受野大小受超参数控制。</li>
+<li>无序化：使用作者提出改进的SOM即“Permutation Invariant SOM”，使得SOM的result对输入数据的顺序弱化至无。</li>
+</ul>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><ol>
+<li><p>Permutation Invariant SOM</p>
+<p>使用2维的SOM。注意2维的SOM并不是指nodes的features的dimension是2，而是指nodes的拓扑排列是2维正方形地排列。实质上nodes的features的dimension可以是任意维度，当是三维时就好比是学习point cloud的“聚类中心”。</p>
+<p>传统SOM不能真正实现对输入数据的顺序不依赖性，需要作出修改：</p>
+<ul>
+<li>Assign fixed initial nodes for any given SOM configuration</li>
+<li>Perform one update after accumulating the effects of all the points.（batch update）</li>
+</ul>
+</li>
+<li><p>Encoder Architecture</p>
+<p>记号：</p>
+<ul>
+<li><p>point cloud（其元素简称point） $P=\{p_i\in \mathbb{R}^3,i=0,…,N-1\}$</p>
+</li>
+<li><p>SOM nodes（其元素简称node） $S=\{s_j\in \mathbb{R}^3,j=0,…,M-1\}$</p>
+</li>
+</ul>
+<ol>
+<li><p>point-to-node kNN search</p>
+<p>在$S$中寻找$p_i$的k个最近邻：$p_i$的第$k$个邻居记作$s_{ik}$</p>
+</li>
+<li><p>normalization</p>
+<p>将$P$中的点都进行normalization：$p_{ik}=p_i-s_{ik}$</p>
+<p>那么每个点$p_i$都有k个被归一化后的版本。一共有N*k个这样被normalization后的点。</p>
+</li>
+<li><p>shared FC layer（作用：施加非线性，提取point features）</p>
+<p>将$p_{ik}$输入一层FC，得到$p_{ik}^1$；若输入$l$层FC层则得到$p_{ik}^l$</p>
+<p>shared的意思大概是对于N*k个这样的$p_{ik}$输入的都是同一个FC网络。</p>
+<p>构造N*k个$p_{ik}$的用途：</p>
+<ul>
+<li>提取point features：每一个point都有3个feature vectors</li>
+<li>形成感受野：每一个node大致有$int(\frac{k N}{M})$个feature vectors。利用这一性质，我们在后面用max pooling操作提取node features。</li>
+</ul>
+</li>
+<li><p>channel-wise max pooling operation（作用：从point features中提取SOM node features）</p>
+<p>注意这里是从MLP尾巴$p_{ik}^l$提取的max pooling。</p>
+<p>这里$max()$函数的里面的元素的个数就是感受野的大小，可知感受野大小不是确定的，容易知道感受野大小的期望就是$\frac{k N}{M}$，所以说感受野是可调的，并且存在overlap。</p>
+<script type="math/tex; mode=display">
+s_j^0 = \max(\{ p_{ik}^l ,\forall s_{ik}=s_j \})</script><p>原本$s_j$是3维向量，现在max pooling后额外得到了维度未知的向量$s_j^0$（维度取决于MLP最后一层的输出维度）。</p>
+<p>node concatenation：然后可以将两者concat起来得到$[s_j,\;s_j^0]$，feature的维度更长了，融合了不同层次的信息。</p>
+<p>注意到“shared FC layer + channel-wise max pooling operation”好比就是一个small PointNet，对“mini point cloud”进行编码。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="4_1.png" alt></p>
+<p>网络结构如上。</p>
+<p>总地来说就是，先计算SOM得到$s_j$，然后计算$p_{ik}$，接着将$p_{ik}$输入MLP得到变换后的$p_{ik}^l$，接着对$p_{ik}^l$作max pooling得到$s_j^0$，与原本的cancat使得node features“变长”（在图中表示就是那个网格拥有depth了），接着对SOM nodes作MLP再max pooling得到global feature。</p>
+<p>segmentation与classification略去不说。</p>
+<ol>
+<li><p>Autoencoder</p>
+<p>In this section, we design a decoder network to recover the input point cloud from the encoded global feature vector.</p>
+<p><img src="4_2.png" alt></p>
+</li>
+<li><p>Experiments结果分析</p>
+<p>略</p>
 </li>
 </ol>
 
@@ -1230,7 +1353,7 @@ after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why�
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">48.9k</span>
+            <span class="white-color">51.4k</span>
             
 
             

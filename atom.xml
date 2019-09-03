@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-01T12:53:16.463Z</updated>
+  <updated>2019-09-03T13:01:30.592Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/3d/3dclassificationnotes/"/>
     <id>https://blog.karbo.online/3d/3dclassificationnotes/</id>
     <published>2019-08-31T12:16:21.000Z</published>
-    <updated>2019-09-01T12:53:16.463Z</updated>
+    <updated>2019-09-03T13:01:30.592Z</updated>
     
     <summary type="html">
     
@@ -354,11 +354,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -532,11 +532,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -565,9 +565,9 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
