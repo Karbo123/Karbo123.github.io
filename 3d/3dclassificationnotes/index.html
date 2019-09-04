@@ -410,14 +410,14 @@ CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segme
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.3k
+                        5.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        17 分
+                        22 分
                     </div>
                     
                 
@@ -676,6 +676,71 @@ s_j^0 = \max(\{ p_{ik}^l ,\forall s_{ik}=s_j \})</script><p>原本$s_j$是3维�
 </li>
 <li><p>Experiments结果分析</p>
 <p>略</p>
+</li>
+</ol>
+<h1 id="Using-Local-Spectral-Graph-Convolution"><a href="#Using-Local-Spectral-Graph-Convolution" class="headerlink" title="Using Local Spectral Graph Convolution"></a>Using Local Spectral Graph Convolution</h1><blockquote>
+<p>ECCV2018《Local Spectral Graph Convolution for Point Set Feature Learning》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_ECCV_2018/html/Chu_Wang_Local_Spectral_Graph_ECCV_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_ECCV_2018/html/Chu_Wang_Local_Spectral_Graph_ECCV_2018_paper.html</a></p>
+</blockquote>
+<h2 id="概括-4"><a href="#概括-4" class="headerlink" title="概括"></a>概括</h2><p>在局部图的区域上使用“图卷积”提取local features（将局部点图的图卷积转换到频域上进行操作），提出了fancy的池化操作（多次使用clustering+pooling进行的池化操作）。</p>
+<h2 id="思想-4"><a href="#思想-4" class="headerlink" title="思想"></a>思想</h2><p>利用图卷积的方式取代PointNet进行local regions的features extraction。</p>
+<p>提出使用先划分子区域（clustering）再pooling的池化方法，感觉像是分组卷积的思想？</p>
+<h2 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h2><p><img src="5_1.png" alt></p>
+<ol>
+<li><p>使用FPS计算出centroids，kNN计算出local regions。</p>
+</li>
+<li><p>接着使用频域的图卷积，以及多次使用clustering+pooling进行池化。</p>
+<p><img src="5_2.png" alt></p>
+<p>频域图卷积过程如上图所示。</p>
+<p>局部点图一共有k个点。其中：</p>
+<p>$X$是输入特征矩阵（一共有k行，每一行是该点的特征向量，特征向量维度为m）</p>
+<p>$G$是spectral modulation matrix，$W$是weights of the feature filter（好像是图的邻接矩阵？）</p>
+<p>图的傅里叶变换：首先计算拉普拉斯矩阵$L=I-D^{-1/2}WD^{-1/2}$，然后对$L$作特征值分解得到特征向量矩阵$U$，那么正傅里叶变换就是$\tilde{X}=U^TX$，反傅里叶变换就是$X=U\tilde{X}$</p>
+<p>池化：We partition the Fiedler vector to perform spectral clustering in a local k-NN. We alternate between max pooling and average pooling between different recurrences.</p>
+</li>
+<li><p>多次重复步骤2，最终获取特征用于分类/分割。</p>
+</li>
+</ol>
+<h1 id="PointCNN"><a href="#PointCNN" class="headerlink" title="PointCNN"></a>PointCNN</h1><blockquote>
+<p>NIPS2018《PointCNN: Convolution On X-Transformed Points》</p>
+<p>paper下载：<a href="http://papers.nips.cc/paper/7362-pointcnn-convolution-on-x-transformed-points" target="_blank" rel="noopener">http://papers.nips.cc/paper/7362-pointcnn-convolution-on-x-transformed-points</a></p>
+</blockquote>
+<h2 id="概括-5"><a href="#概括-5" class="headerlink" title="概括"></a>概括</h2><p>作者声称提出了一种“generalization of typical CNNs to feature learning from point clouds”，因而称作“PointCNN”（我个人觉得人造痕迹比较多），并且接近/达到了SOTA的性能。</p>
+<p>主要流程是：用kNN划分regions，然后对neighborhood的feature matrix进行transform，接着与kernel matrix进行conv；多层这样的“conv层”堆叠，最后得到特征输出。</p>
+<p>但是需要注意的是：作者发现矩阵$X$并没有达到“permutation equivalence”的效果；而且作者训练时使用了augmentation的方法，包括shuffle输入数据点的顺序。</p>
+<p>这里的“卷积”是真正传统意义上的卷积（元素间按位相乘再相加）；不同于KCNet提出的3D Kernel大法，不同于图结构的谱图卷积等等。</p>
+<h2 id="思想-5"><a href="#思想-5" class="headerlink" title="思想"></a>思想</h2><p>想直接弄个conv类似的linear conv kernel，发现conv对输入数据的order sensitivity。于是想办法“纠正”输入数据的order，本想用“Permutation matrix”乘以它就好了，可能是ideal的Permutation matrix很难弄到，所以提出弄了个矩阵$X$，美言称能实现“simultaneously weight and permute the input features”，然后实在不知道怎么弄了，就让矩阵$X$自己从输入点集的坐标里学习吧（使用MLP），然后甚至还将点集坐标nonlinear transform后cancat进原本的features。最后施加矩阵$X$，最后卷积。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>传统卷积（暂不考虑kernel的滑动，只考虑在一个location上）可以表示为（这里的conv实际上是matrices间element-wise的product，最后sum）：</p>
+<script type="math/tex; mode=display">
+f = conv(K,[f_a,f_b,f_c,f_d]^T)</script><p>其中$K$表示卷积核，$f_a$等表示像素的特征向量（横向量，$f_a\in \mathbb{R}^{C_1}$）。上式表示2*2的kernel在一个location上的computation。</p>
+<p>推广开来，在点云上，假设有4个points，然后做“卷积”，式子跟上面是一样的。但是对点云的输入顺序敏感，即$[f_a,f_b,f_c,f_d]^T$与$[f_b,f_a,f_c,f_d]^T$的结果会不一样，所以我们需要对它进行transform再输进去。我们这里选择用一个矩阵$X$与它相乘（矩阵有“置换矩阵”可以实现对输入顺序的矫正，推广到一般矩阵则相当于“置换+加权”的效果）。即：</p>
+<script type="math/tex; mode=display">
+f = conv(K,X \times [f_a,f_b,f_c,f_d]^T)</script><p>这个矩阵$X$是由输入数据通过MLP生成的。</p>
+<p>在PointCNN中，一次computation（只在一个location上，不“滑动”）的过程就是：</p>
+<script type="math/tex; mode=display">
+F_p = conv(K,MLP(P-p) \times [MLP_\delta(P-p),F])</script><p>其中$K$是kernel matrix，$P$是输入点集的空间坐标（在region中，如果kernel覆盖了4个点，那么$P$的元素个数就是4），$p$是输出点的空间坐标（类似于该region的centroid，只有一个，$p\in P$），$F$是输入点集的feature matrix（与$P$的元素个数相同），$MLP()$和$MLP_\delta()$是多层感知机函数。</p>
+<p>handcrafted的流程解释：</p>
+<ul>
+<li><p>转化到相对坐标系中$P-p$</p>
+</li>
+<li><p>矩阵$X$通过输入点集的空间坐标学习得来：$X=MLP(P-p)$</p>
+</li>
+<li>将输入点集维度升高，并与点集的特征向量进行cancat，作为最终的特征向量：$[MLP_\delta(P-p),F]$</li>
+<li>进行“置换+加权”：$MLP(P-p) \times [MLP_\delta(P-p),F]$</li>
+<li>最后进行常规的卷积操作得到$f$</li>
+</ul>
+<h2 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h2><ol>
+<li><p>Hierarchical Convolution</p>
+<p><img src="6_1.png" alt></p>
+<p>模拟CNN，作者对图结构进行information的aggregation。</p>
+</li>
+<li><p>X-Conv Operator</p>
+<p>作者的卷积结构称作“X-Conv”。我觉得直接从点云坐标学习得到矩阵$X$似乎是个很难的任务，感觉$X$矩阵并没有达到预期目的。</p>
+<script type="math/tex; mode=display">
+F_p = conv(K,MLP(P-p) \times [MLP_\delta(P-p),F])</script></li>
+<li><p>PointCNN Architectures</p>
+<p><img src="6_2.png" alt></p>
+<p>通过多层的堆叠实现特征提取。</p>
 </li>
 </ol>
 
@@ -1353,7 +1418,7 @@ s_j^0 = \max(\{ p_{ik}^l ,\forall s_{ik}=s_j \})</script><p>原本$s_j$是3维�
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">51.4k</span>
+            <span class="white-color">52.7k</span>
             
 
             
