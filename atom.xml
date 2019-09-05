@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-04T14:15:06.035Z</updated>
+  <updated>2019-09-05T11:21:18.974Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/3d/3dclassificationnotes/"/>
     <id>https://blog.karbo.online/3d/3dclassificationnotes/</id>
     <published>2019-08-31T12:16:21.000Z</published>
-    <updated>2019-09-04T14:15:06.035Z</updated>
+    <updated>2019-09-05T11:21:18.974Z</updated>
     
     <summary type="html">
     
@@ -29,8 +29,7 @@
       
         
         
-          &lt;h1 id=&quot;PointNet&quot;&gt;&lt;a href=&quot;#PointNet&quot; class=&quot;headerlink&quot; title=&quot;PointNet&quot;&gt;&lt;/a&gt;PointNet&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;CVPR2017《PointNet: Deep Learning
+          &lt;h1 id=&quot;3D分类笔记&quot;&gt;&lt;a href=&quot;#3D分类笔记&quot; class=&quot;headerlink&quot;
         
       
     
@@ -354,11 +353,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -532,11 +531,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
@@ -565,9 +564,9 @@
       <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
     
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
