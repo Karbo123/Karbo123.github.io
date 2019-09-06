@@ -5,10 +5,10 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="理解深度学习中的各种卷积, 任我行">
-    <meta name="description" content="
+    <meta name="description" content="理解深度学习中的各种卷积
 参考文献：A Comprehensive Introduction to Different Types of Convolutions in Deep Learning
 
-1. Convolution v.s. Cross-correl">
+1. Convolution v.s. ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -434,13 +434,13 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
+                <h1 id="理解深度学习中的各种卷积"><a href="#理解深度学习中的各种卷积" class="headerlink" title="理解深度学习中的各种卷积"></a>理解深度学习中的各种卷积</h1><blockquote>
 <p>参考文献：<a href="https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215" target="_blank" rel="noopener">A Comprehensive Introduction to Different Types of Convolutions in Deep Learning</a></p>
 </blockquote>
-<h1 id="1-Convolution-v-s-Cross-correlation"><a href="#1-Convolution-v-s-Cross-correlation" class="headerlink" title="1. Convolution v.s. Cross-correlation"></a>1. Convolution v.s. Cross-correlation</h1><p>卷积（Convolution）与互相关（Cross-correlation）</p>
+<h2 id="1-Convolution-v-s-Cross-correlation"><a href="#1-Convolution-v-s-Cross-correlation" class="headerlink" title="1. Convolution v.s. Cross-correlation"></a>1. Convolution v.s. Cross-correlation</h2><p>卷积（Convolution）与互相关（Cross-correlation）</p>
 <p><img src="https://miro.medium.com/max/1908/1*K500B9Jdwddeh3TTlViQLg.jpeg" alt="Difference between convolution and cross-correlation in signal processing."></p>
 <p>In Deep Learning, the filters in convolution are not reversed. Rigorously speaking, it’s cross-correlation. We essentially perform element-wise multiplication and addition. But it’s a convention to just call it convolution in deep learning. </p>
-<h1 id="2-Convolution-in-Deep-Learning"><a href="#2-Convolution-in-Deep-Learning" class="headerlink" title="2. Convolution in Deep Learning"></a>2. Convolution in Deep Learning</h1><ol>
+<h2 id="2-Convolution-in-Deep-Learning"><a href="#2-Convolution-in-Deep-Learning" class="headerlink" title="2. Convolution in Deep Learning"></a>2. Convolution in Deep Learning</h2><ol>
 <li><p>理清概念：</p>
 <ul>
 <li>layers and filters are at the same level</li>
@@ -477,10 +477,10 @@ W_{out} &= \lfloor \frac{W_{equal}-K}{S} \rfloor + 1 \\
 \end{align}</script></blockquote>
 </li>
 </ol>
-<h1 id="3-3D-Convolution"><a href="#3-3D-Convolution" class="headerlink" title="3. 3D Convolution"></a>3. 3D Convolution</h1><p>   当kernel size &lt; channel size时，filter有3个自由度，一次卷积操作过后得到的是多通道的图片（3D data）</p>
+<h2 id="3-3D-Convolution"><a href="#3-3D-Convolution" class="headerlink" title="3. 3D Convolution"></a>3. 3D Convolution</h2><p>   当kernel size &lt; channel size时，filter有3个自由度，一次卷积操作过后得到的是多通道的图片（3D data）</p>
 <p>   <img src="https://miro.medium.com/max/1610/1*wUVVgZnzBwYKgQyTBK_5sg.png" alt="In 3D convolution, a 3D filter can move in all 3-direction（height, width, channel of the image）. At each position, the element-wise multiplication and addition provide one number. Since the filter slides through a 3D space, the output numbers are arranged in a 3D space as well. The output is then a 3D data."></p>
 <p>   Similar as 2D convolutions which encode spatial relationships of objects in a 2D domain, 3D convolutions can describe the spatial relationships of objects in the 3D space.</p>
-<h1 id="4-Transposed-Convolution（Deconvolution）"><a href="#4-Transposed-Convolution（Deconvolution）" class="headerlink" title="4. Transposed Convolution（Deconvolution）"></a>4. Transposed Convolution（Deconvolution）</h1><ul>
+<h2 id="4-Transposed-Convolution（Deconvolution）"><a href="#4-Transposed-Convolution（Deconvolution）" class="headerlink" title="4. Transposed Convolution（Deconvolution）"></a>4. Transposed Convolution（Deconvolution）</h2><ul>
 <li><p>目的：做上采样（up-sampling）</p>
 </li>
 <li><p>别名：transposed convolution == deconvolution（不太合适） == fractionally strided convolution</p>
@@ -501,7 +501,7 @@ W_{out} &= \lfloor \frac{W_{equal}-K}{S} \rfloor + 1 \\
 <p>One unpleasant behavior that people observe when using transposed convolution is the so-called checkerboard artifacts（棋盘效应）.</p>
 <p><img src="https://miro.medium.com/max/1610/1*w08YkXF_hTBRFoQ1lhffpg.png" alt="A few examples of checkerboard artifacts."></p>
 </blockquote>
-<h1 id="5-Dilated-Convolution（Atrous-Convolution）"><a href="#5-Dilated-Convolution（Atrous-Convolution）" class="headerlink" title="5. Dilated Convolution（Atrous Convolution）"></a>5. Dilated Convolution（Atrous Convolution）</h1><p><img src="https://miro.medium.com/max/395/1*niGh2BkLuAUS2lkctkd3sA.gif" alt="The dilated convolution."></p>
+<h2 id="5-Dilated-Convolution（Atrous-Convolution）"><a href="#5-Dilated-Convolution（Atrous-Convolution）" class="headerlink" title="5. Dilated Convolution（Atrous Convolution）"></a>5. Dilated Convolution（Atrous Convolution）</h2><p><img src="https://miro.medium.com/max/395/1*niGh2BkLuAUS2lkctkd3sA.gif" alt="The dilated convolution."></p>
 <p>参数$l$（使Kernel变大的参数）：</p>
 <ul>
 <li>当$l=1$时，空洞卷积的Kernel就是普通的Kernel</li>
@@ -510,7 +510,7 @@ W_{out} &= \lfloor \frac{W_{equal}-K}{S} \rfloor + 1 \\
 <p>The following image shows the kernel size when $l = 1, 2,$ and $4$.</p>
 <p><img src="https://miro.medium.com/max/2019/1*d3rLXrB7IfjvUR2ojBYsVw.jpeg" alt="Receptive field for the dilated convolution. We essentially observe a large receptive field without adding additional costs."></p>
 <p>优点：不增大参数量的情况下，加大感受野（实质上是通过增大Kernel面积，然后使用时多个级联，才能使得感受野迅速增大）</p>
-<h1 id="6-Separable-Convolutions"><a href="#6-Separable-Convolutions" class="headerlink" title="6. Separable Convolutions"></a>6. Separable Convolutions</h1><h2 id="6-1-Spatially-Separable-Convolutions"><a href="#6-1-Spatially-Separable-Convolutions" class="headerlink" title="6.1 Spatially Separable Convolutions"></a>6.1 Spatially Separable Convolutions</h2><ol>
+<h2 id="6-Separable-Convolutions"><a href="#6-Separable-Convolutions" class="headerlink" title="6. Separable Convolutions"></a>6. Separable Convolutions</h2><h3 id="6-1-Spatially-Separable-Convolutions"><a href="#6-1-Spatially-Separable-Convolutions" class="headerlink" title="6.1 Spatially Separable Convolutions"></a>6.1 Spatially Separable Convolutions</h3><ol>
 <li><p>动机：</p>
 <p>Conceptually, spatially separable convolution decomposes a convolution into two separate operations. For an example shown below, a Sobel kernel, which is a 3x3 kernel, is divided into a 3x1 and 1x3 kernel.</p>
 <p><img src="https://miro.medium.com/max/800/1*SMOKzHFFG_9sjWAYpOb6CA.png" alt="A Sobel kernel can be divided into a 3 x 1 and a 1 x 3 kernel."></p>
@@ -540,7 +540,7 @@ W_{out} &= \lfloor \frac{W_{equal}-K}{S} \rfloor + 1 \\
 </li>
 </ol>
 </blockquote>
-<h2 id="6-2-Depthwise-Separable-Convolutions"><a href="#6-2-Depthwise-Separable-Convolutions" class="headerlink" title="6.2 Depthwise Separable Convolutions"></a>6.2 Depthwise Separable Convolutions</h2><p>深度可分离卷积的步骤（10275 multiplications）：</p>
+<h3 id="6-2-Depthwise-Separable-Convolutions"><a href="#6-2-Depthwise-Separable-Convolutions" class="headerlink" title="6.2 Depthwise Separable Convolutions"></a>6.2 Depthwise Separable Convolutions</h3><p>深度可分离卷积的步骤（10275 multiplications）：</p>
 <ol>
 <li><p>先变小（depthwise convolution）：将Layer和Kernel在深度方向上分离，做一次2D卷积，然后在通道方向上concat，得到深度不变、宽长变小的Layer</p>
 </li>
@@ -560,7 +560,7 @@ depthwise \; separable \; convolutions = depthwise \; convolution \; + \; 1 \tim
 <li><p>对于small model，使用它，反而会减少模型容量（容易欠拟合）；适当地利用则会提高效率，而不会降低很多精度。</p>
 </li>
 </ul>
-<h1 id="7-Grouped-Convolution"><a href="#7-Grouped-Convolution" class="headerlink" title="7. Grouped Convolution"></a>7. Grouped Convolution</h1><p>分组卷积示意图（分组$g=2$）：</p>
+<h2 id="7-Grouped-Convolution"><a href="#7-Grouped-Convolution" class="headerlink" title="7. Grouped Convolution"></a>7. Grouped Convolution</h2><p>分组卷积示意图（分组$g=2$）：</p>
 <p><img src="https://miro.medium.com/max/3315/1*dBrsVP0nt_PrBlICSBTttg.png" alt="Grouped convolution with 2 filter groups."></p>
 <p>步骤：</p>
 <ol>
@@ -1272,7 +1272,7 @@ depthwise \; separable \; convolutions = depthwise \; convolution \; + \; 1 \tim
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">54.1k</span>
+            <span class="white-color">55.3k</span>
             
 
             

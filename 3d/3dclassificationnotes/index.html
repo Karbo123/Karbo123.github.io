@@ -7,8 +7,8 @@
     <meta name="keywords" content="3D分类笔记, 任我行">
     <meta name="description" content="3D分类笔记下面的papers都是有关3D点云特征提取的，将提取到的特征用于分类或分割任务。
 主要是围绕如何提取局部的几何关系特征而展开，给我的感觉就像是传统的机器学习算法（像SIFT那代）与深度学习相结合。
-PointNet
-CVPR20">
+PointNet 👍
+CVP">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -411,14 +411,14 @@ CVPR20">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.9k
+                        8.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        27 分
+                        31 分
                     </div>
                     
                 
@@ -436,7 +436,7 @@ CVPR20">
             <div id="articleContent">
                 <h1 id="3D分类笔记"><a href="#3D分类笔记" class="headerlink" title="3D分类笔记"></a>3D分类笔记</h1><p>下面的papers都是有关3D点云特征提取的，将提取到的特征用于分类或分割任务。</p>
 <p>主要是围绕如何提取局部的几何关系特征而展开，给我的感觉就像是传统的机器学习算法（像SIFT那代）与深度学习相结合。</p>
-<h2 id="PointNet"><a href="#PointNet" class="headerlink" title="PointNet"></a>PointNet</h2><blockquote>
+<h2 id="PointNet-👍"><a href="#PointNet-👍" class="headerlink" title="PointNet 👍"></a>PointNet 👍</h2><blockquote>
 <p>CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation》</p>
 <p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet/</a></p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html</a></p>
@@ -479,7 +479,7 @@ after add identity matrix: [batchsize, 3, 3] （加上3x3的单位矩阵，why�
 </ul>
 </li>
 </ol>
-<h2 id="PointNet-1"><a href="#PointNet-1" class="headerlink" title="PointNet++"></a>PointNet++</h2><blockquote>
+<h2 id="PointNet"><a href="#PointNet" class="headerlink" title="PointNet++"></a>PointNet++</h2><blockquote>
 <p>NIPS2017《PointNet++: Deep Hierarchical Feature Learning onPoint Sets in a Metric Space》</p>
 <p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet2/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet2/</a></p>
 <p>paper下载：<a href="http://papers.nips.cc/paper/7095-pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space" target="_blank" rel="noopener">http://papers.nips.cc/paper/7095-pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space</a></p>
@@ -792,6 +792,34 @@ F_p = conv(K,MLP(P-p) \times [MLP_\delta(P-p),F])</script></li>
 <p>整体结构如下：</p>
 <p><img src="7_3.png" alt></p>
 <p>它的Segmentation Network上采样插值部分与之前某个网络有点类似（The interpolation method is based on the inverse squared Euclidean distance weighted average of the three nearest neighbors），不再详述。</p>
+</li>
+</ol>
+<h2 id="PointConv-👍"><a href="#PointConv-👍" class="headerlink" title="PointConv 👍"></a>PointConv 👍</h2><blockquote>
+<p>CVPR2019《PointConv: Deep Convolutional Networks on 3D Point Clouds》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_CVPR_2019/html/Wu_PointConv_Deep_Convolutional_Networks_on_3D_Point_Clouds_CVPR_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_CVPR_2019/html/Wu_PointConv_Deep_Convolutional_Networks_on_3D_Point_Clouds_CVPR_2019_paper.html</a></p>
+</blockquote>
+<h3 id="概括-7"><a href="#概括-7" class="headerlink" title="概括"></a>概括</h3><p>这篇文章将卷积比较自然地拓展到点云的情形，思路很赞！</p>
+<p>文章的主要创新点：“weight function”和“density function”，并能实现translation-invariance和permutation-invariance，可以实现层级化特征提取，而且能自然推广到其deconvolution的情形实现分割，在二维CIFAR-10图像分类任务中精度堪比CNN（表明能够充分近似卷积网络），达到了SOTA的性能。</p>
+<p>缺点：每个kernel都需要由“kernel function”生成，而“kernel function”实质上是一个CNN网络，计算量比较大。</p>
+<h3 id="思想-7"><a href="#思想-7" class="headerlink" title="思想"></a>思想</h3><p>察觉到：二维卷积中pixel的相对centroid位置与kernel vector的生成方式有关。</p>
+<p>以二维卷积为例说明一下如何将卷积拓展到点云。这里只考虑使用一个kernel在一个location的一次卷积操作。</p>
+<p>对于二维图像，我们可以将图像的pixels看作是一个点，那么图像就是整齐排列的点阵。每个point都有维度为$C_{in}$的特征向量（相当于图片是多通道的，一个通道对应于特征向量里的一个位置）。在二维卷积中，我们的kernel是“滑动”的，即我们在多个location的计算中共用一个kernel参数。这是为什么呢？我们如果认为这种共享参数的形式得益于整齐排列的points，那么这就是我们的PointConv的出发点了。</p>
+<p><img src="8_1.png" alt></p>
+<p>现在我们考虑一个point位置上的kernel是什么，在传统2D卷积中，这个值就是一个vector（$C_{in}$尺寸），如果points是正方形（2*2）整齐排列，那么我们可以认为kernel是$2\times2\times C_{in}$的尺寸。但是我们现在不这么认为，我们认为kernel的尺寸是$K\times C_{in}$（其中$K$是输入点的个数，这里是4），这样有助于推广到点云的情形。</p>
+<p>在2D图像中，我们不妨可以认为kernel是这样生成的：kernel在一个point上的值（vector），取决于point的位置。那么在2D图像中，这个生成vector的分布，则是4点的狄拉克分布，即在空间坐标中只在这4个位置下，才有对应的向量值。</p>
+<p>我们推广开来，假设这个分布是实数值的连续分布，不妨叫它做“weight function”，那么在3D点云中，这个“weight function”的输入是3D坐标系x、y和z，它的输出则是一个vector（尺寸$C_{in}$）。（在2D图像中，则$[f(0,0),f(1,0);f(0,1),f(1,1)]$组成了我们三维的kernel，尺寸$2\times2\times C_{in}$）。如果点的坐标是实数值（3D点云中其实就是实数值），那么我们点云的kernel尺寸就是$4\times C_{in}$，即我们每个point都有一个vector kernel与它对应。我们的计算过程就是：每个point的的feature与kernel vector做点积，最后把所有邻居点的点积的结果求和，得到的scalar就是我们一次卷积计算后的结果。</p>
+<p>如果每个point的位置上是一个矩阵，那么相当于有多个kernel，最后得到的卷积结果不是scalar而是一个vector（有点像2D卷积中有多个卷积核的情形，输出就形成了多个channels）。</p>
+<h3 id="实现-6"><a href="#实现-6" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>PointConv</p>
+<p>在邻居点中实现卷积：</p>
+<script type="math/tex; mode=display">
+F_{out} = \sum_{k=1}^K \sum_{c_{in}=1}^{C_{in}} S(k)W(k,c_{in})F_{in}(k,c_{in})</script><p>其中$W\in\mathbb{R}^{K\times(C_{in}\times C_{out})}$是$C_{out}$个kernel，$F_{in} \in \mathbb{R}^{K\times C_{in}}$是邻居的特征矩阵（一行一个），$S$是点密度的修正项（density scale），$F_{out}$是卷积后输出的vector。其中的kernel由“kernel function”生成，而“kernel function”接收x、y和z坐标输入，然后通过2D卷积（用1x1卷积核），得到一个尺寸为$K\times C_{in}\times C_{out}$的tensor，就是$W$。输出的$F_{out}$的空间坐标就是centroid的坐标。</p>
+<p><img src="8_2.png" alt></p>
+<p>关于密度：作者首先使用“kernel density estimation”算法估计每一个点的密度，然后将得到的密度（一个点的密度是一个实数值，有$K$个点所以是一个1d vector）丢进MLP里非线性变换（丢进MLP里是为了让网络自己决定是否采用密度估计），估计密度是为了解决点云的非均匀采样导致的非均匀密度的问题。</p>
+<p>作者发现原始版本的PointConv实现内存占用太大，提出了改进版本，在此不详述。</p>
+<p>PointDeconv其实就是邻域3点线性插值上采样，与前面同级的特征concat，再使用PointConv。</p>
+<p><img src="8_3.png" alt></p>
+<p>上图是用于segmentation的pointconv网络。特征提取的过程好像也是先用FPS采样再grouping的。</p>
 </li>
 </ol>
 
@@ -1469,7 +1497,7 @@ F_p = conv(K,MLP(P-p) \times [MLP_\delta(P-p),F])</script></li>
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">54.1k</span>
+            <span class="white-color">55.3k</span>
             
 
             
