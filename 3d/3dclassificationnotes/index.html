@@ -411,14 +411,14 @@ CVP">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        8.1k
+                        9.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        31 分
+                        35 分
                     </div>
                     
                 
@@ -820,6 +820,41 @@ F_{out} = \sum_{k=1}^K \sum_{c_{in}=1}^{C_{in}} S(k)W(k,c_{in})F_{in}(k,c_{in})<
 <p>PointDeconv其实就是邻域3点线性插值上采样，与前面同级的特征concat，再使用PointConv。</p>
 <p><img src="8_3.png" alt></p>
 <p>上图是用于segmentation的pointconv网络。特征提取的过程好像也是先用FPS采样再grouping的。</p>
+</li>
+</ol>
+<h2 id="KPConv👍"><a href="#KPConv👍" class="headerlink" title="KPConv👍"></a>KPConv👍</h2><blockquote>
+<p>ICCV2019？《KPConv: Flexible and Deformable Convolution for Point Clouds》</p>
+<p>paper下载：<a href="https://arxiv.org/abs/1904.08889v2" target="_blank" rel="noopener">https://arxiv.org/abs/1904.08889v2</a></p>
+</blockquote>
+<h3 id="概括-8"><a href="#概括-8" class="headerlink" title="概括"></a>概括</h3><p>与“PointConv”和“KCNet”稍微有点类似，它也是将卷积自然推广到3D point cloud中，但是区别是生成kernel transform matrix的方式不一样，而且它的point kernel并不是用于直接度量点云之间的相似度而是用于建立分布来计算kernel transform matrix的值。简单地说是通过线性插值来得到矩阵的，而系数与点之间的距离相关。</p>
+<p>效果：达到SOTA，可分类又可分割</p>
+<p>注：</p>
+<ul>
+<li><p>KPConv == Kernel Point Convolution</p>
+</li>
+<li><p>我这里的kernel transform matrix指的是给定一个邻域内的点$y_i$（相对坐标），通过某一种方法得到该点相关联的特征向量$f_i$的转换矩阵$W$，其$W$就是kernel transform matrix。在一个位置上的卷积计算过程就是$output = \sum_i W_i y_i$。</p>
+</li>
+</ul>
+<p>TODO IDEA：还有没有其他方法来生成这个分布？找邻居的方法是否可以更加自然一点，使得嵌入神经网络的架构中？</p>
+<h3 id="思想-8"><a href="#思想-8" class="headerlink" title="思想"></a>思想</h3><p>与“PointConv”类似，区别是它生成kernel transform matrix的方式不一样。在前篇”PointConv”中，生成方式是使用CNN合成，输入xyz坐标自动生成一个矩阵。在这篇“KPConv”则是利用类似于插值或者说平滑的方法来计算kernel transform matrix。</p>
+<p>那么这个“插值”的算法是怎么计算的呢？这套算法需要我们首先定义一个小点云，小点云里面有$K$个点（$K$是任意的，可以不等于邻域内的邻居数，$K$越大则描述的分布越精细），而小点云里的每个点$d_k$都有个矩阵$W_k$与之关联。现在我们考虑输入点云的centroid的邻域内的一个邻居点$x$，那么计算得到的矩阵则是在小点云周围点的矩阵$W_k$的线性表示：</p>
+<script type="math/tex; mode=display">
+transform\;matrix = \sum h(d_k,x)W_k</script><p>其中的：</p>
+<script type="math/tex; mode=display">
+h(d_k,x) = max(0,1-\frac{||d_k-x||}{\sigma})</script><p><img src="9_1.png" alt></p>
+<p>意思是这个分布实质上只是由$K$个“狄拉克分布”支撑起来的，只有在这$K$个地方才有真正的值。想要获取其他地方的值就只能通过线性插值得到。线性插值的“原子”则是与之离得比较近的点所对应的矩阵$W_k$，离得太远则会由于ReLU函数的截断性质而不再作出贡献。</p>
+<h3 id="实现-7"><a href="#实现-7" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Rigid or Deformable Kernel</p>
+<p>在“思想”中介绍的就是Rigid Kernel，意思是kernel point的位置一开始就是固定好的，是不可改变、不可学习的参数，改变的只能是其小点云上的矩阵$W_k$。Rigid Kernel的初始化方式形象地说就是假想每个kernel point都是带正电的小球相互排斥，但是同时要使得小球被束缚在一个半径尽可能小的包围球里面，包围住全部的带点小球，那么最终稳态时的小球位置就是kernel point的坐标位置。</p>
+<p>Deformable Kernel并不是指kernel point的位置可变，然后最后共用同一个分布，因为这样没什么意义，还不如选用好的初始化方法。</p>
+<p>而Deformable Kernel则参照了二维图像中的deformable convolution的实现方法，就是在Rigid Kernel的基础上学习一个kernel point shift的量，在固定的基础上进行变动，从而实现这$K$个“狄拉克分布”的位置都是可变的。</p>
+<p><img src="9_2.png" alt></p>
+<p>在使用Deformable Kernel的时候，需要在损失函数上加上正则项，用来约束kernel point和neighbor point不能离太远、kernel points之间不能太近，否则效果奇差。</p>
+</li>
+<li><p>网络结构</p>
+<p><img src="9_3.png" alt></p>
+<p>用grid subsampling下采样，用max-pooling或KPConv来做pooling</p>
+<p>用radius neighborhoods而不是k-nearest-neighbors</p>
 </li>
 </ol>
 
@@ -1497,7 +1532,7 @@ F_{out} = \sum_{k=1}^K \sum_{c_{in}=1}^{C_{in}} S(k)W(k,c_{in})F_{in}(k,c_{in})<
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">55.3k</span>
+            <span class="white-color">56.2k</span>
             
 
             
