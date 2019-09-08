@@ -411,14 +411,14 @@ CVP">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        9.1k
+                        9.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        35 分
+                        36 分
                     </div>
                     
                 
@@ -843,6 +843,8 @@ transform\;matrix = \sum h(d_k,x)W_k</script><p>其中的：</p>
 <script type="math/tex; mode=display">
 h(d_k,x) = max(0,1-\frac{||d_k-x||}{\sigma})</script><p><img src="9_1.png" alt></p>
 <p>意思是这个分布实质上只是由$K$个“狄拉克分布”支撑起来的，只有在这$K$个地方才有真正的值。想要获取其他地方的值就只能通过线性插值得到。线性插值的“原子”则是与之离得比较近的点所对应的矩阵$W_k$，离得太远则会由于ReLU函数的截断性质而不再作出贡献。</p>
+<p><img src="9_4.png" alt></p>
+<p>上图是假设kernel points只有5个，黑色星星的位置是kernel points的位置，假设weight matrix只是一个scalar，使用KPConv的插值算法得到的分布图。画图的代码见<a href="9_code_to_plot_distribution.py">这里</a>。可以看出这个算法的效果就是：相当于允许邻居点neighbor point的位置有稍微的变动，其理想的等值面是一个球形，在波动允许的范围内则使用一个接近的transform matrix值，而没有受到影响的地方则默认是零。这样带来的好处可能是使得分布平滑（猜的），使用CNN生成的方式应该不能保证分布平滑（瞎猜的）。</p>
 <h3 id="实现-7"><a href="#实现-7" class="headerlink" title="实现"></a>实现</h3><ol>
 <li><p>Rigid or Deformable Kernel</p>
 <p>在“思想”中介绍的就是Rigid Kernel，意思是kernel point的位置一开始就是固定好的，是不可改变、不可学习的参数，改变的只能是其小点云上的矩阵$W_k$。Rigid Kernel的初始化方式形象地说就是假想每个kernel point都是带正电的小球相互排斥，但是同时要使得小球被束缚在一个半径尽可能小的包围球里面，包围住全部的带点小球，那么最终稳态时的小球位置就是kernel point的坐标位置。</p>
@@ -1532,7 +1534,7 @@ h(d_k,x) = max(0,1-\frac{||d_k-x||}{\sigma})</script><p><img src="9_1.png" alt><
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">56.2k</span>
+            <span class="white-color">56.4k</span>
             
 
             
