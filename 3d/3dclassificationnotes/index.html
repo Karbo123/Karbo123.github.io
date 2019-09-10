@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="3D分类笔记, 任我行">
     <meta name="description" content="3D分类笔记下面的papers都是有关3D点云特征提取的，将提取到的特征用于分类或分割任务。
-主要是围绕如何提取局部的几何关系特征而展开，给我的感觉就像是传统的机器学习算法（像SIFT那代）与深度学习相结合。
+经历了从深度学习+手工设计方法到几乎完全深度学习的转变。
 PointNet 👍
-CVP">
+CVPR2017《PointNet: Deep Learning">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -411,14 +411,14 @@ CVP">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        10.3k
+                        12.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        40 分
+                        47 分
                     </div>
                     
                 
@@ -435,7 +435,7 @@ CVP">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="3D分类笔记"><a href="#3D分类笔记" class="headerlink" title="3D分类笔记"></a>3D分类笔记</h1><p>下面的papers都是有关3D点云特征提取的，将提取到的特征用于分类或分割任务。</p>
-<p>主要是围绕如何提取局部的几何关系特征而展开，给我的感觉就像是传统的机器学习算法（像SIFT那代）与深度学习相结合。</p>
+<p>经历了从<code>深度学习+手工设计</code>方法到<code>几乎完全深度学习</code>的转变。</p>
 <h2 id="PointNet-👍"><a href="#PointNet-👍" class="headerlink" title="PointNet 👍"></a>PointNet 👍</h2><blockquote>
 <p>CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation》</p>
 <p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet/</a></p>
@@ -904,6 +904,122 @@ x_i^{'} = \max_{j:(i,j)\in \mathcal{E}} e_{ij} = \max_{j:(i,j)\in \mathcal{E}} h
 </ol>
 <h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>   不同层级提取到的特征（从左到右依次层级递增），通过指定一个点（红色点），然后计算其他点在该层级中与红点的距离来可视化，距离越近（代表在KNN图中是比较相邻的顶点）颜色越黄。可见该算法可以提取比较长距离的特征。</p>
 <p>   <img src="10_1.png" alt></p>
+<h2 id="Mo-Net"><a href="#Mo-Net" class="headerlink" title="Mo-Net"></a>Mo-Net</h2><blockquote>
+<p>？？？《Mo-Net: Flavor the Moments in Learning to Classify Shapes》</p>
+<p>paper下载：<a href="https://arxiv.org/abs/1812.07431" target="_blank" rel="noopener">https://arxiv.org/abs/1812.07431</a></p>
+</blockquote>
+<h3 id="概括-10"><a href="#概括-10" class="headerlink" title="概括"></a>概括</h3><p>提出使用几何矩的方式来提升输入点云的维度（$\mathbb{R}^3 \rightarrow \mathbb{R}^9 $），以捕获更多信息，在降低计算复杂度和内存消耗的同时提升精度。</p>
+<p>注意：这篇paper主要是与PointNet相对比的；讨论的是点云的classification问题。</p>
+<h3 id="实现-9"><a href="#实现-9" class="headerlink" title="实现"></a>实现</h3><p>注意，这里的MLP是shared的，只有一个MLP网络。</p>
+<p><img src="11_1.png" alt></p>
+<ol>
+<li><p>使用几何矩</p>
+<p>点云原本的输入是$(x,y,z)$，现在变成了$(x,y,z,x^2,y^2,z^2,xy,yz,xz)$</p>
+</li>
+<li><p>双重池化</p>
+<p>将max pooing与avg pooling的结果进行concat</p>
+</li>
+</ol>
+<h3 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h3><p><img src="11_3.png" alt><br>比PointNet的精度稍微高上一点点</p>
+<p><img src="11_2.png" alt><br>MLP的层数可以大大减少，使得计算复杂度降低，内存消耗量降低</p>
+<h2 id="Tangent-Convolutions"><a href="#Tangent-Convolutions" class="headerlink" title="Tangent Convolutions"></a>Tangent Convolutions</h2><blockquote>
+<p>CVPR2018《Tangent Convolutions for Dense Prediction in 3D》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Tatarchenko_Tangent_Convolutions_for_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Tatarchenko_Tangent_Convolutions_for_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概括-11"><a href="#概括-11" class="headerlink" title="概括"></a>概括</h3><p>提出了“Tangent Convolutions”，它本质是切平面上的卷积。将对point cloud feature的卷积转变为对image的卷积。</p>
+<p>优点：适用于大规模场景（数百万个points）、在大规模场景可以precomputation一部分、在大规模场景中达到SOTA。</p>
+<h3 id="思想-10"><a href="#思想-10" class="headerlink" title="思想"></a>思想</h3><p>将3D point cloud卷积转化/投射到2D平面的卷积。</p>
+<p>即：将3D的$\sum_{q\in Neighborhood} point_feature(q)^T vector_kernel(q)$卷积转换到2D的平面卷积（卷积核等于输入图的大小，不滑动）</p>
+<p>将邻居点project到切平面上，通过插值的方式产生位于切平面上的tangent image，然后使用平面卷积来卷积tangent image。</p>
+<p>tangent image编码了局部的空间几何关系、以及原本作用在点云中的特征提取操作$F(q) $，现在对其平面卷积相当于对空间几何关系的operation、以及对$F(q) $的convolution。</p>
+<h3 id="实现-10"><a href="#实现-10" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Tangent Convolution</p>
+<p>不仅是点云，只要3D data支持法向量估计（例如mesh），就能使用“Tangent Convolution”</p>
+<p>Notation：</p>
+<ul>
+<li>点云$\mathcal{P}=\{p\}$</li>
+<li>定义在点云$\mathcal{P}$上的函数$F(p)$（它可以描述该point的颜色/几何/或者其他任何特征）</li>
+<li>点$p$的tangent plane $\pi_p$</li>
+<li>continuous tangent image $S(u)$，其中$u$是tangent plane上的任意一点（可以不是投影点）</li>
+</ul>
+<p>Motivation：</p>
+<ul>
+<li>将离散定义域的$F(p)$连续化，才能对$F(p)$卷积</li>
+</ul>
+<p>Method：</p>
+<ul>
+<li><p>给定点云中的一个点$p$，用$||q-p||&lt;R$的方法选定其邻居$q$，用特征分解的方法来估计法向量$n_p$</p>
+<p><img src="12_2.png" alt></p>
+</li>
+<li><p>将邻居$q$投射到切平面得到投影点$v$（其集合记作$V$，注意$p \notin V$），我们规定$S(v)=F(q)$（即在某几个离散位置值相等），然后其他位置使用插值的方法得到，我们使用最近邻插值：</p>
+<script type="math/tex; mode=display">
+S(u) = S(g_{plane}(u)) = F(g_{cloud}(u))</script><p>其中$g_{plane}(u)$表示从$V=\{v\}$中选出与$u$最近的点，$g_{cloud}(u)$表示$g_{plane}(u)$在点云中原本的点</p>
+<p>在平面上原本只有几个离散的位置有值（几个狄拉克分布），现在被插值到整个平面上都有值了。</p>
+</li>
+<li><p>那么在平面$\pi_p $上的卷积就是：（$p$生成$\pi_p $，所以讨论$X(p)$）</p>
+<script type="math/tex; mode=display">
+X(p)=\sum_u c(u)S(u) = \sum_u c(u)F(g_{cloud}(u))</script><p>其中$c(u)$是卷积核。其中$g_{cloud}(u)$这项仅与点云有关，可以事先被计算。</p>
+<p>实际上处理时，tangent image被处理成$l \times l$大小的2D网格图像。那么$u$相当于像素，$c(u)$相当于一个与tangent image同大小的卷积核。</p>
+</li>
+</ul>
+</li>
+<li><p>Implement a convolutional layer using tangent convolutions</p>
+<p>不能算是真正意义上的“卷积层”，只能算是一个module吧</p>
+<p>效果：点的数量不变，但是点的特征的维度改变</p>
+<p>Notation：</p>
+<ul>
+<li><p>the number of points in point cloud: $N$</p>
+</li>
+<li><p>input feature map: $F_{in}$ of size $N \times C_{in}$</p>
+</li>
+<li><p>weight/flatten kernel: $W$ of size $1 \times L$（应该是有$C_{out}$个，尺寸应该是$C_{in}\times L\times 1$）</p>
+</li>
+<li><p>output feature map: $F_{out}$ of size $N \times C_{out}$</p>
+</li>
+<li><p>flatten the tangent image or kernel to 1D size: $L=l^2$</p>
+</li>
+</ul>
+<p>Implement：</p>
+<p><img src="12_1.png" alt></p>
+<ul>
+<li>预计算$g_{cloud}(u) $函数：对于每个来自point cloud中的点$p$，都对应了一副tangent image $S(u)$；对于每个$u\in Grid(l \times l)$，都计算一次$g_{cloud}(u) $的值。于是形成了index matrix$I$（shape: $N \times L$），记录的是点云中点的索引。</li>
+<li>使用$F_{in}$矩阵将索引拓展开，得到tensor $M$，即每个点云中的点的索引值都被检索成其输入feature。$F(\cdot)$函数的作用是从点获取点的特征（from index to $C_{in}$ dimension feature），所以相当于作用了$F(\cdot)$函数。举例：point index为3，通过$F_{in}$查到$F_{in}(3,:)$的feature，相当于把$1$长度展开成$C_{in}$长度。</li>
+<li>用$C_{out}$个卷积核$W$卷积$M$得到输出$F_{out} $</li>
+</ul>
+</li>
+<li><p>Additional Ingredients</p>
+<p>pooling：采用划分3D grid的方法，落在同一个grid的，坐标平均，特征向量平均</p>
+<p>unpooling：将聚合点平均拷贝给其他落在同一个grid的点</p>
+<p>Local distance feature：也要将邻居点$q$到切平面$\pi_{p} $的距离cancat到$q$的特征里</p>
+</li>
+<li><p>Architecture</p>
+<p><img src="12_3.png" alt></p>
+<p>其中的卷积使用tangent convolution，pooling和unpooling采用Additional Ingredients提及的方法。</p>
+</li>
+</ol>
+<h2 id="Mixture-Model-Networks（MoNet）"><a href="#Mixture-Model-Networks（MoNet）" class="headerlink" title="Mixture Model Networks（MoNet）"></a>Mixture Model Networks（MoNet）</h2><blockquote>
+<p>CVPR2017《Geometric Deep Learning on Graphs and Manifolds Using Mixture Model CNNs》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Monti_Geometric_Deep_Learning_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Monti_Geometric_Deep_Learning_CVPR_2017_paper.html</a></p>
+</blockquote>
+<h3 id="概括-12"><a href="#概括-12" class="headerlink" title="概括"></a>概括</h3><p>在非欧结构数据（non-Euclidean structured data）的几何深度学习（geometric deep learning）问题上，提出了将传统CNN泛化到非欧几何数据（如图、流形）的统一的框架（MoNet，in spatial domain），使得以往的模型设计都只是框架内的特例，并且达到SOTA的效果。</p>
+<p>此外本文还粗略地介绍了“Deep learning on graphs”（如Spectral CNN、Smooth Spectral CNN、Chebyshev Spectral CNN （ChebNet）、Graph convolutional network （GCN）、Diffusion CNN （DCNN））和“Deep learning on manifolds”（如Geodesic CNN （GCNN）、Anisotropic CNN （ACNN））</p>
+<p>注：MoNet == mixture model networks</p>
+<h3 id="实现-11"><a href="#实现-11" class="headerlink" title="实现"></a>实现</h3><p>Notation:</p>
+<ul>
+<li>a point on a manifold or a vertex of a graph： $x$</li>
+<li>a neighborhood of point $x$： $y\in \mathcal{N(x)}$</li>
+<li>d-dimensional vector of pseudo-coordinates： $u(x,y)$（可以粗略理解为相对坐标，或$e_{ij}$上的d维向量）</li>
+<li>weighting functions： $w_1(u),\;w_2(u),\;…,\;w_J(u)$（each function with some learnable parameters）</li>
+<li>get feature function： $f(y)$（获取该点的feature vector）</li>
+</ul>
+<p>The <strong>patch operator</strong> can therefore be written in the following general form（若$f(y)$是vector则计算结果也是vector，因为$w_j(u) $必须是一个scalar）：</p>
+<script type="math/tex; mode=display">
+D_j(x)f = \sum_{y\in \mathcal{N(x)}} w_j(u(x,y))f(y),\quad j=1,2,...,J</script><p>A spatial generalization of the <strong>convolution</strong> on non-Euclidean domains is then given by a template-matching procedure of the form：（$g_j$与$D_j(x)f$的尺寸相同，两者之间是scalar product或vector inner product，输出必定是一个scalar）</p>
+<script type="math/tex; mode=display">
+(f*g)(x) = \sum_{j=1}^J g_j D_j(x)f</script><p>其中$w_j(u)$我们选用高斯函数（$\mathbb{R}^d \rightarrow \mathbb{R}$），因此可以理解为gaussian mixture model（GMM）</p>
+<p>注意到，很多方法都能纳入这个框架，只需选取不同的$u(x,y)$和$w_j(u)$：</p>
+<p><img src="13_1.png" alt></p>
+<p>以CNN为例，假设在一个位置上的卷积，$3\times3$大小的卷积核，灰度图，则weight functions需要9个：$w_j(u)=\delta(u-\bar{u}_j),\quad j=1…,$9，其中$\bar{u}_1=(-1,1),\;\bar{u}_2=(0,1),\;\bar{u}_3=(1,1),\;…,\;\bar{u}_9=(0,0)$是kernel所覆盖点的相对坐标。则$D(x)f$是一个9维向量，所使用的卷积核$g$也是9维向量，两者进行内积则产生了一个scalar。</p>
 
             </div>
             <hr/>
@@ -1579,7 +1695,7 @@ x_i^{'} = \max_{j:(i,j)\in \mathcal{E}} e_{ij} = \max_{j:(i,j)\in \mathcal{E}} h
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">57.4k</span>
+            <span class="white-color">59.2k</span>
             
 
             
