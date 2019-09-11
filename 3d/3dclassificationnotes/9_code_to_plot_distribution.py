@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcol
 import matplotlib.cm as cm
+from mpl_toolkits.mplot3d import Axes3D
 
 # the range to calc: [-FLOATRANGE, FLOATRANGE]
 FLOATRANGE = 5
@@ -43,6 +44,26 @@ def show_it(kernel_points, pic):
                     s=300)
     plt.xticks([])
     plt.yticks([])
+    plt.show()
+
+
+def show_surface(kernel_points, pic):
+    fig = plt.figure()
+    ax = Axes3D(fig)
+    X = np.arange(-FLOATRANGE, FLOATRANGE + 1e-3, FLOATRANGE / RESOLUTION)
+    Y = np.arange(-FLOATRANGE, FLOATRANGE + 1e-3, FLOATRANGE / RESOLUTION)
+    X, Y = np.meshgrid(X, Y)
+
+    ax.plot_surface(X, Y, pic, cmap='rainbow')
+
+    for kp in kernel_points:
+        ax.scatter(kp['floatx'],
+                   kp['floaty'],
+                   kp['value'],
+                   color='k',
+                   s=400,
+                   marker='*')
+
     plt.show()
 
 
@@ -101,3 +122,4 @@ if __name__ == '__main__':
 
     # show picture
     show_it(kernel_points, pic)
+    show_surface(kernel_points, pic)

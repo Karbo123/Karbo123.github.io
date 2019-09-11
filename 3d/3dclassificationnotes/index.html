@@ -7,8 +7,9 @@
     <meta name="keywords" content="3D分类笔记, 任我行">
     <meta name="description" content="3D分类笔记下面的papers都是有关3D点云特征提取的，将提取到的特征用于分类或分割任务。
 经历了从深度学习+手工设计方法到几乎完全深度学习的转变。
+本文完整的PDF版本你可以从这里下载。
 PointNet 👍
-CVPR2017《PointNet: Deep Learning">
+CVPR2017《Poi">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -436,6 +437,7 @@ CVPR2017《PointNet: Deep Learning">
             <div id="articleContent">
                 <h1 id="3D分类笔记"><a href="#3D分类笔记" class="headerlink" title="3D分类笔记"></a>3D分类笔记</h1><p>下面的papers都是有关3D点云特征提取的，将提取到的特征用于分类或分割任务。</p>
 <p>经历了从<code>深度学习+手工设计</code>方法到<code>几乎完全深度学习</code>的转变。</p>
+<p>本文完整的PDF版本你可以从<a href="3dClassificationNotes.pdf">这里</a>下载。</p>
 <h2 id="PointNet-👍"><a href="#PointNet-👍" class="headerlink" title="PointNet 👍"></a>PointNet 👍</h2><blockquote>
 <p>CVPR2017《PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation》</p>
 <p>在线介绍：<a href="http://stanford.edu/~rqi/pointnet/" target="_blank" rel="noopener">http://stanford.edu/~rqi/pointnet/</a></p>
@@ -822,8 +824,8 @@ F_{out} = \sum_{k=1}^K \sum_{c_{in}=1}^{C_{in}} S(k)W(k,c_{in})F_{in}(k,c_{in})<
 <p>上图是用于segmentation的pointconv网络。特征提取的过程好像也是先用FPS采样再grouping的。</p>
 </li>
 </ol>
-<h2 id="KPConv"><a href="#KPConv" class="headerlink" title="KPConv"></a>KPConv</h2><blockquote>
-<p>ICCV2019？《KPConv: Flexible and Deformable Convolution for Point Clouds》</p>
+<h2 id="KPConv👍"><a href="#KPConv👍" class="headerlink" title="KPConv👍"></a>KPConv👍</h2><blockquote>
+<p>ICCV2019《KPConv: Flexible and Deformable Convolution for Point Clouds》</p>
 <p>paper下载：<a href="https://arxiv.org/abs/1904.08889v2" target="_blank" rel="noopener">https://arxiv.org/abs/1904.08889v2</a></p>
 </blockquote>
 <h3 id="概括-8"><a href="#概括-8" class="headerlink" title="概括"></a>概括</h3><p>与“PointConv”和“KCNet”稍微有点类似，它也是将卷积自然推广到3D point cloud中，但是区别是生成kernel transform matrix的方式不一样，而且它的point kernel并不是用于直接度量点云之间的相似度而是用于建立分布来计算kernel transform matrix的值。简单地说是通过线性插值来得到矩阵的，而系数与点之间的距离相关。</p>
