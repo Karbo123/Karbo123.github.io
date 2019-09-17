@@ -412,14 +412,14 @@ CVPR2017《Poi">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        12.1k
+                        12.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        47 分
+                        48 分
                     </div>
                     
                 
@@ -834,8 +834,9 @@ F_{out} = \sum_{k=1}^K \sum_{c_{in}=1}^{C_{in}} S(k)W(k,c_{in})F_{in}(k,c_{in})<
 <ul>
 <li><p>KPConv == Kernel Point Convolution</p>
 </li>
-<li><p>我这里的kernel transform matrix指的是给定一个邻域内的点$y_i$（相对坐标），通过某一种方法得到该点相关联的特征向量$f_i$的转换矩阵$W$，其$W$就是kernel transform matrix。在一个位置上的卷积计算过程就是$output = \sum_i W_i y_i$。</p>
-</li>
+<li><p>我这里的kernel transform matrix指的是给定一个邻域内的点$y_i$（相对坐标），通过某一种方法得到该点相关联的特征向量$f_i$的转换矩阵$W$，其$W$就是kernel transform matrix。在一个位置上的卷积计算过程就是$output = \sum_i W_i y_i$，即：</p>
+<script type="math/tex; mode=display">
+(\mathcal{F}*\mathcal{g})(x) = \sum_{x_i\in\mathcal{N}_x} g(x_i-x)f_i</script></li>
 </ul>
 <p>TODO IDEA：还有没有其他方法来生成这个分布？找邻居的方法是否可以更加自然一点，使得嵌入神经网络的架构中？</p>
 <h3 id="思想-8"><a href="#思想-8" class="headerlink" title="思想"></a>思想</h3><p>与“PointConv”类似，区别是它生成kernel transform matrix的方式不一样。在前篇”PointConv”中，生成方式是使用CNN合成，输入xyz坐标自动生成一个矩阵。在这篇“KPConv”则是利用类似于插值或者说平滑的方法来计算kernel transform matrix。</p>
@@ -999,13 +1000,20 @@ X(p)=\sum_u c(u)S(u) = \sum_u c(u)F(g_{cloud}(u))</script><p>其中$c(u)$是卷�
 <p>其中的卷积使用tangent convolution，pooling和unpooling采用Additional Ingredients提及的方法。</p>
 </li>
 </ol>
-<h2 id="Mixture-Model-Networks（MoNet）"><a href="#Mixture-Model-Networks（MoNet）" class="headerlink" title="Mixture Model Networks（MoNet）"></a>Mixture Model Networks（MoNet）</h2><blockquote>
+<h2 id="Mixture-Model-Networks（MoNet）👍"><a href="#Mixture-Model-Networks（MoNet）👍" class="headerlink" title="Mixture Model Networks（MoNet）👍"></a>Mixture Model Networks（MoNet）👍</h2><blockquote>
 <p>CVPR2017《Geometric Deep Learning on Graphs and Manifolds Using Mixture Model CNNs》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Monti_Geometric_Deep_Learning_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Monti_Geometric_Deep_Learning_CVPR_2017_paper.html</a></p>
 </blockquote>
-<h3 id="概括-12"><a href="#概括-12" class="headerlink" title="概括"></a>概括</h3><p>在非欧结构数据（non-Euclidean structured data）的几何深度学习（geometric deep learning）问题上，提出了将传统CNN泛化到非欧几何数据（如图、流形）的统一的框架（MoNet，in spatial domain），使得以往的模型设计都只是框架内的特例，并且达到SOTA的效果。</p>
+<h3 id="概括-12"><a href="#概括-12" class="headerlink" title="概括"></a>概括</h3><p>在非欧结构数据（non-Euclidean structured data）的几何深度学习（geometric deep learning）问题上，提出了在空间域上将传统CNN泛化到非欧几何数据（如graph、manifold）的统一的框架（MoNet），使得以往的模型设计都只是此框架内的特例，并且达到SOTA的效果。</p>
 <p>此外本文还粗略地介绍了“Deep learning on graphs”（如Spectral CNN、Smooth Spectral CNN、Chebyshev Spectral CNN （ChebNet）、Graph convolutional network （GCN）、Diffusion CNN （DCNN））和“Deep learning on manifolds”（如Geodesic CNN （GCNN）、Anisotropic CNN （ACNN））</p>
 <p>注：MoNet == mixture model networks</p>
+<p>关键词：流形、图结构（graphs in the spectral domain）</p>
+<p>其他：</p>
+<ul>
+<li>spectral CNN 只能适用于该图本身，不能迁移到其他图（domain-dependent）中使用。因为它的basis不同</li>
+<li>基于空间域方法的优点是可以泛化到其他domain中去</li>
+<li>本文提出的方法在manifold和graph上进行统一，有统一的解释性</li>
+</ul>
 <h3 id="实现-11"><a href="#实现-11" class="headerlink" title="实现"></a>实现</h3><p>Notation:</p>
 <ul>
 <li>a point on a manifold or a vertex of a graph： $x$</li>
@@ -1014,15 +1022,20 @@ X(p)=\sum_u c(u)S(u) = \sum_u c(u)F(g_{cloud}(u))</script><p>其中$c(u)$是卷�
 <li>weighting functions： $w_1(u),\;w_2(u),\;…,\;w_J(u)$（each function with some learnable parameters）</li>
 <li>get feature function： $f(y)$（获取该点的feature vector）</li>
 </ul>
-<p>The <strong>patch operator</strong> can therefore be written in the following general form（若$f(y)$是vector则计算结果也是vector，因为$w_j(u) $必须是一个scalar）：</p>
+<p>The <strong>patch operator</strong> can therefore be written in the following general form（若$f(y)$是vector则计算结果也是vector，因为$w_j(u) $是一个scalar），这一步可以理解为“有J种聚合邻域信息的方式”：</p>
 <script type="math/tex; mode=display">
-D_j(x)f = \sum_{y\in \mathcal{N(x)}} w_j(u(x,y))f(y),\quad j=1,2,...,J</script><p>A spatial generalization of the <strong>convolution</strong> on non-Euclidean domains is then given by a template-matching procedure of the form：（$g_j$与$D_j(x)f$的尺寸相同，两者之间是scalar product或vector inner product，输出必定是一个scalar）</p>
+D_j(x)f = \sum_{y\in \mathcal{N(x)}} w_j(u(x,y))f(y),\quad j=1,2,...,J</script><p>A spatial generalization of the <strong>convolution</strong> on non-Euclidean domains is then given by a template-matching procedure of the form：（$g_j$是scalar，$(f*g)(x)$的输出类型与$D_j(x)f$相同），这一步可以i理解为“将这J种聚合到的信息进行线性加权”</p>
 <script type="math/tex; mode=display">
-(f*g)(x) = \sum_{j=1}^J g_j D_j(x)f</script><p>其中$w_j(u)$我们选用高斯函数（$\mathbb{R}^d \rightarrow \mathbb{R}$），因此可以理解为gaussian mixture model（GMM）</p>
-<p>注意到，很多方法都能纳入这个框架，只需选取不同的$u(x,y)$和$w_j(u)$：</p>
+(f*g)(x) = \sum_{j=1}^J g_j D_j(x)f</script><p>所以关键问题是如何选取权重函数$w(u)$和伪坐标$u$。其中$w_j(u)$我们选用高斯函数（$\mathbb{R}^d \rightarrow \mathbb{R}$），因此可以理解为gaussian mixture model（GMM），即：</p>
+<script type="math/tex; mode=display">
+w_j(u) = e^{-\frac{1}{2}(u-\mu_j)^T \Sigma_j^{-1} (u-\mu_j)}</script><p>注意到，很多方法都能纳入这个框架，只需选取不同的$u(x,y)$和$w_j(u)$：</p>
 <p><img src="13_1.png" alt></p>
 <p>以CNN为例，假设在一个位置上的卷积，$3\times3$大小的卷积核，灰度图，则weight functions需要9个：$w_j(u)=\delta(u-\bar{u}_j),\quad j=1…,$9，其中$\bar{u}_1=(-1,1),\;\bar{u}_2=(0,1),\;\bar{u}_3=(1,1),\;…,\;\bar{u}_9=(0,0)$是kernel所覆盖点的相对坐标。则$D(x)f$是一个9维向量，所使用的卷积核$g$也是9维向量，两者进行内积则产生了一个scalar。</p>
-
+<p>而且不难注意到，The patch operator公式就是KPConv中所用点卷积的泛化形式，将：</p>
+<script type="math/tex; mode=display">
+(\mathcal{F}*\mathcal{g})(x) = \sum_{x_i\in\mathcal{N}_x} g(x_i-x)f_i</script><p>泛化成：</p>
+<script type="math/tex; mode=display">
+D_j(x)f = \sum_{y\in \mathcal{N(x)}} w_j(u(x,y))f(y),\quad j=1</script>
             </div>
             <hr/>
 
@@ -1697,7 +1710,7 @@ D_j(x)f = \sum_{y\in \mathcal{N(x)}} w_j(u(x,y))f(y),\quad j=1,2,...,J</script><
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">59.2k</span>
+            <span class="white-color">59.5k</span>
             
 
             
