@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-17T08:44:07.748Z</updated>
+  <updated>2019-09-18T06:58:08.225Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>precisionrecall</title>
+    <link href="https://blog.karbo.online/dl/precisionrecall/"/>
+    <id>https://blog.karbo.online/dl/precisionrecall/</id>
+    <published>2019-09-18T03:47:04.000Z</published>
+    <updated>2019-09-18T06:58:08.225Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Precision-and-Recall&quot;&gt;&lt;a href=&quot;#Precision-and-Recall&quot; class=&quot;headerlink&quot; title=&quot;Precision and Recall&quot;&gt;&lt;/a&gt;Precision and
+        
+      
+    
+    </summary>
+    
+      <category term="dl" scheme="https://blog.karbo.online/categories/dl/"/>
+    
+    
+      <category term="dl" scheme="https://blog.karbo.online/tags/dl/"/>
+    
+  </entry>
   
   <entry>
     <title>3D分类笔记</title>
@@ -294,9 +320,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -571,34 +597,6 @@
       <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
     
       <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数学资源</title>
-    <link href="https://blog.karbo.online/math/mathlearn/"/>
-    <id>https://blog.karbo.online/math/mathlearn/</id>
-    <published>2019-03-02T10:23:34.000Z</published>
-    <updated>2019-08-11T06:08:10.959Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;本文搜集了一些网络上优秀的数学学习资源。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;1.jpg&quot; alt&gt;&lt;/p&gt;
-&lt;h1 id=&quot;3Blue1Brown&quot;&gt;&lt;a href=&quot;#3Blue1Brown&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="math" scheme="https://blog.karbo.online/categories/math/"/>
-    
-    
-      <category term="math" scheme="https://blog.karbo.online/tags/math/"/>
     
   </entry>
   
