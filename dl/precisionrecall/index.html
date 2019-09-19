@@ -5,7 +5,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="机器学习中常用的指标, 任我行">
-    <meta name="description" content="Precision and Recall题目假设有1000个人。我们用上帝视角知道，患病的有100个，不患病的有900个。
+    <meta name="description" content="指标题目一（基本概念）假设有1000个人。我们用上帝视角知道，患病的有100个，不患病的有900个。
 
 
 
@@ -20,7 +20,11 @@
 100
 900
 1000
-">
+
+
+
+
+然后我们有医生">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -423,14 +427,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        555
+                        1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        4 分
                     </div>
                     
                 
@@ -446,7 +450,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Precision-and-Recall"><a href="#Precision-and-Recall" class="headerlink" title="Precision and Recall"></a>Precision and Recall</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>假设有1000个人。我们用上帝视角知道，患病的有100个，不患病的有900个。</p>
+                <h1 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h1><h2 id="题目一（基本概念）"><a href="#题目一（基本概念）" class="headerlink" title="题目一（基本概念）"></a>题目一（基本概念）</h2><p>假设有1000个人。我们用上帝视角知道，患病的有100个，不患病的有900个。</p>
 <div class="table-container">
 <table>
 <thead>
@@ -502,7 +506,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>True/False是指：是否判断对了/是否符合事实（例如，得病说没病or没病说得病，则属于False）</p>
+<h2 id="分析一"><a href="#分析一" class="headerlink" title="分析一"></a>分析一</h2><p>True/False是指：是否判断对了/是否符合事实（例如，得病说没病or没病说得病，则属于False）</p>
 <p>Positive/Negative是指：医生的判断结果（例如，你说他有病，则属于Positive）</p>
 <ul>
 <li><p>FN： 判断错了（false），表明真实情形是“患病”</p>
@@ -528,6 +532,31 @@ Accuracy = \frac{TP+TN}{TP+TN+FP+FN} = \frac{True}{All} = \frac{判对的人数}
 <p><img src="4.png" alt></p>
 <h3 id="AUC（Area-Under-the-Curve）"><a href="#AUC（Area-Under-the-Curve）" class="headerlink" title="AUC（Area Under the Curve）"></a>AUC（Area Under the Curve）</h3><p>就是ROC曲线下的面积，数值越高越好（最高是1）</p>
 <p><img src="5.png" alt></p>
+<h2 id="题目二（Detection）"><a href="#题目二（Detection）" class="headerlink" title="题目二（Detection）"></a>题目二（Detection）</h2><p>在detection任务中，</p>
+<ul>
+<li>IoU：用来控制True/False（我们需要设定一个IoU阈值，用来判定predict box是否属于ground truth）</li>
+<li>score：用来控制Positive/Negative（我们需要一个分数阈值，分数过低的box会被筛掉，剩下的box则属于Positive）</li>
+</ul>
+<p><img src="6.png" alt></p>
+<p>在一张图片中，我们有很多的objects。因此我们就可以计算出这张图片的Precision和Recall（在给定IoU threshold和score threshold的条件下）</p>
+<ul>
+<li>COCO的指标：在多个IoU threshold = {0.05, 0.15, 0.25, …, 0.95}的条件下，计算多个AP值</li>
+<li>PASCAL VOC的指标：在IoU threshold = 0.5的条件下，计算mAP值</li>
+</ul>
+<h3 id="IoU、PR曲线、AP和mAP"><a href="#IoU、PR曲线、AP和mAP" class="headerlink" title="IoU、PR曲线、AP和mAP"></a>IoU、PR曲线、AP和mAP</h3><p>IoU是两个boxes的交集面积除以并集面积。不过要求两个boxes的label一致时才能用面积法计算，否则IoU是零（此时必定是FP）。</p>
+<p>下面默认在IoU threshold = 0.5时讨论。AP是在“precision-recall曲线（PR曲线）”$precision = PR(recall)$中，当recall值分别为$ \{ 0, 0.1, 0.2, …, 1.0 \} $这11个数时，对应的precision的算术平均值，即：</p>
+<script type="math/tex; mode=display">
+AP = \frac{1}{11} \sum_{i=0}^{10} PR(i \times 0.1)</script><p>换句话说，我们需要选取11个不同的score threshold，使得recall值分别为$\{0, 0.1, 0.2, …, 1.0\}$，然后计算precisions的算术平均值，即是AP（一般来说，precision值都是通过插值得到的），有点类似于PR曲线底下的面积</p>
+<p>每一个class都计算一个AP值，然后将所有classes的AP取算术平均就得到mAP。</p>
+<p>注：</p>
+<ul>
+<li>AP == Average Precision</li>
+<li>mAP = mean Average Precision</li>
+<li>AP是每个class都有一个，而mAP是所有classes的AP值的算术平均</li>
+<li>“precision-recall曲线”：在不同的score threshold下，画出的precision和recall的曲线。与ROC曲线类似。</li>
+<li>如果IoU threshold有多个，则mAP值也有多个。</li>
+</ul>
+<p><img src="7.png" alt></p>
 
             </div>
             <hr/>
@@ -987,48 +1016,46 @@ Accuracy = \frac{TP+TN}{TP+TN+FP+FN} = \frac{True}{All} = \frac{判对的人数}
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/dl/precisionrecall/">
+                <a href="/3d/3ddetection/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="机器学习中常用的指标">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="3D目标检测">
                         
-                        <span class="card-title">机器学习中常用的指标</span>
+                        <span class="card-title">3D目标检测</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文介绍了Precision、Recall、F1-score等一些常见的概念
+                            本文是3D目标检测任务的学习笔记
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-18
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-19
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/dl/" class="post-category" target="_blank">
-                                    dl
+                            <a href="/categories/3d/" class="post-category" target="_blank">
+                                    3d
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/dl/" target="_blank">
-                        <span class="chip bg-color">dl</span>
+                    <a href="/tags/3d/" target="_blank">
+                        <span class="chip bg-color">3d</span>
                     </a>
                     
                 </div>
@@ -1046,15 +1073,15 @@ Accuracy = \frac{TP+TN}{TP+TN+FP+FN} = \frac{True}{All} = \frac{判对的人数}
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="3D分类笔记">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="3D点云特征提取笔记">
                         
-                        <span class="card-title">3D分类笔记</span>
+                        <span class="card-title">3D点云特征提取笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文是3D分类任务的学习笔记
+                            本文是3D点云特征提取的学习笔记
                         
                     </div>
                     <div class="publish-info">
@@ -1204,7 +1231,7 @@ Accuracy = \frac{TP+TN}{TP+TN+FP+FN} = \frac{True}{All} = \frac{判对的人数}
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">60k</span>
+            <span class="white-color">61.2k</span>
             
 
             

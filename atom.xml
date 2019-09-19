@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-18T07:04:04.025Z</updated>
+  <updated>2019-09-19T03:19:18.769Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>机器学习中常用的指标</title>
-    <link href="https://blog.karbo.online/dl/precisionrecall/"/>
-    <id>https://blog.karbo.online/dl/precisionrecall/</id>
-    <published>2019-09-18T03:47:04.000Z</published>
-    <updated>2019-09-18T07:04:04.025Z</updated>
+    <title>3D目标检测</title>
+    <link href="https://blog.karbo.online/3d/3ddetection/"/>
+    <id>https://blog.karbo.online/3d/3ddetection/</id>
+    <published>2019-09-19T01:21:25.000Z</published>
+    <updated>2019-09-19T03:19:18.769Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,34 @@
       
         
         
-          &lt;h1 id=&quot;Precision-and-Recall&quot;&gt;&lt;a href=&quot;#Precision-and-Recall&quot; class=&quot;headerlink&quot; title=&quot;Precision and Recall&quot;&gt;&lt;/a&gt;Precision and
+          &lt;h1 id=&quot;3D目标检测&quot;&gt;&lt;a href=&quot;#3D目标检测&quot; class=&quot;headerlink&quot; title=&quot;3D目标检测&quot;&gt;&lt;/a&gt;3D目标检测&lt;/h1&gt;&lt;p&gt;介绍3D detection的各种模型框架方法等。&lt;/p&gt;
+&lt;p&gt;RGB-D ==
+        
+      
+    
+    </summary>
+    
+      <category term="3d" scheme="https://blog.karbo.online/categories/3d/"/>
+    
+    
+      <category term="3d" scheme="https://blog.karbo.online/tags/3d/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习中常用的指标</title>
+    <link href="https://blog.karbo.online/dl/precisionrecall/"/>
+    <id>https://blog.karbo.online/dl/precisionrecall/</id>
+    <published>2019-09-18T03:47:04.000Z</published>
+    <updated>2019-09-18T09:45:23.802Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;指标&quot;&gt;&lt;a href=&quot;#指标&quot; class=&quot;headerlink&quot; title=&quot;指标&quot;&gt;&lt;/a&gt;指标&lt;/h1&gt;&lt;h2 id=&quot;题目一（基本概念）&quot;&gt;&lt;a href=&quot;#题目一（基本概念）&quot; class=&quot;headerlink&quot;
         
       
     
@@ -43,11 +70,11 @@
   </entry>
   
   <entry>
-    <title>3D分类笔记</title>
+    <title>3D点云特征提取笔记</title>
     <link href="https://blog.karbo.online/3d/3dclassificationnotes/"/>
     <id>https://blog.karbo.online/3d/3dclassificationnotes/</id>
     <published>2019-08-31T12:16:21.000Z</published>
-    <updated>2019-09-17T08:44:07.748Z</updated>
+    <updated>2019-09-19T01:46:13.820Z</updated>
     
     <summary type="html">
     
@@ -73,7 +100,7 @@
     <link href="https://blog.karbo.online/dl/conv-understanding/"/>
     <id>https://blog.karbo.online/dl/conv-understanding/</id>
     <published>2019-08-28T11:42:09.000Z</published>
-    <updated>2019-09-06T12:50:24.667Z</updated>
+    <updated>2019-09-19T04:52:16.700Z</updated>
     
     <summary type="html">
     
@@ -320,9 +347,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -559,44 +586,11 @@
     
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
-      <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Markdown-快速入门</title>
-    <link href="https://blog.karbo.online/markdown/markdown-beginner/"/>
-    <id>https://blog.karbo.online/markdown/markdown-beginner/</id>
-    <published>2019-03-05T08:25:13.000Z</published>
-    <updated>2019-08-09T15:50:49.338Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Markdown 是什么？它是一门标记语言，它能实现与 Microsoft Word 文字排版相似的功能。而这篇文章正是用 Markdown 语言编写的，我们使用它来进行文字的排版。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;Markdown-mark.svg&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="markdown" scheme="https://blog.karbo.online/categories/markdown/"/>
-    
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
-      <category term="markdown" scheme="https://blog.karbo.online/tags/markdown/"/>
-    
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
     
-      <category term="writing" scheme="https://blog.karbo.online/tags/writing/"/>
+      <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
   </entry>
   
