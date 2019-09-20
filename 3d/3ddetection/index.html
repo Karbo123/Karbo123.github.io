@@ -7,9 +7,8 @@
     <meta name="keywords" content="3D目标检测, 任我行">
     <meta name="description" content="3D目标检测介绍3D detection的各种模型框架方法等。
 RGB-D == 2.5D
-Using 2Ddetection
-ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》
-">
+2D-Driven 3D Object Detection in RGB-D Images
+ICCV2017《2D-Driven 3D Object">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -412,14 +411,14 @@ ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        681
+                        1.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        7 分
                     </div>
                     
                 
@@ -437,7 +436,7 @@ ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》
             <div id="articleContent">
                 <h1 id="3D目标检测"><a href="#3D目标检测" class="headerlink" title="3D目标检测"></a>3D目标检测</h1><p>介绍3D detection的各种模型框架方法等。</p>
 <p>RGB-D == 2.5D</p>
-<h2 id="Using-2Ddetection"><a href="#Using-2Ddetection" class="headerlink" title="Using 2Ddetection"></a>Using 2Ddetection</h2><blockquote>
+<h2 id="2D-Driven-3D-Object-Detection-in-RGB-D-Images"><a href="#2D-Driven-3D-Object-Detection-in-RGB-D-Images" class="headerlink" title="2D-Driven 3D Object Detection in RGB-D Images"></a>2D-Driven 3D Object Detection in RGB-D Images</h2><blockquote>
 <p>ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_iccv_2017/html/Lahoud_2D-Driven_3D_Object_ICCV_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_iccv_2017/html/Lahoud_2D-Driven_3D_Object_ICCV_2017_paper.html</a></p>
 </blockquote>
@@ -482,6 +481,73 @@ ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》
 <li><p>Refinement Based on Context Information</p>
 <p>利用环境信息优化结果，例如一般情况下chairs与table靠近的可能性比较大。</p>
 <p>假设labels的分布是Gibbs distribution，然后构造factor graph，使用unary and binary log potential functions得到probability，然后Our goal is to find the labelling that maximizes the aposteriori (MAP)，然后转化为linear program求解。</p>
+</li>
+</ol>
+<h2 id="Amodal-Detection-of-3D-Objects-Inferring-3D-Bounding-Boxes-from-2D-Ones-in-RGB-Depth-Images"><a href="#Amodal-Detection-of-3D-Objects-Inferring-3D-Bounding-Boxes-from-2D-Ones-in-RGB-Depth-Images" class="headerlink" title="Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images"></a>Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images</h2><blockquote>
+<p>CVPR2017《Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Deng_Amodal_Detection_of_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Deng_Amodal_Detection_of_CVPR_2017_paper.html</a></p>
+</blockquote>
+<h3 id="概括-1"><a href="#概括-1" class="headerlink" title="概括"></a>概括</h3><p>本质：将RGB-D图当作普通的图像来处理，使用Fast R-CNN网络（网络中使用的proposal是2D的），只不过网络输出的2D box regression变成了3D box regression。然后使用外部方法将2D proposal转换为3D proposal。最后：final box == 3D proposal + 3D box regression</p>
+<p>创新点：</p>
+<ul>
+<li><p>将2D图像的feature应用于3D bounding box的regression上，即不需要将2.5D RGB-D图转化为3D的数据来处理。说明2.5D能编码足够的3D amodal object detection特征。</p>
+</li>
+<li><p>能直接得到bounding box的位置、大小、朝向（因为将其表示为7维的向量了）</p>
+</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>Amodal Detection意思是即使部分被遮挡，也要能正确估计出尺寸，而不受遮挡的影响。</li>
+<li>2.5D方法：直接在2.5D的RGB-D上学习，将2D的结果转化为3D的结果</li>
+<li>3D的方法：直接在3D点云上进行学习，从3D window中提取点云特征</li>
+<li>真实采集RGB-D图像并不是完美的，在Depth上noisy，而且在Depth图可能有“black hole”（或许是红外线反光造成的）。而复原出的point cloud误差大、稀疏、且物体只有一部分的表面有点集。</li>
+<li>作者还稍微改进/修正了NYUV2数据集</li>
+</ul>
+<p>与Fast R-CNN的不同：</p>
+<ul>
+<li>2D proposal的方法不同</li>
+<li>本文是RGB图和D图的特征的concat，而Fast R-CNN没有“双路并行”和concat。</li>
+<li>本文的网络后端是：classification、3D box regression；而Fast R-CNN后端是classification、2D box regression。</li>
+<li>本文需要将2D proposal转换成3D proposal，才能利用网络输出的“3D box regression”来得到最终的box；而Fast R-CNN直接就是2D proposal + 3D box regression == final box</li>
+</ul>
+<p>TODO IDEA：如果网络中使用的是3D proposal而不是2D proposal（下图中的绿色的“云”的部分），那么效果或不会更好？（这样就更加像Fast R-CNN了）；能否用Region Proposal Networks来替代传统的proposal方式，以实现加速？；如何把2D box proposal转换为3D box proposal的过程使用神经网络来处理（转换成只使用神经网络处理的关键或许是如何设计neural network输入和输出的“数据”和“数据排列的结构”，因为中间的过程是个black box）？</p>
+<h3 id="思想-1"><a href="#思想-1" class="headerlink" title="思想"></a>思想</h3><p>先想办法做出3D bounding box的proposals，然后利用2D的特征来regress你的3D proposals。</p>
+<p>即：从RGB-D图像提议出一个2D proposal，然后将RGB-D和2D proposal送入网络，网络末端则输出classification和3D regression。然后基于2D proposal提议出3D proposal，再利用3D regression便得到最终的3D bounding box位置。</p>
+<p>使用2D proposal竟然可以得到3D regression，表明网络需要从图像中隐式地预估出3D box并且学习得到3D regression。</p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p><img src="2_1.png" alt></p>
+<p>仿照Fast R-CNN的结构和方法。</p>
+<p>将RGB图和D图输入到2个VGG16。基于2D object proposals和enlarged contextual patches从RoI pooling layer提取特征，然后将特征cancat，送入后续的multiple tasks learning网络中。</p>
+<p>具体细节如下：</p>
+<ol>
+<li><p>2D RoI proposals</p>
+<p>使用adapted MCG algorithm算法，来获取proposals（只是可能存在的区域，不一定真的含有物体），可以参考这里：<a href="https://zihuaweng.github.io/2017/12/24/region_proposals/" target="_blank" rel="noopener">多种region_proposal算法比较</a></p>
+</li>
+<li><p>3D box proposals</p>
+<p><img src="2_2.jpg" alt></p>
+<p>3D box proposals从2D segment proposals中产生。</p>
+<p>将3D bounding box表示成7维向量：$[x,y,z,l,w,h,\theta]$（假设放置在水平面上，则方位角只需要一个变量$\theta$），（注：$z$是深度方向）</p>
+<p>3D proposals的设定方式：</p>
+<ul>
+<li>3D box中心点的$x$和$y$：2D segment pixels投影到3D空间中获得</li>
+<li>3D box中心点的$z$：设置成segment points深度的中值</li>
+<li>3D box的大小$l,w,h$：设置成该类的平均尺寸（we simply use averaged class-wise box dimensions estimated from training set as base 3D box size.）</li>
+<li>3D box的方向角$\theta$：设为零</li>
+</ul>
+</li>
+<li><p>3D box regression</p>
+<p>将proposals修正得到最终的box，修正量：$[\delta_x,\delta_y,\delta_z,\delta_l,\delta_w,\delta_h,\delta_\theta]$</p>
+<p>训练时，因为有ground-truth boxes，所以可以知道“修正量”的目标值应该是多少。</p>
+<p>与Fast R-CNN的方法类似，将feature和box输入到3D box regressor net，从而训练得到“修正量”。</p>
+</li>
+<li><p>Multi-task Loss</p>
+<p>将“物体种类分类”和“方框回归”的损失函数合在一起，得到多任务的Loss</p>
+</li>
+<li><p>Post processing</p>
+<p>在2D detected boxes中使用NMS，在3D中不使用NMS。</p>
+<p>对结果不pruning（例如不基于物体数值统计上的尺寸来进行筛选去除结果）。</p>
+</li>
+<li><p>Mini-batch sampling</p>
+<p>主要讲怎么从标记的数据中，采样出包含positive和negative样本的minibatch，详略。</p>
 </li>
 </ol>
 
@@ -1160,7 +1226,7 @@ ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">61.2k</span>
+            <span class="white-color">62.3k</span>
             
 
             
