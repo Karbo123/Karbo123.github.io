@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-20T10:00:58.331Z</updated>
+  <updated>2019-09-22T11:54:08.175Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/3d/3ddetection/"/>
     <id>https://blog.karbo.online/3d/3ddetection/</id>
     <published>2019-09-19T01:21:25.000Z</published>
-    <updated>2019-09-20T10:00:58.331Z</updated>
+    <updated>2019-09-22T11:54:08.175Z</updated>
     
     <summary type="html">
     
@@ -29,8 +29,7 @@
       
         
         
-          &lt;h1 id=&quot;3D目标检测&quot;&gt;&lt;a href=&quot;#3D目标检测&quot; class=&quot;headerlink&quot; title=&quot;3D目标检测&quot;&gt;&lt;/a&gt;3D目标检测&lt;/h1&gt;&lt;p&gt;介绍3D detection的各种模型框架方法等。&lt;/p&gt;
-&lt;p&gt;RGB-D ==
+          &lt;h1 id=&quot;3D目标检测&quot;&gt;&lt;a href=&quot;#3D目标检测&quot; class=&quot;headerlink&quot; title=&quot;3D目标检测&quot;&gt;&lt;/a&gt;3D目标检测&lt;/h1&gt;&lt;p&gt;介绍3D
         
       
     

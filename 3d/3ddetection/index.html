@@ -6,9 +6,10 @@
     <meta charset="utf-8">
     <meta name="keywords" content="3D目标检测, 任我行">
     <meta name="description" content="3D目标检测介绍3D detection的各种模型框架方法等。
-RGB-D == 2.5D
-2D-Driven 3D Object Detection in RGB-D Images
-ICCV2017《2D-Driven 3D Object">
+背景知识：
+
+RGB-D image == 2.5D；point cloud == 3D
+Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -411,14 +412,14 @@ ICCV2017《2D-Driven 3D Object">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.8k
+                        2.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        7 分
+                        10 分
                     </div>
                     
                 
@@ -435,7 +436,12 @@ ICCV2017《2D-Driven 3D Object">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="3D目标检测"><a href="#3D目标检测" class="headerlink" title="3D目标检测"></a>3D目标检测</h1><p>介绍3D detection的各种模型框架方法等。</p>
-<p>RGB-D == 2.5D</p>
+<p>背景知识：</p>
+<ul>
+<li>RGB-D image == 2.5D；point cloud == 3D</li>
+<li>Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出尺寸，而不受遮挡的影响。</li>
+<li>objectness：指代非背景的任何物体，不讨论特定的物体类别。</li>
+</ul>
 <h2 id="2D-Driven-3D-Object-Detection-in-RGB-D-Images"><a href="#2D-Driven-3D-Object-Detection-in-RGB-D-Images" class="headerlink" title="2D-Driven 3D Object Detection in RGB-D Images"></a>2D-Driven 3D Object Detection in RGB-D Images</h2><blockquote>
 <p>ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_iccv_2017/html/Lahoud_2D-Driven_3D_Object_ICCV_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_iccv_2017/html/Lahoud_2D-Driven_3D_Object_ICCV_2017_paper.html</a></p>
@@ -497,7 +503,6 @@ ICCV2017《2D-Driven 3D Object">
 </ul>
 <p>注：</p>
 <ul>
-<li>Amodal Detection意思是即使部分被遮挡，也要能正确估计出尺寸，而不受遮挡的影响。</li>
 <li>2.5D方法：直接在2.5D的RGB-D上学习，将2D的结果转化为3D的结果</li>
 <li>3D的方法：直接在3D点云上进行学习，从3D window中提取点云特征</li>
 <li>真实采集RGB-D图像并不是完美的，在Depth上noisy，而且在Depth图可能有“black hole”（或许是红外线反光造成的）。而复原出的point cloud误差大、稀疏、且物体只有一部分的表面有点集。</li>
@@ -548,6 +553,48 @@ ICCV2017《2D-Driven 3D Object">
 </li>
 <li><p>Mini-batch sampling</p>
 <p>主要讲怎么从标记的数据中，采样出包含positive和negative样本的minibatch，详略。</p>
+</li>
+</ol>
+<h2 id="Deep-Sliding-Shapes-for-Amodal-3D-Object-Detection-in-RGB-D-Images"><a href="#Deep-Sliding-Shapes-for-Amodal-3D-Object-Detection-in-RGB-D-Images" class="headerlink" title="Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images"></a>Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images</h2><blockquote>
+<p>CVPR2016《Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images》</p>
+<p>paper下载：<a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Song_Deep_Sliding_Shapes_CVPR_2016_paper.html" target="_blank" rel="noopener">https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Song_Deep_Sliding_Shapes_CVPR_2016_paper.html</a></p>
+</blockquote>
+<h3 id="概括-2"><a href="#概括-2" class="headerlink" title="概括"></a>概括</h3><p>仿照Faster R-CNN，提出了3D Region Proposal Network（RPN）和joint Object Recognition Network（ORN）。</p>
+<p>其中RPN则利用voxels作为输入，然后输出bounding box（在anchor的基础上学习offset）和objectness score；而ORN则利用voxels和RGB image作为输入，然后输出bounding box offset和class score</p>
+<p>特点：box的位置的proposal使用3D方法；RPN具有两个感受野；ORN结合了3D几何结构特征和2D图像特征。</p>
+<p>效果：SOTA且更快（与Sliding Shapes相比）</p>
+<p>TODO IDEA：能不能将real world的bounding box转化为在depth map上的等效标签？</p>
+<h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Encoding 3D Representation（using directional TSDF）</p>
+<p>将space划分为等间隔的3d voxel grid，每一个voxel的内容都是一个3维向量$[dx,dy,dz]$。其中$\sqrt{dx^2+dy^2+dz^2}$是这个voxel center到其他points（point on surface）的最近的距离，数值分别沿着坐标轴方向。然后再被$2\delta$ clipped（$\delta$是格子大小）。正负号该voxel center代表在surface的前面还是后面。</p>
+</li>
+<li><p>Multi-scale 3D Region Proposal Network</p>
+<p><img src="3_1.png" alt></p>
+<p>作用：提出区域建议，所以输入是用directional TSDF编码后的voxels；输出的objectness score如果太低则不被采纳；</p>
+<p>特点：两个感受野，分别建议出大框框和小框框。</p>
+<p><img src="3_2.png" alt></p>
+<p>实现细节：</p>
+<ul>
+<li>使用房间的主方向作为所有proposals的朝向（即使用了Manhattan world assumption）</li>
+<li>每个voxel上有个feature，anchor有N个。将其送入softmax分支（2N个nodes）则得到N个objectness score；送入L1 smooth分支（6N个nodes）则得到N个bounding box offset（根据anchor和offset就可以计算出理想值为ground truth的proposal，这是第一次回归）</li>
+<li>感受野更大的是因为有一个pooling，每个位置具有15个anchors；感受野小的每个位置上具有4个anchor；合起来相当于能输出19种不同大小的框框。</li>
+<li>根据框框内点的密度，移除近似真空的box</li>
+<li>训练过程：minibatch包含2张图，每张图采样出256个anchors。positive（iou较大）比negative（iou较小）为1比1</li>
+<li>多任务损失：将softmax和L1 smooth线性结合得到合成的损失函数。</li>
+<li>使用3D NMS剔除重合度大的多余框框</li>
+</ul>
+</li>
+<li><p>Joint Amodal Object Recognition Network</p>
+<p><img src="3_3.png" alt></p>
+<p>实现细节：</p>
+<ul>
+<li>将box各个尺度上扩大12.5%，以容纳更多信息。然后截取框内的部分输入到网络中。</li>
+<li>3D部分（只用了depth map，没有颜色信息）：将box内的space划分成30x30x30的的voxels，然后用directional TSDF编码voxel；2D部分：将box内的3D点投射到2D上，从而获取2D box，然后用预训练的VGG提取feature map，然后用RoI pooling池化到7x7固定尺寸。最后将2D和3D特征concat，预测object label（softmax）和3D box offset（L1 smooth）。</li>
+<li>训练过程：For each mini-batch, we sample 384 examples from different images, with a positive to negative ratio of 1:3.</li>
+<li>多任务损失：将softmax和L1 smooth线性结合得到合成的损失函数。</li>
+<li>使用3D NMS剔除重合度大的多余框框</li>
+<li>使用Object size pruning技术来降低不合常规的框框的得分（比常规太大或太小则得分除以2）</li>
+</ul>
 </li>
 </ol>
 
@@ -1226,7 +1273,7 @@ ICCV2017《2D-Driven 3D Object">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">62.3k</span>
+            <span class="white-color">63.1k</span>
             
 
             
