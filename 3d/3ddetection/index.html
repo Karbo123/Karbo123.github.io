@@ -412,14 +412,14 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.6k
+                        3.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        14 分
                     </div>
                     
                 
@@ -594,6 +594,51 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <li>多任务损失：将softmax和L1 smooth线性结合得到合成的损失函数。</li>
 <li>使用3D NMS剔除重合度大的多余框框</li>
 <li>使用Object size pruning技术来降低不合常规的框框的得分（比常规太大或太小则得分除以2）</li>
+</ul>
+</li>
+</ol>
+<h2 id="Deep-Continuous-Fusion-for-Multi-Sensor-3D-Object-Detection"><a href="#Deep-Continuous-Fusion-for-Multi-Sensor-3D-Object-Detection" class="headerlink" title="Deep Continuous Fusion for Multi-Sensor 3D Object Detection"></a>Deep Continuous Fusion for Multi-Sensor 3D Object Detection</h2><blockquote>
+<p>ECCV2018《Deep Continuous Fusion for Multi-Sensor 3D Object Detection》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_ECCV_2018/html/Ming_Liang_Deep_Continuous_Fusion_ECCV_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_ECCV_2018/html/Ming_Liang_Deep_Continuous_Fusion_ECCV_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概括-3"><a href="#概括-3" class="headerlink" title="概括"></a>概括</h3><p>将雷达（LIDAR，point cloud数据）和前视摄像头（camera image，前视RGB图像）的数据做特征融合。做object detection（在BEV平面视角下的2D detection，或3D detection都支持）。使用端到端的网络结构，多尺度下的特征图融合。效果：显著的SOTA，推理速度快。</p>
+<p><img src="4_4.png" alt></p>
+<p>注：</p>
+<ul>
+<li>BEV即Bird’s-Eye-View，即俯视图</li>
+<li>难点：如何实现point cloud与RGB的特征融合？</li>
+<li>camera image和point cloud都是车辆的前方视角的数据</li>
+</ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>原理概述：将前视图像的特征图转变为俯视的特征图；将point cloud转变为俯视图；然后两个俯视图相加；再在多层级上融合；然后用与RPN类似的方法提取区域建议，最后得到detection result。</p>
+<p>将前视的camera image转变为俯视的BEV的关键原理（continuous fusion layer的功能）：</p>
+<ul>
+<li>用CNN提取特征得到多层级的camera image feature map，将camera image feature map（下图中的红色“camera image”）的feature利用投影关系“加载”到point cloud中，再将point cloud投影到BEV平面上。给定BEV上的一个target pixel（下图中右边的白色正方形），先用KNN的方法寻找其邻居，然后使用使用类似于“点卷积”的方法聚合信息，从而获取到target pixel应得的特征向量。</li>
+</ul>
+<p><img src="4_1.png" alt></p>
+<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><p><img src="4_2.png" alt></p>
+<p>网络的整体架构如上。</p>
+<ul>
+<li>黄色的camera stream：使用ResNet18提取camera image的多层级的feature map。</li>
+<li>红色的LIDAR stream：使用ResNet18（不是同一个）提取LIDAR BEV（雷达点云的俯视图）的多层级的feature map</li>
+<li>蓝色的Fusion Layers：使用continuous fusion layer将前视的feature map转变为俯视的feature map，然后与LIDAR BEV的feature map做融合</li>
+<li>绿色的detection header：使用类似于Faster R-CNN的方法，用RPN的方法提取区域建议，然后分类识别等等。</li>
+</ul>
+<ol>
+<li><p>Continuous Fusion Layer</p>
+<p><img src="4_3.png" alt></p>
+<ul>
+<li>如果要求BEV上的一个浅蓝色正方形像素点对应的feature vector，则首先寻找其K个邻居（邻居是点云的俯视图投影的来的）；从而知道这K个邻居在点云中是哪K个点，并且计算在3D点云空间中的相对坐标$x_j-x_i$（$x_j$是邻居，$x_i$是中心点）</li>
+<li>然后将这K个点投影到前视图（实质上是前视图的feature map），这K个点落在哪个像素上（因为不可能刚好落在像素上，所以实际上是使用双线性插值），就被携带了这个像素所对应的feature vector；这样这K个点就都有各自的feature vector了，第$j$个点的feature vector记作$f_j$</li>
+<li>然后作者仿照“点卷积”（$h_i=\sum_j MLP(x_i-x_j)\cdot f_j$）的公式，作者提出使用：<script type="math/tex">h_i=\sum_j MLP(cancat[f_j,x_j-x_i])</script>公式更快更省内存。使用这条公式得到的$h_i$即是浅蓝色正方形得到的feature vector</li>
+</ul>
+<p>特点：BEV图上的像素点包含了“点云的局部空间信息”、“前视图的特征信息”，并使用MLP使这两个信息”融合处理”，从而生成BEV图。</p>
+</li>
+<li><p>Architecture of our model</p>
+<ul>
+<li>使用ResNet18提取feature map</li>
+<li>continuous fuse layer的输入是对应的image feature map以及所有特征图融合后的输出；特征图之间用逐元素之间的加法加起来</li>
+<li>随后将得到的feature map使用1x1卷积；用2个anchors；anchor的输出是逐像素的类别置信度以及box的center、location、size、orientation；最后用NMS</li>
+<li>使用多任务混合损失函数：$L=L_{cls}+\alpha L_{reg}$，即分类和回归任务的混合</li>
 </ul>
 </li>
 </ol>
@@ -1273,7 +1318,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">63.1k</span>
+            <span class="white-color">64k</span>
             
 
             
