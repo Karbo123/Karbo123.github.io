@@ -412,14 +412,14 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.6k
+                        4.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        14 分
+                        17 分
                     </div>
                     
                 
@@ -441,6 +441,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <li>RGB-D image == 2.5D；point cloud == 3D</li>
 <li>Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出尺寸，而不受遮挡的影响。</li>
 <li>objectness：指代非背景的任何物体，不讨论特定的物体类别。</li>
+<li>LiDAR：激光雷达（更精细）；radar：无线电波雷达（更远）</li>
 </ul>
 <h2 id="2D-Driven-3D-Object-Detection-in-RGB-D-Images"><a href="#2D-Driven-3D-Object-Detection-in-RGB-D-Images" class="headerlink" title="2D-Driven 3D Object Detection in RGB-D Images"></a>2D-Driven 3D Object Detection in RGB-D Images</h2><blockquote>
 <p>ICCV2017《2D-Driven 3D Object Detection in RGB-D Images》</p>
@@ -489,7 +490,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <p>假设labels的分布是Gibbs distribution，然后构造factor graph，使用unary and binary log potential functions得到probability，然后Our goal is to find the labelling that maximizes the aposteriori (MAP)，然后转化为linear program求解。</p>
 </li>
 </ol>
-<h2 id="Amodal-Detection-of-3D-Objects-Inferring-3D-Bounding-Boxes-from-2D-Ones-in-RGB-Depth-Images"><a href="#Amodal-Detection-of-3D-Objects-Inferring-3D-Bounding-Boxes-from-2D-Ones-in-RGB-Depth-Images" class="headerlink" title="Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images"></a>Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images</h2><blockquote>
+<h2 id="Amodal-Detection-of-3D-Objects-Inferring-3D-Bounding-Boxes-from-2D-Ones-in-RGB-Depth-Images-👍"><a href="#Amodal-Detection-of-3D-Objects-Inferring-3D-Bounding-Boxes-from-2D-Ones-in-RGB-Depth-Images-👍" class="headerlink" title="Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images 👍"></a>Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images 👍</h2><blockquote>
 <p>CVPR2017《Amodal Detection of 3D Objects: Inferring 3D Bounding Boxes from 2D Ones in RGB-Depth Images》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Deng_Amodal_Detection_of_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Deng_Amodal_Detection_of_CVPR_2017_paper.html</a></p>
 </blockquote>
@@ -555,7 +556,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <p>主要讲怎么从标记的数据中，采样出包含positive和negative样本的minibatch，详略。</p>
 </li>
 </ol>
-<h2 id="Deep-Sliding-Shapes-for-Amodal-3D-Object-Detection-in-RGB-D-Images"><a href="#Deep-Sliding-Shapes-for-Amodal-3D-Object-Detection-in-RGB-D-Images" class="headerlink" title="Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images"></a>Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images</h2><blockquote>
+<h2 id="Deep-Sliding-Shapes-for-Amodal-3D-Object-Detection-in-RGB-D-Images-👍"><a href="#Deep-Sliding-Shapes-for-Amodal-3D-Object-Detection-in-RGB-D-Images-👍" class="headerlink" title="Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images 👍"></a>Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images 👍</h2><blockquote>
 <p>CVPR2016《Deep Sliding Shapes for Amodal 3D Object Detection in RGB-D Images》</p>
 <p>paper下载：<a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Song_Deep_Sliding_Shapes_CVPR_2016_paper.html" target="_blank" rel="noopener">https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Song_Deep_Sliding_Shapes_CVPR_2016_paper.html</a></p>
 </blockquote>
@@ -639,6 +640,49 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <li>continuous fuse layer的输入是对应的image feature map以及所有特征图融合后的输出；特征图之间用逐元素之间的加法加起来</li>
 <li>随后将得到的feature map使用1x1卷积；用2个anchors；anchor的输出是逐像素的类别置信度以及box的center、location、size、orientation；最后用NMS</li>
 <li>使用多任务混合损失函数：$L=L_{cls}+\alpha L_{reg}$，即分类和回归任务的混合</li>
+</ul>
+</li>
+</ol>
+<h2 id="Frustum-PointNets-for-3D-Object-Detection-from-RGB-D-Data"><a href="#Frustum-PointNets-for-3D-Object-Detection-from-RGB-D-Data" class="headerlink" title="Frustum PointNets for 3D Object Detection from RGB-D Data"></a>Frustum PointNets for 3D Object Detection from RGB-D Data</h2><blockquote>
+<p>CVPR2018《Frustum PointNets for 3D Object Detection from RGB-D Data》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Qi_Frustum_PointNets_for_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Qi_Frustum_PointNets_for_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概括-4"><a href="#概括-4" class="headerlink" title="概括"></a>概括</h3><p>将RGB-D转为point cloud，然后使用3d的方法来处理点云数据。整体框架：先用2D detection的方法缩小搜索空间，然后做3D Instance Segmentation剔除杂点，最后Amodal 3D Box Estimation来回归得到框框。</p>
+<p>作者声称的优点：efficiency、high recall、precisely estimate 3D bounding boxes even under strong occlusion or with very sparse points、SOTA、having real-time capability</p>
+<p>模型名字：Frustum PointNets</p>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p><img src="5_1.png" alt></p>
+<p>利用2D detection的方法缩小搜素空间（形成frustum）；然后剔除杂点、生成回归框。</p>
+<p>生成frustum的优点：efficiently propose possible locations of 3D objects in a 3D space</p>
+<h3 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h3><p><img src="5_2.png" alt="Frustum PointNets for 3D object detection."></p>
+<p><img src="5_3.png" alt="Coordinate systems for point cloud."></p>
+<ol>
+<li><p>Frustum Proposal</p>
+<p>利用2D detection的方法（如FPN），生成2D region proposal（predict amodal 2D boxes），并且分类类别（one-hot class vector）；然后region2frustum模块则根据2D region生成3D frustum；然后转而使用“Coordinate systems for point cloud”图中（b）的坐标系，即其中的一个轴是沿着视线的中央位置的。</p>
+</li>
+<li><p>3D Instance Segmentation</p>
+<p>用二分类来对每个点做segmentation，同时利用2D detector得到的prediction，从而能够判断某个点是否属于目标物体（object of interest）的点；这样就能生成一张mask（掩膜），从而得到比较干净的区域；然后将XYZ坐标减去其重心，得到“Coordinate systems for point cloud”图中（c）的坐标系的样子（注意，我们不缩放点云的坐标）。</p>
+<p><img src="5_4.png" alt></p>
+<p>作用：剔除Foreground Occluder（遮挡物）和Background Clutter（背景杂乱），因为depth的区别比较大</p>
+<p>前提：Note that each frustum contains exactly one object of interest.</p>
+</li>
+<li><p>Amodal 3D Box Estimation</p>
+<p>先用T-Net（light-weight regression PointNet）来平移点云（回归出center的残差），使得centroid接近amodal box center（real object center）；</p>
+<p><img src="5_5.png" alt></p>
+<p>然后用Amodal 3D Box Estimation PointNet来回归出框框（网络输出的结点个数是$3+4\times NS+2\times NH$？？？）</p>
+<p><img src="5_6.png" alt></p>
+<p>回归框框的量：</p>
+<ul>
+<li>center residual：理想值是T-net之后的中心位置与真实中心的偏差（绝对坐标下的中心 = mask的中心 + “T-NET”学习到的偏移量 + 框框回归得到的偏移量）</li>
+<li>size</li>
+<li>heading angle$ \theta $（along up-axis）</li>
+</ul>
+</li>
+<li><p>Training</p>
+<ul>
+<li><p>使用multi-task losses（三个网络的混合loss）</p>
+</li>
+<li><p>提出所谓的“corner loss”，能同时优化框框的center、size、heading，而避免了只优化一个量（本质上corner loss是预测框的8个顶点与ground truth的顶点的距离之和）</p>
+</li>
 </ul>
 </li>
 </ol>
@@ -1318,7 +1362,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">64k</span>
+            <span class="white-color">64.6k</span>
             
 
             

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-27T08:04:36.199Z</updated>
+  <updated>2019-09-29T11:37:22.802Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/3d/3ddetection/"/>
     <id>https://blog.karbo.online/3d/3ddetection/</id>
     <published>2019-09-19T01:21:25.000Z</published>
-    <updated>2019-09-27T08:04:36.199Z</updated>
+    <updated>2019-09-29T11:37:22.802Z</updated>
     
     <summary type="html">
     
@@ -346,9 +346,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   
@@ -405,11 +405,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -583,11 +583,11 @@
       <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
     
       <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
       <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
