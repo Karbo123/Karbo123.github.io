@@ -38,9 +38,9 @@
       <category term="english" scheme="https://blog.karbo.online/categories/english/"/>
     
     
-      <category term="english" scheme="https://blog.karbo.online/tags/english/"/>
-    
       <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
+    
+      <category term="english" scheme="https://blog.karbo.online/tags/english/"/>
     
   </entry>
   
@@ -433,11 +433,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   

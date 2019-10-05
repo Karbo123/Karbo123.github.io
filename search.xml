@@ -20,9 +20,9 @@
       
         <tags>
             
-            <tag> english </tag>
-            
             <tag> grammar </tag>
+            
+            <tag> english </tag>
             
         </tags>
       
@@ -394,11 +394,11 @@
       
         <tags>
             
-            <tag> grammar </tag>
-            
             <tag> python </tag>
             
             <tag> numpy </tag>
+            
+            <tag> grammar </tag>
             
         </tags>
       
