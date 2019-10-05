@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-09-29T11:37:22.802Z</updated>
+  <updated>2019-10-05T05:09:05.948Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://blog.karbo.online/uncategorized/englishgrammar/"/>
+    <id>https://blog.karbo.online/uncategorized/englishgrammar/</id>
+    <published>2019-10-05T01:46:33.939Z</published>
+    <updated>2019-10-05T05:09:05.948Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;英语语法&quot;&gt;&lt;a href=&quot;#英语语法&quot; class=&quot;headerlink&quot; title=&quot;英语语法&quot;&gt;&lt;/a&gt;英语语法&lt;/h1&gt;&lt;p&gt;本文课程：&lt;a href=&quot;https://www.bilibili.com/video/av8200354&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>3D目标检测</title>
@@ -405,11 +427,11 @@
       <category term="python" scheme="https://blog.karbo.online/categories/python/"/>
     
     
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
       <category term="numpy" scheme="https://blog.karbo.online/tags/numpy/"/>
+    
+      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
     
   </entry>
   
@@ -557,39 +579,6 @@
     
     
       <category term="ml" scheme="https://blog.karbo.online/tags/ml/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux-入门速成</title>
-    <link href="https://blog.karbo.online/linux/linux-quickstart/"/>
-    <id>https://blog.karbo.online/linux/linux-quickstart/</id>
-    <published>2019-03-08T15:49:37.000Z</published>
-    <updated>2019-08-09T15:30:58.639Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;本文实用地介绍了 Linux 指令的用法，和 Linux 系统的相关知识。&lt;/p&gt;
-&lt;p&gt;（大多内容选自 &lt;a href=&quot;http://billie66.github.io/TLCL/book/index.html&quot; target=&quot;_blank&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="https://blog.karbo.online/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="https://blog.karbo.online/tags/linux/"/>
-    
-      <category term="programing" scheme="https://blog.karbo.online/tags/programing/"/>
-    
-      <category term="grammar" scheme="https://blog.karbo.online/tags/grammar/"/>
-    
-      <category term="os" scheme="https://blog.karbo.online/tags/os/"/>
     
   </entry>
   
