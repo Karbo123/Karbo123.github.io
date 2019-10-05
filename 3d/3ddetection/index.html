@@ -412,14 +412,14 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.2k
+                        5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        17 分
+                        20 分
                     </div>
                     
                 
@@ -682,6 +682,63 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <li><p>使用multi-task losses（三个网络的混合loss）</p>
 </li>
 <li><p>提出所谓的“corner loss”，能同时优化框框的center、size、heading，而避免了只优化一个量（本质上corner loss是预测框的8个顶点与ground truth的顶点的距离之和）</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Joint-3D-Proposal-Generation-and-Object-Detection-from-View-Aggregation"><a href="#Joint-3D-Proposal-Generation-and-Object-Detection-from-View-Aggregation" class="headerlink" title="Joint 3D Proposal Generation and Object Detection from View Aggregation"></a>Joint 3D Proposal Generation and Object Detection from View Aggregation</h2><blockquote>
+<p>IROS2018《Joint 3D Proposal Generation and Object Detection from View Aggregation》</p>
+<p>paper下载：<a href="https://ieeexplore.ieee.org/document/8594049" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/8594049</a></p>
+</blockquote>
+<h3 id="概括-5"><a href="#概括-5" class="headerlink" title="概括"></a>概括</h3><p>提出了一套无人驾驶中的detection方案叫AVOD（Aggregate View Object Detection network）。</p>
+<p>使用“雷达点云数据+RGB图像”作为输入（两种模态所以需要multimodal feature fusion）。仿照Faster R-CNN，AVOD主要由RPN、detector network组成。特征提取操作还是在2D层次上的处理。</p>
+<p>优点：</p>
+<ul>
+<li>可以检测小物体，且high recall（因为使用high resolution feature map（仿照了FPN的做法），以及两个模态融合，所以可以在proposal阶段达到high recall）</li>
+<li>较精确预测3D box的orientation（因为作者提出了新的box表达方式，称作4 corner encoding）</li>
+<li>SOTA、场景泛化性能好、实时、低内存占用（efficiency是因为proposal之前使用1x1 conv进行了feature map channels number的reduction）</li>
+</ul>
+<p>3D box与2D box的区别：3Dbox是3D的，3Dbox还要预测orientation</p>
+<h3 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h3><p><img src="6_1.png" alt></p>
+<ol>
+<li><p>将point cloud数据通过某种基于voxel grid的方法转化成6-channel BEV map，这个BEV就是上图中的“BEV Input”</p>
+</li>
+<li><p>然后利用下图类似于FPN结构的网络来提取特征，分别得到“Image Feature Maps”和“BEV Feature Maps”（得到的是高分辨率的特征图，有助于识别尺寸小的物体。输出图的尺寸不变，但是通道数可能改变。取最后一层的输出作为特征图）</p>
+<p><img src="6_2.png" alt></p>
+</li>
+<li><p>RPN</p>
+<ul>
+<li><p>目的：回归出anchor与GT的偏移量$(\Delta t_x,\Delta t_y,\Delta t_z,\Delta d_x,\Delta d_y,\Delta d_z)$（这里使用的是axis aligned bounding box），以及objectness score（注意这里并没有回归orientation）</p>
+<p><img src="6_3.png" alt></p>
+</li>
+<li><p>anchor生成方式：centroid是BEV平面上的等间隔采样，中心的高度等于摄像机的高度，size是聚类获得。所以本质上是用2D的anchor表示3D（因为中心点的高度都是一样的）。并且移除空的anchors。暂不考虑orientation，即与坐标轴对齐</p>
+</li>
+<li><p>crop and resize：将3D anchor投影到BEV或前视图上，得到对应的ROI区域。然后将对应区域crop出来，再resize。从而得到固定尺寸的输入</p>
+</li>
+<li><p>流程：</p>
+<ul>
+<li>先1x1卷积将特征图缩小到只有1个通道（减少计算量）</li>
+<li>然后根据anchors来进行crop and resize，得到“feature crop”</li>
+<li>将“feature crops”以element-wise mean operation的方式进行融合</li>
+<li>然后送入FC层，最后再2D NMS（本质是2D的，因为proposals中心点的高度都是一样的）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Detection Network</p>
+<ul>
+<li>目的：得到最终的detection box</li>
+<li>输入：将3D proposals投影到BEV、前视图得到的区域，再crop and resize，这样输入尺寸才相同</li>
+<li><p>输出：box regression, orientation estimation, and category classification for each proposal</p>
+</li>
+<li><p>框框编码：将3D box用“4 corner encoding”方法编码，即4个底角的xy坐标，以及上下面到地板的距离，那么框框的回归量就是$(\Delta x_1,\Delta x_2,\Delta x_3,\Delta x_4,\Delta y_1,\Delta y_2,\Delta y_3,\Delta y_4,\Delta h_1,\Delta h_2)$，回归量是proposal与GT的偏移量。相比前人的8 corner表示法，参数量从24减少到10个。</p>
+</li>
+<li>Orientation Vector Regression：传统的表示法就是$\theta$。而作者使用$(x_\theta,y_\theta)=(cos(\theta),sin(\theta))$表示orientation。（但是orientation好像已经在“4 corner encoding”暗含了，为什么又要估计方向？？）</li>
+<li>流程：<ul>
+<li>element-wise mean operation进行“feature crops”的融合</li>
+<li>经过FC层，输出“框框10维回归量”+“方向2维估计量”+“one-hot分类”</li>
+<li>最后NMS</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -1363,7 +1420,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">69.2k</span>
+            <span class="white-color">70.1k</span>
             
 
             
