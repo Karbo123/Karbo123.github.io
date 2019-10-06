@@ -412,14 +412,14 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5k
+                        5.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        20 分
+                        23 分
                     </div>
                     
                 
@@ -739,6 +739,68 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <li>经过FC层，输出“框框10维回归量”+“方向2维估计量”+“one-hot分类”</li>
 <li>最后NMS</li>
 </ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Multi-View-3D-Object-Detection-Network-for-Autonomous-Driving"><a href="#Multi-View-3D-Object-Detection-Network-for-Autonomous-Driving" class="headerlink" title="Multi-View 3D Object Detection Network for Autonomous Driving"></a>Multi-View 3D Object Detection Network for Autonomous Driving</h2><blockquote>
+<p>CVPR2017《Multi-View 3D Object Detection Network for Autonomous Driving》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Chen_Multi-View_3D_Object_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Chen_Multi-View_3D_Object_CVPR_2017_paper.html</a></p>
+</blockquote>
+<h3 id="概括-6"><a href="#概括-6" class="headerlink" title="概括"></a>概括</h3><p>使用Multi-View的方式，对“雷达点云+RGB图”的输入，进行特征融合。达到了高精度。将点云转换成图像表达，并且需要将3D proposal投射到2D平面上，所以其实MV3D还是基于2D方法。</p>
+<p>方法简述：将稀疏的点云转变成multi-view表示（作者是BEV+FrontView），于是MV3D的输入就是LIDAR BEV + LIDAR FV + RGB Image。然后分别提取特征得到三个feature map。然后在LIDAR BEV的feature map上进行propose得到3D proposals（也用了基于anchor的方法），投影到平面上得到ROI区域，使用ROI pooling得到固定大小的输入，然后用“deep fusion”方法融合特征，最后预测类别和框框的回归量。</p>
+<p>其他：</p>
+<ul>
+<li><p>MV3D == Multi-View 3D object detection network</p>
+</li>
+<li><p>Laser scanners have the advantage of accurate depth information while cameras preserve much more detailed semantic information（所以LIDAR有助于确定框框的位置，RGB有助于确定物体类别）</p>
+</li>
+</ul>
+<h3 id="实现-6"><a href="#实现-6" class="headerlink" title="实现"></a>实现</h3><p>网络分为两部分：3D Proposal Network（类似于RPN） 和 Region-based Fusion Network（其实类似于ORN）</p>
+<p><img src="7_1.png" alt></p>
+<ol>
+<li>数据预处理步骤</li>
+</ol>
+<p>将LIDAR point cloud手工提取特征/手工编码得到LIDAR BEV和LIDAR FV</p>
+<ul>
+<li><p>提取点云在BEV视图上的高度特征、密度特征、强度特征，得到Bird’s eye view features，它是6通道的特征图。</p>
+</li>
+<li><p>提取点云在FV视图上的高度特征、距离特征、强度特征，得到Front view features（FV视图是雷达的横向扫角、雷达的纵向扫角组成的视图。xoy平面是BEV视图）</p>
+<p><img src="7_2.png" alt></p>
+<p>最终得到的MV3D的输入是：</p>
+<p><img src="7_3.png" alt></p>
+</li>
+</ul>
+<ol>
+<li><p>3D Proposal Network</p>
+<ul>
+<li>使用LIDAR BEV进行框框的propose（优点：保留了框框的物理实际尺寸、避免遮挡、垂直高度方向差异不大）。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>仿照Faster R-CNN使用基于anchor的方法，3D anchor为$(x,y,z,l,w,h)$，2D anchor为$(x_{BEV},y_{BEV},l_{BEV},w_{BEV})$，3D anchor size（$(l,w,h)$）是聚类获得的，$z$可以根据摄像头高度和$h$计算（假设是物体是放在地面上的），所以实际上是2D anchor。<ul>
+<li>然后使用类似于VGG16的网络来提取特征图。</li>
+</ul>
+</li>
+<li>因为BEV视图分辨率不足，识别小物体有困难，所以作者使用bilinear upsampling（图中的deconv）进行上采样增加分辨率。<ul>
+<li>然后3D Proposal Network的输出就是anchor与GT的偏移量、以及objectness score</li>
+</ul>
+</li>
+<li>移除空框框，使用multi-task loss，使用NMS，取出top2000进行训练，top300进行推断</li>
+</ul>
+<ol>
+<li><p>Region-based Fusion Network</p>
+<ul>
+<li><p>将3D proposal投影到BEV/FV/RGB平面上得到各自的2D proposal（图中的红蓝绿矩形）</p>
+</li>
+<li><p>然后根据ROI来crop，再使用ROI pooling，得到固定大小的feature map</p>
+</li>
+<li><p>再将3个feature map使用“deep fusion”方法来进行特征融合，如下图的（c）。即先算元素均值、再分别用3个FC layers并行处理，再将结果取均值，以此反复。</p>
+<p><img src="7_4.png" alt></p>
+</li>
+<li><p>回归量是$t = (\Delta x_0,…,\Delta x_7,\Delta y_0,…,\Delta y_7,\Delta z_0,…,\Delta z_7)$，也就是使用8 corners的坐标来表征bounding box。于是orientation也能从corners中推断出来。输出是回归量$t$和物体类别。使用multi-task loss，使用NMS。</p>
+<p>可能是由于“deep fusion”训练困难，我们使用 drop-path training 和 auxiliary losses 的方法来正则化训练，不详述。</p>
 </li>
 </ul>
 </li>
@@ -1239,12 +1301,12 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/grammar/" target="_blank">
-                        <span class="chip bg-color">grammar</span>
-                    </a>
-                    
                     <a href="/tags/english/" target="_blank">
                         <span class="chip bg-color">english</span>
+                    </a>
+                    
+                    <a href="/tags/grammar/" target="_blank">
+                        <span class="chip bg-color">grammar</span>
                     </a>
                     
                 </div>
@@ -1420,7 +1482,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">70.1k</span>
+            <span class="white-color">71.6k</span>
             
 
             
