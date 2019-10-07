@@ -412,14 +412,14 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.8k
+                        6.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        23 分
+                        27 分
                     </div>
                     
                 
@@ -803,6 +803,54 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 <p>可能是由于“deep fusion”训练困难，我们使用 drop-path training 和 auxiliary losses 的方法来正则化训练，不详述。</p>
 </li>
 </ul>
+</li>
+</ol>
+<h2 id="VoxelNet-End-to-End-Learning-for-Point-Cloud-Based-3D-Object-Detection-👍"><a href="#VoxelNet-End-to-End-Learning-for-Point-Cloud-Based-3D-Object-Detection-👍" class="headerlink" title="VoxelNet: End-to-End Learning for Point Cloud Based 3D Object Detection 👍"></a>VoxelNet: End-to-End Learning for Point Cloud Based 3D Object Detection 👍</h2><blockquote>
+<p>CVPR2018《VoxelNet: End-to-End Learning for Point Cloud Based 3D Object Detection》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Zhou_VoxelNet_End-to-End_Learning_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Zhou_VoxelNet_End-to-End_Learning_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概括-7"><a href="#概括-7" class="headerlink" title="概括"></a>概括</h3><p>对单纯雷达点云数据的object detection（所以只有几何信息）。将feature extraction和bounding box prediction的过程整合进一个single stage, end-to-end trainable deep network中，取名叫VoxelNet。关键是voxel feature encoding (VFE) layer的构建，能自动学习有效的有鉴别力的特征。最后通过RPN来输出detection box。达到了新的SOTA。</p>
+<p>处理LIDAR点云的难点：点云稀疏、点云密度变化、点云数量比较多（约100k个点）</p>
+<p>基本思想：将点云使用voxel栅格化、且在每个voxel内使用“pointnet”，使其转变为4D tensor。接下来使用卷积的方法就可以了。</p>
+<h3 id="实现-7"><a href="#实现-7" class="headerlink" title="实现"></a>实现</h3><p>整体分为3部分：(1) Feature learning network, (2) Convolutional middle layers, and (3) Region proposal network</p>
+<ol>
+<li><p>Feature Learning Network</p>
+<ul>
+<li><p>Voxel Partition：将3D空间等间距分割成很多个voxels</p>
+</li>
+<li><p>Grouping：在同一个voxel内的点被一起进行后续操作（根据voxel的分割将点云划分分组）</p>
+</li>
+<li><p>Random Sampling：从点数多于$T$的voxel内采样出$T$个点，使得每个voxel内的点数都不超过$T$（有助于解决点云的密度不均，以及节省计算）</p>
+</li>
+<li><p>Stacked Voxel Feature Encoding：将VFE layers级联，提取每个voxel的特征</p>
+<p><img src="8_1.png" alt></p>
+<p>上图是一层VFE layer对一个voxel的操作。图中假设$T=3$（就是采样出蓝、绿、黄三个点）。点$i$的输入特征向量（Point-wise Input）为$(x_i,y_i,z_i,r_i,x_i-v_x,y_i-v_y,z_i-v_z)$，其中$(x_i,y_i,z_i)$是点的坐标、$(r_i)$是雷达接收到的反射强度，$(x_i-v_x,y_i-v_y,z_i-v_z)$是相对重心（重心即所有点的均值）的相对坐标。简言之，有点类似于pointnet中的segmentation的特征操作，好比是一个voxel就是一个pointnet，但是FC layers参数是共享的。</p>
+<p><img src="8_2.png" alt></p>
+<p>经过n个VFE layers之后就得到了上图中的Point-wise Feature-n，然后输入到FC再MP，就得到了描述该voxel的特征Voxel-wise Feature。</p>
+</li>
+<li><p>Sparse Tensor Representation：每个voxel都有个特征向量，所以点云可以用4D tensor表示（尺寸$C\times D’\times H’\times W’$，$C$是每个voxel的特征向量长度，$D’$是Z轴方向上的voxels的个数，$H’$是Y轴方向上的voxels个数，$W’$是X轴方向上的voxels个数，xoy平面就是BEV平面）。超过90%的voxel都是空的，后续操作时不必对其进行操作（似乎就是作者提到的Efficient Implementation）。</p>
+</li>
+</ul>
+</li>
+<li><p>Convolutional Middle Layers</p>
+<p>使用3D卷积对4D tensor进行卷积，并进行reshape到3D tensor。</p>
+<p>举例：输入尺寸（4D tensor）是$128\times 10\times 400\times 352$，输出尺寸（经过Convolutional Middle Layers之后）是$64\times 2 \times400 \times 352$，然后reshape到$128 \times 400\times352$变成3D tensor（注意到$400\times 352$正是BEV视图上的栅格尺寸）</p>
+<p>目的：</p>
+<ul>
+<li>reshape的目的是方便后续的Region Proposal Network进行2D卷积</li>
+<li>3D卷积的目的是聚合周围环境voxels的信息</li>
+</ul>
+</li>
+<li><p>Region Proposal Network</p>
+<p>进行2D卷积，最后输出(1) a probability score map and (2) a regression map</p>
+<p>虽然是在类似于BEV的视图上进行卷积，但是输出的回归量却是3D的。</p>
+<p>回归量是$(\Delta x,\Delta y,\Delta z,\Delta l,\Delta w,\Delta h,\Delta \theta)$。</p>
+<p>使用多任务损失：分类的positive/negative损失、位置回归的positive损失。</p>
+<p>如下图所示：</p>
+<p><img src="8_3.png" alt></p>
+</li>
+<li><p>完整结构</p>
+<p><img src="8_4.png" alt></p>
 </li>
 </ol>
 
@@ -1482,7 +1530,7 @@ Amodal 3D Object Detection：即使部分被遮挡，也要能正确估计出">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">72.3k</span>
+            <span class="white-color">73.1k</span>
             
 
             
