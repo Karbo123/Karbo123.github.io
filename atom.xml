@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-10-07T07:04:33.245Z</updated>
+  <updated>2019-10-08T08:44:43.103Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>3dreconstruction</title>
+    <link href="https://blog.karbo.online/3d/3dreconstruction/"/>
+    <id>https://blog.karbo.online/3d/3dreconstruction/</id>
+    <published>2019-10-08T07:16:55.000Z</published>
+    <updated>2019-10-08T08:44:43.103Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;3D重建&quot;&gt;&lt;a href=&quot;#3D重建&quot; class=&quot;headerlink&quot; title=&quot;3D重建&quot;&gt;&lt;/a&gt;3D重建&lt;/h1&gt;&lt;p&gt;介绍3D重建的各种模型框架方法等。&lt;/p&gt;
+&lt;h2 id=&quot;3D-R2N2&quot;&gt;&lt;a href=&quot;#3D-R2N2&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="3d" scheme="https://blog.karbo.online/categories/3d/"/>
+    
+    
+      <category term="3d" scheme="https://blog.karbo.online/tags/3d/"/>
+    
+  </entry>
+  
+  <entry>
     <title>英语语法基础</title>
     <link href="https://blog.karbo.online/english/englishgrammar/"/>
     <id>https://blog.karbo.online/english/englishgrammar/</id>
     <published>2019-10-05T05:17:03.000Z</published>
-    <updated>2019-10-07T07:04:33.245Z</updated>
+    <updated>2019-10-08T10:52:44.036Z</updated>
     
     <summary type="html">
     
@@ -49,7 +76,7 @@
     <link href="https://blog.karbo.online/3d/3ddetection/"/>
     <id>https://blog.karbo.online/3d/3ddetection/</id>
     <published>2019-09-19T01:21:25.000Z</published>
-    <updated>2019-10-07T11:21:03.741Z</updated>
+    <updated>2019-10-08T07:19:20.078Z</updated>
     
     <summary type="html">
     
@@ -374,9 +401,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
-    
       <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
+    
+      <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
     
   </entry>
   
@@ -557,34 +584,6 @@
       <category term="darknet" scheme="https://blog.karbo.online/tags/darknet/"/>
     
       <category term="detection" scheme="https://blog.karbo.online/tags/detection/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>正确选择ML算法</title>
-    <link href="https://blog.karbo.online/ml/mlcomparsion/"/>
-    <id>https://blog.karbo.online/ml/mlcomparsion/</id>
-    <published>2019-03-10T12:54:55.000Z</published>
-    <updated>2019-08-10T11:48:22.102Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;本文教你如何选择合适自己的机器学习算法。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;20.png&quot; alt&gt;&lt;/p&gt;
-&lt;h1 id=&quot;分类&quot;&gt;&lt;a href=&quot;#分类&quot; class=&quot;headerlink&quot; title=&quot;分类&quot;&gt;&lt;/a&gt;分类&lt;/h1&gt;&lt;h2
-        
-      
-    
-    </summary>
-    
-      <category term="ml" scheme="https://blog.karbo.online/categories/ml/"/>
-    
-    
-      <category term="ml" scheme="https://blog.karbo.online/tags/ml/"/>
     
   </entry>
   
