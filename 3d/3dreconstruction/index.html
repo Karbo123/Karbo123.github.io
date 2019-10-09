@@ -411,14 +411,14 @@ p">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        995
+                        2.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        11 分
                     </div>
                     
                 
@@ -489,6 +489,98 @@ p">
 <li>Training： variable length inputs ranging from one image to an arbitrary number of images</li>
 <li>Metrics： voxel Intersection-over-Union (IoU)、cross-entropy loss</li>
 </ul>
+</li>
+</ol>
+<h2 id="PointOutNet"><a href="#PointOutNet" class="headerlink" title="PointOutNet"></a>PointOutNet</h2><blockquote>
+<p>CVPR2017《A Point Set Generation Network for 3D Object Reconstruction from a Single Image》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2017/html/Fan_A_Point_Set_CVPR_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2017/html/Fan_A_Point_Set_CVPR_2017_paper.html</a></p>
+</blockquote>
+<h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>作者是第一个用深度学习重建点云的人。输入单张图片，输出点云的3D坐标。他们构造的模型是“conditional shape sampler”（即有个输入变量$r$可以控制生成的多样性，用于描述重建的不确定性），可以输出多种可能的点云（取决于$r$）。单图输入的情况下性能超越SOTA（与3D-R2N2对比）。也可以用于3D补全，以及多可能的输出。</p>
+<p>似乎没深究如何生成点云以达到无序性输出，文中好像是在fc/conv这样的结构化排列中输出的？</p>
+<p>难点：</p>
+<ul>
+<li>如何输出点云</li>
+<li>仅靠输入的单张图片难以直接确定3D形状（即inherent ambiguity in groundtruth）</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>引入随机变量$r$可以从输入操控生成点云的多样性</li>
+</ul>
+<p>作者的Discussion：</p>
+<ul>
+<li>First, how to generate an orderless set of entities. Towards building generative models for more sophisticated combinatorial data structures such as graphs, knowing how to generate a set may be a good starting point.</li>
+<li>Second, how to capture the ambiguity of the groundtruth in a regression problem. Other than 3D reconstruction, many regression problems may have such inherent ambiguity. Our construction of the MoN loss by wrapping existing loss functions may be generalizable to these problems.</li>
+</ul>
+<p>TODO IDEA：能否不使用“Distance Metric between Point Sets”，转而使用能直接处理点云的网络？能否定向操控$r$各个分量所对应的3D属性？</p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>主要由三部分组成：architecture, loss function and learning paradigm</p>
+<p>注：architecture的作用是根据图片和随机向量$r$来生成点云；loss function的作用是度量点云相似度；learning paradigm作用是使得随机变量$r$能在网络中起作用，相当于在loss function外部包上了一层“MoN函数”。</p>
+<ol>
+<li><p>Architecture - Point Set Prediction Network（此网络简记作$\mathbb{G}$）</p>
+<p><img src="2_1.png" alt></p>
+<p>作者设计了3种网络的结构：vanilla version、two prediction branch version和hourglass version</p>
+<p>每种网络都有encoder stage和predictor stage。encoder stage用于将图片$I$和输入的随机向量$r$映射到embedding space；而predictor则输出一个$N \times 3$大小的矩阵$M$（$N$是重建出的点云的点数）。A random vector $r$ is subsumed so that it perturbs the prediction from the image $I$（随机向量$r$的用法在“Generation of Multiple Plausible Shapes”会讲到）</p>
+<ul>
+<li>vanilla version：最原始的版本，细节见图（r.v.就是随机向量$r$）。Though simple, this version works reasonably well in practice.</li>
+<li>two prediction branch version：目的是better accommodate large and smooth surfaces which are common in natural objects。它的predictor有两个并行的分支：a fully-connected (fc) branch and a deconvolution (deconv) branch。fc branch预测$N_1=256$个点（fc输出256*3个nodes），deconv branch预测输出$H \times W=24\times 32$个点（排列成$24\times 32$然后一个像素对应一个3D的点，是3通道的）。那么总共输出$N = 24 \times 32 + 256=1024$个点（不知道如何处理无序性呢？？）。Their predictions are later merged together to form the whole set of points in $M$. Multiple skip links are added to boost information flow across encoder and predictor。fc branch功能：high flexibility、可describe intricate structures。deconvolution branch功能：节省参数、more friendly to large smooth surfaces, due to the spatial continuity induced by deconv and conv。</li>
+<li>hourglass version：This deep network conducts the encoding-decoding operations recurrently, thus has stronger representation power and can mix global and local information better.</li>
+</ul>
+</li>
+<li><p>Loss function - Distance Metric between Point Sets</p>
+<p>对Loss的要求：可微、高效计算、对异常点鲁棒</p>
+<p>那么需要找到一种衡量两个点云$S_i^{pred}$和$S_i^{gt}$相似度的距离函数$d(S_i^{pred}，S_i^{gt})$，那么损失函数就是$L = \sum_i d(S_i^{pred}，S_i^{gt})$（其中$i$是training samples的index。这个损失函数还不是最终的损失函数，不能实际应用）</p>
+<p>作者建议使用Chamfer distance（CD）或Earth Mover’s distance（EMD）</p>
+<p><img src="2_2.png" alt></p>
+<p>Facing the inherent inability to resolve the shape precisely, neural networks tend to predict a “mean” shape averaging out the space of uncertainty. The mean shape carries the characteristics of the distance itself.</p>
+</li>
+<li><p>Learning paradigm - Generation of Multiple Plausible Shapes</p>
+<p>The ambiguity of groundtruth shape may significantly affect the trained predictor, as the loss function induces our model to predict the mean of possible shapes. So We expect that the random<br>variable $r$ passed to “Point Set Prediction Network” would help it explore the groundtruth distribution. 如果跳过这步不做的话，就会导致the loss minimization will nullify the randomness.</p>
+<p>我们可以使用最小化下面的损失函数（称作Min-of-N loss （MoN））的方法来解决：</p>
+<p><img src="2_3.png" alt></p>
+<p>意思是尝试$n $个random variable的取值，然后取最小距离作为距离值。（$n=2$足矣）</p>
+<p>另一种方法是使用Conditional VAE（这样好像$\mathbb{G}$里就不用$r$了），详情略。</p>
+<p>似乎也能用Conditional GAN，但是作者没深究。</p>
+</li>
+</ol>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>用ShapeNet dataset，从CAD模型中渲染出图片来</p>
+<ol>
+<li><p>3D Shape Reconstruction from RGB Images</p>
+<p>与3D-R2N2作比较。将3D-R2N2输出的体数据用最远点采样获得点数据，然后计算CD、EMD值；将本模型输出的点数据经过后期处理得到体数据，然后计算IoU值。</p>
+<p>实验表明本方法在单张图片输入时，在所有种类上精度远超3D-R2N2。同时大部分种类的精度远超5张图片输入的3D-R2N2。而且本方法不存在“薄弱细小结构”不能重建的缺点。</p>
+</li>
+<li><p>3D Shape Completion from RGBD Images</p>
+<p>当是RGBD输入时，还可以起到3D补全的作用。</p>
+<p><img src="2_4.png" alt></p>
+</li>
+<li><p>Predicting Multiple Plausible Shapes</p>
+<p>改变$r$值可以产生多种输出。</p>
+<p><img src="2_5.png" alt></p>
+</li>
+<li><p>Network Design Analysis</p>
+<ul>
+<li><p>Effect of combining deconv and fc branches for reconstruction</p>
+<ul>
+<li><p>deconv的引入提升了精度；Stacking another hourglass level也提升了精度</p>
+</li>
+<li><p>In the deconv branch the network learns to use the convolution structure to constructs a 2D surface that warps around the object. In the fully connected branch the output is less organized as the channels are not ordered.</p>
+</li>
+<li><p>The deconv branch is in general good at capturing the “main body” of the object, while the fully connected branch complements the shape with more detailed components</p>
+<p><img src="2_6.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>Analysis of distance metrics</p>
+<p>The network trained by CD tends to scatter a few points in its uncertain area (e.g. behind the door) but is able to better preserve the detailed shape of the grip. In contrast, the network trained by EMD produces more compact results but sometimes overly shrinks local structures. This is in line with experiment on synthetic data.</p>
+</li>
+</ul>
+</li>
+<li><p>More results and application to real world data</p>
+<p>也能用于现实生活中照片的3D重建，但需要从背景分割出物体来</p>
+</li>
+<li><p>Analysis of human ability for single view 3D reconstruction</p>
+<p>某些图片上超越人类</p>
+</li>
+<li><p>Analysis of failure cases</p>
+<p>仅仅是主观分析，略</p>
 </li>
 </ol>
 
@@ -1170,7 +1262,7 @@ p">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">75.6k</span>
+            <span class="white-color">77.2k</span>
             
 
             
