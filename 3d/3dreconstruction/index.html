@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="3dreconstruction, 任我行">
+    <meta name="keywords" content="3D结构重建, 任我行">
     <meta name="description" content="3D重建介绍3D重建的各种模型框架方法等。
 3D-R2N2
 ECCV2016《3D-R2N2: A Unified Approach for Single and Multi-view 3D Object Reconstruction》
@@ -16,7 +16,7 @@ p">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>3dreconstruction | 任我行</title>
+    <title>3D结构重建 | 任我行</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -263,13 +263,13 @@ p">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        3dreconstruction
+                        3D结构重建
                     </div>
                 </div>
             </div>
@@ -411,14 +411,14 @@ p">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.5k
+                        4.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        14 分
+                        20 分
                     </div>
                     
                 
@@ -650,6 +650,75 @@ p">
 </ul>
 </li>
 </ol>
+<h2 id="MarrNet"><a href="#MarrNet" class="headerlink" title="MarrNet"></a>MarrNet</h2><blockquote>
+<p>NIPS2017《MarrNet: 3D Shape Reconstruction via 2.5D Sketches》</p>
+<p>paper下载：<a href="http://papers.nips.cc/paper/6657-marrnet-3d-shape-reconstruction-via-25d-sketches" target="_blank" rel="noopener">http://papers.nips.cc/paper/6657-marrnet-3d-shape-reconstruction-via-25d-sketches</a></p>
+</blockquote>
+<h3 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h3><p>从单张图片重构出3D voxel-based reconstruction。从RGB图得到2.5D表示，再转换成3D形状（two-step）。MarrNet可以在synthetic data数据上训练然后在real data上进行self-supervised的fine-tune（一定程度上解决了domain adaptation问题）。MarrNet是end-to-end的可训练模型，达到了SOTA。</p>
+<p>2D → 2.5D → 3D的优点：</p>
+<ul>
+<li>First, compared to full 3D shape, 2.5D sketches are much easier to be recovered from a 2D image; models that recover 2.5D sketches are also more likely to transfer from synthetic to real data.</li>
+<li>Second, for 3D reconstruction from 2.5D sketches, systems can learn purely from synthetic data.</li>
+<li>Third, we derive differentiable projective functions from 3D shape to 2.5D sketches; the framework is therefore end-to-end trainable on real images, requiring no human annotations</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>取名MarrNet是因为与David Marr’s theory of perception相近</li>
+<li>intrinsic images（描述物体内在固有属性的可分离的本质图像）：例如depth、surface normals、silhouette等等</li>
+<li>Reprojection Consistency只在fine-tune中使用；预训练使用与GT voxel gird比较的交叉熵。</li>
+<li>本文定性分析（图片展示）比较多，定量分析比较少（只有人类肉眼比较结果和一个IoU结论）</li>
+<li>我感觉本文的ablation study说服力不足，即不能说明fine-tune是有效的，并不能说明Reprojection Consistency的设计是起到实际作用的。详见实验的第二部分。</li>
+</ul>
+<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p><img src="4_1.png" alt></p>
+<p>用2D CNN的方法生成2.5D图，然后将2.5D图用encoder-decoder方法生成体素表示。用reprojection consistency loss确保3D与2.5D匹配。</p>
+<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>2.5D Sketch Estimation</p>
+<p>用encoder-decoder结构生成2.5D表示。用ResNet-18编码，将256x256的RGB转变为8x8x256的特征图。然后用decoder恢复成256x256的depth, surface normal, and silhouette images</p>
+</li>
+<li><p>3D Shape Estimation</p>
+<p>用encoder-decoder结构生成3D体素。输入depth和normal图（施加以silhouette images掩膜），然后用卷积转变为200维向量，然后用3D卷积生成128x128x128的体素表示。</p>
+</li>
+<li><p>Reprojection Consistency</p>
+<p>使得3D表示与2.5D表示相一致，即将2.5D投射到3D空间中，体素也需要具有与2.5D的描述相一致的性质。reprojection consistency loss分为depth reprojection loss和surface normal reprojection loss。并且reprojection consistency loss对voxel可求导，使得可以用反向传播计算和优化。</p>
+<p>记3D voxel grid在$(x,y,z)$处存在该voxel的概率为$v_{x,y,z}\in[0,1]$，深度图在$(x,y)$处的值为$d_{x,y}$，法向图在$(x,y)$处的法向为$n_{x,y}=(n_a,n_b,n_c)$。并且假设是<strong>正交投影</strong>（注意这里不是相机成像的投影模型）</p>
+<p><img src="4_3.png" alt></p>
+<ul>
+<li><p>depth reprojection loss的目标是：将depth image的point投影到3D中，使得这个3D point恰好出现在3D voxel reconstruction中，并且该点的视线前方无遮挡。</p>
+<p><img src="4_2.png" alt></p>
+</li>
+<li><p>surface normal reprojection的目标是：使得该点在3D切平面上的邻居存在</p>
+<p>已知法向$n_{x,y}=(n_a,b_b,n_c)$必定与$n_x’=(0,-1,n_b/n_c)$、$n_y’=(-1,0,n_a/n_c)$垂直。那么voxel在$(x,y,z)\pm n_x’$和$(x,y,z)\pm n_y’$的值必定为1（当这些点在silhouette image以内时才算）。</p>
+<p><img src="4_4.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>Training paradigm</p>
+<p>将“2.5D sketch estimation”和“3D shape estimation”分别在synthetic images上预训练：The 3D interpreter is trained using ground truth voxels and a <strong>cross-entropy loss</strong>（注意预训练是用与GT比较的交叉熵！）</p>
+<p>然后再在真实图片上fine-tune：The <strong>reprojection consistency loss</strong> is used to fine-tune the 3D estimation component of our model on real images, using the predicted normal, depth, and silhouette。固定decoder of the 3D estimator（因为它包含了3D形状的先验，不希望改变），只fine-tune the encoder（学习映射到decoder合理的特征空间中）。这种fine-tune类似自监督，可以在无任何标注的单张测试图片上进行fine-tune。</p>
+</li>
+</ol>
+<h3 id="实验-1"><a href="#实验-1" class="headerlink" title="实验"></a>实验</h3><ol>
+<li><p>3D Reconstruction on ShapeNet</p>
+<p>生成的形状具有smoother surfaces and finer details</p>
+<p>Our full model achieves a higher IoU (0.57) than the direct prediction baseline (0.52).</p>
+<p>direct prediction baseline：不经过2.5D表示，直接基于3D卷积的体素生成</p>
+</li>
+<li><p>3D Reconstruction on Pascal 3D+</p>
+<p>现在ShapeNet上预训练，然后fine-tune them on the PASCAL 3D+ dataset</p>
+<p><img src="4_5.png" alt></p>
+<p>上图的ablation study表明，需要固定decoder of the 3D estimator进行fine-tune才能取得更好的fine-tune效果。</p>
+<p>但感觉本文的ablation study说服力不足，文中说The model trained on synthetic data provides a reasonable shape estimate和Our final model, fine-tuned with the decoder fixed, keeps the shape prior and provides more details of the shape，这只是作者自己的观点，并没有数据支撑，并且“human studies”中并没有fine-tune前后的“preferences”对比，并不能说明fine-tune是有效的，即并不能说明Reprojection Consistency的设计是有作用的。</p>
+<p>作者认为IoU指标不好，不能描述精细结构等，提出“human studies”，即人类肉眼比较MarrNet和竞争对手DRC哪个效果比较好。效果当然是说MarrNet比较好啦。</p>
+<p><img src="4_6.png" alt></p>
+<p>MarrNet不能复原复杂的、细弱的结构，而且silhouette mask不能精确估计。</p>
+</li>
+<li><p>3D Reconstruction on IKEA</p>
+<p>IKEA furniture数据集，our model can deal with mild occlusions in real life scenarios</p>
+</li>
+<li><p>Extensions</p>
+<p>We further train MarrNet jointly on all three object categories, and our model successfully recovers shapes of different categories</p>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -808,7 +877,7 @@ p">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《3dreconstruction》
+                    《3D结构重建》
                 </span> 由
             <a xmlns:cc="http://creativecommons.org/ns#" href="/3d/3dreconstruction/" property="cc:attributionName"
                rel="cc:attributionURL">
@@ -1118,9 +1187,9 @@ p">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="3dreconstruction">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="3D结构重建">
                         
-                        <span class="card-title">3dreconstruction</span>
+                        <span class="card-title">3D结构重建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1329,7 +1398,7 @@ p">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">78.1k</span>
+            <span class="white-color">79.4k</span>
             
 
             
