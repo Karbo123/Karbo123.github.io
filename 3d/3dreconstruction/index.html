@@ -411,14 +411,14 @@ p">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.7k
+                        5.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        20 分
+                        24 分
                     </div>
                     
                 
@@ -717,6 +717,63 @@ p">
 </li>
 <li><p>Extensions</p>
 <p>We further train MarrNet jointly on all three object categories, and our model successfully recovers shapes of different categories</p>
+</li>
+</ol>
+<h2 id="LSM"><a href="#LSM" class="headerlink" title="LSM"></a>LSM</h2><blockquote>
+<p>NIPS2017《Learning a Multi-View Stereo Machine》</p>
+<p>paper下载：<a href="http://papers.nips.cc/paper/6640-learning-a-multi-view-stereo-machine" target="_blank" rel="noopener">http://papers.nips.cc/paper/6640-learning-a-multi-view-stereo-machine</a></p>
+</blockquote>
+<h3 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h3><p>利用n幅图像（n≥1）以及这些摄像机的内外参（camera poses），求出物体的体素重建（Voxel LSM）或相应的n幅深度图（Depth LSM）。LSM端到端可微分。核心思想：利用投射关系将2D排列的特征与3D排列的特征相互转换，且能此过程可微分，使其利用了空间投影关系的几何先验。</p>
+<p>注：</p>
+<ul>
+<li>多视角立体视觉（Multi-view stereopsis，简称MVS）：给定物体的多幅图像、这些图像所分别拍摄的摄像机的姿态（内参和外参），试求物体的几何表示（3D结构/深度图等）</li>
+<li>LSM == Learnt Stereo Machine</li>
+<li>our system is able to better use camera pose information leading to significantly large improvements while adding more views（然而对比的网路（3D-R2N2）是add pose information in a fully connected manner，并没有专门对此设计过）</li>
+<li>可能作者调参和优化了很久。。。</li>
+</ul>
+<p>TODO IDEA：将几何投影等关系编码且使得可微分，使得可以反向传播。</p>
+<h3 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h3><p><img src="5_1.png" alt></p>
+<p>简述：输入n幅图像，然后经过2D CNN特征提取出2D的特征图。再分别使用“unprojection”操作得到3D排列的体特征$\mathcal{G}^f_i$。然后使用RNN将其全部整合成一个体特征$\mathcal{G}^p$。再将其用3D卷积得到$\mathcal{G}^o$。如果想得到体素表示，则直接使用3D卷积生成即可；如果想得到相应的深度图，则使用“projection”操作转换为2D特征图之后再使用2D卷积上采样即可。</p>
+<ol>
+<li><p>2D Image Encoder</p>
+<p>用UNet生成特征图。从图像$\{I_i\}^n_{i=1}$转变为特征图$\{\mathcal{F}_i\}^n_{i=1}$</p>
+</li>
+<li><p>Differentiable Unprojection</p>
+<p>输入特征图和相机姿态，输出3D排列的特征。</p>
+<p>即从特征图$\{\mathcal{F}_i\}^n_{i=1}$转变为3D gird$\{\mathcal{G}_i^f\}^n_{i=1}$</p>
+<p><img src="5_2.png" alt></p>
+<p>上图只是方便图示而已，实际上是3D gird和2D feature map。</p>
+<p>实际实现过程：将3D gird center投影到image plane得到连续的坐标，然后根据discrete grid的feature value用bilinear sampling插值得到该3D gird的feature</p>
+<p>为了可以支持单张图片输入，我们还往每个3D gird中添加几何特征（例如depth value和ray direction）</p>
+<p>这个过程是可微分的，使得可以端到端训练。</p>
+</li>
+<li><p>Recurrent Grid Fusion</p>
+<p>从多个3D gird$\{\mathcal{G}_i^f\}^n_{i=1}$到单个$\mathcal{G^p} $</p>
+<p>使用3D convolutional variant of the Gated Recurrent Unit (GRU)，类似于3D-R2N2中的做法。</p>
+<p>训练时随机打乱输入的顺序，减小输入顺序带来的影响。</p>
+</li>
+<li><p>3D Grid Reasoning</p>
+<p>将$\mathcal{G^p} $转变为$\mathcal{G^o} $</p>
+<p>使用3D UNet。目的（感觉乱说。。）：use shape cues present in $\mathcal{G^p} $ such as feature matches and silhouettes as well as build in shape priors like smoothness and symmetries and knowledge about object classes enabling it to produce complete shapes even when only partial information is visible</p>
+</li>
+<li><p>Differentiable Projection</p>
+<p>从$\mathcal{G^o}$转变为多个2D feature map$\{\mathcal{O}_i\}^n_{i=1}$</p>
+<p>输入：$\mathcal{G^o}$和相机姿态。输出：2D feature map$\mathcal{O}$</p>
+<p><img src="5_3.png" alt></p>
+<p>上图只是方便图示而已，实际上是3D gird和2D feature map。</p>
+<p>实际实现过程：有多个平行于相机平面的等间距平面（图中的z=1,2,3平面），视线ray是穿过2D feature map的离散格点中心的。由此横穿经过的3D gird的特征值就作为特征值。在3D gird中是nearest neighbor interpolation而不是trilinear interpolation。详情见上图。</p>
+<p>最后使用1x1的卷积可以减少channels的数量。</p>
+</li>
+<li><p>Architecture Details and Experiments</p>
+<p>卷积均使用instance normalization和layer normalization</p>
+<ul>
+<li><p>Voxel LSM (VLSM)：最后使用3D卷积上采样。softmax + binary cross entropy loss</p>
+</li>
+<li><p>Depth LSM (D-LSM)：使用Projection将$\mathcal{G^o}$转变为多个2D feature map$\{\mathcal{O}_i\}^n_{i=1}$，然后分别进行1x1卷积和deconvolution上采样，其中deconvolution有skip connections来自之前的image encoder。</p>
+</li>
+</ul>
+<p>Experiments性能：</p>
+<p><img src="5_4.png" alt></p>
 </li>
 </ol>
 
@@ -1398,7 +1455,7 @@ p">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">79.4k</span>
+            <span class="white-color">80.3k</span>
             
 
             
