@@ -411,14 +411,14 @@ p">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.7k
+                        6.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        24 分
+                        28 分
                     </div>
                     
                 
@@ -774,6 +774,59 @@ p">
 </ul>
 <p>Experiments性能：</p>
 <p><img src="5_4.png" alt></p>
+</li>
+</ol>
+<h2 id="IM-NET"><a href="#IM-NET" class="headerlink" title="IM-NET"></a>IM-NET</h2><blockquote>
+<p>CVPR2019《Learning Implicit Fields for Generative Shape Modeling》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_CVPR_2019/html/Chen_Learning_Implicit_Fields_for_Generative_Shape_Modeling_CVPR_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_CVPR_2019/html/Chen_Learning_Implicit_Fields_for_Generative_Shape_Modeling_CVPR_2019_paper.html</a></p>
+</blockquote>
+<h3 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h3><p>使用隐式场的方法来生成3D点云，后处理后的形成的mesh具有superior visual quality（higher surface quality）。并在插值时表现出良好的过度性质。所使用的implicit field decoder称作IM-NET，可以用于3D形状自编码（即shape representation learning）（IM-AE）、形状生成（IM-GAN）、形状插值、单视图3D重建等。其中encoder不属于本文设计范畴，只要能得到shape feature的都可以。</p>
+<p>注：</p>
+<ul>
+<li>Our work is the first to introduce a deep network for learning implicit fields for generative shape modeling</li>
+<li>缺点：训练时间长（因为the decoder needs to be applied on each point in the training set），或许可以考虑只生成物体表面的点来提高速度</li>
+</ul>
+<p>TODO IDEA：后期可以考虑用decoder来生成其他的属性，例如颜色、纹理等。或许还可以用来做part segmentation</p>
+<h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>decoder的关键是怎么根据shape feature得到出3D数据（点云）。这通过判断给定点$p$是处于shape的内部还是外部来实现的，那么中间的分界等值面就是shape的边界。</p>
+<p><img src="6_1.png" alt></p>
+<p>构造一个MLP，输入是shape feature和point coordinate，输出是判断内外部的二分类（sigmoid函数）。</p>
+<p><img src="6_2.png" alt></p>
+<p>其中输入的point coordinate对空间的均匀采样得到的，因而输出形状的分辨率可以任意高。</p>
+<p>The skip connections（copy and concatenate）可以使训练稳定、加快训练。</p>
+<h3 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>用decoder $f_\theta(p)$为每个点$p$计算“是内部点的概率”（$f_\theta(p):[0,1]^3 \rightarrow [0,1]$），然后计算等值面（如3D形状则使用Marching Cubes方法，2D图像则使用applying thresholding方法），从而得到mesh表示。对于闭合形状，GT为$\mathcal{F}(p)$内部取1外部取0。</p>
+</li>
+<li><p>decoder训练方法（可采取的方法有两种）（作者的实现方式是一个decoder只对应一个物体种类）：</p>
+<ul>
+<li>A naive sampling：将训练形状的空间离散化（voxelize or rasterize），然后均匀采样。多分辨率采样依次得到$16^3,32^3,64^3,128^3$个点。先用低分辨率训练再逐渐用高分辨率训练（train the model progressively）。大致是立方复杂度。</li>
+<li>A more efficient approach：采样更多的靠近表面的点，对离表面比较远的点不采样。然后对采样的每个点都有个权重$w_p$，是该点采样密度的倒数，用以补偿采样密度的变化。大致是平方复杂度。</li>
+</ul>
+</li>
+<li><p>损失函数（$S$是采样得到的点集）：</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+\mathcal{L}(\theta)=\frac{\sum_{p \in S}|f_\theta(p)-\mathcal{F}(p)|^2 \cdot w_p}{\sum_{p \in S} w_p}</script><ol>
+<li><p>IM-NET的应用举例</p>
+<ul>
+<li><p>Auto-Encoding：使用3D卷积从$64^3$的voxels中提取128维特征，然后decoder使用IM-NET。使用progressive training。</p>
+</li>
+<li><p>3D shape generation：使用autoencoder中训练好的encoder的输出作为latent-GAN的输入</p>
+</li>
+<li><p>single-view 3D reconstruction（SVR）：用ResNet将$128\times128$的图像编码成128维的特征向量。使用autoencoder中训练好的decoder，固定其参数不变，只训练ResNet的参数（encoder）去最小化mean squared loss</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="实验-2"><a href="#实验-2" class="headerlink" title="实验"></a>实验</h3><ol>
+<li><p>获取point cloud之后，转换为mesh（如Marching Cubes方法），最后用Poisson-disk Sampling获取10000个表面的点。</p>
+</li>
+<li><p>作者觉得chamfer distance（CD）、mean squared error（MSE）、IoU并不能很好的描述物体表面的视觉性质（例如桌子面发生一点点上下的移动将剧烈地改变IoU的值，但是视觉上的效果却差不多；并且IoU指标并不抵制表面的凹凸起伏），提出使用计算机图形领域的light field descriptor（LFD）指标。以及coverage score（COV-LFD）、Minimum Matching Distance（MMD-LFD）指标。</p>
+</li>
+<li><p>插值效果</p>
+<p><img src="6_3.png" alt></p>
+<p>优点：cleaner surface boundaries、smooth part movements、handles topology changes</p>
+<p>但是不知道如何控制这种变化的过程</p>
 </li>
 </ol>
 
@@ -1455,7 +1508,7 @@ p">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">80.3k</span>
+            <span class="white-color">81.3k</span>
             
 
             
