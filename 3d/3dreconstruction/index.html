@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        8.8k
+                        9.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        37 分
+                        41 分
                     </div>
                     
                 
@@ -944,6 +944,56 @@ Geometric forms例如point clouds">
 <p>In this section, we propose a method to transfer the style of an image onto a mesh</p>
 <p>其中content loss确保3D mseh的shape相同；style loss确保风格相同（图中的Loss指的是style loss）；同时使用了regularizer for noise reduction。总Loss就是所有loss的加权和，对顶点和纹理最小化loss的值</p>
 <p>类似地，还可以用于3D DeepDream</p>
+</li>
+</ol>
+<h2 id="Pixel2Mesh"><a href="#Pixel2Mesh" class="headerlink" title="Pixel2Mesh"></a>Pixel2Mesh</h2><blockquote>
+<p>ECCV2018《Pixel2Mesh: Generating 3D Mesh Models from Single RGB Images》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_ECCV_2018/html/Nanyang_Wang_Pixel2Mesh_Generating_3D_ECCV_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_ECCV_2018/html/Nanyang_Wang_Pixel2Mesh_Generating_3D_ECCV_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概括"><a href="#概括" class="headerlink" title="概括"></a>概括</h3><p>提出了单视图输入的end-to-end框架，能生成三角形网格（triangular mesh）。使用GCN来处理mesh的顶点特征，将椭球形变来拟合表面，同时利用图像的特征。mesh从粗到精细化，顶点数变多。定义了4种loss来优化结果。结果具有更好的精细度，超越了SOTA。</p>
+<p>注：</p>
+<ul>
+<li>形变法的优点：deep network is better at predicting residual。a series of deformations can be added up together, which allows shape to be gradually refined in detail。it provides the chance to encode any prior knowledge to the initial mesh。</li>
+<li>限制条件：只能用于亏格（genus）为零的shape，因为椭球没有“孔”</li>
+</ul>
+<h3 id="原理-5"><a href="#原理-5" class="headerlink" title="原理"></a>原理</h3><p><img src="9_2.png" alt></p>
+<p>将mesh初始化为椭球，然后用GCN对vertex feature施加变换，从而实现对3D vertex point的位置空间变换。然后上采样graph，以增加点数。不断重复此过程，实现从粗到精的过渡。image feature融合进入deformation blocks中来实现全局shape的把握。</p>
+<h3 id="实现-8"><a href="#实现-8" class="headerlink" title="实现"></a>实现</h3><p>整体由image feature network和cascaded mesh deformation network组成。</p>
+<p>deformation blocks：将图像的2D特征提升到3D vertex的特征中来（1280维），然后cancat（1280+128=1408维），再GCN（输出空间坐标3维和特征128维）。</p>
+<p>graph unpooling layers：上采样图，增加顶点数，从而可以实现更精细的结构</p>
+<ol>
+<li><p>Initial ellipsoid</p>
+<ul>
+<li><p>ellipsoid with average size placed at the common location</p>
+</li>
+<li><p>initial feature contains only the 3D coordinate of each vertex（3维。特征提取之后才是128维的feature）</p>
+</li>
+</ul>
+</li>
+<li><p>GCN</p>
+<p>将mesh用vertex和edge表示，那么就是一张graph。每个vertex上都有个feature。通过一次GCN层，得到变换后的特征：</p>
+<p><img src="9_1.png" alt></p>
+<p>其中$w_0$和$w_1$都是$d_{l+1}\times d_{l} $尺寸的变换矩阵，即经过一层GCN层其特征向量的维度可能发生变化。我们的特征向量$f_p$是“3D空间坐标”、“局部形状特征”和“输入图像特征”的cancat。使用GCN将变换特征，等效于空间点位置的变换以及特征提取。</p>
+</li>
+<li><p>Mesh deformation block</p>
+<p><img src="9_3.png" alt></p>
+<p>将“input image feature”提升到3D空间中的点特征，得到1280维的特征。与128维的形状特征concat得到1408维的特征，再进行GCN，其中一个分支预测点的3维坐标，另一个分支预测128维特征。</p>
+<p>提升到3D空间：将3D点投射到2D平面上，然后根据图像中的gird feature进行双线性插值得到该点的特征。其中feature maps取自VGG16，一共有1280个通道，所以输出的特征是1280维。</p>
+<p>残差结构的graph based ResNet（G-ResNet）有助于efficient exchange of the information between vertices、提升感受野。</p>
+</li>
+<li><p>Graph unpooling layer</p>
+<p>目的：增加点的数量。使用图中Edge-based的方法。</p>
+<p><img src="9_4.png" alt></p>
+<p>This edge-based unpooling uniformly upsamples the vertices, and doesn’t causes the imbalanced vertex degrees.</p>
+</li>
+<li><p>Losses and Regularizations</p>
+<ul>
+<li>Chamfer loss：It is reasonably good to regress the vertices close to its correct position, however is not sufficient to produce nice 3D mesh</li>
+<li>Normal loss：this loss requires the edge between a vertex with its neighbors to perpendicular to the observation from the ground truth. enforce the consistency of surface normal</li>
+<li>Laplacian regularization：prevent the vertices from moving too freely, which potentially avoids mesh self-intersection. encourages neighboring vertices to have the same movement. laplacian regularization to maintain relative location between neighboring vertices during deformation,</li>
+<li>Edge length regularization：edge length regularization to prevent outliers. 鼓励edge越短越好</li>
+<li>总：就是上面4种的线性加权和</li>
+</ul>
 </li>
 </ol>
 
@@ -1625,7 +1675,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">83.5k</span>
+            <span class="white-color">84.3k</span>
             
 
             
