@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-10-13T13:12:09.965Z</updated>
+  <updated>2019-10-15T07:42:45.925Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/3d/3dreconstruction/"/>
     <id>https://blog.karbo.online/3d/3dreconstruction/</id>
     <published>2019-10-08T07:16:55.000Z</published>
-    <updated>2019-10-13T13:12:09.965Z</updated>
+    <updated>2019-10-15T07:42:45.925Z</updated>
     
     <summary type="html">
     
@@ -30,7 +30,9 @@
         
         
           &lt;h1 id=&quot;3D重建&quot;&gt;&lt;a href=&quot;#3D重建&quot; class=&quot;headerlink&quot; title=&quot;3D重建&quot;&gt;&lt;/a&gt;3D重建&lt;/h1&gt;&lt;p&gt;介绍3D重建的各种模型框架方法等。&lt;/p&gt;
-&lt;h2 id=&quot;3D-R2N2&quot;&gt;&lt;a href=&quot;#3D-R2N2&quot;
+&lt;p&gt;3D数据常用的表示方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rasterized
         
       
     
@@ -401,9 +403,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   

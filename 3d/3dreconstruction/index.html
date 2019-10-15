@@ -6,9 +6,10 @@
     <meta charset="utf-8">
     <meta name="keywords" content="3D结构重建, 任我行">
     <meta name="description" content="3D重建介绍3D重建的各种模型框架方法等。
-3D-R2N2
-ECCV2016《3D-R2N2: A Unified Approach for Single and Multi-view 3D Object Reconstruction》
-p">
+3D数据常用的表示方法：
+
+Rasterized forms例如voxels and multi-view RGB(D) images.
+Geometric forms例如point clouds">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -411,14 +412,14 @@ p">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.6k
+                        8.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        28 分
+                        37 分
                     </div>
                     
                 
@@ -435,6 +436,11 @@ p">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="3D重建"><a href="#3D重建" class="headerlink" title="3D重建"></a>3D重建</h1><p>介绍3D重建的各种模型框架方法等。</p>
+<p>3D数据常用的表示方法：</p>
+<ul>
+<li>Rasterized forms例如voxels and multi-view RGB(D) images.</li>
+<li>Geometric forms例如point clouds, polygon meshes, and sets of primitives</li>
+</ul>
 <h2 id="3D-R2N2"><a href="#3D-R2N2" class="headerlink" title="3D-R2N2"></a>3D-R2N2</h2><blockquote>
 <p>ECCV2016《3D-R2N2: A Unified Approach for Single and Multi-view 3D Object Reconstruction》</p>
 <p>paper下载：<a href="https://arxiv.org/abs/1604.00449" target="_blank" rel="noopener">https://arxiv.org/abs/1604.00449</a></p>
@@ -583,7 +589,7 @@ p">
 <p>仅仅是主观分析，略</p>
 </li>
 </ol>
-<h2 id="OGN"><a href="#OGN" class="headerlink" title="OGN"></a>OGN</h2><blockquote>
+<h2 id="OGN-👍"><a href="#OGN-👍" class="headerlink" title="OGN 👍"></a>OGN 👍</h2><blockquote>
 <p>ICCV2017《Octree Generating Networks: Efficient Convolutional Architectures for High-resolution 3D Outputs》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_iccv_2017/html/Tatarchenko_Octree_Generating_Networks_ICCV_2017_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_iccv_2017/html/Tatarchenko_Octree_Generating_Networks_ICCV_2017_paper.html</a></p>
 </blockquote>
@@ -776,7 +782,7 @@ p">
 <p><img src="5_4.png" alt></p>
 </li>
 </ol>
-<h2 id="IM-NET"><a href="#IM-NET" class="headerlink" title="IM-NET"></a>IM-NET</h2><blockquote>
+<h2 id="IM-NET-👍"><a href="#IM-NET-👍" class="headerlink" title="IM-NET 👍"></a>IM-NET 👍</h2><blockquote>
 <p>CVPR2019《Learning Implicit Fields for Generative Shape Modeling》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_CVPR_2019/html/Chen_Learning_Implicit_Fields_for_Generative_Shape_Modeling_CVPR_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_CVPR_2019/html/Chen_Learning_Implicit_Fields_for_Generative_Shape_Modeling_CVPR_2019_paper.html</a></p>
 </blockquote>
@@ -827,6 +833,117 @@ p">
 <p><img src="6_3.png" alt></p>
 <p>优点：cleaner surface boundaries、smooth part movements、handles topology changes</p>
 <p>但是不知道如何控制这种变化的过程</p>
+</li>
+</ol>
+<h2 id="DISN-👍"><a href="#DISN-👍" class="headerlink" title="DISN 👍"></a>DISN 👍</h2><blockquote>
+<p>NIPS2019《DISN: Deep Implicit Surface Network for High-quality Single-view 3D Reconstruction》</p>
+<p>paper下载：<a href="https://arxiv.org/abs/1905.10711" target="_blank" rel="noopener">https://arxiv.org/abs/1905.10711</a></p>
+</blockquote>
+<h3 id="概述-6"><a href="#概述-6" class="headerlink" title="概述"></a>概述</h3><p>提出了一种单视图重建的网络，能生成高质量的3D形状。核心是预测“signed distance field”。不仅结合了“global image features”，还结合了“local features from the patch”，因而能够生成更多细节的高质量3D形状（例如细小结构、孔洞）。在单视图重建方面达到了SOTA。但是只能用于图片背景干净的输入。</p>
+<p>注：</p>
+<ul>
+<li>Signed Distance Functions（SDF）是属于隐式的surface表示；传统的方法是显式的surface表示（例如mesh）</li>
+<li>DISN == Deep Implicit Surface Network</li>
+<li>原始生成的3D形状是点云，然后用Marching Cubes方法来确定iso-surface（以获得3D mesh）</li>
+<li>缺点：要生成很多3D points才能确定等值面（最后需要从dense 3D grid中采样格点作为输入）。</li>
+<li>优点：生成的分辨率可以任意高</li>
+<li>还可以扩展到multi-view reconstruction和shape interpolation应用中</li>
+<li>实现细粒度可能的原因是Local Feature是从images中的对应区域抠特征子图实现的。Local Feature预测出来的SDF值可以认为是总的SDF值的残差，残差对应“细粒度/细节”。</li>
+</ul>
+<p>TODO IDEA：</p>
+<ul>
+<li>IDEA1：生成空间分布，然后在分布中采样得到物体表面的点。</li>
+<li>IDEA2：使用无符号的Distance Functions（记作$f(p)$），然后随机初始化一个3维空间点$p\in \mathbb{R}^3$，通过求解优化问题$min_{p} \frac{\partial f(p)}{\partial p}$，满足此问题的解$p$组成的一系列的点集就是物体的表面。相当于用导数来引导point在surface上的移动。这样理想情况下只需要初始化一个随机点就能使得该点遍历整个surface了（👍）</li>
+<li>IDEA3：能否借鉴U-Net的思想生成高分辨率的细粒度SDF？</li>
+</ul>
+<h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p>Signed Distance Functions（SDF）描述了空间某点到物体表面的有符号距离。</p>
+<p>在物体外部则为正号，内部则为符号，在物体表面则为零。绝对值是到表面的距离。</p>
+<p><img src="7_1.png" alt></p>
+<p>然后采样很多个点，通过预测SDF的值，再用寻找等值面的方法来求得表面。</p>
+<h3 id="实现-6"><a href="#实现-6" class="headerlink" title="实现"></a>实现</h3><p>首先估计相机姿态，目的是把3D点投射到2D plane上，用以确定2D feature map上local patch的位置。然后将point-wise feature、local feature、global feature联合起来推断SDF的值。</p>
+<p>最后采样dense 3D grid，为每个格点预测SDF值，然后用Marching Cubes获取3D mesh。</p>
+<p>Local Feature是从images中的对应区域提取的，point-wise feature直接就是MLP处理点坐标，global feature直接就是CNN处理整张图像。</p>
+<p>整体结构（图中的“+”号是加法，作者实验表明两路的推断（两个decoder）比一路的推断（只使用一个decoder）效果要好）：</p>
+<p><img src="7_2.png" alt></p>
+<ol>
+<li><p>Camera Pose Estimation</p>
+<p><img src="7_3.png" alt></p>
+<p>将输入图片用CNN推断出位移量$t$（Translation）和6D旋转表示$b$（Rotation）。由$b$可以用公式计算出旋转矩阵$R$，那么点$p$的空间变换就是$Rp+t$。对aligned model space（即world space）施加空间变换得到“预测的变换点云”，再与GT比较就可以计算出Loss。</p>
+<p>Loss的计算方法如下（本质是mean squared error，$PC_w$代表world space中的点云，$p_G$代表camera space中的GT）：</p>
+<p><img src="7_4.png" alt></p>
+</li>
+<li><p>SDF Prediction</p>
+<ul>
+<li><p>Point-wise feature：目的是将位置向量映射到更高维的空间中去（即图中的“Point feature”）</p>
+</li>
+<li><p>Global feature：利用CNN推断全局的特征向量</p>
+</li>
+<li><p>Local Feature：利用估计出来的相机参数将3D点$p$投射到2D image plane的点$q$去，然后将相应位置上的特征子图抠出来再concat，由此得到local feature。（因为特征图尺寸不一样，所以先用双线性插值再抠图）</p>
+<p><img src="7_5.png" alt></p>
+<p>那么SDF的结果就是两个decoder输出结果的和。可以认为是下面这个decoder分支是一种“residual SDF”，即一种残差预测结构。</p>
+</li>
+<li><p>Loss Functions：使用加权的损失函数，含义是使得更看重GT表面附近的SDF估计误差（其中$m_1&gt;m_2$）</p>
+<p><img src="7_6.png" alt></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="实验-3"><a href="#实验-3" class="headerlink" title="实验"></a>实验</h3><p>使用ShapeNet，并且train a single network on all categories，使用VGG-16作为CNN的提取特征。以CD、EMD、IoU作为指标。与多种模型（如AtlasNet, Pixel2Mesh, 3DN, OccNet and IMNET）进行比较，取得较好的性能。详情略。</p>
+<p><img src="7_7.png" alt></p>
+<h2 id="Neural-Renderer"><a href="#Neural-Renderer" class="headerlink" title="Neural Renderer"></a>Neural Renderer</h2><blockquote>
+<p>CVPR2018《Neural 3D Mesh Renderer》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Kato_Neural_3D_Mesh_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Kato_Neural_3D_Mesh_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概述-7"><a href="#概述-7" class="headerlink" title="概述"></a>概述</h3><p>将Renderer的渲染过程近似可微化，使得渲染器（Renderer）可以嵌入到神经网络结构中来。渲染的对象是3D mesh，生成2D图像。由此作者根据Neural Renderer提出了两种应用：single-image 3D mesh reconstruction with silhouette image supervision和gradient-based 3D mesh editing with 2D supervision（such as 2D-to-3D style transfer and 3D DeepDream），展现了将Renderer集成到神经网络中的巨大威力</p>
+<p><img src="8_1.png" alt></p>
+<p>难点：如何将rasterization的过程可微分</p>
+<p>注：</p>
+<ul>
+<li><p>polygon mesh的优点：compactness（容易表示、参数少）、geometric properties（suitability for geometric transformations. The rotation, translation, and scaling of objects are represented by simple operations on the vertices.）</p>
+</li>
+<li><p>渲染过程：Rendering consists of <strong>projecting</strong> the vertices of a mesh onto the screen coordinate system, and generating an image through regular grid <strong>sampling</strong>。后者的过程（rasterization）是离散的、不可微分的，需要我们近似梯度，从而实现反向传播算法</p>
+</li>
+<li><p>Our proposed renderer can flow gradients into texture, lighting, and cameras as well as object shapes.（mesh + texture + lighting + …  = 2D rendered image）</p>
+</li>
+<li><p>Polygon mesh表示法：3D顶点$\{v_i^o\}$和面${f_j}$（其中$f_j$是3维向量，内容是三角形面的顶点的索引）</p>
+</li>
+<li><p>2D-to-3D style transfer：</p>
+<script type="math/tex; mode=display">
+\begin{align*}\frac{\partial Loss}{\partial Mesh}&=\frac{\partial Loss}{\partial Image}\times\frac{\partial Image}{\partial Mesh}\\&=(the\; gradient\; of\; loss) \times (the\; gradient\; of\;renderer)\end{align*}</script><p>风格迁移：将content mesh的“content”和style image的“style”融合到输出的output mesh上。需要用content loss衡量content的迁移损失、style loss衡量style的迁移损失<br>$Mesh \rightarrow Image$提供了对顶点和面纹理的梯度流，因此可以修改面纹理，将风格迁移到面纹理上。</p>
+</li>
+<li><p>Renderer使得一些对图像地操作（例如风格迁移）迁移到3D数据结构中成为可能。</p>
+</li>
+</ul>
+<h3 id="实现-7"><a href="#实现-7" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Rendering pipeline and its derivative</p>
+<p>将3D顶点$\{v_i^o\}$投射到2D平面上得到$\{v_i^s\} $，此过程是可微分的</p>
+<p>然后将$\{v_i^s\} $和$\{f_j\}$通过rasterization得到2D rendered image：考虑2D rendered image上的一个pixel点$P_j$（其颜色值$I_j$），如果这个pixel的center位于face $f_i$的内部，则此pixel的颜色值$I_j $被赋值（染色）成$I_{ij}$</p>
+<p><img src="8_2.png" alt></p>
+<p>图中只考虑$x_i$是可变的，其他暂时冻结住不考虑其变化</p>
+<p>我们将突变的过程连续化（线性插值），得到“（d）”所示的效果。我们前向传播使用图“（b）”所示的曲线，反向传播的导数使用“（e）”所示的曲线。</p>
+<p>其中颜色突变量$\delta_j^I=I(x_1)-I(x_0)$，位移变化量$\delta_j^x=x_1-x_0$，那么斜线的斜率就是$\frac{\delta_j^I}{\delta_j^x}$</p>
+<p>考虑反向传播的误差信号$\delta_j^p = \frac{\partial Loss}{\partial I_j}$，当$\delta_j^p&gt;0$时$I_j$会减少，当$\delta_j^I&gt;0$时$I_j$会增大。为了不使得做无用功，我们要求$\delta_j^I \delta_j^p &lt; 0$才可以更新参数，所以：</p>
+<p><img src="8_3.png" alt></p>
+<p>类似地，当像素点本身就在face的内部时，则如下图所示：</p>
+<p><img src="8_4.png" alt></p>
+<p>并且其导数如下所示：</p>
+<p><img src="8_5.png" alt></p>
+<p>当多个faces时，our rasterizer draws only the frontmost face at each pixel, and do not flow gradients if they are occluded by surfaces not including $v_i$</p>
+<p>Texture：位于face$\{v_1,v_2,v_3\}$上的点$p$可以被分解为$p=w_1v_1+w_2v_2+w_3v_3$，那么用$(w_1,w_2,w_3)$就可以表示出face$\{v_1,v_2,v_3\}$上的点。其纹理texture就可以利用$(w_1,w_2,w_3)$从 texture image$s_t\times s_t \times s_t$（each face has its own texture image）中查值获得。不难验证必定满足$w_1 + w_2 + w_3 = 1$</p>
+<p>Lighting：考虑环境光$l^a$和定向光源$l^d$，那么pixel color$ I_j $经过光源渲染后的颜色就是$I^l_j = (l^a+(n^d\cdot n^j)l^d)I_j$（$n^j$是face上pixel的单位法向，$n^d$是定向光源的单位方向）</p>
+</li>
+<li><p>Single image 3D reconstruction</p>
+<p><img src="8_6.png" alt></p>
+<p>思想：match the ground truth silhouettes。有点像encoder-decoder结构</p>
+<p>3D generator idea：deform an isotropic sphere with 642 vertices to generate a new mesh, therefore the mesh we use is specified by 642*3 parameters。然后使用silhouette loss（鼓励IoU越大越好）和smoothness loss（鼓励面面夹角越接近180°越好）训练此generation function</p>
+<p>将mask作为附加通道加入到RGB图中</p>
+</li>
+<li><p>Gradient-based 3D mesh editing</p>
+<p><img src="8_7.png" alt></p>
+<p>We optimize a 3D mesh consisting of vertices, faces, and textures based on its rendered image</p>
+<p>In this section, we propose a method to transfer the style of an image onto a mesh</p>
+<p>其中content loss确保3D mseh的shape相同；style loss确保风格相同（图中的Loss指的是style loss）；同时使用了regularizer for noise reduction。总Loss就是所有loss的加权和，对顶点和纹理最小化loss的值</p>
+<p>类似地，还可以用于3D DeepDream</p>
 </li>
 </ol>
 
@@ -1508,7 +1625,7 @@ p">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">81.3k</span>
+            <span class="white-color">83.5k</span>
             
 
             
