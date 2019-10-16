@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        9.6k
+                        10.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        41 分
+                        45 分
                     </div>
                     
                 
@@ -440,6 +440,7 @@ Geometric forms例如point clouds">
 <ul>
 <li>Rasterized forms例如voxels and multi-view RGB(D) images.</li>
 <li>Geometric forms例如point clouds, polygon meshes, and sets of primitives</li>
+<li>其他：geometry images、depth images、classification boundaries、signed distance function</li>
 </ul>
 <h2 id="3D-R2N2"><a href="#3D-R2N2" class="headerlink" title="3D-R2N2"></a>3D-R2N2</h2><blockquote>
 <p>ECCV2016《3D-R2N2: A Unified Approach for Single and Multi-view 3D Object Reconstruction》</p>
@@ -980,6 +981,7 @@ Geometric forms例如point clouds">
 <p>将“input image feature”提升到3D空间中的点特征，得到1280维的特征。与128维的形状特征concat得到1408维的特征，再进行GCN，其中一个分支预测点的3维坐标，另一个分支预测128维特征。</p>
 <p>提升到3D空间：将3D点投射到2D平面上，然后根据图像中的gird feature进行双线性插值得到该点的特征。其中feature maps取自VGG16，一共有1280个通道，所以输出的特征是1280维。</p>
 <p>残差结构的graph based ResNet（G-ResNet）有助于efficient exchange of the information between vertices、提升感受野。</p>
+<p>所有的deformation blocks似乎是共用同一个VGG16的feature maps</p>
 </li>
 <li><p>Graph unpooling layer</p>
 <p>目的：增加点的数量。使用图中Edge-based的方法。</p>
@@ -996,6 +998,58 @@ Geometric forms例如point clouds">
 </ul>
 </li>
 </ol>
+<h2 id="Pixel2Mesh-1"><a href="#Pixel2Mesh-1" class="headerlink" title="Pixel2Mesh++"></a>Pixel2Mesh++</h2><blockquote>
+<p>ICCV2019《Pixel2Mesh++: Multi-View 3D Mesh Generation via Deformation》</p>
+<p>paper下载：<a href="https://arxiv.org/abs/1908.01491" target="_blank" rel="noopener">https://arxiv.org/abs/1908.01491</a></p>
+</blockquote>
+<h3 id="概括-1"><a href="#概括-1" class="headerlink" title="概括"></a>概括</h3><p>从多视图输入、已知相机姿态的条件下重建出3D Mesh，是Pixel2Mesh的升级版。同样是利用GCN抽取顶点的特征、对初始mesh进行粗到细的形变。不同的是形变的过程为：对每个顶点分别提出形变的候选点，然后利用projection、GCN操作、结合图像的feature maps变换特征得到每个候选点的重要性系数，进行坐标的线性加权得到形变后的坐标。能够生成视觉效果好的Mesh，泛化能力强，达到SOTA。</p>
+<p>注：</p>
+<ul>
+<li>Pixel2Mesh生成的mesh往往只在single-image的视角方向效果好，再其他视角下效果差</li>
+<li>多视图输入的关键原理：使用诸如mean、std、max的统计特征，实现可以接受任意多视图的输入</li>
+<li>Pixel2Mesh++由perceptual network（VGG16）、coarse shape generation（Pixel2Mesh）和Multi-View Deformation Network（MDN）组成。</li>
+<li>MDN是end-to-end trainable的。可接受任意数量的视图输入</li>
+<li>注意在MDN中没有上采样层，不能增加点的数量。所以MDN的作用更像是微调已生成的mesh</li>
+</ul>
+<h3 id="原理-6"><a href="#原理-6" class="headerlink" title="原理"></a>原理</h3><p><img src="10_1.png" alt></p>
+<p>基于Pixel2Mesh做初始mesh的生成。从多视图中用VGG16抽取特征，底层级称作geometry feature，高层级称作semantic feature。然后为每个vertex生成形变候选点，利用图像抽取来的特征为每个候选点计算score，最后根据score和3D坐标作线性加权得到最终形变后的位置。多次形变即可得到输出的mesh。</p>
+<h3 id="实现-9"><a href="#实现-9" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Deformation Hypothesis Sampling</p>
+<p>目的：propose deformation hypotheses（形变候选点）for each vertex</p>
+<p><img src="10_2.png" alt></p>
+<p>实现：在每个vertex的位置上放置一个level-1 icosahedron（具有42个顶点、80个面、120条边），然后为每个vertex构造一个local graph（local graph的边由“level-1 icosahedron”的120条边、vertex到“level-1 icosahedron”的顶点的连线组成。所以一个local graph一共有120+42=162条边，42+1=43个点）。每个顶点都要构造一个local graph，然后喂给接下来的“Cross-View Perceptual Feature Pooling”步骤</p>
+</li>
+<li><p>Cross-View Perceptual Feature Pooling</p>
+<p>目的：assign each node（in the local graph）features from the multiple input color images</p>
+<p><img src="10_3.png" alt></p>
+<p>大体类似于Pixel2Mesh中的“perceptual feature pooling”操作。feature maps来自VGG16的conv1_2、conv2_2、conv3_3（它们是底层级的geometry feature），一个视图concat起来输出64+128+256=448长度的特征。</p>
+<p>考虑到对不同数量的视图输入如果concat的话会得到不同长度的feature。我们改而使用统计特征，实现固定长度的输出。使用mean、max、std这三种统计特征。而且使用统计特征对视图的输入的顺序具有不变性。所以特征长度变为448*3=1344维。再把空间坐标concat进去得到1344+3=1347维度的特征。</p>
+</li>
+<li><p>Deformation Reasoning</p>
+<p>目的：reason an optimal deformation for each vertex from the hypotheses using pooled cross-view perceptual features</p>
+<p><img src="10_4.png" alt></p>
+<p>实现：将local graph和local graph nodes feature（即pooled cross-view perceptual features）丢到scoring network（本质是GCN）中得到每个nodes的重要性得分$s_i$（softmax输出后自动满足$\sum_{i=1}^{43} s_i=1$）。若候选点的空间位置记作$h_i$（包括vertex，$i=1…43$），那么形变后的位置就是位置的线性加权：$\sum_{i=1}^{43}s_i h_i$。对每个顶点都运行一遍，就得到了最终形变后的结果。</p>
+</li>
+<li><p>Losses</p>
+<p>损失函数照抄Pixel2Mesh的，但是唯一的区别是作者还extends the Chamfer distance loss to a resampled version，即：从mesh的face上均匀采样点，采样的点数正比于face的面积，由此可以额外采样出4000个点，加上2466个原本的mesh的顶点，总共6466个点，根据6466个点计算Chamfer distance loss</p>
+<p>re-sample Chamfer loss的功能：helps to remove artifacts in the results，解决了points are not uniformly distributed on the surface的问题</p>
+</li>
+<li><p>Implementation Details</p>
+</li>
+</ol>
+<p>we use Pixel2Mesh to generate a coarse shape with 2466 vertices → 最终生成的点的数量就是2466个</p>
+<h3 id="实验-4"><a href="#实验-4" class="headerlink" title="实验"></a>实验</h3><ul>
+<li><p>对比的网络：</p>
+<ul>
+<li>P2M-M：we directly run single-view Pixel2Mesh on each of the input image and fuse multiple results</li>
+<li>MVP2M：we replace the perceptual feature pooling to our cross-view version to enable Pixel2Mesh for the multi-view scenario</li>
+<li>LSM：Learnt Stereo Machine</li>
+<li>3DR2N2：3D Recurrent Reconstruction Neural Network</li>
+</ul>
+</li>
+<li><p>性能：Our model significantly outperforms previous methods（based on F-score）</p>
+</li>
+</ul>
 
             </div>
             <hr/>
@@ -1675,7 +1729,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">84.3k</span>
+            <span class="white-color">85.3k</span>
             
 
             
