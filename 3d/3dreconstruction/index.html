@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        10.7k
+                        12k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        45 分
+                        51 分
                     </div>
                     
                 
@@ -956,6 +956,7 @@ Geometric forms例如point clouds">
 <ul>
 <li>形变法的优点：deep network is better at predicting residual。a series of deformations can be added up together, which allows shape to be gradually refined in detail。it provides the chance to encode any prior knowledge to the initial mesh。</li>
 <li>限制条件：只能用于亏格（genus）为零的shape，因为椭球没有“孔”</li>
+<li>具有上采样层，点数逐渐增多。Deformation block则负责精细化mesh</li>
 </ul>
 <h3 id="原理-5"><a href="#原理-5" class="headerlink" title="原理"></a>原理</h3><p><img src="9_2.png" alt></p>
 <p>将mesh初始化为椭球，然后用GCN对vertex feature施加变换，从而实现对3D vertex point的位置空间变换。然后上采样graph，以增加点数。不断重复此过程，实现从粗到精的过渡。image feature融合进入deformation blocks中来实现全局shape的把握。</p>
@@ -1009,7 +1010,9 @@ Geometric forms例如point clouds">
 <li>多视图输入的关键原理：使用诸如mean、std、max的统计特征，实现可以接受任意多视图的输入</li>
 <li>Pixel2Mesh++由perceptual network（VGG16）、coarse shape generation（Pixel2Mesh）和Multi-View Deformation Network（MDN）组成。</li>
 <li>MDN是end-to-end trainable的。可接受任意数量的视图输入</li>
-<li>注意在MDN中没有上采样层，不能增加点的数量。所以MDN的作用更像是微调已生成的mesh</li>
+<li>注意在MDN中没有上采样层，不能增加点的数量。</li>
+<li>作者主要的贡献是设计了MDN，而MDN的作用更像是微调已生成的mesh</li>
+<li>候选点（Hypothesis）本质上是对vertex周围环境的感知，GCN起到类似于local graph的neighborhood之间的特征交互融合、特征提取的作用。最后根据GCN得到的score来make movement decision。而Pixel2Mesh没有感知vertex周围环境的能力。</li>
 </ul>
 <h3 id="原理-6"><a href="#原理-6" class="headerlink" title="原理"></a>原理</h3><p><img src="10_1.png" alt></p>
 <p>基于Pixel2Mesh做初始mesh的生成。从多视图中用VGG16抽取特征，底层级称作geometry feature，高层级称作semantic feature。然后为每个vertex生成形变候选点，利用图像抽取来的特征为每个候选点计算score，最后根据score和3D坐标作线性加权得到最终形变后的位置。多次形变即可得到输出的mesh。</p>
@@ -1050,6 +1053,106 @@ Geometric forms例如point clouds">
 <li><p>性能：Our model significantly outperforms previous methods（based on F-score）</p>
 </li>
 </ul>
+<h2 id="AtlasNet-👍"><a href="#AtlasNet-👍" class="headerlink" title="AtlasNet 👍"></a>AtlasNet 👍</h2><blockquote>
+<p>CVPR2018《A Papier-Mâché Approach to Learning 3D Surface Generation》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Groueix_A_Papier-Mache_Approach_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Groueix_A_Papier-Mache_Approach_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概述-8"><a href="#概述-8" class="headerlink" title="概述"></a>概述</h3><p>提出使用基于<a href="https://zh.wikipedia.org/wiki/流形" target="_blank" rel="noopener">流形</a>中Charts和Atlases的概念的3Dshapes的surface生成方法。将surface表示成多个局部小表面的集合（类似于Charts的概念）。提高了精度、泛化强、能生成任意精度的分辨率。AtlasNet的本质是一个3D shape decoder（输入形状描述子输出mesh/pointcloud）。AtlasNet可以应用于形状自编码、3D重建等多个领域。</p>
+<p>注：</p>
+<ul>
+<li>pointcloud的缺点：不能直接表示与邻居的关系（no surface connectivity），使得很难得到光滑、高保真的流形</li>
+<li>polygonal mesh的特点：对光滑流形的分块平面近似</li>
+<li>Surface parameterization： Establishing a connection between the surface of the 3D shape and a 2D domain</li>
+<li>3D重建时输入的对象可以是pointcloud、images等，因为AtlasNet只要求特征向量作为输入，可以使用其他网络提取输入对象的特征向量之后作为AtlasNet的输入。</li>
+<li>chart：3D→2D（1个MLP函数）；atlas：a set of charts（多个MLPs）</li>
+<li>AtlasNet的功能：learn an atlas for 2-manifold $\mathcal{S}$</li>
+<li>缺点：生成的mesh不闭合，有小孔，不同的曲面块之间有overlap</li>
+</ul>
+<h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p><img src="11_1.png" alt></p>
+<p>将2D单位正方形平面的点集（$[0,1]\times [0,1]$）使用MLP映射到3D曲面上。有多个MLP，于是就能得到多个小的3D曲面。多个小3D曲面就能组成物体。即，we seek to approximate the target surface locally by<br>mapping a set of squares to the surface of the 3D shape</p>
+<script type="math/tex; mode=display">
+[0,1]\times[0,1] \leftrightarrow 3D \; surface</script><p>这样1个MLP就能局部生成一个2-manifold（3D曲面）了</p>
+<ul>
+<li><p>2D→3D：通过MLP得到</p>
+</li>
+<li><p>3D→2D：UV parameterization of the surface / 2D （UV） embedding to a plane</p>
+</li>
+</ul>
+<p>于是在2D平面上的性质就能迁移到3D曲面中：例如2D平面有纹理，则在3D曲面的对应点上也有相同的纹理</p>
+<p>生成mesh的方法：将方形的2Dmesh映射到3D空间中，并保持点与点之间的连接关系</p>
+<h3 id="实现-10"><a href="#实现-10" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Learning to decode a surface</p>
+<p>目标：有一个形状描述子$\mathtt{x}$（形状特征向量），请据此生成the surface of the shape</p>
+<p>实现：</p>
+<ul>
+<li>有N个learnable parameterizations（MLP）$\phi_{\theta_i}$，$i\in\{1,…,N\}$，其中$\theta_{i}$是MLP参数</li>
+<li><p>将$\mathtt{x}$和$(0,1)\times(0,1)$采样的点$(x,y)$进行cancat，再送到MLP中</p>
+</li>
+<li><p>损失函数：Chamfer loss。通过计算两个点集之间的Chamfer Distance来比较。</p>
+</li>
+</ul>
+<p>注意到MLP并没有明确禁止所编码的区域重叠（符合atlas的要求之一），并且最好覆盖整个shape（全覆盖才能使得Chamfer loss变小）</p>
+</li>
+<li><p>Implementation details</p>
+<ul>
+<li>auto-encoder中的encoder是PointNet；形状描述子的维度：1024；输入点云的点数：250~2500</li>
+<li>reconstruction中的encoder是ResNet-18；只训练encoder，而decoder则是autoencoder中的decoder（固定参数，不训练）</li>
+<li>decoder是4层的MLP：1024（ReLU）、512（ReLU）、256（ReLU）、128（tanh）。使用tanh的原因可能是点云经过单位球化了</li>
+<li>输出点云的点数：2500</li>
+<li>2D采样方法：网格规则采样</li>
+</ul>
+</li>
+<li><p>Mesh generation</p>
+<p>有三种方法：</p>
+<ul>
+<li>Propagate the patch-grid edges to the 3D points：即transfer a regular mesh on the unit square to 3D，使得可以生成高分辨率的mesh，是一种自然的生成mesh的好方法（因为mesh的拓扑连接关系源自于2D grid的edge的连接方式）【AtlasNet专用，效果好】</li>
+<li>Generate a highly dense point cloud and use Poisson surface reconstruction（PSR）：生成很多点以及他们的normals，然后用PSR方法来得到mesh【Baseline专用，AtlasNet可用】</li>
+<li>Sample points on a closed surface rather than patches：从3D球面采样输入的点，而不是从多个2D单位正方形中采样。可以生成闭合图形，但是似乎只能用一个MLP。【AtlasNet专用，记作“1 sphere”】</li>
+</ul>
+</li>
+</ol>
+<h3 id="实验-5"><a href="#实验-5" class="headerlink" title="实验"></a>实验</h3><ol>
+<li><p>数据集：standard ShapeNet Core dataset</p>
+</li>
+<li><p>评价指标：Chamfer distance（CD，用于衡量pointcloud）和Metro（average Euclidean distance between the two meshes，用于衡量mesh）</p>
+</li>
+<li><p>Baseline/Oracle</p>
+<ul>
+<li>“Points baseline”：如上一幅图的（a）所示。直接输入1024维度的形状描述子，然后输出2500*3=7500维度，即2500个点（MLP层数为1024（ReLU）、512（ReLU）、256（ReLU）、7500（tanh））。最终输出的是pointcloud，所以没有“Metro”指标。</li>
+<li>“Pointsbaseline + normals”：输出空间指标和法向量，一个点是$\mathbb{R}^6$。然后根据切平面来增加点的数量（Augmentation）。然后使用PSR算法得到mesh。最终输出的是mesh。</li>
+<li>Oracle：从GT中随机采样点，然后计算CD和Metro的值。代表了模型所能达到的性能的上界（因为是由GT生成的）</li>
+</ul>
+</li>
+<li><p>3D reconstruction结果</p>
+<p><img src="11_2.png" alt></p>
+</li>
+<li><p>其他实验</p>
+<ul>
+<li><p>Generalization across object categories：略</p>
+</li>
+<li><p>Singleview reconstruction：略</p>
+</li>
+<li><p>Shape interpolation</p>
+<p><img src="11_3.png" alt></p>
+</li>
+<li><p>Finding shape correspondences：Notice that we get semantically meaningful correspondences, such as the chair back, seat, and legs without any supervision from the dataset on semantic information.</p>
+<p><img src="11_4.png" alt></p>
+</li>
+<li><p>Mesh parameterization：our inferred atlas usually has relatively high texture distortion. But we can minimize distortion with off-theshelf geometric optimization, yielding small distortion.</p>
+<p><img src="11_8.png" alt></p>
+</li>
+<li><p>Excess of distortion</p>
+<p><img src="11_5.png" alt></p>
+</li>
+<li><p>Topological issues</p>
+<p><img src="11_6.png" alt></p>
+</li>
+<li><p>Deformable shapes</p>
+<p><img src="11_7.png" alt></p>
+</li>
+</ul>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -1729,7 +1832,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">85.3k</span>
+            <span class="white-color">86.6k</span>
             
 
             
