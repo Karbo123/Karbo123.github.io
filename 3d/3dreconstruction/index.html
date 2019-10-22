@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        12k
+                        13k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        51 分
+                        55 分
                     </div>
                     
                 
@@ -1153,6 +1153,91 @@ Geometric forms例如point clouds">
 </ul>
 </li>
 </ol>
+<h2 id="Deep-Marching-Cubes"><a href="#Deep-Marching-Cubes" class="headerlink" title="Deep Marching Cubes"></a>Deep Marching Cubes</h2><blockquote>
+<p>CVPR2018《Deep Marching Cubes: Learning Explicit Surface Representations》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_cvpr_2018/html/Liao_Deep_Marching_Cubes_CVPR_2018_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_cvpr_2018/html/Liao_Deep_Marching_Cubes_CVPR_2018_paper.html</a></p>
+</blockquote>
+<h3 id="概述-9"><a href="#概述-9" class="headerlink" title="概述"></a>概述</h3><p>提出了一种end-to-end的surface prediction方法。即“Differentiable Marching Cubes Layer”，使得可作为神经网络的最后一层来输出mesh。并且设计了loss函数使得可以在sparse point supervision上训练。并且能补全形状、分离物体的内外表面，即使在GT是稀疏和不完全的情况下。可以用于从点云中推断形状。可以与各种encoder、shape inference techniques结合使用。</p>
+<p>特点：</p>
+<ul>
+<li>differentiable, end-to-end</li>
+<li>predicts explicit surface representations of arbitrary topology</li>
+<li>avoids the need for defining auxiliary losses or converting target meshes to implicit distance fields</li>
+<li>more accurate reconstructions while also handling noise and missing observations</li>
+<li>separating inside from outside even if the ground truth is sparse or not watertight</li>
+<li>easily integrating additional priors about the surface（e.g., smoothness）</li>
+<li>does not require explicit surface ground truth</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>普通的marching cubes的输入是SDF，而deep marching cubes输入是$O$和$X$。所以网络的输出类型也要要求不同。</li>
+<li>现有的3D surface prediction不能end-to-end训练，因为他们需要中间表示（例如TSDF），因而需要后处理（例如marching cubes算法）</li>
+<li>普通的marching cubes算法不可微分</li>
+<li>传统的表面重建方法：<ul>
+<li>Voxel based method <ul>
+<li>output: voxel occupancy / TSDF</li>
+<li>post-processing: Marching cubes</li>
+</ul>
+</li>
+<li>Point based method<ul>
+<li>output: points</li>
+<li>post-processing: Poisson surface reconstruction / SSD</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>传统方法的缺点：<ul>
+<li>the ground truth of the implicit representation is often hard to obtain, e.g., in the presence of a noisy and incomplete point cloud or when the inside and outside of the object is unknown.</li>
+<li>these methods only optimize an auxiliary loss defined on an intermediate representation and require an additional postprocessing step for surface extraction. Thus they are unable to directly constrain the properties of the predicted surface.</li>
+</ul>
+</li>
+</ul>
+<h3 id="实现-11"><a href="#实现-11" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>传统的Marching Cubes（非本文的方法）</p>
+<p>分为两步：</p>
+<ul>
+<li>estimation of the topology：确定cell的拓扑类型（面的顶点位置不确定，只是知道拓扑概念上的位置）</li>
+<li>prediction of the vertex locations of the triangles：确定面的顶点的具体位置</li>
+</ul>
+<p>记号：</p>
+<ul>
+<li>$D \in \mathbb{R}^{N\times N\times N}$为signed distance field。表示到surface的有向距离。内部为正，外部为负，表面为零。其元素记作$d_n$，其中$n=(i,j,k)\in \mathbb{N}^3$是索引</li>
+</ul>
+<p>实现：</p>
+<ul>
+<li><p>首先确定cell’s surface topology T。假设$D\in \mathbb{R}^{3\times 3\times 3}$，那么相当于这27个点分布在二阶魔方的各个角块的顶角上，它只是点。cell就是指二阶魔方的8个角块，它具有体积。然后根据d是否符号改变（穿过零）确定这个cell的拓扑类型。（只是确定了拓扑类型，图中蓝色面的顶点的具体位置并不知道，需要下一步来计算）</p>
+<p><img src="12_1.png" alt></p>
+</li>
+<li><p>然后如果这个cell内部存在蓝色平面，就需要计算蓝色平面顶点的具体位置。使用线性插值得到。（如果是上图中的左上角的第一种类型，那就不用计算了，这种类型往往出现在物体的内部、或者是远离物体的外部）</p>
+<p><img src="12_2.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>Differentiable Marching Cubes</p>
+<p>记号：</p>
+<ul>
+<li><p>每个格点的伯努利分布参数：$O\in [0,1]^{N\times N\times N}$，$o_n\in[0,1]$</p>
+</li>
+<li><p>每个格点的面顶点的偏移量：$X\in [0,1]^{N\times N\times N\times3}$，$x_n\in [0,1]^3$</p>
+</li>
+</ul>
+<p>计算：</p>
+<ul>
+<li>那么格点$n$处于状态$t\in \{0,1\}$（1代表被占据（红色表示），0代表不被占据（绿色表示））时的概率为$p_n(t)=(o_n)^t(1-o_n)^{1-t}$</li>
+<li>那么grid cell n处于状态$T$时的概率为$p_n(T)=\prod_{m\in \{0,1\}^3}(o_{n+m})^{t_m}(1-o_{n+m})^{1-t_m}$。其中$2^8$种顶点的排列方式中只有140种是有效的拓扑形式。</li>
+<li>那么entire grid的概率分布就是$p(\{T_n\})=\prod_{n\in\mathcal{T}}p_n(T_n)$。其中$\mathcal{T}=\{1,…,N-1\}^{3}$有$(N-1)^3$个cell</li>
+</ul>
+<p>网络结构图：（输入点云，然后预测出$O$和$X$，从而预测出mesh）</p>
+<p><img src="12_3.png" alt></p>
+<p>Loss：（包含4项）</p>
+<ul>
+<li>Point to Mesh Loss：最小化observed 3D points到mesh平面的几何距离之和。作用：directly<br>measures the geometric error of the inferred mesh</li>
+<li>Occupancy Loss：鼓励边界上不被占据，鼓励内部被占据</li>
+<li>Smoothness Loss：鼓励相邻格点的占据状态不变</li>
+<li>Curvature Loss：鼓励相邻cell的normal orientation的smooth transitions</li>
+</ul>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -1832,7 +1917,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">86.6k</span>
+            <span class="white-color">87.6k</span>
             
 
             
