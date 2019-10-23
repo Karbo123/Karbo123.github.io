@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        13k
+                        14.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        55 分
+                        62 分
                     </div>
                     
                 
@@ -1038,9 +1038,9 @@ Geometric forms例如point clouds">
 <p>re-sample Chamfer loss的功能：helps to remove artifacts in the results，解决了points are not uniformly distributed on the surface的问题</p>
 </li>
 <li><p>Implementation Details</p>
+<p>we use Pixel2Mesh to generate a coarse shape with 2466 vertices → 最终生成的点的数量就是2466个</p>
 </li>
 </ol>
-<p>we use Pixel2Mesh to generate a coarse shape with 2466 vertices → 最终生成的点的数量就是2466个</p>
 <h3 id="实验-4"><a href="#实验-4" class="headerlink" title="实验"></a>实验</h3><ul>
 <li><p>对比的网络：</p>
 <ul>
@@ -1236,6 +1236,94 @@ Geometric forms例如point clouds">
 <li>Smoothness Loss：鼓励相邻格点的占据状态不变</li>
 <li>Curvature Loss：鼓励相邻cell的normal orientation的smooth transitions</li>
 </ul>
+</li>
+</ol>
+<h2 id="DeepSDF-👍"><a href="#DeepSDF-👍" class="headerlink" title="DeepSDF 👍"></a>DeepSDF 👍</h2><blockquote>
+<p>CVPR2019《DeepSDF: Learning Continuous Signed Distance Functions for Shape Representation》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_CVPR_2019/html/Park_DeepSDF_Learning_Continuous_Signed_Distance_Functions_for_Shape_Representation_CVPR_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_CVPR_2019/html/Park_DeepSDF_Learning_Continuous_Signed_Distance_Functions_for_Shape_Representation_CVPR_2019_paper.html</a></p>
+</blockquote>
+<h3 id="概述-10"><a href="#概述-10" class="headerlink" title="概述"></a>概述</h3><p>DeepSDF能生成具有复杂拓扑结构的、高质量的、闭合的连续表面、可用于形状插值、形状补全。DeepSDF能够表示类别的形状（而传统的SDF方法只能表示一个物体的形状）。取得了SOTA。而且模型的大小缩小了。</p>
+<p><img src="13_3.png" alt></p>
+<p>本质：使用“coordinate + shape latent vector”作为输入，通过MLP后输出SDF值。训练时同时优化“shape vector”和“MLP parameters”（梯度下降优化，最后得到的shape vector就是训练集的shape vector）。推断“latent vector”时使用梯度下降不断迭代优化“latent vector”的初始值，从而得到符合observation的latent vector的值。</p>
+<p>注：</p>
+<ul>
+<li>DeepSDF最有用的用途是Shape Completion（inference + feed-forward + marchingcubes）、Shape Interpolation（inference + interpolate + feed-forward + marchingcubes）</li>
+<li>SDF：有向距离函数：内部负数、外部正数、表面为零。</li>
+<li>“auto-decoder”可用于降噪、补全、错误检测</li>
+<li>补全：只输入部分数据，然后生成latent vector（形状信息），再生成完整的shape prediction</li>
+<li>最后还是要用marching cubes来生成等值面</li>
+<li>feed-forward耗时短；inference耗时长（对latent vector的优化速度慢，或许可以考虑替换掉ADAM优化器）</li>
+</ul>
+<p>TODO IDEA：</p>
+<ul>
+<li>或许可以用于生成动态的3D物体、或者是带有纹理材质的物体。</li>
+<li>不同物体形状在latent vector分布中的位置不能指定。或许latent vector可以是类似one-hot的，一个变量代表一个物体种类，每个变量都服从高斯，然后只需要从高斯采样就能得到物体形状了。可能类似于Variational Auto-Decoder？</li>
+</ul>
+<h3 id="实现-12"><a href="#实现-12" class="headerlink" title="实现"></a>实现</h3><p>通过学习一个“shape-conditioned classifier”，决策边界（最后一层是tanh）就是物体表面。</p>
+<p>使用“auto-decoder”，接受latent vector和point coordinate作为输入，输出SDF值。</p>
+<ul>
+<li>training：已知observation（点坐标&amp;SDF）来优化latent vector $z$和model parameters $\theta$</li>
+<li>inference：已知observation（点坐标&amp;SDF）求latent vector $z$</li>
+<li>feed-forward：已知latent vector $z$和点坐标，求SDF</li>
+</ul>
+<p><img src="13_1.png" alt></p>
+<p>记号：</p>
+<ul>
+<li>coordinate $x$丢到模型里得到的SDF估计（latent vector为$z$）：$f_\theta(z,x)$</li>
+<li>第i个形状的coordinate $x$处真实的SDF值：${SDF^i}(x)$</li>
+<li>第i个形状的数据集（包含点坐标、真实的SDF值）：$X_i := \{(x_j,s_j):s_j=SDF^i(x_j)\}$</li>
+</ul>
+<p>第一种方式是使用上图（a）所示的方法。但是一个模型只能对应一个物体。故我们不采用。</p>
+<p>第二种方式是使用上图（b）所示的方法。一个模型可以对应一整类物体（例如各种小车）。我们采样这种方法。但是code未知，我们使用“auto-decoder”的学习方式来自动学习code的分布（注意这里的code不是人为指定的分布，例如不是one-hot）</p>
+<ul>
+<li><p>训练（training）：我们首先初始化code为一个很小的值（例如$\mathcal{N}(0,0.01^2)$），然后根据已知的coordinate和SDF值来训练网络，反向传播时根据$\frac{\partial Loss}{\partial z_i}$和$\frac{\partial Loss}{\partial \theta}$分别更新Code $z_i$和Parameter $\theta$。</p>
+<p><img src="13_5.png" alt></p>
+</li>
+<li><p>推断（inference）：根据已知的coordinate和SDF值，利用反向传播的$\frac{\partial Loss}{\partial z}$，更新优化Code $z$</p>
+<p><img src="13_4.png" alt></p>
+</li>
+<li><p>前向传播（暂且称作feed-forward吧）：根据latent vector $z$和点坐标$x$得到预测的SDF值</p>
+</li>
+</ul>
+<p>注：</p>
+<ul>
+<li><p>还可以计算得到surface normals：方法一和二（采用SDF的方法）都能通过计算$\frac{\partial f_\theta(x)}{\partial x}$来计算估计得到的表面法向（因为沿着法线方向SDF变化最快）</p>
+</li>
+<li><p>对于一个点的损失函数：$\mathcal{L}(f_\theta(x),s)=|clamp(f_\theta(x),\delta)-clamp(s,\delta)|$，以$f_\theta(x)$、$s$为x、y轴画图得（$\delta$越小越能描述表面的细节）：</p>
+<p><img src="13_2.png" alt></p>
+</li>
+<li><p>“auto-decoder”是对“coded shape deepsdf”的训练方式。</p>
+</li>
+<li><p>为什么不用“encoder-decoder”结构：</p>
+<p>传统的“encoder-decoder”结构的使用方法：</p>
+<ul>
+<li>训练：“encoder-decoder”两部分一起训练</li>
+<li>测试：丢掉训练好的encoder。在形状补全任务中，首先准备待补全的训练数据，然后重新训练另一个encoder。</li>
+</ul>
+<p>作者认为训练“encoder-decoder”结构时，最后使用时只是用到了decoder，而没有用到训练完成的encoder，极大浪费了计算力。并且使用“encoder-decoder”进行形状补全时，训练新的encoder时的训练数据也要是“待补全”的数据集（这样才能从输入推断出latent vector）。</p>
+</li>
+<li><p>DeepSDF可以只输入部分的observation（例如depth map中点，只是部分的表面的点），然后推断出latent vector $z$的值，所以可以用于形状补全。</p>
+</li>
+<li><p>整个实现都是基于在物体对齐的条件下进行的（in a canonical pose）。否则同一个coordinate会因为不对齐（例如旋转）而会有不同的SDF值</p>
+</li>
+</ul>
+<h3 id="实现-13"><a href="#实现-13" class="headerlink" title="实现"></a>实现</h3><p>实施细节见前面的部分。下面是实验部分（使用ShapeNet）：</p>
+<ol>
+<li><p>Representing Known 3D Shapes（represent training data）</p>
+<p>用于测试latent vector和MLP是否能充分表示精细的结构。所使用的物体是在训练集内的。</p>
+<p>实现过程：利用GT（在训练集中）的$X$（包含point coordinate和SDF）来inference得到这个物体所对应的latent vector的值；然后输入latent vector和密集网格采样的point coordinate，通过正向传播得到预测的SDF值，再用marching cubes来重建表面。</p>
+</li>
+<li><p>Representing Test 3D Shapes（use learned feature representation to reconstruct unseen shapes）</p>
+<p>用于测试“得到latent vector的方法”是否能用于全新未见过的物体</p>
+<p>实现过程：利用GT（不在训练集中）通过inference的方法得到latent vector；再正向传播、marching cubes得到表面。</p>
+</li>
+<li><p>Shape Completion（apply shape priors to complete partial shapes）</p>
+<p>已知物体表面的一些部分（例如depth map只涉及一些表面），求整个物体的形状</p>
+<p>实现过程：根据depth map可以知道位于surface上的点，然后估计surface normal。沿着surface normal的方向偏移$\pm \eta$的距离得到两个点（位于surface两侧且距离surface$\eta$的两个点），这样就得到SDF的样本数据。利用SDF样本数据先inference得到latent vector，再正向传播、marching cube就能得到mesh。</p>
+<p>注：depth map的视角需要与物体对齐。作者还额外从“介于surface和camera之间的free-space”中随机采样一些点作为empty space points（或者称作free-space observations，且SDF值大于零），使得样本的点数增加，且不会在free-space中生成奇怪的形状。而且添加了“freespace loss”。</p>
+</li>
+<li><p>Latent Space Shape Interpolation（learn smooth and complete shape embedding space from which we can sample new shapes）</p>
+<p>过程：利用training最后时得到的latent vector（或inference得到的都可以），将两个物体的latent vector线性插值再feed-forword得到中间状态的物体</p>
 </li>
 </ol>
 
@@ -1917,7 +2005,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">87.6k</span>
+            <span class="white-color">89.3k</span>
             
 
             
