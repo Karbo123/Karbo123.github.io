@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        14.7k
+                        15.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        62 分
+                        67 分
                     </div>
                     
                 
@@ -1242,7 +1242,7 @@ Geometric forms例如point clouds">
 <p>CVPR2019《DeepSDF: Learning Continuous Signed Distance Functions for Shape Representation》</p>
 <p>paper下载：<a href="http://openaccess.thecvf.com/content_CVPR_2019/html/Park_DeepSDF_Learning_Continuous_Signed_Distance_Functions_for_Shape_Representation_CVPR_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_CVPR_2019/html/Park_DeepSDF_Learning_Continuous_Signed_Distance_Functions_for_Shape_Representation_CVPR_2019_paper.html</a></p>
 </blockquote>
-<h3 id="概述-10"><a href="#概述-10" class="headerlink" title="概述"></a>概述</h3><p>DeepSDF能生成具有复杂拓扑结构的、高质量的、闭合的连续表面、可用于形状插值、形状补全。DeepSDF能够表示类别的形状（而传统的SDF方法只能表示一个物体的形状）。取得了SOTA。而且模型的大小缩小了。</p>
+<h3 id="概述-10"><a href="#概述-10" class="headerlink" title="概述"></a>概述</h3><p>DeepSDF能生成具有复杂拓扑结构的、高质量的、闭合的连续表面、可用于形状插值、形状补全。一个DeepSDF能够表示一个类别的形状（一类物体训练一个模型，而传统的SDF方法一个模型只能表示一个物体的形状）。取得了SOTA。而且模型的大小缩小了。</p>
 <p><img src="13_3.png" alt></p>
 <p>本质：使用“coordinate + shape latent vector”作为输入，通过MLP后输出SDF值。训练时同时优化“shape vector”和“MLP parameters”（梯度下降优化，最后得到的shape vector就是训练集的shape vector）。推断“latent vector”时使用梯度下降不断迭代优化“latent vector”的初始值，从而得到符合observation的latent vector的值。</p>
 <p>注：</p>
@@ -1324,6 +1324,88 @@ Geometric forms例如point clouds">
 </li>
 <li><p>Latent Space Shape Interpolation（learn smooth and complete shape embedding space from which we can sample new shapes）</p>
 <p>过程：利用training最后时得到的latent vector（或inference得到的都可以），将两个物体的latent vector线性插值再feed-forword得到中间状态的物体</p>
+</li>
+</ol>
+<h2 id="GEOMetrics"><a href="#GEOMetrics" class="headerlink" title="GEOMetrics"></a>GEOMetrics</h2><blockquote>
+<p>PMLR《GEOMetrics: Exploiting Geometric Structure for Graph-Encoded Objects》</p>
+<p>paper下载：<a href="http://proceedings.mlr.press/v97/smith19a/smith19a.pdf" target="_blank" rel="noopener">http://proceedings.mlr.press/v97/smith19a/smith19a.pdf</a></p>
+</blockquote>
+<h3 id="概述-11"><a href="#概述-11" class="headerlink" title="概述"></a>概述</h3><p>能够生成Adaptive mesh（顶点密度不均匀的mesh），作者是第一个。提出了0N-GCN layers，避免了顶点信息的平滑；提出了Adaptive Face Splitting，在高曲率的地方自动分割三角面片（改变拓扑），使得可以生成细节；改进了Chamfer Loss得到Point-to-point loss和Point-to-surface loss。提出了global mesh loss用于比对形状的全局信息。并最后用单图重建mesh的任务来说明其性能。达到了SOTA，视觉效果好，所需的顶点数较少。</p>
+<p>基本流程（主要基于deformation）：对初始mesh（球）附带特征（例如通过project投射到CNN的feature map上），然后用0N-GCN进行mesh的形变和特征变换，最后用face splitting策略将曲率大的三角面片添加顶点继续细分。不断重复得到最终输出mesh。</p>
+<p><img src="14_3.png" alt></p>
+<p>注：</p>
+<ul>
+<li><p>GEOMetrics == Geometrically Exploited Object Metrics。利用了graph-encoded objects的优势和几何结构</p>
+</li>
+<li><p>将triangle mesh视作graph便可以使用图卷积的方法</p>
+</li>
+<li><p>传统mesh重建的效果：顶点和面的分布比较均匀。没有充分利用mesh表示的独有优势。应当在细节处放置更多顶点、在平坦处放置顶点较少。这样才能with smaller space requirements and higher precision</p>
+</li>
+<li><p>普通的GCN可能会使得顶点的信息平滑（是由于取neighborhood mean造成的），作者提出对于一些特征维度不聚合邻居信息而是保持原样，以避免特征的平滑（over-smoothing）。</p>
+</li>
+<li><p>普通的Chamfer Distance只是约束vertex position，并没有约束三角面片。</p>
+</li>
+<li><p>face splitting技术似乎生成了许多不想要的细节，例如：</p>
+<p><img src="14_2.png" alt></p>
+</li>
+</ul>
+<h3 id="原理-7"><a href="#原理-7" class="headerlink" title="原理"></a>原理</h3><p><img src="14_1.png" alt></p>
+<p>上图是mesh reconstruction module的构成（主要功能：细化输入的mesh）。整个系统由m=3个这样的module串联组成。系统的输入是球状mesh和一张图片。不同module的cnn feature map其实都是同一个。</p>
+<p>首先将mesh投射到feature map上使得vertices带上feature map上的feature vector。然后使用作者发明的GCN（Zero-Neighbor Graph Convolutional Networks）进行graph的特征提取和deformation。最后使用face splitting技术分割曲率大的面（以描述细节部分）。最后得到输出的mesh。再重复m-1次module的流程，最后输出的mesh就是最终结果。</p>
+<h3 id="实现-14"><a href="#实现-14" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>feature extraction</p>
+<p>得到的feature vector应该是以下三者/两者的cancat：</p>
+<ul>
+<li>feature map对应位置上的feature vector</li>
+<li>3D point的空间坐标</li>
+<li>前一个module输出的mesh的feature vector（如果当前module不是第一个的话）</li>
+</ul>
+</li>
+<li><p>mesh deformation</p>
+<p>使用多个“0N-GCN layers”进行特征变换，输出residual prediction（位置的偏移量），那么3D点的最终位置就是original position + residual prediction</p>
+<p>“0N-GCN layers”的目的：为了解决顶点的特征被平滑掉的问题</p>
+<p>传统GCN：$H’=\sigma(AHW+b)$，其中A是NxN的邻接矩阵，H是NxF的输入特征向量矩阵，H’是NxF’的输出特征向量矩阵，W是权重矩阵，b是偏置向量，$\sigma(\cdot)$是激活函数</p>
+<p>方法：一部分特征维度取邻接矩阵的零次幂（identity matrix）以不聚合特征，其余维度正常聚合特征</p>
+<p>即现如今变成：$H’=HW,\;H’’=\sigma([AH’_{0:i}||A^0 H’_{i:}]+b)$</p>
+<p>其中$[\cdot||\cdot]$是concat算符（cancat到矩阵的右边），且$i\in[0,F’-1]$</p>
+<p>但是其中$i$是怎么选取的不知道。</p>
+</li>
+<li><p>face splitting</p>
+<p>对曲率大的曲面，在center位置添加顶点，并添加3条连向它的边。</p>
+<p><img src="14_4.png" alt></p>
+<p>曲率的计算方法（似乎是定性表示）：</p>
+<ul>
+<li>首先根据三角面片的3个顶点，可以计算得到其法向$N_f$</li>
+<li>然后对于三角面片$f$，计算其邻居面$i\in \mathcal{H}_f$的法向量$N_i$，并计算$N_i $与$N_f$的夹角$\theta_{f,i}$</li>
+<li>然后计算$\theta_{f,i}$的平均值$\frac{1}{|\mathcal{H}_f|}\sum_{i\in \mathcal{H}_f} \theta_{f,i}$便得到在面$f$处的曲率$C_f$</li>
+</ul>
+<p>根据设定的曲率阈值$\alpha$来判断曲率大不大，大的话就进行face splitting</p>
+</li>
+<li><p>Differentiable Surface Sampling Losses（Chamfer Loss的改版）</p>
+<p>用于描述local topology，即三角面片的约束</p>
+<p><img src="14_7.png" alt></p>
+<p>过程：</p>
+<ul>
+<li><p>首先需要从GT mesh和pred mesh的surface中采样，分别得到点集$S$和$\hat{S} $</p>
+</li>
+<li><p>如果是Point-to-point的形式：（点到点的距离）</p>
+<p><img src="14_5.png" alt></p>
+</li>
+<li><p>如果是Point-to-surface的形式：（点到面的距离）</p>
+<p><img src="14_6.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>Global Encoding of Graphs（用于描述全局信息）</p>
+<p>global mesh loss，或称作latent loss，见下图：</p>
+<p><img src="14_8.png" alt></p>
+<p>是两个latent vector之差的二范数的平方</p>
+<p>encoder：stacking 0N-GCN layers，followed by a max pooling</p>
+<p>decoder：3D CNN</p>
+<p>做成encoder-decoder的结构，其中后面voxel的形式用于监督学习，目标仅仅是得到为了encoder</p>
+</li>
+<li><p>Optimization Details</p>
+<p>还有an edge length minimizing regularizer、Laplacian-maintaining regularizer，最后的Loss是上述4者的加权和。</p>
 </li>
 </ol>
 
@@ -2005,7 +2087,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">89.3k</span>
+            <span class="white-color">90.5k</span>
             
 
             
