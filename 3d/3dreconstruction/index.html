@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        17.2k
+                        18k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        72 分
+                        76 分
                     </div>
                     
                 
@@ -441,6 +441,24 @@ Geometric forms例如point clouds">
 <li>Rasterized forms例如voxels and multi-view RGB(D) images.</li>
 <li>Geometric forms例如point clouds, polygon meshes, and sets of primitives</li>
 <li>其他：geometry images、depth images、classification boundaries、signed distance function</li>
+</ul>
+<p>常用数据集（出自文章Mask R-CNN）：</p>
+<ul>
+<li>ShapeNet is a large-scale dataset of CAD models which are rendered to give synthetic images</li>
+<li>IKEA dataset aligns CAD models of IKEA objects to real-world images</li>
+<li>Pix3D extends this idea to a larger set of images and models</li>
+<li>Pascal3D aligns CAD models to real-world images, but it is unsuitable for shape reconstruction since its train and test sets share the same small set of models</li>
+<li>KITTI annotates outdoor street scenes with 3D bounding boxes, but does not provide shape annotations</li>
+</ul>
+<p>概念：</p>
+<ul>
+<li>Geometry：例如顶点的位移，顶点的形变</li>
+<li>Topology：例如亏格的改变</li>
+</ul>
+<p>常见的loss：</p>
+<ul>
+<li>chamfer loss（点集之间）；normal loss（点集之间）</li>
+<li>edge regularizer；Laplacian regularizer（smoothness）；boundary regularizer</li>
 </ul>
 <h2 id="3D-R2N2"><a href="#3D-R2N2" class="headerlink" title="3D-R2N2"></a>3D-R2N2</h2><blockquote>
 <p>ECCV2016《3D-R2N2: A Unified Approach for Single and Multi-view 3D Object Reconstruction》</p>
@@ -1499,6 +1517,61 @@ Geometric forms例如point clouds">
 <p>在deformation中使用normal loss、smoothness loss、edge loss</p>
 </li>
 </ol>
+<h2 id="Mesh-R-CNN"><a href="#Mesh-R-CNN" class="headerlink" title="Mesh R-CNN"></a>Mesh R-CNN</h2><blockquote>
+<p>ICCV2019《Mesh R-CNN》</p>
+<p>paper下载：<a href="http://openaccess.thecvf.com/content_ICCV_2019/html/Gkioxari_Mesh_R-CNN_ICCV_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_ICCV_2019/html/Gkioxari_Mesh_R-CNN_ICCV_2019_paper.html</a> </p>
+</blockquote>
+<h3 id="概述-14"><a href="#概述-14" class="headerlink" title="概述"></a>概述</h3><p>输入真实现实场景中的单张图片，推断其中出现的物体的3D mesh（相当于2Dsegmentation与3Dreconstruction的结合，即Mask R-CNN与3Dreconstruction（基于deformation）的结合）</p>
+<p><img src="17_1.png" alt></p>
+<p>流程简述：使用RPN提出proposal，然后根据区域得到coarse voxel representations，再转换成mesh使用GCN进行deformation得到最后的mesh。先用coarse voxel是因为voxel可以近似任意的拓扑结构，避免了deformation不能修改拓扑的缺点。</p>
+<p>在ShapeNet数据集上检验“mesh prediction branch”的性能；在Pix3D数据集上检验“full Mesh R-CNN system”的性能。输入：单张图片。输出：2D bounding box、label、2D mask、3D mesh。</p>
+<p>注：</p>
+<ul>
+<li>网络trainable end-to-end</li>
+<li>输出拓扑可以任意（因为是从voxel representation转换得到initial mesh）</li>
+<li>作者提出了Cubify过程将voxel转化为mesh（但是得到的mesh比较粗糙），同时对比了Marching Cubes（不高效、实现复杂）</li>
+</ul>
+<h3 id="原理-10"><a href="#原理-10" class="headerlink" title="原理"></a>原理</h3><p><img src="17_2.png" alt></p>
+<p>输入的图片通过backbone network（例如ResNet-50-FPN），再通过RPN得到proposals。proposals可以用于bounding box的回归、categories的分类、mask的预测、mesh的VertAlign、voxel branch的输入。</p>
+<p>其中mesh predictor由voxel branch、mesh refinement branch组成。即mesh predictor根据proposals区域使用3D卷积得到voxel occupancy probabilities，再转换为mesh，最后根据VertAlign（其实就是将3Dvertex投影到feature map上得到该顶点特征的concat值）得到的特征使用GCN得到顶点的位移量，再在“Refine”步骤中更新坐标。多次使用该过程得到输出。</p>
+<h3 id="实现-17"><a href="#实现-17" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Voxel Branch</p>
+<p>输出voxel occupancy probabilities。又可以看怍是3D版本的mask。</p>
+<p>对RoIAlign得到的feature map使用small fully-convolutional network以保持特征间的对应关系。</p>
+<p>Voxel Loss：minimize the binary cross-entropy</p>
+</li>
+<li><p>Cubify: Voxel to Mesh</p>
+<p>将得到的voxel转换成triangle mesh。先用阈值分割probabilities得到确定的voxel结构。然后将每一个voxel立方体转换成mesh立方体结构（在立方体的每个面上加上斜对角线）。靠在一起的edges、vertices、faces共享。</p>
+<p>由此得到了watertight的mesh，且拓扑结构与voxel相同（亏格可以不是零，相当于做了拓扑上恰当的初始化）。</p>
+<p>Marching Cubes通过提取等值面来获取surface，但是更为复杂，不高效。</p>
+</li>
+<li><p>Mesh Refinement Branch</p>
+<ul>
+<li><p>Vertex Alignment（VertAlign）：将vertex投影到image plane再用双线性插值。对于第一个stage则作为初始的feature vector，往后的stage则concat到已有的feature vector上</p>
+</li>
+<li><p>Graph Convolution：使用GCN来变换特征，一个stage级联several graph convolution layers</p>
+</li>
+<li><p>Vertex Refinement：更新顶点位置$v_i’=v_i+tanh(W_{vert}[f_i;v_i])$，其中$f_i$、$v_i$分别是顶点的特征向量和空间坐标。This updates the mesh geometry, keeping its topology fixed.</p>
+</li>
+<li><p>Mesh Losses（用differentiable mesh sampling operation得到点集）：</p>
+<p>其中的：</p>
+<p><img src="17_5.png" alt></p>
+<ul>
+<li><p>chamfer distance：最小化距离</p>
+<p><img src="17_3.png" alt></p>
+</li>
+<li><p>(absolute) normal distance：最小化法向夹角</p>
+<p><img src="17_4.png" alt></p>
+</li>
+<li><p>edge loss：使得edge不能太长</p>
+</li>
+<li><p>Laplacian loss：使得光滑</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -2178,7 +2251,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">91.8k</span>
+            <span class="white-color">92.7k</span>
             
 
             
