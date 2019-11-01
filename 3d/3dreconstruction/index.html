@@ -412,14 +412,14 @@ Geometric forms例如point clouds">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        18k
+                        19.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        76 分
+                        81 分
                     </div>
                     
                 
@@ -872,7 +872,7 @@ Geometric forms例如point clouds">
 <p>TODO IDEA：</p>
 <ul>
 <li>IDEA1：生成空间分布，然后在分布中采样得到物体表面的点。</li>
-<li>IDEA2：使用无符号的Distance Functions（记作$f(p)$），然后随机初始化一个3维空间点$p\in \mathbb{R}^3$，通过求解优化问题$min_{p} \frac{\partial f(p)}{\partial p}$，满足此问题的解$p$组成的一系列的点集就是物体的表面。相当于用导数来引导point在surface上的移动。这样理想情况下只需要初始化一个随机点就能使得该点遍历整个surface了（👍）</li>
+<li>IDEA2：使用无符号的Distance Functions（记作$f(p)$），然后随机初始化一个3维空间点$p\in \mathbb{R}^3$，通过求解优化问题$min_{p} \frac{\partial f(p)}{\partial p}$，满足此问题的解$p$组成的一系列的点集就是物体的表面。相当于用导数来引导point在surface上的移动。这样理想情况下只需要初始化一个随机点就能使得该点遍历整个surface了</li>
 <li>IDEA3：能否借鉴U-Net的思想生成高分辨率的细粒度SDF？</li>
 </ul>
 <h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p>Signed Distance Functions（SDF）描述了空间某点到物体表面的有符号距离。</p>
@@ -1572,6 +1572,126 @@ Geometric forms例如point clouds">
 </ul>
 </li>
 </ol>
+<h2 id="Occupancy-Networks-👍"><a href="#Occupancy-Networks-👍" class="headerlink" title="Occupancy Networks 👍"></a>Occupancy Networks 👍</h2><blockquote>
+<p>CVPR2019《Occupancy Networks: Learning 3D Reconstruction in Function Space》</p>
+<p>paper下载： <a href="http://openaccess.thecvf.com/content_CVPR_2019/html/Mescheder_Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space_CVPR_2019_paper.html" target="_blank" rel="noopener">http://openaccess.thecvf.com/content_CVPR_2019/html/Mescheder_Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space_CVPR_2019_paper.html</a> </p>
+</blockquote>
+<h3 id="概述-15"><a href="#概述-15" class="headerlink" title="概述"></a>概述</h3><p>将物体实体表示为函数二分类问题（物体内部被占据的概率），提出Multiresolution IsoSurface Extraction（MISE）算法用于提取等值面（虽然最后也使用了MarchingCubes），使用Fast-Quadric-Mesh-Simplification算法简化得到的mesh，使用一、二阶信息来进行mesh的refine。其中提出的MISE比传统的MarchingCubes更加高效和内存节省，提取的mesh更加精细。取得了SOTA的效果。</p>
+<p>注：</p>
+<ul>
+<li>函数表达的使用，使得可以表达任意的拓扑结构、并且分辨率高、又不消耗过多的内存（与voxel相比）</li>
+<li>可以支持多种类型的3D数据输入（其实只要将3D数据转变为shape vector输入即可）</li>
+<li>优点：high resolution closed surfaces without self intersections and does not require template meshes</li>
+<li>还可以用于学习得到probabilistic latent variable models（未详述）</li>
+<li>但是MISE算法需要选取超参数，即initial resolution，作者选取了$32^3$</li>
+<li>也可以用于提取法向（朝着$\frac{\partial Probability}{\partial Location}$方向移动使得Probability增加，即法向）</li>
+<li>In total, our inference algorithm requires 3s per mesh</li>
+<li>可以使用KD-Tree来快速计算Chamfer-L1 distance</li>
+<li>可以将大量的shape编码入MLPs中，而MLPs的参数量不多</li>
+<li>ONet == Occupancy Network</li>
+</ul>
+<h3 id="原理-11"><a href="#原理-11" class="headerlink" title="原理"></a>原理</h3><p>使用MLP，输入$(x=形状特征,p=点坐标)$，输出$o=占据概率\in[0,1]$</p>
+<p>使用由粗到细的多分辨率的MarchingCubes获取等值面（思想与Octree Generating Networks类似），然后简化mesh，最后refine mesh。</p>
+<h3 id="实现-18"><a href="#实现-18" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>Occupancy Networks</p>
+<ul>
+<li><p>定义</p>
+<p>已知对物体的observation $x\in\mathcal{X}$（例如图片的特征向量），以及空间中的点$p\in\mathbb{R}^3$</p>
+<p>那么构造一个MLP $f_\theta$映射，输入是pair $(p,x)$，输出是点$p$被占据的概率值，即：</p>
+<script type="math/tex; mode=display">
+f_\theta:\mathbb{R}\times\mathcal{X}\rightarrow[0,1]</script><p><img src="18_12.png" alt></p>
+</li>
+<li><p>训练</p>
+<p>一个batch有$|\mathcal{B}|$个训练物体，一个物体采样$K$个点。那么训练时所用的损失函数为：</p>
+<p><img src="18_1.png" alt></p>
+<p>求出$\frac{\partial \mathcal{L_B}}{\partial x}$和$\frac{\partial \mathcal{L_B}}{\partial \theta}$即可梯度回传更新参数。</p>
+</li>
+<li><p>采样</p>
+<p>作者发现在bounding volume of the ground truth mesh中均匀采样points效果最佳。</p>
+</li>
+<li><p>细节</p>
+<p>实际上MLP由5 ResNet blocks组成。并且使用conditional batch normalization</p>
+<ul>
+<li>对于单视图输入（Single Image 3D Reconstruction），使用ResNet18编码</li>
+<li>对于点云输入（Point Cloud Completion），使用PointNet编码</li>
+<li>对于体素输入（Voxel Super-Resolution），使用3D CNN编码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Inference</p>
+<p><img src="18_11.png" alt></p>
+<ul>
+<li><p>Multiresolution IsoSurface Extraction（MISE）</p>
+<p>基本原理：incrementally building an octree</p>
+<p>效果：extract high resolution meshes without densely evaluating all points</p>
+<p><img src="18_2.png" alt></p>
+<p>既有occupied和unoccupied的grid被认定为active（light red部分），即需要细分。不断重复此过程。最后使用MarchingCubes获得等值面。initial resolution = $32^3$ = 32768 points</p>
+</li>
+<li><p>Fast-Quadric-Mesh-Simplification algorithm</p>
+<p>使用这个算法进行简化得到的mesh（合并过多的edges，删除过多的triangles）</p>
+<p>此算法不是作者提出的</p>
+</li>
+<li><p>Refine the output mesh</p>
+<p>效果：removes the discretization artifacts of the Marching Cubes</p>
+<p>使用一、二阶信息来refinement。从输出的mesh的表面上采点$p_k$，然后最小化：</p>
+<p><img src="18_3.png" alt></p>
+<p>其中$n(p_k)$表示$p_k$处的法向。$\lambda=0.01$。第二项使用了梯度信息，可以使用Double-Backpropagation算法快速实现。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="实验-6"><a href="#实验-6" class="headerlink" title="实验"></a>实验</h3><p>使用的指标：volumetric IoU、Chamfer-L1 distance、normal consistency score</p>
+<ol>
+<li><p>无shape vector输入时，检验representation power</p>
+<p>This gives us an upper bound on the results we can achieve when conditioning our representation on additional input</p>
+<p>做法：将物体编码到512维的向量。然后训练Occupancy Networks从这512维向量中恢复mesh。</p>
+<p><img src="18_4.png" alt></p>
+</li>
+<li><p>有shape vector输入时（单视图、点云、体素），重建mesh</p>
+<p>即单视图重建mesh、少量点云重建出高分辨率的mesh、低分辨率体素重建出高分辨率的mesh</p>
+<ul>
+<li><p>单视图重建：使用3D-R2N2、Point Set Generating Networks（PSGN）、Pixel2Mesh、AtlasNet作为比对对象</p>
+<p>在ShapeNet数据集上的效果：</p>
+<p><img src="18_5.png" alt></p>
+<p>在KITTI和OnlineProducts数据集上的效果（真实数据集）：</p>
+<p><img src="18_6.png" alt></p>
+</li>
+<li><p>噪声点云输入：将3D-R2N2、PSGN改为点云输入，以及Deep Marching Cubes（DMC）作为比对对象</p>
+<p><img src="18_7.png" alt></p>
+</li>
+<li><p>体素输入：将相应的输入改变为体素输入即可</p>
+<p><img src="18_8.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>使用probabilistic latent variable models生成模型（无监督）</p>
+<p>We examine the generative capabilities of occupancy networks by adding an encoder to our model and generating unconditional samples from this model</p>
+<p><img src="18_9.png" alt></p>
+<p><img src="18_10.png" alt></p>
+</li>
+<li><p>Ablation Study</p>
+<ul>
+<li><p>Effect of sampling strategy（第一种uniform sampling效果最好）：</p>
+<ul>
+<li><p>sampling 2048 points uniformly in the bounding volume of the ground truth mesh（uniform sampling）</p>
+</li>
+<li><p>sampling 1024 points inside and 1024 points outside mesh（equal sampling）</p>
+</li>
+<li><p>sampling 1024 points uniformly and 1024 points on the surface of the mesh plus some Gaussian noise with standard deviation 0.1（surface sampling）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>Effect of architecture（探究了两种结构的影响）：<ul>
+<li>remove the conditional batch normalization and replace it with a linear layer</li>
+<li>remove all ResNet blocks in the decoder and replace them with linear blocks</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr/>
@@ -2251,7 +2371,7 @@ Geometric forms例如point clouds">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">92.7k</span>
+            <span class="white-color">93.8k</span>
             
 
             
