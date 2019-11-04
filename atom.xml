@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.karbo.online/"/>
-  <updated>2019-11-04T09:23:15.530Z</updated>
+  <updated>2019-11-04T12:49:09.964Z</updated>
   <id>https://blog.karbo.online/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.karbo.online/3d/3dreconstruction/"/>
     <id>https://blog.karbo.online/3d/3dreconstruction/</id>
     <published>2019-10-08T07:16:55.000Z</published>
-    <updated>2019-11-04T09:23:15.530Z</updated>
+    <updated>2019-11-04T12:49:09.964Z</updated>
     
     <summary type="html">
     
@@ -400,9 +400,9 @@
     
       <category term="python" scheme="https://blog.karbo.online/tags/python/"/>
     
-      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
-    
       <category term="web" scheme="https://blog.karbo.online/tags/web/"/>
+    
+      <category term="django" scheme="https://blog.karbo.online/tags/django/"/>
     
   </entry>
   

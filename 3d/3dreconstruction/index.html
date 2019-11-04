@@ -412,14 +412,14 @@ Geometric">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        20.6k
+                        21.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        87 分
+                        90 分
                     </div>
                     
                 
@@ -1762,7 +1762,7 @@ f_\theta:\mathbb{R}\times\mathcal{X}\rightarrow[0,1]</script><p><img src="18_12.
 <li><p>Depth Map</p>
 <ul>
 <li><p>Initial Estimation</p>
-<p>沿着depth direction计算probability volume在每个像素上的深度的期望值，作为初始的深度估计。</p>
+<p>沿着depth direction计算probability volume在每个像素上的深度的期望值（又称作soft argmin），作为初始的深度估计。</p>
 <p><img src="20_3.png" alt></p>
 <p>那么输出depth map的尺寸就是$\frac{W}{4}\times\frac{H}{4} \times 1$</p>
 </li>
@@ -1779,6 +1779,60 @@ f_\theta:\mathbb{R}\times\mathcal{X}\rightarrow[0,1]</script><p><img src="18_12.
 <li><p>Loss</p>
 <p><img src="20_5.png" alt></p>
 <p>分别计算initial depth estimation、refined depth estimation与GT depth map的L1损失，求和。其中$d(p)$是GT，$\hat d_i(p)$是initial depth estimation，$\hat d_r(p)$是refined depth estimation。$p_{valid}$指只计算GT有有效数据的部分。</p>
+</li>
+</ol>
+<h2 id="Robust-Photometric-Consistency（2019-5）"><a href="#Robust-Photometric-Consistency（2019-5）" class="headerlink" title="Robust Photometric Consistency（2019.5）"></a>Robust Photometric Consistency（2019.5）</h2><blockquote>
+<p>？？《Learning Unsupervised Multi-View Stereopsis via Robust Photometric Consistency》</p>
+<p>paper下载：<a href="https://arxiv.org/abs/1905.02706" target="_blank" rel="noopener">https://arxiv.org/abs/1905.02706</a> </p>
+</blockquote>
+<h3 id="概述-18"><a href="#概述-18" class="headerlink" title="概述"></a>概述</h3><p>使用Robust Photometric Consistency来进行MVS的无监督学习，得到per-image depth maps，结合起来从而得到a dense 3D model。已知相机参数。能抵抗光照变化、遮挡问题。泛化强，效果好，可用于现有的CNN结构中来。</p>
+<p><img src="21_1.png" alt></p>
+<p>注：</p>
+<ul>
+<li>Photometric Consistency定义：a point in one image projects on to another along the epipolar line, and the correct match is photometrically consistent</li>
+<li>关键：that the accurate geometry prediction for a point（image pixel）should yield photometrically consistent predictions when projected onto other views.</li>
+<li><p>Two insights：</p>
+<ul>
+<li>a correct estimate of geometry should imply consistency with at least <strong>some</strong> views（a point need only be photometrically consistent with some（and not all）novel views.）</li>
+</ul>
+</li>
+<li>additionally enforce <strong>gradient</strong>-based consistency（image gradients are more invariant to lighting changes than intensities）</li>
+<li>能够handling occlusions without ever explicitly modeling them</li>
+<li>MVS pipeline：view selection, propagation scheme, patch matching, depth map fusion</li>
+</ul>
+<p><img src="21_8.png" alt></p>
+<h3 id="实现-21"><a href="#实现-21" class="headerlink" title="实现"></a>实现</h3><p>网络结构跟MVSNet类似（本paper的重点是无监督学习，不在于网络结构）：</p>
+<p><img src="21_2.png" alt></p>
+<ol>
+<li><p>Learning via Photometric Consistency（注意这个不是Robust Photometric Consistency）</p>
+<p>记输入图像为$I_s$，M个其他视角的原始图像$\{I_v^m\}_{m=1}^M$，网络输出的深度图为$D_s$</p>
+<p>将$I_v^m$输入到spatial transformer network以将$I_v^m$转换到$I_s$的视角（即利用了homography，而homography用到了$D_s$，故可以对$D_s $进行优化），得到$\hat I_s^m$，同时也要输出预测得到binary validity mask$V_s^m$</p>
+<p>那么原始的Photometric Consistency就是：</p>
+<p><img src="21_3.png" alt></p>
+<p>但是不能account for occlusion and lighting changes，因此提出其“鲁棒”版本。</p>
+</li>
+<li><p>Robust Photometric Consistency for MVS</p>
+<ul>
+<li><p>加上梯度约束，得到（称作first-order consistency loss）：</p>
+<p><img src="21_4.png" alt></p>
+</li>
+<li><p>只取最佳的K个views计算loss（而不是全部的M个）：【这个才是最终的Photometric Consistency Loss的形式】</p>
+<p><img src="21_5.png" alt></p>
+<p>The above equation simply states that for each pixel u, among the views where the pixel projection is valid, we compute a loss using the best K disjoint views.</p>
+<p>Loss的计算过程如下图所示：</p>
+<p>先为M个views计算“first-order consistency loss”得到M个loss map（像素级的），然后堆叠起来得到HxWxM大小的volume，然后沿着M的方向选择K个最小的加起来就作为pixel-wise error map。（To implement this robust photometric loss, we inverse-warp theM novel-view images to the reference image and compute a per-pixel first order consistency “loss-map”. All M loss-maps are then stacked up into a 3D loss volume of dimensions WxHxM. For each pixel, we find the K least value entries with valid mask, and sum them to obtain a pixel-level consistency loss.）</p>
+<p><img src="21_6.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>Other objectives</p>
+<ul>
+<li><p>structured similarity（$L_{SSIM}$）和depth smoothness（$L_{Smooth}$）</p>
+</li>
+<li><p>最终的Loss则是三者相加：</p>
+<p><img src="21_7.png" alt></p>
+</li>
+</ul>
 </li>
 </ol>
 
@@ -2460,7 +2514,7 @@ f_\theta:\mathbb{R}\times\mathcal{X}\rightarrow[0,1]</script><p><img src="18_12.
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">95.2k</span>
+            <span class="white-color">95.8k</span>
             
 
             
